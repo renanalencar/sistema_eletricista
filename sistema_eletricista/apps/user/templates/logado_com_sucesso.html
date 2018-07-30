@@ -1,0 +1,19 @@
+<h1>Parabens, voce logou como: {{usuario}}</h1>
+<h2>{{usuario.email}}</h2>
+<h2>{{usuario.telefone}}</h2>
+<h2>{{usuario.CEP}}</h2>
+<h2>{{usuario.CPF}}</h2>
+<h2>{{usuario.endereco}}</h2>
+<h2>{{usuario.genero}}</h2>
+{% if usuario.foto %}
+	<img src="{{usuario.foto.url}}">
+{% else %}
+	<h2> Voce nao possui imagem </h2>
+{% endif %}
+<h2>{% if usuario.tipo == 'Eletricista' %}
+		<h2>Voce se registrou como um: Eletricista</h2>
+	{% else %}
+		<h2>Voce se registrou como um:Cliente</h2>
+	{% endif %}
+
+<a href="{% url 'logout' %}"><h2>Logout</h2></a>
