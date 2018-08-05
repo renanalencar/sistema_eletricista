@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Eletricista
-from .models import Cliente
+from .eletricista.models import Eletricista
+from .cliente.models import Cliente
 
 # Register your models here.
 

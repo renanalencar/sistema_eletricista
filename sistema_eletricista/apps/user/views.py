@@ -4,8 +4,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import RegistrarEletricistaForm
 from django.views.generic.base import View
 from django.contrib.auth.models import User
-from .models import Eletricista
-from .models import Cliente
+from .eletricista.models import Eletricista
+from .cliente.models import Cliente
 from django.urls import reverse
 
 # Create your views here.
