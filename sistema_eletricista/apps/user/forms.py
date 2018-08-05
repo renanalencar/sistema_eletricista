@@ -36,3 +36,5 @@ class RegistrarEletricistaForm(forms.Form):
 		erros.append(message)
 
 
+class QuestionarioForm(forms.Form):
+	pontuacao = forms.CharField(required=True, max_length=50)

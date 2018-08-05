@@ -19532,7 +19532,7 @@ ul {
           width: 60%;
           padding: 5px 10px 0 15px; }
           .new-accounts ul.chats li.chat-persons a div.user p.u-name {
-            margin: 0;
+            margin: 0px;
             font-size: 0.9375rem;
             font-weight: 600;
             line-height: 18px;

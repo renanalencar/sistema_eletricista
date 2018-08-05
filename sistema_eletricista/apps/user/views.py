@@ -2,11 +2,15 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, request, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .forms import RegistrarEletricistaForm
+from .forms import QuestionarioForm
 from django.views.generic.base import View
 from django.contrib.auth.models import User
-from .models import Eletricista
-from .models import Cliente
+#from .models import Eletricista
+#from .models import Cliente
 from django.urls import reverse
+from .eletricista.models import Eletricista
+from .eletricista.models import Questionario
+from .cliente.models import Cliente
 
 # Create your views here.
 @login_required
@@ -33,7 +37,6 @@ class RegistrarEletricistaView(View):
 
 	def post(self, request, *args, **kwargs):
 		form_user = RegistrarEletricistaForm(request.POST, request.FILES)
-		print (request.FILES)
 
 		if form_user.is_valid():
 			if request.FILES.get('foto'):
@@ -42,11 +45,9 @@ class RegistrarEletricistaView(View):
 				foto = None
 			dados_form = form_user.data
 
-			usuario = User.objects.create_user(dados_form['nome'], dados_form['email'], dados_form['senha'])
-			
-			print (foto)
 
 			if dados_form['tipo'] == 'Eletricista':
+
 				eletricista = Eletricista.objects.create(
 					nome=dados_form['nome'],
 					email=dados_form['email'],
@@ -59,7 +60,11 @@ class RegistrarEletricistaView(View):
 					tipo=dados_form['tipo'],
 					foto=foto
 				)
-				print (eletricista.foto)
+				#na verdade esse usuário será criado após a aceitação por parte do domingos,
+				#mas to criando só pra poder testar
+				usuario = User.objects.create_user(dados_form['nome'], dados_form['email'], dados_form['senha'])
+
+				return HttpResponseRedirect(reverse('questionario', kwargs={'nome_eletricista': dados_form['nome']}))
 			else:
 				cliente = Cliente.objects.create(
 					nome=dados_form['nome'],
@@ -73,11 +78,59 @@ class RegistrarEletricistaView(View):
 					tipo=dados_form['tipo'],
 					foto=foto
 				)
+				usuario = User.objects.create_user(dados_form['nome'], dados_form['email'], dados_form['senha'])
+
 			return redirect('login')
 		else:
 			return render(request, 'registrar_exemplo.html', {'form': form_user})
 
 
-			
+class QuestionarioView(View):
+
+	template_name = 'questionario.html'
+	def get(self, request, nome_eletricista):
+		return render(request, self.template_name, {'nome_eletricista' : nome_eletricista})
+
+	def post(self, request, nome_eletricista):
+
+		form_questionario = QuestionarioForm(request.POST, request.FILES)
+
+		if request.FILES.get('pdf'):
+			pdf_curriculo = request.FILES.get('pdf')
+		else:
+			pdf_curriculo = None
+
+		dados_questionario = form_questionario.data
+		pontuacao = 0
+		if dados_questionario['perguntaA'] == 'Correta':
+			pontuacao = pontuacao + 1
+		if dados_questionario['perguntaB'] == 'Correta':
+			pontuacao = pontuacao + 1
+		if dados_questionario['perguntaC'] == 'Correta':
+			pontuacao = pontuacao + 1
+		if dados_questionario['perguntaD'] == 'Correta':
+			pontuacao = pontuacao + 1
+		
+		eletricista_avaliado = Eletricista.objects.get(nome=nome_eletricista)
+		questionario = Questionario.objects.create(eletricista_avaliado=eletricista_avaliado, pontuacao=pontuacao, pdf=pdf_curriculo)
+
+		return HttpResponse('Obrigado por completar o cadastro, aguarde nossa revisão')
+
+
+def adm(request):
+	return render(request, 'dashboard_exemplo.html')	
+
+def detalhes(request, nome_eletricista):
+	eletricista_em_questao = Eletricista.objects.get(nome=nome_eletricista)
+	questionario_em_questao = Questionario.objects.get(eletricista_avaliado=eletricista_em_questao)
+	nome_curriculo = questionario_em_questao.pdf.name
+
+	return render(request, 'detalhes.html', {'eletricista' : eletricista_em_questao, 'questionario': questionario_em_questao, 'curriculo' : nome_curriculo})
+
+def questionarios_pendentes(request):
+	context = {
+		'questionario_list' : Questionario.objects.all()
+	}
+	return render(request, 'questionarios_pendentes.html', context)
 		
 
