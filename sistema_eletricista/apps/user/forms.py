@@ -4,8 +4,10 @@ from django.contrib.auth.models import User
 class RegistrarEletricistaForm(forms.Form):
 
 	nome = forms.CharField(required=True, max_length=50)
+	nickname = forms.CharField(required=True, max_length=50)
 	email = forms.EmailField(required=True, max_length=50)
 	senha = forms.CharField(required=True, max_length=30)
+	senha_novamente = forms.CharField(required=True, max_length=30)
 	telefone = forms.IntegerField(required=True)
 	CEP = forms.IntegerField(required=True)
 	CPF  = forms.CharField(required=True, max_length=14)
@@ -24,8 +26,11 @@ class RegistrarEletricistaForm(forms.Form):
 			self.adiciona_erro('Por favor verifique os dados informados')
 			valid = False
 
-		user_exists = User.objects.filter(username=self.data['nome']).exists()
+		if self.data['senha_novamente'] != self.data['senha']:
+			self.adiciona_erro('Senhas não iguais')
+			valid = False
 
+		user_exists = User.objects.filter(username=self.data['nome']).exists()
 		if user_exists:
 			self.adiciona_erro('Usuario ja existente')
 			valid = False

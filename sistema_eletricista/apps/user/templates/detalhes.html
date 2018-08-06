@@ -289,7 +289,7 @@
               <div class="card">
                 <div class="card-body">
                   <div class="align-items-center mb-4">
-                    <h5 class="card-title mb-0 nome" >Dados de {{eletricista.nome}}</h5>
+                    <h6 class="card-title mb-0 nome" >Dados de {{eletricista.nome}}</h6>
                   </div>
                   <div class="new-accounts">
                     <ul class="chats">
@@ -303,6 +303,7 @@
                             {% endif %}
                             <div class="user">
                               <p class="u-name"><strong>Nome:</strong>   {{eletricista.nome}}</p>
+                              <p class="u-name"><strong>Nickname:</strong>   {{eletricista.nickname}}</p>
                               <p class="u-name"><strong>Email:</strong>  {{eletricista.email}}</p>
                               <p class="u-name"><strong>Telefone:</strong>   {{eletricista.telefone}}</p>
                               <p class="u-name"><strong>CPF:</strong>   {{eletricista.CPF}}</p>
@@ -311,9 +312,9 @@
                               <p class="u-name"><strong>Genero:</strong>   {{eletricista.genero}}</p>
                               <p class="u-name"><strong>Pontuacao:</strong>  {{questionario.pontuacao}}</p>
                               <p class="u-name"><strong>Curriculo:</strong><a href="/media/{{curriculo}}/"> {{questionario.pdf.name}}</a></p>
+                              <a href="/user/adm/aceitar/{{eletricista.nickname}}"><button class="btn-success" method="post">Aceitar</button></a>
+                              <a href="/user/adm/recusar/{{eletricista.nickname}}"><button class="btn-danger" method="post">Recusar</button></a>
                             </div>
-                            
-                          </a>
                         </li>
                       
                       <!-- list person -->
