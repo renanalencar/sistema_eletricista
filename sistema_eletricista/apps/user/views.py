@@ -62,7 +62,7 @@ class RegistrarEletricistaView(View):
 				usuario = User.objects.create_user(dados_form['nickname'], dados_form['email'], dados_form['senha'])
 				usuario.is_active = False
 				usuario.save()
-				print (usuario.is_active)
+				
 				
 
 				return HttpResponseRedirect(reverse('questionario', kwargs={'nome_eletricista': dados_form['nickname']}))
@@ -122,12 +122,12 @@ class QuestionarioView(View):
 def adm(request):
 	return render(request, 'dashboard_exemplo.html')	
 
-def detalhes(request, nome_eletricista):
-	eletricista_em_questao = Eletricista.objects.get(nome=nome_eletricista)
-	questionario_em_questao = Questionario.objects.get(eletricista_avaliado=eletricista_em_questao)	
-	nome_curriculo = questionario_em_questao.pdf.name
+#def detalhes(request, nome_eletricista):
+#	eletricista_em_questao = Eletricista.objects.get(nome=nome_eletricista)
+#	questionario_em_questao = Questionario.objects.get(eletricista_avaliado=eletricista_em_questao)	
+#	nome_curriculo = questionario_em_questao.pdf.name
 
-	return render(request, 'detalhes.html', {'eletricista' : eletricista_em_questao, 'questionario': questionario_em_questao, 'curriculo' : nome_curriculo})
+#	return render(request, 'detalhes.html', {'eletricista' : eletricista_em_questao, 'questionario': questionario_em_questao, 'curriculo' : nome_curriculo})
 	
 
 def questionarios_pendentes(request):
@@ -150,4 +150,9 @@ def recusar(request, nickname):
 	eletricista_recusado_user.delete()
 	return HttpResponse('voce recusou')
 		
+def perfil_eletricista(request, nome_eletricista):
+	eletricista_em_questao = Eletricista.objects.get(nome=nome_eletricista)
+	questionario_em_questao = Questionario.objects.get(eletricista_avaliado=eletricista_em_questao)
+	nome_curriculo = questionario_em_questao.pdf.name
 
+	return render(request, 'perfil_eletricista.html', {'eletricista' : eletricista_em_questao, 'questionario': questionario_em_questao, 'curriculo' : nome_curriculo})
