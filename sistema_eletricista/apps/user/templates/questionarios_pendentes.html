@@ -275,7 +275,7 @@
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h5 class="card-title mb-0">Questionario Pendentes</h5>
+                    <h1 style class="card-title mb-0">Questionários Pendentes</h1>
                   </div>
                   <div class="new-accounts">
                     <ul class="chats">
@@ -284,18 +284,16 @@
                         <li class="chat-persons">
                           <a href="detalhes/{{questionario.eletricista_avaliado}}/">
                             {% if questionario.eletricista_avaliado.foto %}
-                              <span class="pro-pic"><img src="{{questionario.eletricista_avaliado.foto.url}}"></span>
+                              <span class="profile-pic"><img style="height: 100px; width: 100px; border-radius: 100%" src="{{questionario.eletricista_avaliado.foto.url}}"></span>
                             {% else %}
-                              <span class="pro-pic"><img src="https://placehold.it/100x100"></span>
+                              <span class="profile-pic"><img style="height: 100px; width: 100px; border-radius: 100%" src="https://placehold.it/100x100"></span>
                             {% endif %}
                             <div class="user">
-                              <p class="u-name">{{questionario.eletricista_avaliado}}</p>
+                              <h2 style="color:#354168">{{questionario.eletricista_avaliado}}</h2>
                               <p class="u-designation" style="font-size: 15px">Pontuação: <strong>{{questionario.pontuacao}}</strong></p>
-                              {% if questionario.pdf %}
-                                <p>{{questionario.pdf.name}}</p>
-                              {% endif %}
-                            </div>
-                            
+                            </div> 
+                          <button style="margin-left: 8%" class="recusar btn btn-lg btn-success align-self-center float-sm-right">Aceitar</button>
+                          <button style="margin-left: 2%" class="aceitar btn btn-lg btn-danger align-self-center float-sm-right">Recusar</button>
                           </a>
                         </li>
                       {% endfor %}

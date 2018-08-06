@@ -13,6 +13,8 @@ class Eletricista(models.Model):
 	genero = models.CharField(max_length=255, null=False)
 	tipo = models.CharField(max_length=12, null=False)
 	foto = models.FileField(null=True, blank=True)
+	aprovado = True
+	
 	
 
 	def __str__(self):
