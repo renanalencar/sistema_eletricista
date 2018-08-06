@@ -16,7 +16,9 @@ urlpatterns = [
 	url(r'^registrar/$', RegistrarEletricistaView.as_view(), name="registrar"),
 	url(r'^questionario/(?P<nome_eletricista>\w+)/$', QuestionarioView.as_view(), name='questionario'),
 	url(r'^adm/$', views.adm, name='adm'),
-	url(r'^adm/detalhes/(?P<nome_eletricista>\w+)/$', views.detalhes, name='detalhes'),
 	url(r'^adm/questionarios_pendentes$', views.questionarios_pendentes, name='questionarios_pendentes'),
+	url(r'^adm/aceitar/(?P<nickname>\w+)/$', views.aceitar, name='aceitar'),
+	url(r'^adm/recusar/(?P<nickname>\w+)/$', views.recusar, name='recusar'),
 	url(r'^adm/perfil_eletricista/(?P<nome_eletricista>\w+)/$', views.perfil_eletricista, name='perfil_eletricista'),
+
 ]

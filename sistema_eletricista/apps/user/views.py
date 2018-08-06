@@ -5,8 +5,6 @@ from .forms import RegistrarEletricistaForm
 from .forms import QuestionarioForm
 from django.views.generic.base import View
 from django.contrib.auth.models import User
-#from .models import Eletricista
-#from .models import Cliente
 from django.urls import reverse
 from .eletricista.models import Eletricista
 from .eletricista.models import Questionario
@@ -16,12 +14,12 @@ from .cliente.models import Cliente
 @login_required
 def get_usuario_logado(request):
 	usuario = request.user
-	eletricista_existe = Eletricista.objects.filter(nome=usuario).exists()
+	eletricista_existe = Eletricista.objects.filter(nickname=usuario).exists()
 	if eletricista_existe:
-		eletricista = Eletricista.objects.get(nome=usuario)
+		eletricista = Eletricista.objects.get(nickname=usuario)
 		return eletricista
 	else:
-		cliente = Cliente.objects.get(nome=usuario)
+		cliente = Cliente.objects.get(nickname=usuario)
 		return cliente
 
 @login_required
@@ -50,6 +48,7 @@ class RegistrarEletricistaView(View):
 
 				eletricista = Eletricista.objects.create(
 					nome=dados_form['nome'],
+					nickname=dados_form['nickname'],
 					email=dados_form['email'],
 					senha=dados_form['senha'],
 					telefone=dados_form['telefone'],
@@ -60,14 +59,17 @@ class RegistrarEletricistaView(View):
 					tipo=dados_form['tipo'],
 					foto=foto
 				)
-				#na verdade esse usuário será criado após a aceitação por parte do domingos,
-				#mas to criando só pra poder testar
-				usuario = User.objects.create_user(dados_form['nome'], dados_form['email'], dados_form['senha'])
+				usuario = User.objects.create_user(dados_form['nickname'], dados_form['email'], dados_form['senha'])
+				usuario.is_active = False
+				usuario.save()
+				
+				
 
-				return HttpResponseRedirect(reverse('questionario', kwargs={'nome_eletricista': dados_form['nome']}))
+				return HttpResponseRedirect(reverse('questionario', kwargs={'nome_eletricista': dados_form['nickname']}))
 			else:
 				cliente = Cliente.objects.create(
 					nome=dados_form['nome'],
+					nickname=dados_form['nickname'],
 					email=dados_form['email'],
 					senha=dados_form['senha'],
 					telefone=dados_form['telefone'],
@@ -78,7 +80,7 @@ class RegistrarEletricistaView(View):
 					tipo=dados_form['tipo'],
 					foto=foto
 				)
-				usuario = User.objects.create_user(dados_form['nome'], dados_form['email'], dados_form['senha'])
+				usuario = User.objects.create_user(dados_form['nickname'], dados_form['email'], dados_form['senha'])
 
 			return redirect('login')
 		else:
@@ -111,7 +113,7 @@ class QuestionarioView(View):
 		if dados_questionario['perguntaD'] == 'Correta':
 			pontuacao = pontuacao + 1
 		
-		eletricista_avaliado = Eletricista.objects.get(nome=nome_eletricista)
+		eletricista_avaliado = Eletricista.objects.get(nickname=nome_eletricista)
 		questionario = Questionario.objects.create(eletricista_avaliado=eletricista_avaliado, pontuacao=pontuacao, pdf=pdf_curriculo)
 
 		return HttpResponse('Obrigado por completar o cadastro, aguarde nossa revisão')
@@ -120,18 +122,33 @@ class QuestionarioView(View):
 def adm(request):
 	return render(request, 'dashboard_exemplo.html')	
 
-def detalhes(request, nome_eletricista):
-	eletricista_em_questao = Eletricista.objects.get(nome=nome_eletricista)
-	questionario_em_questao = Questionario.objects.get(eletricista_avaliado=eletricista_em_questao)
-	nome_curriculo = questionario_em_questao.pdf.name
+#def detalhes(request, nome_eletricista):
+#	eletricista_em_questao = Eletricista.objects.get(nome=nome_eletricista)
+#	questionario_em_questao = Questionario.objects.get(eletricista_avaliado=eletricista_em_questao)	
+#	nome_curriculo = questionario_em_questao.pdf.name
 
-	return render(request, 'detalhes.html', {'eletricista' : eletricista_em_questao, 'questionario': questionario_em_questao, 'curriculo' : nome_curriculo})
+#	return render(request, 'detalhes.html', {'eletricista' : eletricista_em_questao, 'questionario': questionario_em_questao, 'curriculo' : nome_curriculo})
+	
 
 def questionarios_pendentes(request):
 	context = {
-		'questionario_list' : Questionario.objects.all()
+		'questionario_list' : reversed(Questionario.objects.all())
 	}
 	return render(request, 'questionarios_pendentes.html', context)
+
+def aceitar(request, nickname):
+	usuario_aceito = User.objects.get(username=nickname)
+	usuario_aceito.is_active = True
+	usuario_aceito.save()
+
+	return HttpResponse('voce aceitou')
+	
+def recusar(request, nickname):
+	eletricista_recusado_model = Eletricista.objects.get(nickname=nickname)
+	eletricista_recusado_model.delete()
+	eletricista_recusado_user = User.objects.get(username=nickname)
+	eletricista_recusado_user.delete()
+	return HttpResponse('voce recusou')
 		
 def perfil_eletricista(request, nome_eletricista):
 	eletricista_em_questao = Eletricista.objects.get(nome=nome_eletricista)

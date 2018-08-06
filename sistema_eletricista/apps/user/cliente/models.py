@@ -4,8 +4,10 @@ from django.db import models
 class Cliente(models.Model):
 
 	nome = models.CharField(max_length=50, null=False)
+	nickname = models.CharField(max_length=50, null=False, default='aleatorio')
 	email = models.EmailField(max_length=50, null=False)
 	senha = models.CharField(max_length=30, null=False)
+	senha_novamente = models.CharField(max_length=30, null=False, default='SOME STRING')
 	telefone = models.IntegerField(null=False)
 	CEP = models.IntegerField(null=False)
 	CPF  = models.CharField(max_length=14, null=False)

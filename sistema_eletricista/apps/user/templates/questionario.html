@@ -18,46 +18,68 @@
 									<img src="{% static 'radiant/jquery/images/logo-personagem.png' %}" style="padding-left: 120px; padding-bottom: 40px">
 									<p style="text-align: justify;"><strong>Antes de te registrarmos no sistema, precisamos analisar certas informações técnicas sobre você, para isso, responda o questionário, por gentileza.</strong></p>
 									<div class="form-group">
+										<p style="text-align: justify; font-size: 13px;"> >> Ao atender um chamado de um Cliente com sua Residencia totalmente sem energia elétrica, quais procedimentos voce usaria?</p>
 						            	<div class="select-group">
 											<select type="option" class="form-control" id="id_perguntaA" name="perguntaA" required>
-									        	<option disabled selected>Pergunta A?</option>
-									            <option value="Correta">Alternativa A</option>
-									            <option value="Errada">Alternativa B</option>
-									            <option value="Errada">Alternativa C</option>
-									            <option value="Errada">Alternativa D</option>
+									        	<option disabled selected>Escolher</option>
+									            <option value="Correta">Verificaria se algum setor da instalação elétrica está em curto circuito, com algum fio rompido, ou disjuntor desarmado ou queimado.</option>
+									            <option value="Errada">Falava para o Cliente soliciar socorro à Concessionário (Eletropaulo ou outras).</option>
+									            <option value="Errada">Sugeria para o Cliente trocar toda a fiação elétrica da casa para resolver o problema.</option>
 									        </select>
 									    </div>
 								    </div>
 								    <div class="form-group">
+								    	<p style="text-align: justify; font-size: 13px;"> >> Quais são as funções de um Dispositivo DR (Interruptor Diferencial Residual)?</p>
 						                <div class="select-group">
 									        <select type="option" class="form-control" id="id_perguntaB" name="perguntaB" required>
-									        	<option disabled selected>Pergunta B?</option>
-									            <option value="Errada">Alternativa A</option>
-									            <option value="Correta">Alternativa B</option>
-									            <option value="Errada">Alternativa C</option>
-									            <option value="Errada">Alternativa D</option>
+									        	<option disabled selected>Escolher</option>
+									            <option value="Errada">Um relé que auxilia na abertura e fechamento de contatos elétricos.</option>
+									            <option value="Correta">Proteger usuários contra riscos de acidentes com choques elétricos.</option>
+									            <option value="Errada">Um dispositivo que serve apenas para ligar e desligar a energia elétrica.</option>
 									        </select>
 									    </div>
 									</div>
 									<div class="form-group">
+										<p style="text-align: justify; font-size: 13px;"> >> A instalação do Cliente possui um disjuntor DR que está desarmando com frequência. Qual solução voce daria para o problema?</p>
 						                <div class="select-group">
 									        <select type="option" class="form-control" id="id_perguntaC" name="perguntaC" required>
-									        	<option disabled selected>Pergunta C?</option>
-									            <option value="Errada">Alternativa A</option>
-									            <option value="Errada">Alternativa B</option>
-									            <option value="Correta">Alternativa C</option>
-									            <option value="Errada">Alternativa D</option>
+									        	<option disabled selected>Escolher</option>
+									            <option value="Errada">Eleminava o disjunto DR colocando um comum no lugar.</option>
+									            <option value="Errada">Não conheço o dispositivo DR, por isso nao sei o que faria.</option>
+									            <option value="Correta">Faria testes em todos os circuitos elétricos até identificar a causa do problema.</option>
 									        </select>
 									    </div>
 									</div>
 									<div class="form-group">
+										<p style="text-align: justify; font-size: 13px;"> >> Qual a bitola de cabo e disjuntor voce usaria para um circuito elétrico de um chuveiro de 7500W X 220V?</p>
 						                <div class="select-group">
 									        <select type="option" class="form-control" id="id_perguntaD" name="perguntaD" required>
-									        	<option disabled selected>Pergunta D?</option>
-									            <option value="Errada">Alternativa A</option>
-									            <option value="Errada">Alternativa B</option>
-									            <option value="Errada">Alternativa C</option>
-									            <option value="Correta">Alternativa D</option>
+									        	<option disabled selected>Escolher</option>
+									            <option value="Errada">Cabo 2,5mm e disjuntor unipolar 16 âmperes.</option>
+									            <option value="Errada">Cabo 2,5mm e disjuntor bipolar 10 âmperes.</option>
+									            <option value="Correta">Cabo 6,00mm e disjuntor bipolar 40 âmperes.</option>
+									        </select>
+									    </div>
+									</div>
+									<div class="form-group">
+										<p style="text-align: justify; font-size: 13px;"> >> O Cliente solicitou um chamado porque metade da casa dele está sem energia elétrica, mas ao abrir o chuveiro ou a torneira quente, a metade da casa que estava sem luz volta a funcionar. Qual seria seu procedimento para resolver o problema?</p>
+						                <div class="select-group">
+									        <select type="option" class="form-control" id="id_perguntaD" name="perguntaD" required>
+									        	<option disabled selected>Escolher</option>
+									            <option value="Errada">Sugerir ao cliente a compra de um chuveiro novo.</option>
+									            <option value="Errada">Trocar a resistencia do chuveiro.</option>
+									            <option value="Correta">Faria testes na instalação para verificar uma possível falta de fase.</option>
+									        </select>
+									    </div>
+									</div>
+									<div class="form-group">
+										<p style="text-align: justify; font-size: 13px;"> >> As luzes da casa do Cliente ficaram intermitentes, oscilando muito, e alguns setores da isntalação pararam de funcionar. Qual seria a causa?</p>
+						                <div class="select-group">
+									        <select type="option" class="form-control" id="id_perguntaD" name="perguntaD" required>
+									        	<option disabled selected>Escolher</option>
+									            <option value="Errada">As lâmpadas estão muito velhas e precisam ser trocadas.</option>
+									            <option value="Errada">Precisaria trocar toda a fiação.</option>
+									            <option value="Correta">O fio neutro da instalação foi rompido em algum setor da instalãção elétrica.</option>
 									        </select>
 									    </div>
 									</div>

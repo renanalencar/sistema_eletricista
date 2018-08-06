@@ -281,7 +281,11 @@
                   <div class="profile-header text-white">
                     <div class="d-flex justify-content-around">
                       <div class="profile-info d-flex align-items-center">
-                        <img class="pro-pic" src={{eletricista.foto.url}} style="height: 120px; width: 120px; border-radius: 90px;" alt="profile image">
+                        {% if eletricista.foto %}
+                          <span class="pro-pic"><img src="{{eletricista.foto.url}}" style="height: 120px; width: 120px; border-radius: 90px;" alt="profile image"></span>
+                        {% else %}
+                            <span class="pro-pic"><img src="https://placehold.it/100x100"></span>
+                        {% endif %}
                         <div class="wrapper pl-4">
                           <p style="font-size: 350%" class="profile-user-name mb-3">{{ eletricista.nome }}</p>
                           <div class="wrapper d-flex align-items-center">

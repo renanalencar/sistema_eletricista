@@ -282,7 +282,7 @@
                       <!-- LISTA DOS QUESTIONARIOS -->
                       {% for questionario in questionario_list %}
                         <li class="chat-persons">
-                          <a href="detalhes/{{questionario.eletricista_avaliado}}/">
+                          <a href="perfil_eletricista/{{questionario.eletricista_avaliado}}/">
                             {% if questionario.eletricista_avaliado.foto %}
                               <span class="profile-pic"><img style="height: 100px; width: 100px; border-radius: 100%" src="{{questionario.eletricista_avaliado.foto.url}}"></span>
                             {% else %}
