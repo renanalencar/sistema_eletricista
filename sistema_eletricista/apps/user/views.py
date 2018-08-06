@@ -133,4 +133,9 @@ def questionarios_pendentes(request):
 	}
 	return render(request, 'questionarios_pendentes.html', context)
 		
+def perfil_eletricista(request, nome_eletricista):
+	eletricista_em_questao = Eletricista.objects.get(nome=nome_eletricista)
+	questionario_em_questao = Questionario.objects.get(eletricista_avaliado=eletricista_em_questao)
+	nome_curriculo = questionario_em_questao.pdf.name
 
+	return render(request, 'perfil_eletricista.html', {'eletricista' : eletricista_em_questao, 'questionario': questionario_em_questao, 'curriculo' : nome_curriculo})

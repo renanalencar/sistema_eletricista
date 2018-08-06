@@ -18,4 +18,5 @@ urlpatterns = [
 	url(r'^adm/$', views.adm, name='adm'),
 	url(r'^adm/detalhes/(?P<nome_eletricista>\w+)/$', views.detalhes, name='detalhes'),
 	url(r'^adm/questionarios_pendentes$', views.questionarios_pendentes, name='questionarios_pendentes'),
+	url(r'^adm/perfil_eletricista/(?P<nome_eletricista>\w+)/$', views.perfil_eletricista, name='perfil_eletricista'),
 ]
