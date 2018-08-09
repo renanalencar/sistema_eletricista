@@ -161,3 +161,10 @@ def recusar(request, nickname):
 def eletricistas_registrados(request):
 	eletricistas_registrados = Eletricista.objects.filter(status='Ativo')
 	return render(request, 'eletricistas_registrados.html', {'eletricistas_registrados' : eletricistas_registrados})
+
+def bloquear_eletricista_registrado(request, nickname):
+	eletricista_bloqueado = Eletricista.objects.get(nickname=nickname)
+	eletricista_bloqueado.bloqueado = 'Inativo'
+	eletricista_bloqueado.save()
+	print (eletricista_bloqueado.status)
+	return HttpResponse('voce bloqueou um eletricista')

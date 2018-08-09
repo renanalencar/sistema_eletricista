@@ -30,11 +30,12 @@ class RegistrarEletricistaForm(forms.Form):
 			self.adiciona_erro('Senhas não iguais')
 			valid = False
 
-		user_exists = User.objects.filter(username=self.data['nome']).exists()
+		user_exists = User.objects.filter(username=self.data['nickname']).exists()
 		if user_exists:
 			self.adiciona_erro('Usuario ja existente')
 			valid = False
 		return valid
+
 
 	def adiciona_erro(self, message):
 		erros = self._errors.setdefault(forms.forms.NON_FIELD_ERRORS, forms.utils.ErrorList())

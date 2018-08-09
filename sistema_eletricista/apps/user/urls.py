@@ -21,5 +21,7 @@ urlpatterns = [
 	url(r'^adm/recusar/(?P<nickname>\w+)/$', views.recusar, name='recusar'),
 	url(r'^adm/perfil_eletricista/(?P<nickname>\w+)/$', views.perfil_eletricista, name='perfil_eletricista'),
 	url(r'^adm/eletricistas_registrados/$', views.eletricistas_registrados, name='eletricistas_registrados'),
+	url(r'^adm/bloquear_eletricista/(?P<nickname>\w+)/$', views.bloquear_eletricista_registrado, name='bloquear_eletricista_registrado'),
+
 
 ]

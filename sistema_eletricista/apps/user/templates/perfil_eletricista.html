@@ -289,23 +289,13 @@
                             <span class="pro-pic"><img src="https://placehold.it/100x100"></span>
                         {% endif %}
                         <div class="wrapper pl-4">
-<<<<<<< HEAD
                           <p class="profile-user-name" style="font-size: 30px"><strong>{{ eletricista.nome }}</strong></p>
-=======
-                          <p style="font-size: 350%" class="profile-user-name mb-3">{{ eletricista.nome }}</p>
->>>>>>> b6befe45d3031437aa88690eba801292278862b9
                           <div class="wrapper d-flex align-items-center">
                           </div>
                         </div>
                       </div>
                       <div class="details">
-<<<<<<< HEAD
                         <div class="detail-col">
-=======
-                        <div style="display: inline"class="detail-col">
-                          <p style="font-size: 100%; display: inline">Serviços feitos: </p>
-                          <p style="font-size: 100%; display: inline">130</p>
->>>>>>> b6befe45d3031437aa88690eba801292278862b9
                         </div>
                       </div>
                     </div>
@@ -450,7 +440,7 @@
                                 <a href="/user/adm/aceitar/{{eletricista.nickname}}/"><button style="float: left" type="button" id="2" class="btn btn-success btn-lg float-sm-left" style="padding-left: 80%;">Aceitar Eletricista</button></a>
                               </div>
                             {% else %}
-                              <button style="text-align: center; margin-left: 50%" type="button" class="btn btn-danger btn-lg float-sm-left">Bloquear Eletricista</button>
+                              <a style="text-align: center; margin-left: 50%" href="/user/adm/bloquear_eletricista/{{eletricista.nickname}}/"><button type="button" class="btn btn-danger btn-lg float-sm-left">Bloquear Eletricista</button></a>
                             {% endif %}
                           </div>
                         </div>
