@@ -42,5 +42,31 @@ class RegistrarEletricistaForm(forms.Form):
 		erros.append(message)
 
 
+
 class QuestionarioForm(forms.Form):
 	pontuacao = forms.CharField(required=True, max_length=50)
+
+class RegistrarAdministradorForm(forms.Form):
+
+	nome = forms.CharField(required=True, max_length=50)
+	email = forms.EmailField(required=True, max_length=50)
+	senha = forms.CharField(required=True, max_length=30)
+
+
+	def is_valid(self):
+		valid = True
+		if not super(RegistrarAdministradorForm, self).is_valid():
+			self.adiciona_erro('Por favor verifique os dados informados')
+			valid = False
+
+		user_exists = User.objects.filter(username=self.data['nome']).exists()
+
+		if user_exists:
+			self.adiciona_erro('Usuario ja existente')
+			valid = False
+		return valid
+
+	def adiciona_erro(self, message):
+		erros = self._errors.setdefault(forms.forms.NON_FIELD_ERRORS, forms.utils.ErrorList())
+		erros.append(message)
+

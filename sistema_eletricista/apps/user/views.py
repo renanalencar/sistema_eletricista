@@ -5,6 +5,12 @@ from .forms import RegistrarEletricistaForm
 from .forms import QuestionarioForm
 from django.views.generic.base import View
 from django.contrib.auth.models import User
+<<<<<<< HEAD
+=======
+from .models import Eletricista
+from .models import Cliente
+from .models import Admin
+>>>>>>> 5d41e99d41a8733d8923a9b88a68a2a256d7b0a9
 from django.urls import reverse
 from .eletricista.models import Eletricista
 from .eletricista.models import Questionario
@@ -43,12 +49,24 @@ class RegistrarEletricistaView(View):
 				foto = None
 			dados_form = form_user.data
 
+<<<<<<< HEAD
+=======
+			usuario = User.objects.create_user(dados_form['nome'], dados_form['email'], dados_form['senha'])
+			usuario.save()
+			
+			print (foto)
+>>>>>>> 5d41e99d41a8733d8923a9b88a68a2a256d7b0a9
 
 			if dados_form['tipo'] == 'Eletricista':
 
 				eletricista = Eletricista.objects.create(
+<<<<<<< HEAD
 					nome=dados_form['nome'],
 					nickname=dados_form['nickname'],
+=======
+					user = usuario,
+					nome = dados_form['nome'],
+>>>>>>> 5d41e99d41a8733d8923a9b88a68a2a256d7b0a9
 					email=dados_form['email'],
 					senha=dados_form['senha'],
 					telefone=dados_form['telefone'],
@@ -60,13 +78,19 @@ class RegistrarEletricistaView(View):
 					foto=foto,
 					status='Inativo'
 				)
+<<<<<<< HEAD
 				usuario = User.objects.create_user(dados_form['nickname'], dados_form['email'], dados_form['senha'])
 				usuario.is_active = False
 				usuario.save()
 				
 				return HttpResponseRedirect(reverse('questionario', kwargs={'nome_eletricista': dados_form['nickname']}))
+=======
+				eletricista.save()
+				print (eletricista.foto)
+>>>>>>> 5d41e99d41a8733d8923a9b88a68a2a256d7b0a9
 			else:
 				cliente = Cliente.objects.create(
+					user = usuario,
 					nome=dados_form['nome'],
 					nickname=dados_form['nickname'],
 					email=dados_form['email'],
@@ -79,13 +103,18 @@ class RegistrarEletricistaView(View):
 					tipo=dados_form['tipo'],
 					foto=foto
 				)
+<<<<<<< HEAD
 				usuario = User.objects.create_user(dados_form['nickname'], dados_form['email'], dados_form['senha'])
 
+=======
+				cliente.save()
+>>>>>>> 5d41e99d41a8733d8923a9b88a68a2a256d7b0a9
 			return redirect('login')
 		else:
 			return render(request, 'registrar_exemplo.html', {'form': form_user})
 
 
+<<<<<<< HEAD
 class QuestionarioView(View):
 
 	template_name = 'questionario.html'
@@ -168,3 +197,34 @@ def bloquear_eletricista_registrado(request, nickname):
 	eletricista_bloqueado.save()
 	print (eletricista_bloqueado.status)
 	return HttpResponse('voce bloqueou um eletricista')
+
+class RegistrarAdministradorView(View):
+
+	template_name = 'registrar_exemplo.html'
+	def get(self, request, *args, **kwargs):
+		return render(request, self.template_name)
+
+	def post(self, request, *args, **kwargs):
+		if request.user.is_authenticated() & Admin.objects.filter(user=user).exists():
+			form_user = RegistrarAdministradorForm(request.POST, request.FILES)
+			print (request.FILES)
+
+			if form_user.is_valid():
+				dados_form = form_user.data
+
+				usuario = User.objects.create_user(dados_form['nome'], dados_form['email'], dados_form['senha'])
+				usuario.save()
+
+				administrador = Admin.objects.create(
+					user = usuario,
+					nome = dados_form['nome'],
+					email=dados_form['email'],
+					senha=dados_form['senha'],
+					)
+				administrador.save()
+
+			return redirect('/login')
+			# return redirect('/')
+		else:
+			return render(request, 'registrar_admin.html', {'form': form_user})
+
