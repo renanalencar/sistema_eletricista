@@ -6,6 +6,7 @@ from django.views.generic.base import View
 from django.contrib.auth.models import User
 from .models import Eletricista
 from .models import Cliente
+from .models import Admin
 from django.urls import reverse
 
 # Create your views here.
@@ -43,12 +44,14 @@ class RegistrarEletricistaView(View):
 			dados_form = form_user.data
 
 			usuario = User.objects.create_user(dados_form['nome'], dados_form['email'], dados_form['senha'])
+			usuario.save()
 			
 			print (foto)
 
 			if dados_form['tipo'] == 'Eletricista':
 				eletricista = Eletricista.objects.create(
-					nome=dados_form['nome'],
+					user = usuario,
+					nome = dados_form['nome'],
 					email=dados_form['email'],
 					senha=dados_form['senha'],
 					telefone=dados_form['telefone'],
@@ -59,9 +62,11 @@ class RegistrarEletricistaView(View):
 					tipo=dados_form['tipo'],
 					foto=foto
 				)
+				eletricista.save()
 				print (eletricista.foto)
 			else:
 				cliente = Cliente.objects.create(
+					user = usuario,
 					nome=dados_form['nome'],
 					email=dados_form['email'],
 					senha=dados_form['senha'],
@@ -73,11 +78,39 @@ class RegistrarEletricistaView(View):
 					tipo=dados_form['tipo'],
 					foto=foto
 				)
+				cliente.save()
 			return redirect('login')
 		else:
 			return render(request, 'registrar_exemplo.html', {'form': form_user})
 
 
-			
-		
 
+class RegistrarAdministradorView(View):
+
+	template_name = 'registrar_exemplo.html'
+	def get(self, request, *args, **kwargs):
+		return render(request, self.template_name)
+
+	def post(self, request, *args, **kwargs):
+		if request.user.is_authenticated() & Admin.objects.filter(user=user).exists():
+			form_user = RegistrarAdministradorForm(request.POST, request.FILES)
+			print (request.FILES)
+
+			if form_user.is_valid():
+				dados_form = form_user.data
+
+				usuario = User.objects.create_user(dados_form['nome'], dados_form['email'], dados_form['senha'])
+				usuario.save()
+
+				administrador = Admin.objects.create(
+					user = usuario,
+					nome = dados_form['nome'],
+					email=dados_form['email'],
+					senha=dados_form['senha'],
+					)
+				administrador.save()
+
+			return redirect('/login')
+			# return redirect('/')
+		else:
+			return render(request, 'registrar_admin.html', {'form': form_user})
