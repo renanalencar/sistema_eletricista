@@ -5,8 +5,6 @@ from .forms import RegistrarEletricistaForm
 from .forms import QuestionarioForm
 from django.views.generic.base import View
 from django.contrib.auth.models import User
-from .models import Eletricista
-from .models import Cliente
 from .models import Admin
 from django.urls import reverse
 from .eletricista.models import Eletricista

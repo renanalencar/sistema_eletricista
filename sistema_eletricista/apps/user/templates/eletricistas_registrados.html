@@ -294,6 +294,11 @@
                               <p class="u-name">{{eletricista.nome}}</p>
                               <p class="u-designation" style="font-size: 15px">Email: <strong>{{eletricista.email}}</strong></p>
                             </div>
+                            {% if eletricista.bloqueado == 'False' %}
+                              <button type="button" style="margin-left: 50px; padding-left: 37px; padding-right: 37px;" disabled class="btn btn-success btn-lg float-sm-left">Ativo</button>
+                            {% else %}
+                              <button type="button" style="margin-left: 50px" disabled class="btn btn-danger btn-lg float-sm-left">Inativo</button>
+                            {% endif %}
                           </a>
                         </li>
                       {% endfor %}
