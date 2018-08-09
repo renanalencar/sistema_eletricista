@@ -245,6 +245,7 @@
           <li class="nav-item"> <a class="nav-link" href="{% url 'adm' %}"> <img class="menu-icon" src="{% static 'radiant/jquery/images/menu_icons/01.png' %}" alt="menu icon"> <span class="menu-title">Dashboard</span></a> </li>
           <li class="nav-item"> <a class="nav-link" href="#"> <img class="menu-icon" src="{% static 'radiant/jquery/images/menu_icons/19.png' %}" alt="menu icon"> <span class="menu-title">Questionarios Pendentes</span> </a> </li>
           <li class="nav-item"> <a class="nav-link" href="#"> <img class="menu-icon" src="{% static 'radiant/jquery/images/menu_icons/05.png' %}" alt="menu icon"> <span class="menu-title">Documentação</span> </a> </li>
+          <li class="nav-item"> <a class="nav-link" href="{% url 'eletricistas_registrados' %}"> <img class="menu-icon" src="{% static 'radiant/jquery/images/menu_icons/15.png' %}" alt="menu icon"> <span class="menu-title">Eletricistas Registrados</span> </a> </li>
           <li class="nav-item">
             <div class="sidebar-sticker">
               <div class="d-flex align-items-center text-primary">
@@ -275,30 +276,31 @@
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h5 class="card-title mb-0">Questionario Pendentes</h5>
+                    <h5 class="card-title mb-0">Questionarios Pendentes</h5>
                   </div>
                   <div class="new-accounts">
                     <ul class="chats">
                       <!-- LISTA DOS QUESTIONARIOS -->
-                      {% for questionario in questionario_list %}
-                        <li class="chat-persons">
-                          <a href="perfil_eletricista/{{questionario.eletricista_avaliado}}/">
-                            {% if questionario.eletricista_avaliado.foto %}
-                              <span class="pro-pic"><img src="{{questionario.eletricista_avaliado.foto.url}}"></span>
-                            {% else %}
-                              <span class="pro-pic"><img src="https://placehold.it/100x100"></span>
-                            {% endif %}
-                            <div class="user">
-                              <p class="u-name">{{questionario.eletricista_avaliado}}</p>
-                              <p class="u-designation" style="font-size: 15px">Pontuação: <strong>{{questionario.pontuacao}}</strong></p>
-                              {% if questionario.pdf %}
-                                <p>{{questionario.pdf.name}}</p>
+                        {% for questionario in questionario_list %}
+                          {% if questionario.eletricista_avaliado.status == 'Inativo' %}
+                          <li class="chat-persons">
+                            <a href="perfil_eletricista/{{questionario.eletricista_avaliado.nickname}}/">
+                              {% if questionario.eletricista_avaliado.foto %}
+                                <span class="pro-pic"><img src="{{questionario.eletricista_avaliado.foto.url}}"></span>
+                              {% else %}
+                                <span class="pro-pic"><img src="https://placehold.it/100x100"></span>
                               {% endif %}
-                            </div>
-                            
-                          </a>
-                        </li>
-                      {% endfor %}
+                              <div class="user">
+                                <p class="u-name">{{questionario.eletricista_avaliado}}</p>
+                                <p class="u-designation" style="font-size: 15px">Pontuação: <strong>{{questionario.pontuacao}}</strong></p>
+                                {% if questionario.pdf %}
+                                  <p>{{questionario.pdf.name}}</p>
+                                {% endif %}
+                              </div>
+                            </a>
+                          {% endif %}
+                          </li>
+                        {% endfor %}
                       <!-- list person -->
                       <!-- FIM DA LISTA DOS QUESTIONARIOS -->
                     </ul>

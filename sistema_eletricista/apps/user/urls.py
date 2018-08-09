@@ -19,6 +19,7 @@ urlpatterns = [
 	url(r'^adm/questionarios_pendentes$', views.questionarios_pendentes, name='questionarios_pendentes'),
 	url(r'^adm/aceitar/(?P<nickname>\w+)/$', views.aceitar, name='aceitar'),
 	url(r'^adm/recusar/(?P<nickname>\w+)/$', views.recusar, name='recusar'),
-	url(r'^adm/perfil_eletricista/(?P<nome_eletricista>\w+)/$', views.perfil_eletricista, name='perfil_eletricista'),
+	url(r'^adm/perfil_eletricista/(?P<nickname>\w+)/$', views.perfil_eletricista, name='perfil_eletricista'),
+	url(r'^adm/eletricistas_registrados/$', views.eletricistas_registrados, name='eletricistas_registrados'),
 
 ]

@@ -24,6 +24,7 @@
                 </p>
                 <span class="badge badge-inverse-info badge-pill float-right">View all</span>
               </div>
+
               <div class="dropdown-divider"></div>
               <a class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
@@ -258,8 +259,9 @@
             </div>
           </li>
           <li class="nav-item"> <a class="nav-link" href="/user/adm/"> <img class="menu-icon" src="/static/radiant/jquery/images/menu_icons/01.png" alt="menu icon"> <span class="menu-title">Dashboard</span></a> </li>
-          <li class="nav-item"> <a class="nav-link" href="/user/adm/questionarios_pendentes"> <img class="menu-icon" src="/static/radiant/jquery/images/menu_icons/19.png" alt="menu icon"> <span class="menu-title">Questionarios Pendentes</span> </a> </li>
-          <li class="nav-item"> <a class="nav-link" href="pages/documentation.html"> <img class="menu-icon" src="/static/radiant/jquery/images/menu_icons/05.png" alt="menu icon"> <span class="menu-title">Documentação</span> </a> </li>
+          <li class="nav-item"> <a class="nav-link" href="{% url 'questionarios_pendentes' %}"> <img class="menu-icon" src="/static/radiant/jquery/images/menu_icons/19.png" alt="menu icon"> <span class="menu-title">Questionarios Pendentes</span> </a> </li>
+          <li class="nav-item"> <a class="nav-link" href="#"> <img class="menu-icon" src="{% static 'radiant/jquery/images/menu_icons/05.png' %}" alt="menu icon"> <span class="menu-title">Documentação</span> </a> </li>
+          <li class="nav-item"> <a class="nav-link" href="{% url 'eletricistas_registrados' %}"> <img class="menu-icon" src="{% static 'radiant/jquery/images/menu_icons/15.png' %}" alt="menu icon"> <span class="menu-title">Eletricistas Registrados</span> </a> </li>
           <li class="nav-item">
             <div class="sidebar-sticker">
               <div class="d-flex align-items-center text-primary">
@@ -278,7 +280,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <div class="profile-header text-white">
+                  <div class="header" style="background-image: url({% static 'radiant/jquery/images/elec.jpg' %})">
                     <div class="d-flex justify-content-around">
                       <div class="profile-info d-flex align-items-center">
                         {% if eletricista.foto %}
@@ -287,22 +289,13 @@
                             <span class="pro-pic"><img src="https://placehold.it/100x100"></span>
                         {% endif %}
                         <div class="wrapper pl-4">
-                          <p class="profile-user-name">{{ eletricista.nome }}</p>
+                          <p class="profile-user-name" style="font-size: 30px"><strong>{{ eletricista.nome }}</strong></p>
                           <div class="wrapper d-flex align-items-center">
-                            <select id="example-css" name="rating" autocomplete="off">
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                            </select>
                           </div>
                         </div>
                       </div>
                       <div class="details">
                         <div class="detail-col">
-                          <p>Serviços feitos</p>
-                          <p>130</p>
                         </div>
                       </div>
                     </div>
@@ -441,9 +434,14 @@
                             </div>
                           </div>
                           <div class="row">
-                            <div class="col-lg-12 mt-5">
-                              <button type="button" class="btn btn-danger btn-lg float-sm-left">Bloquear Eletricista</button>
-                            </div>
+                            {% if eletricista.status == 'Inativo' %}
+                              <div class="col-lg-12 mt-5" style="text-align: center">
+                                <a href="/user/adm/recusar/{{eletricista.nickname}}/"><button type="button" id="1" class="btn btn-danger btn-lg float-sm-left" style="margin-left: 28%; margin-right: 100px">Recusar Eletricista</button></a>
+                                <a href="/user/adm/aceitar/{{eletricista.nickname}}/"><button style="float: left" type="button" id="2" class="btn btn-success btn-lg float-sm-left" style="padding-left: 80%;">Aceitar Eletricista</button></a>
+                              </div>
+                            {% else %}
+                              <button style="text-align: center; margin-left: 50%" type="button" class="btn btn-danger btn-lg float-sm-left">Bloquear Eletricista</button>
+                            {% endif %}
                           </div>
                         </div>
                       </div>   

@@ -11,14 +11,14 @@
     		<div class="container-fluid page-body-wrapper full-page-wrapper">
       			<div class="content-wrapper d-flex align-items-center auth theme-one">
         			<div class="row w-100">
-          				<div class="col-lg-4 mx-auto">
+          				<div class=" mx-auto" style="padding-left: 30px">
             				<div class="auto-form-wrapper">
 								<form method="post" action="{% url 'questionario' nome_eletricista=nome_eletricista %}" enctype="multipart/form-data">
 									{% csrf_token %}
-									<img src="{% static 'radiant/jquery/images/logo-personagem.png' %}" style="padding-left: 120px; padding-bottom: 40px">
-									<p style="text-align: justify;"><strong>Antes de te registrarmos no sistema, precisamos analisar certas informações técnicas sobre você, para isso, responda o questionário, por gentileza.</strong></p>
+									<img src="{% static 'radiant/jquery/images/logo-personagem.png' %}" style="padding-left: 46%; padding-bottom: 40px">
+									<p style="text-align: justify; text-align: center"><strong>Antes de te registrarmos no sistema, precisamos analisar certas informações técnicas sobre você, para isso, responda o questionário, por gentileza.</strong></p>
 									<div class="form-group">
-										<p style="text-align: justify; font-size: 13px;"> >> Ao atender um chamado de um Cliente com sua Residencia totalmente sem energia elétrica, quais procedimentos voce usaria?</p>
+										<p style="text-align: justify; font-size: 13px;"> >> Ao atender um chamado de um Cliente com sua Residência totalmente sem energia elétrica, quais procedimentos você usaria?</p>
 						            	<div class="select-group">
 											<select type="option" class="form-control" id="id_perguntaA" name="perguntaA" required>
 									        	<option disabled selected>Escolher</option>
