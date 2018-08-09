@@ -4,11 +4,9 @@ from django.contrib import admin
 from django.contrib.auth.views import login
 from django.contrib.auth.views import logout_then_login
 from .views import RegistrarEletricistaView
-<<<<<<< HEAD
 from .views import QuestionarioView
-=======
 from .views import *
->>>>>>> 5d41e99d41a8733d8923a9b88a68a2a256d7b0a9
+
 
 from . import views
 
@@ -26,5 +24,6 @@ urlpatterns = [
 	url(r'^adm/perfil_eletricista/(?P<nickname>\w+)/$', views.perfil_eletricista, name='perfil_eletricista'),
 	url(r'^adm/eletricistas_registrados/$', views.eletricistas_registrados, name='eletricistas_registrados'),
 	url(r'^adm/bloquear_eletricista/(?P<nickname>\w+)/$', views.bloquear_eletricista_registrado, name='bloquear_eletricista_registrado'),
+	url(r'^adm/desbloquear_eletricista/(?P<nickname>\w+)/$', views.desbloquear_eletricista_registrado, name='desbloquear_eletricista_registrado'),
 	url(r'^registrar_adm/$', RegistrarAdministradorView.as_view(), name="registraradm"),
 ]

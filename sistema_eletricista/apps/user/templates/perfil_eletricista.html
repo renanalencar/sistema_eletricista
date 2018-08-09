@@ -440,7 +440,11 @@
                                 <a href="/user/adm/aceitar/{{eletricista.nickname}}/"><button style="float: left" type="button" id="2" class="btn btn-success btn-lg float-sm-left" style="padding-left: 80%;">Aceitar Eletricista</button></a>
                               </div>
                             {% else %}
-                              <a style="text-align: center; margin-left: 50%" href="/user/adm/bloquear_eletricista/{{eletricista.nickname}}/"><button type="button" class="btn btn-danger btn-lg float-sm-left">Bloquear Eletricista</button></a>
+                              {% if eletricista.bloqueado != 'True' %}
+                                <a style="text-align: center; margin-left: 50%" href="/user/adm/bloquear_eletricista/{{eletricista.nickname}}/"><button type="button" class="btn btn-danger btn-lg float-sm-left">Bloquear Eletricista</button></a>
+                              {% else %}
+                                <a style="text-align: center; margin-left: 50%" href="/user/adm/desbloquear_eletricista/{{eletricista.nickname}}/"><button type="button" class="btn btn-success btn-lg float-sm-left">Desbloquear Eletricista</button></a>
+                              {% endif %}
                             {% endif %}
                           </div>
                         </div>

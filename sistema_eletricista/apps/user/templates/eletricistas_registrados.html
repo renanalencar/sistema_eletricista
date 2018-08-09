@@ -243,7 +243,7 @@
             </div>
           </li>
           <li class="nav-item"> <a class="nav-link" href="{% url 'adm' %}"> <img class="menu-icon" src="{% static 'radiant/jquery/images/menu_icons/01.png' %}" alt="menu icon"> <span class="menu-title">Dashboard</span></a> </li>
-          <li class="nav-item"> <a class="nav-link" href="#"> <img class="menu-icon" src="{% static 'radiant/jquery/images/menu_icons/19.png' %}" alt="menu icon"> <span class="menu-title">Questionarios Pendentes</span> </a> </li>
+          <li class="nav-item"> <a class="nav-link" href="{% url 'questionarios_pendentes' %}"> <img class="menu-icon" src="{% static 'radiant/jquery/images/menu_icons/19.png' %}" alt="menu icon"> <span class="menu-title">Questionarios Pendentes</span> </a> </li>
           <li class="nav-item"> <a class="nav-link" href="#"> <img class="menu-icon" src="{% static 'radiant/jquery/images/menu_icons/05.png' %}" alt="menu icon"> <span class="menu-title">Documentação</span> </a> </li>
           <li class="nav-item"> <a class="nav-link" href="{% url 'eletricistas_registrados' %}"> <img class="menu-icon" src="{% static 'radiant/jquery/images/menu_icons/15.png' %}" alt="menu icon"> <span class="menu-title">Eletricistas Registrados</span> </a> </li>
           <li class="nav-item">
@@ -293,10 +293,8 @@
                             <div class="user">
                               <p class="u-name">{{eletricista.nome}}</p>
                               <p class="u-designation" style="font-size: 15px">Email: <strong>{{eletricista.email}}</strong></p>
-                              
                             </div>
                           </a>
-                      
                         </li>
                       {% endfor %}
                       <!-- list person -->
