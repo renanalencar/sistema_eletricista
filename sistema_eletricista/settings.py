@@ -144,5 +144,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 
-EMAIL_HOST_USER = 'vini_roland4.10@usp.br'
-EMAIL_HOST_PASSWORD = 'Rubiks123!'
+EMAIL_HOST_USER = 'exemplo@gmail.com'
+EMAIL_HOST_PASSWORD = ''
