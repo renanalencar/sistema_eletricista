@@ -12,7 +12,7 @@ from django.urls import reverse
 from .eletricista.models import Eletricista
 from .eletricista.models import Questionario
 from .cliente.models import Cliente
-
+from .models import EletricistaManager
 # Create your views here.
 @login_required
 def get_usuario_logado(request):
@@ -25,9 +25,17 @@ def get_usuario_logado(request):
 		cliente = Cliente.objects.get(nickname=usuario)
 		return cliente
 
+def BuscaEletricista(request):
+    q = request.GET.get('buscaEletricista')
+    if q is not None:
+        resultEletricista = Eletricista.objects.BuscarEletricista(q)
+    return render(request, 'busca_eletricista.html', {'resultEletricista': resultEletricista})
+
 @login_required
 def index(request):
 	return render(request, 'logado_com_sucesso.html', {'usuario' : get_usuario_logado(request)})
+
+
 
 
 class RegistrarEletricistaView(View):

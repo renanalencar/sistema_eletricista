@@ -6,9 +6,9 @@ from django.contrib.auth.views import logout_then_login
 from .views import RegistrarEletricistaView
 from .views import QuestionarioView
 from .views import *
-
-
 from . import views
+from sistema_eletricista.apps.user.eletricista.views import *
+
 
 urlpatterns = [
 	url(r'^admin/', admin.site.urls),
@@ -26,4 +26,5 @@ urlpatterns = [
 	url(r'^adm/bloquear_eletricista/(?P<nickname>\w+)/$', views.bloquear_eletricista_registrado, name='bloquear_eletricista_registrado'),
 	url(r'^adm/desbloquear_eletricista/(?P<nickname>\w+)/$', views.desbloquear_eletricista_registrado, name='desbloquear_eletricista_registrado'),
 	url(r'^registrar_adm/$', RegistrarAdministradorView.as_view(), name="registraradm"),
+    url(r'^buscar-eletricista/$', views.BuscaEletricista, name='BuscaEletricista'),
 ]

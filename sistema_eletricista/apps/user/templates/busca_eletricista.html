@@ -276,36 +276,34 @@
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h5 class="card-title mb-0">Eletricistas Registrados</h5>
+                    <h5 class="card-title mb-0">Eletricistas Encontrados</h5>
                   </div>
                   <div class="portlet-body">
-
                     <form class="search-form" action="{% url 'BuscaEletricista' %}" role="search">
-                      <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Busca" name="buscaEletricista">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search" name="buscaEletricista">
                           <span class="input-group-btn">
                         <!-- Essa tag aqui passar para uma views do Search no python -->
-                            <button type="button" id = "submit" value="Click" class="btn btn-outline">Buscar</button>
+                          <button id = "submit" value="Click" class="btn submit">
                           </span>
                       </div>
                     </form>
-
                   </div>
                   <div class="new-accounts">
                     <ul class="chats">
                       <!-- LISTA DOS QUESTIONARIOS -->
-                      {% for eletricista in eletricistas_registrados %}
+                      {% for r in resultEletricista %}
                         
                         <li class="chat-persons">
-                          <a href="/user/adm/perfil_eletricista/{{eletricista.nickname}}/">
-                            {% if eletricista.foto %}
-                              <span class="pro-pic"><img src="{{eletricista.foto.url}}"></span>
+                          <a href="/user/adm/perfil_eletricista/{{r.nickname}}/">
+                            {% if r.foto %}
+                              <span class="pro-pic"><img src="{{r.foto.url}}"></span>
                             {% else %}
                               <span class="pro-pic"><img src="https://placehold.it/100x100"></span>
                             {% endif %}
                             <div class="user">
-                              <p class="u-name">{{eletricista.nome}}</p>
-                              <p class="u-designation" style="font-size: 15px">Email: <strong>{{eletricista.email}}</strong></p>
+                              <p class="u-name">{{r.nome}}</p>
+                              <p class="u-designation" style="font-size: 15px">Email: <strong>{{r.email}}</strong></p>
                             </div>
                           </a>
                         </li>

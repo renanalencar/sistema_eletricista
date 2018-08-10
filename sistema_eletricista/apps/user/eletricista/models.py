@@ -1,6 +1,10 @@
 from django.db import models
 
 # Create your models here.
+class EletricistaManager(models.Manager):
+	def BuscarEletricista(self, query):
+		return self.get_queryset().filter(models.Q(nome__icontains=query) | models.Q(nickname__icontains=query) | models.Q(email__icontains=query))
+
 class Eletricista(models.Model):
 
 	nome = models.CharField(max_length=50, null=False)
@@ -17,7 +21,7 @@ class Eletricista(models.Model):
 	foto = models.FileField(null=True, blank=True)
 	status = models.CharField(max_length=10, null=False, default='seila')
 	bloqueado = models.CharField(max_length=10, null=False, default='seila2')
-	
+	objects = EletricistaManager()
 
 	def __str__(self):
 		return self.nome
