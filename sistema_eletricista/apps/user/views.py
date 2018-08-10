@@ -12,11 +12,9 @@ from django.core.mail import send_mail
 from django.conf import settings
 from .models import Admin
 from django.urls import reverse
-from .eletricista.models import Eletricista
+from .eletricista.models import Eletricista, EletricistaManager
 from .eletricista.models import Questionario
-from .cliente.models import Cliente
-from .models import EletricistaManager
-from .models import ClienteManager
+from .cliente.models import Cliente, ClienteManager
 # Create your views here.
 
 

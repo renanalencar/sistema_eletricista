@@ -18,7 +18,7 @@ class Eletricista(models.Model):
 	endereco = models.CharField(max_length=100, null=False)
 	genero = models.CharField(max_length=255, null=False)
 	tipo = models.CharField(max_length=12, null=False)
-	foto = models.FileField(null=True, blank=True)
+	foto = models.FileField(null=True, blank=True)	
 	status = models.CharField(max_length=10, null=False, default='seila')
 	bloqueado = models.CharField(max_length=10, null=False, default='seila2')
 	objects = EletricistaManager()
