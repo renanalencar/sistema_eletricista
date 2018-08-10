@@ -281,16 +281,16 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <div class="header" style="background-image: url({% static 'radiant/jquery/images/fundo_perfil_eletricista.jpg' %})">
+                  <div class="header" style="background-image: url({% static 'radiant/jquery/images/elec.jpg' %})">
                     <div class="d-flex justify-content-around">
                       <div class="profile-info d-flex align-items-center">
-                        {% if eletricista.foto %}
-                          <span class="pro-pic"><img src="{{eletricista.foto.url}}" style="height: 120px; width: 120px; border-radius: 90px;" alt="profile image"></span>
+                        {% if cliente.foto %}
+                          <span class="pro-pic"><img src="{{cliente.foto.url}}" style="height: 120px; width: 120px; border-radius: 90px;" alt="profile image"></span>
                         {% else %}
                             <span class="pro-pic"><img src="https://placehold.it/100x100"></span>
                         {% endif %}
                         <div class="wrapper pl-4">
-                          <p class="profile-user-name" style="font-size: 30px; color: white"><strong>{{ eletricista.nome }}</strong></p>
+                          <p class="profile-user-name" style="font-size: 30px"><strong>{{ cliente.nome }}</strong></p>
                           <div class="wrapper d-flex align-items-center">
                           </div>
                         </div>
@@ -316,30 +316,30 @@
                           <div class="tab-pane fade show active pr-3" id="user-profile-info" role="tabpanel" aria-labelledby="user-profile-info-tab">
                             <table style="font-size: 500%" class="table table-borderless w-100 mt-4">
                               <tr>
-                                <td><strong>Nome :</strong> {{eletricista.nome}}</td>
-                                <td><strong>CPF :</strong> {{eletricista.CPF}}</td>
-                                <td><strong>Currículo :</strong> <a href="/media/{{curriculo}}/"> {{questionario.pdf.name}}</a></td>
+                                <td><strong>Nome :</strong> {{cliente.nome}}</td>
+                                <td><strong>CPF :</strong> {{cliente.CPF}}</td>
+                                
                               </tr>
                               <tr>
-                                <td><strong>CEP :</strong> {{eletricista.CEP}}</td>
-                                <td><strong>Endereço :</strong> {{eletricista.endereco}}</td>
+                                <td><strong>CEP :</strong> {{cliente.CEP}}</td>
+                                <td><strong>Endereço :</strong> {{cliente.endereco}}</td>
                               </tr>
                               <tr>
-                                <td><strong>Telefone :</strong> {{eletricista.telefone}}</td>
-                                <td><strong>Email :</strong> {{eletricista.email}}</td>
+                                <td><strong>Telefone :</strong> {{cliente.telefone}}</td>
+                                <td><strong>Email :</strong> {{cliente.email}}</td>
                               </tr>
                               <tr>
-                                <td><strong>Pontuação :</strong> {{questionario.pontuacao}}</td>
-                                <td><strong>Género :</strong> {{eletricista.genero}}</td>
+                      
+                                <td><strong>Género :</strong> {{cliente.genero}}</td>
                               </tr>
                             </table>
                             <div class="row">
                               <div class="col-12 mt-5">
-                                <h5 class="mb-5">Currículo</h5>
-                                  <embed src="/media/{{curriculo}}/" width="1000" height="700" type='application/pdf'>
                               </div>
                             </div>
-                           </div>
+                            
+                            </div>
+                          </div>
                           <div class="tab-pane fade" id="user-profile-activity" role="tabpanel" aria-labelledby="user-profile-activity-tab">
                             <div class="horizontal-timeline">
                               <section class="time-frame">
@@ -398,18 +398,7 @@
                             </div>
                           </div>
                           <div class="row">
-                            {% if eletricista.status == 'Inativo' %}
-                              <div class="col-lg-12 mt-5" style="text-align: center">
-                                <a href="/user/adm/recusar/{{eletricista.nickname}}/"><button type="button" id="1" class="btn btn-danger btn-lg float-sm-left" style="margin-left: 28%; margin-right: 100px">Recusar Eletricista</button></a>
-                                <a href="/user/adm/aceitar/{{eletricista.nickname}}/"><button style="float: left" type="button" id="2" class="btn btn-success btn-lg float-sm-left" style="padding-left: 80%;">Aceitar Eletricista</button></a>
-                              </div>
-                            {% else %}
-                              {% if eletricista.bloqueado != 'True' %}
-                                <a style="text-align: center; margin-left: 50%" href="/user/adm/bloquear_eletricista/{{eletricista.nickname}}/"><button type="button" class="btn btn-danger btn-lg float-sm-left">Bloquear Eletricista</button></a>
-                              {% else %}
-                                <a style="text-align: center; margin-left: 50%" href="/user/adm/desbloquear_eletricista/{{eletricista.nickname}}/"><button type="button" class="btn btn-success btn-lg float-sm-left">Desbloquear Eletricista</button></a>
-                              {% endif %}
-                            {% endif %}
+                           
                           </div>
                         </div>
                       </div>   

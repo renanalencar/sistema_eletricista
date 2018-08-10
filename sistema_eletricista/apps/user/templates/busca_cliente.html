@@ -78,7 +78,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="mdi mdi-bell-outline"></i>
-              <span class="count bg-success">{{numero_notificacao_eletricista}}</span>
+              <span class="count bg-success">10</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <a class="dropdown-item py-3">
@@ -88,12 +88,43 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
+                  <div class="preview-icon bg-inverse-success">
+                    <i class="mdi mdi-alert-circle-outline mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-normal text-dark mb-1">Application Error</h6>
+                  <p class="font-weight-light small-text mb-0">
+                    Just now
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
                   <div class="preview-icon bg-inverse-warning">
                     <i class="mdi mdi-comment-text-outline mx-0"></i>
                   </div>
                 </div>
                 <div class="preview-item-content">
-                  <h6 class="preview-subject font-weight-normal text-dark mb-1">Novo questionário pendente</h6>
+                  <h6 class="preview-subject font-weight-normal text-dark mb-1">Settings</h6>
+                  <p class="font-weight-light small-text mb-0">
+                    Private message
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-inverse-info">
+                    <i class="mdi mdi-email-outline mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-normal text-dark mb-1">New user registration</h6>
+                  <p class="font-weight-light small-text mb-0">
+                    2 days ago
+                  </p>
                 </div>
               </a>
             </div>
@@ -230,105 +261,72 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
+         
           <div class="row">
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-              <div class="card card-statistics">
-                <div class="card-body">
-                  <div class="d-flex align-items-center justify-content-center">
-                    <div class="highlight-icon bg-light mr-3">
-                      <i class="mdi mdi-cube text-success icon-lg"></i>
-                    </div>
-                    <div class="wrapper">
-                      <p class="card-text mb-0">Receita</p>
-                      <div class="fluid-container">
-                        <h3 class="card-title mb-0">$65,650</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-              <div class="card card-statistics">
-                <div class="card-body">
-                  <div class="d-flex align-items-center justify-content-center">
-                    <div class="highlight-icon bg-light mr-3">
-                      <i class="mdi mdi-briefcase-check text-primary icon-lg"></i>
-                    </div>
-                    <div class="wrapper">
-                      <p class="card-text mb-0">Serviços</p>
-                      <div class="fluid-container">
-                        <h3 class="card-title mb-0">$45,650</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-              <div class="card card-statistics">
-                <div class="card-body">
-                  <div class="d-flex align-items-center justify-content-center">
-                    <div class="highlight-icon bg-light mr-3">
-                      <i class="mdi mdi-account-multiple text-danger icon-lg"></i>
-                    </div>
-                    <div class="wrapper">
-                      <p class="card-text mb-0">Retorno</p>
-                      <div class="fluid-container">
-                        <h3 class="card-title mb-0">$12,357</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-              <div class="card card-statistics">
-                <div class="card-body">
-                  <div class="d-flex align-items-center justify-content-center">
-                    <div class="highlight-icon bg-light mr-3">
-                      <i class="mdi mdi-airballoon text-info icon-lg"></i>
-                    </div>
-                    <div class="wrapper">
-                      <p class="card-text mb-0">Vendas</p>
-                      <div class="fluid-container">
-                        <h3 class="card-title mb-0">$45,650</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
+            
+            
             </div>
           <div class="col-md-4 grid-margin stretch-card">
-              <!-- INSERIR TABELA AQUI -->
+              
           </div>
           <div class="row">
-          <!-- INSERIR TABELA AQUI -->
-            FORMULARIOS ADMINISTRADOR
             
           </div>
           <div class="">
             <div class="col-md-10 stretch-card">
               <div class="card">
-                  <!-- INSERIR TTABELA AQUI -->
+                <div class="card-body">
+                  <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h5 class="card-title mb-0">Clientes Encontrados</h5>
+                  </div>
+                  <div class="portlet-body">
+                    <form class="search-form" action="{% url 'BuscaCliente' %}" role="search">
+                      <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Buscar" name="buscaCliente">
+                          <span class="input-group-btn">
+                        <!-- Essa tag aqui passar para uma views do Search no python -->
+                            <button type="submit" id = "submit" value="Click" class="btn btn-outline">Buscar</button>
+                          </span>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="new-accounts">
+                    <ul class="chats">
+                      <!-- LISTA DOS QUESTIONARIOS -->
+                      {% for r in resultCliente %}
+                        
+                        <li class="chat-persons">
+                          <a href="/user/adm/perfil_cliente/{{r.nickname}}/">
+                            {% if r.foto %}
+                              <span class="pro-pic"><img src="{{r.foto.url}}"></span>
+                            {% else %}
+                              <span class="pro-pic"><img src="https://placehold.it/100x100"></span>
+                            {% endif %}
+                            <div class="user">
+                              <p class="u-name">{{r.nome}}</p>
+                              <p class="u-designation" style="font-size: 15px">Email: <strong>{{r.email}}</strong></p>
+                            </div>
+                          </a>
+                        </li>
+                      {% endfor %}
+                      <!-- list person -->
+                      <!-- FIM DA LISTA DOS QUESTIONARIOS -->
+                    </ul>
                   </div>
                 </div>
               </div>
             </div>
           <div class="col-md-7 grid-margin stretch-card">
-             <!-- INSERIR TTABELA AQUI -->
+             
           </div>
           <div class="row">
-            <!-- INSERIR TTABELA AQUI -->
+            
           </div>
           <div class="row">
-            <!-- INSERIR TTABELA AQUI -->
+            
           </div>
           <div class="row">
-            <!-- INSERIR TTABELA AQUI -->
+            
           </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->

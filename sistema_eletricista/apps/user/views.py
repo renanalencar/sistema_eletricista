@@ -5,13 +5,26 @@ from .forms import RegistrarEletricistaForm
 from .forms import QuestionarioForm
 from django.views.generic.base import View
 from django.contrib.auth.models import User
+from .eletricista.models import Eletricista
+from .cliente.models import Cliente
+from django.urls import reverse
+from django.core.mail import send_mail
+from django.conf import settings
 from .models import Admin
 from django.urls import reverse
-from .eletricista.models import Eletricista
+from .eletricista.models import Eletricista, EletricistaManager
 from .eletricista.models import Questionario
-from .cliente.models import Cliente
-from .models import EletricistaManager
+from .cliente.models import Cliente, ClienteManager
 # Create your views here.
+
+
+#Função de enviar emails
+def enviar_email(subject, message, email_from, recipient_list):
+	send_mail(subject, message, email_from, recipient_list)
+	print ('enviei')
+	return;
+
+
 @login_required
 def get_usuario_logado(request):
 	usuario = request.user
@@ -23,15 +36,30 @@ def get_usuario_logado(request):
 		cliente = Cliente.objects.get(nickname=usuario)
 		return cliente
 
+
+@login_required
+def index(request):
+	#subject = 'TESTE DO TESTE DO TESTE'
+	#message = 'teste teste teste'
+	#email_from = settings.EMAIL_HOST_USER
+	#recipient_list = ['vinicius.roland@polijunior.com.br',]
+	#enviar_email(subject, message, email_from, recipient_list)
+	return render(request, 'logado_com_sucesso.html', {'usuario' : get_usuario_logado(request)})
+
+
 def BuscaEletricista(request):
     q = request.GET.get('buscaEletricista')
     if q is not None:
         resultEletricista = Eletricista.objects.BuscarEletricista(q)
-    return render(request, 'busca_eletricista.html', {'resultEletricista': resultEletricista})
+    return render(request, 'busca_eletricista.html', {'resultEletricista' : resultEletricista})
 
-@login_required
-def index(request):
-	return render(request, 'logado_com_sucesso.html', {'usuario' : get_usuario_logado(request)})
+
+
+def BuscaCliente(request):
+    q1 = request.GET.get('buscaCliente')
+    if q1 is not None:
+        resultCliente = Cliente.objects.BuscarCliente(q1)
+    return render(request, 'busca_cliente.html', {'resultCliente': resultCliente})
 
 
 
@@ -86,6 +114,7 @@ class RegistrarEletricistaView(View):
 					nickname=dados_form['nickname'],
 					email=dados_form['email'],
 					senha=dados_form['senha'],
+					senha_novamente=dados_form['senha_novamente'],
 					telefone=dados_form['telefone'],
 					CEP=dados_form['CEP'],
 					CPF=dados_form['CPF'],
@@ -150,6 +179,10 @@ def perfil_eletricista(request, nickname):
 	nome_curriculo = questionario_em_questao.pdf.name
 
 	return render(request, 'perfil_eletricista.html', {'eletricista' : eletricista_em_questao, 'questionario': questionario_em_questao, 'curriculo' : nome_curriculo})
+
+def perfil_cliente(request, nickname):
+	cliente_em_questao = Cliente.objects.get(nickname=nickname)
+	return render(request, 'perfil_cliente.html', {'cliente' : cliente_em_questao})
 
 def questionarios_pendentes(request):
 	context = {
@@ -223,4 +256,8 @@ class RegistrarAdministradorView(View):
 			# return redirect('/')
 		else:
 			return render(request, 'registrar_admin.html', {'form': form_user})
+
+def clientes_registrados(request):
+	clientes_registrados = Cliente.objects.all()
+	return render(request, 'clientes_registrados.html', {'clientes_registrados' : clientes_registrados})
 

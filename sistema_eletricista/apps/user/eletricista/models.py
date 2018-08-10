@@ -30,3 +30,4 @@ class Questionario(models.Model):
 	eletricista_avaliado = models.OneToOneField(Eletricista, on_delete=models.CASCADE, primary_key=True)
 	pontuacao = models.IntegerField(null=False)
 	pdf = models.FileField(null=True, blank=True)
+
