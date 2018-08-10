@@ -84,11 +84,7 @@ class RegistrarEletricistaView(View):
 			else:
 				foto = None
 			dados_form = form_user.data
-
-			usuario = User.objects.create_user(dados_form['nome'], dados_form['email'], dados_form['senha'])
-			usuario.save()
 			
-			print (foto)
 
 			if dados_form['tipo'] == 'Eletricista':
 
@@ -110,9 +106,13 @@ class RegistrarEletricistaView(View):
 				usuario = User.objects.create_user(dados_form['nickname'], dados_form['email'], dados_form['senha'])
 				usuario.is_active = False
 				usuario.save()
+				enviar_email('Sistema Eletricista24hrs', 
+				 'Você, ' + dados_form['nickname'] + ' foi aceito no nosso sistema, aguarde nossa resposta',
+				 settings.EMAIL_HOST_USER,
+				 ['vinicius.roland@polijunior.com.br']
+				)
 				
 				return HttpResponseRedirect(reverse('questionario', kwargs={'nome_eletricista': dados_form['nickname']}))
-				eletricista.save()
 			else:
 				cliente = Cliente.objects.create(
 					nome=dados_form['nome'],
@@ -129,7 +129,11 @@ class RegistrarEletricistaView(View):
 					foto=foto
 				)
 				usuario = User.objects.create_user(dados_form['nickname'], dados_form['email'], dados_form['senha'])
-				cliente.save()
+				enviar_email('Sistema Eletricista24hrs', 
+				 'Você, ' + dados_form['nickname'] + ' foi aceito no nosso sistema',
+				 settings.EMAIL_HOST_USER,
+				 ['vinicius.roland@polijunior.com.br']
+				)
 			return redirect('login')
 		else:
 			return render(request, 'registrar_exemplo.html', {'form': form_user})
@@ -198,11 +202,16 @@ def questionarios_pendentes(request):
 def aceitar(request, nickname):
 	usuario_aceito = User.objects.get(username=nickname)
 	usuario_aceito.is_active = True
-	usuario_aceito.bloqueado = 'False'
 	usuario_aceito.save()
 	eletricista_aceito = Eletricista.objects.get(nickname=nickname)
 	eletricista_aceito.status = 'Ativo'
+	eletricista_aceito.bloqueado = 'False'
 	eletricista_aceito.save()
+	enviar_email('Sistema Eletricista24hrs', 
+				 'Você, ' + nickname + ' foi aceito no nosso sistema',
+				 settings.EMAIL_HOST_USER,
+				 ['vinicius.roland@polijunior.com.br']
+				)
 
 	return redirect('/user/adm/questionarios_pendentes')
 	
@@ -211,6 +220,11 @@ def recusar(request, nickname):
 	eletricista_recusado_model.delete()
 	eletricista_recusado_user = User.objects.get(username=nickname)
 	eletricista_recusado_user.delete()
+	enviar_email('Sistema Eletricista24hrs', 
+				 'Você, ' + nickname + ' foi recusado no nosso sistema',
+				 settings.EMAIL_HOST_USER,
+				 ['vinicius.roland@polijunior.com.br'] #aqui pode colocar o email da pessoa no caso, ou uma lista de varios emails
+				)
 	return redirect('/user/adm/questionarios_pendentes')
 
 def eletricistas_registrados(request):
@@ -222,13 +236,24 @@ def bloquear_eletricista_registrado(request, nickname):
 	eletricista_bloqueado.bloqueado = 'True'
 	eletricista_bloqueado.save()
 	print (eletricista_bloqueado.bloqueado)
+	enviar_email('Sistema Eletricista24hrs', 
+				 'Você, ' + nickname + ' foi bloqueado do nosso sistema',
+				 settings.EMAIL_HOST_USER,
+				 ['vinicius.roland@polijunior.com.br']
+				)
 	return redirect('/user/adm/eletricistas_registrados')
+
 
 def desbloquear_eletricista_registrado(request, nickname):
 	eletricista_desbloqueado = Eletricista.objects.get(nickname=nickname)
 	eletricista_desbloqueado.bloqueado = 'False'
 	eletricista_desbloqueado.save()
 	print (eletricista_desbloqueado.bloqueado)
+	enviar_email('Sistema Eletricista24hrs', 
+				 'Você, ' + nickname + ' foi desbloquado do nosso sistema',
+				 settings.EMAIL_HOST_USER,
+				 ['vinicius.roland@polijunior.com.br']
+				)
 	return redirect('/user/adm/eletricistas_registrados')
 
 
