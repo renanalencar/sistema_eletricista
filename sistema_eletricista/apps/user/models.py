@@ -18,7 +18,6 @@ class EletricistaManager(models.Manager):
 	def BuscarEletricista(self, query):
 		return self.get_queryset().filter(models.Q(nome__icontains=query) | models.Q(user__username__icontains=query) | models.Q(email__icontains=query))
 
-
 class Eletricista(models.Model):
 	user=models.OneToOneField(User, on_delete=models.CASCADE, null=True)
 	nome = models.CharField(max_length=50, null=False)
@@ -53,4 +52,3 @@ class Cliente(models.Model):
 
 	def __str__(self):
 		return self.nome
-

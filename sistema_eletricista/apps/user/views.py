@@ -5,8 +5,6 @@ from .forms import RegistrarEletricistaForm
 from .forms import QuestionarioForm
 from django.views.generic.base import View
 from django.contrib.auth.models import User
-from .models import Eletricista
-from .models import Cliente
 from .models import Admin
 from django.urls import reverse
 from .eletricista.models import Eletricista
@@ -162,6 +160,7 @@ def questionarios_pendentes(request):
 def aceitar(request, nickname):
 	usuario_aceito = User.objects.get(username=nickname)
 	usuario_aceito.is_active = True
+	usuario_aceito.bloqueado = 'False'
 	usuario_aceito.save()
 	eletricista_aceito = Eletricista.objects.get(nickname=nickname)
 	eletricista_aceito.status = 'Ativo'
