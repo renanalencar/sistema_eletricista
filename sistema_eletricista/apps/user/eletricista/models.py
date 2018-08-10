@@ -19,8 +19,8 @@ class Eletricista(models.Model):
 	genero = models.CharField(max_length=255, null=False)
 	tipo = models.CharField(max_length=12, null=False)
 	foto = models.FileField(null=True, blank=True)
-	status = models.CharField(max_length=10, null=False, default='seila')
-	bloqueado = models.CharField(max_length=10, null=False, default='seila2')
+	status = models.CharField(max_length=10, null=False, default='')
+	bloqueado = models.CharField(max_length=10, null=False, default='False')
 	objects = EletricistaManager()
 
 	def __str__(self):

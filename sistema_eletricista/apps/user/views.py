@@ -160,7 +160,7 @@ def questionarios_pendentes(request):
 def aceitar(request, nickname):
 	usuario_aceito = User.objects.get(username=nickname)
 	usuario_aceito.is_active = True
-	usuario_aceito.bloqueado = 'False'
+	#usuario_aceito.bloqueado = 'False'
 	usuario_aceito.save()
 	eletricista_aceito = Eletricista.objects.get(nickname=nickname)
 	eletricista_aceito.status = 'Ativo'
