@@ -18,6 +18,7 @@ class EletricistaManager(models.Manager):
 	def BuscarEletricista(self, query):
 		return self.get_queryset().filter(models.Q(nome__icontains=query) | models.Q(user__username__icontains=query) | models.Q(email__icontains=query))
 
+
 class Eletricista(models.Model):
 	user=models.OneToOneField(User, on_delete=models.CASCADE, null=True)
 	nome = models.CharField(max_length=50, null=False)
@@ -36,6 +37,11 @@ class Eletricista(models.Model):
 	def __str__(self):
 		return self.nome
 
+
+class ClienteManager(models.Manager):
+	def BuscarCliente(self, query):
+		return self.get_queryset().filter(models.Q(nome__icontains=query) | models.Q(user__username__icontains=query) | models.Q(email__icontains=query))
+
 class Cliente(models.Model):
 	user=models.OneToOneField(User, on_delete=models.CASCADE, null=True)
 	nome = models.CharField(max_length=50, null=False)
@@ -48,6 +54,7 @@ class Cliente(models.Model):
 	genero = models.CharField(max_length=255, null=False)
 	tipo = models.CharField(max_length=12, null=False)
 	foto = models.FileField(null=True, blank=True)
+	objects = ClienteManager()
 	
 
 	def __str__(self):
