@@ -104,6 +104,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+    )
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
@@ -122,6 +125,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+    )
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -132,3 +139,10 @@ MEDIA_URL = '/media/'
 LOGIN_REDIRECT_URL = '/user/index/'
 
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media")
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+
+EMAIL_HOST_USER = 'vini_roland4.10@usp.br'
+EMAIL_HOST_PASSWORD = 'Rubiks123!'

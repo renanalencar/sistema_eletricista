@@ -127,7 +127,6 @@
 /* === Import template variables === */
 /*-------------------------------------------------------------------*/
 /* === SCSS Compass Functions === */
-
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
 @-moz-keyframes flash {
   0% {
@@ -24535,6 +24534,8 @@ div.tagsinput {
   .rtl ul.chats::-webkit-scrollbar-thumb {
     background-color: darkgrey;
     outline: 1px solid slategrey; }
+
+
 
 /*-------------------------------------------------------------------*/
 
