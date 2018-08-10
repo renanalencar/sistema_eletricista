@@ -19,7 +19,6 @@ class Cliente(models.Model):
 	tipo = models.CharField(max_length=12, null=False)
 	foto = models.FileField(null=True, blank=True)
 	objects = ClienteManager()
-	
 
 	def __str__(self):
 		return self.nome
