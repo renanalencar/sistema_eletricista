@@ -286,17 +286,18 @@
                           <li class="chat-persons">
                             <a href="perfil_eletricista/{{questionario.eletricista_avaliado.nickname}}/">
                               {% if questionario.eletricista_avaliado.foto %}
-                                <span class="pro-pic"><img src="{{questionario.eletricista_avaliado.foto.url}}"></span>
+                                <span style="width: 20%; height: 20%;"><img src="{{questionario.eletricista_avaliado.foto.url}}" style="width: 70%; border-radius: 100%"></span>
                               {% else %}
-                                <span class="pro-pic"><img src="https://placehold.it/100x100"></span>
+                                <span style="width: 20%; height: 20%;"><img src="https://placehold.it/100x100" style="border-radius: 100%"></span>
                               {% endif %}
-                              <div class="user">
-                                <p class="u-name">{{questionario.eletricista_avaliado}}</p>
+                              <div class="user" style="margin-top: 2%; margin-left: -5%">
+                                <p class="u-name" style="font-size: 20px;">{{questionario.eletricista_avaliado}}</p>
                                 <p class="u-designation" style="font-size: 15px">Pontuação: <strong>{{questionario.pontuacao}}</strong></p>
                                 {% if questionario.pdf %}
                                   <p>{{questionario.pdf.name}}</p>
                                 {% endif %}
                               </div>
+                              <a href="perfil_eletricista/{{questionario.eletricista_avaliado.nickname}}/"><button type="button" class="btn btn-success btn-lg float-sm-left" style="margin-top: -16%; margin-left: 75%">Visualizar</button></a>
                             </a>
                           {% endif %}
                           </li>
