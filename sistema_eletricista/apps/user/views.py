@@ -15,6 +15,7 @@ from django.urls import reverse
 from .eletricista.models import Eletricista, EletricistaManager
 from .eletricista.models import Questionario
 from .cliente.models import Cliente, ClienteManager
+import json
 # Create your views here.
 
 
@@ -98,7 +99,8 @@ class RegistrarEletricistaView(View):
 					foto=foto,
 					status='Inativo'
 				)
-				usuario = User.objects.create_user(dados_form['nickname'], dados_form['email'], dados_form['senha'])
+				User.objects.create_user(dados_form['nickname'], dados_form['email'], dados_form['senha'])
+				usuario = User.objects.get(username=dados_form['nickname'])
 				usuario.is_active = False
 				usuario.save()
 				enviar_email('Sistema Eletricista24hrs', 
@@ -123,7 +125,7 @@ class RegistrarEletricistaView(View):
 					tipo=dados_form['tipo'],
 					foto=foto
 				)
-				usuario = User.objects.create_user(dados_form['nickname'], dados_form['email'], dados_form['senha'])
+				User.objects.create_user(dados_form['nickname'], dados_form['email'], dados_form['senha'])
 				enviar_email('Sistema Eletricista24hrs', 
 				 'Você, ' + dados_form['nickname'] + ' foi aceito no nosso sistema',
 				 settings.EMAIL_HOST_USER,
@@ -144,27 +146,30 @@ class QuestionarioView(View):
 	def post(self, request, nome_eletricista):
 
 		form_questionario = QuestionarioForm(request.POST, request.FILES)
+		print (form_questionario.errors)
+		if form_questionario.is_valid():
+			if request.FILES.get('pdf'):
+				pdf_curriculo = request.FILES.get('pdf')
+			else:
+				pdf_curriculo = None
 
-		if request.FILES.get('pdf'):
-			pdf_curriculo = request.FILES.get('pdf')
+			dados_questionario = form_questionario.data
+			pontuacao = 0
+			if dados_questionario['perguntaA'] == 'Correta':
+				pontuacao = pontuacao + 1
+			if dados_questionario['perguntaB'] == 'Correta':
+				pontuacao = pontuacao + 1
+			if dados_questionario['perguntaC'] == 'Correta':
+				pontuacao = pontuacao + 1
+			if dados_questionario['perguntaD'] == 'Correta':
+				pontuacao = pontuacao + 1
+
+			eletricista_avaliado = Eletricista.objects.get(nickname=nome_eletricista)
+			questionario = Questionario.objects.create(eletricista_avaliado=eletricista_avaliado, pontuacao=pontuacao, pdf=pdf_curriculo)
+
+			return HttpResponse('Obrigado por completar o cadastro, aguarde nossa revisão.')
 		else:
-			pdf_curriculo = None
-
-		dados_questionario = form_questionario.data
-		pontuacao = 0
-		if dados_questionario['perguntaA'] == 'Correta':
-			pontuacao = pontuacao + 1
-		if dados_questionario['perguntaB'] == 'Correta':
-			pontuacao = pontuacao + 1
-		if dados_questionario['perguntaC'] == 'Correta':
-			pontuacao = pontuacao + 1
-		if dados_questionario['perguntaD'] == 'Correta':
-			pontuacao = pontuacao + 1
-		
-		eletricista_avaliado = Eletricista.objects.get(nickname=nome_eletricista)
-		questionario = Questionario.objects.create(eletricista_avaliado=eletricista_avaliado, pontuacao=pontuacao, pdf=pdf_curriculo)
-
-		return HttpResponse('Obrigado por completar o cadastro, aguarde nossa revisão.')
+			return render(request, 'questionario.html', {'form_questionario' : form_questionario, 'nome_eletricista' : nome_eletricista})
 
 
 def adm(request):
@@ -230,7 +235,9 @@ def bloquear_eletricista_registrado(request, nickname):
 	eletricista_bloqueado = Eletricista.objects.get(nickname=nickname)
 	eletricista_bloqueado.bloqueado = 'True'
 	eletricista_bloqueado.save()
-	print (eletricista_bloqueado.bloqueado)
+	user_bloqueado = User.objects.get(username=nickname)
+	user_bloqueado.is_active = False
+	user_bloqueado.save()
 	enviar_email('Sistema Eletricista24hrs', 
 				 'Você, ' + nickname + ' foi bloqueado do nosso sistema',
 				 settings.EMAIL_HOST_USER,
@@ -243,7 +250,10 @@ def desbloquear_eletricista_registrado(request, nickname):
 	eletricista_desbloqueado = Eletricista.objects.get(nickname=nickname)
 	eletricista_desbloqueado.bloqueado = 'False'
 	eletricista_desbloqueado.save()
-	print (eletricista_desbloqueado.bloqueado)
+	user_desbloqueado = User.objects.get(username=nickname)
+	user_desbloqueado.is_active = True
+	user_desbloqueado.save()
+
 	enviar_email('Sistema Eletricista24hrs', 
 				 'Você, ' + nickname + ' foi desbloquado do nosso sistema',
 				 settings.EMAIL_HOST_USER,

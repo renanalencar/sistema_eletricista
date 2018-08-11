@@ -12,9 +12,7 @@ class RegistrarEletricistaForm(forms.Form):
 	CEP = forms.IntegerField(required=True)
 	CPF  = forms.CharField(required=True, max_length=14)
 	endereco = forms.CharField(required=True, max_length=100)
-	#genero = forms.MultipleChoiceField(choices=('Masculino', 'Feminino'), required=True)
 	genero = forms.CharField(required=True)
-	#tipo = forms.MultipleChoiceField(choices=('Eletricista', 'Cliente'), required=True)
 	tipo = forms.CharField(required=True)
 	foto = forms.FileField(required=False)
 
@@ -44,7 +42,25 @@ class RegistrarEletricistaForm(forms.Form):
 
 
 class QuestionarioForm(forms.Form):
-	pontuacao = forms.CharField(required=True, max_length=50)
+	perguntaA = forms.CharField(required=True, max_length=50)
+	perguntaB = forms.CharField(required=True, max_length=50)
+	perguntaC = forms.CharField(required=True, max_length=50)
+	perguntaD = forms.CharField(required=True, max_length=50)
+	perguntaE = forms.CharField(required=True, max_length=50)
+	perguntaF = forms.CharField(required=True, max_length=50)
+	pdf = forms.FileField(required=True)
+
+	def is_valid(self):
+		valid = True
+		if not super(QuestionarioForm, self).is_valid():
+			self.adiciona_erro('Por favor responda todas as perguntas!')
+			valid = False
+		return valid
+
+	def adiciona_erro(self, message):
+		erros = self._errors.setdefault(forms.forms.NON_FIELD_ERRORS, forms.utils.ErrorList())
+		erros.append(message)
+
 
 class RegistrarAdministradorForm(forms.Form):
 
