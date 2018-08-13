@@ -15,7 +15,9 @@ from django.urls import reverse
 from .eletricista.models import Eletricista, EletricistaManager
 from .eletricista.models import Questionario
 from .cliente.models import Cliente, ClienteManager
-import json
+
+from django.core.serializers.json import DjangoJSONEncoder
+
 # Create your views here.
 
 
@@ -229,7 +231,11 @@ def recusar(request, nickname):
 
 def eletricistas_registrados(request):
 	eletricistas_registrados = Eletricista.objects.filter(status='Ativo')
-	return render(request, 'eletricistas_registrados.html', {'eletricistas_registrados' : eletricistas_registrados})
+	eletricistas_js = []
+	for eletricista in eletricistas_registrados:
+		eletricistas_js.append(eletricista.nome)
+	print(eletricistas_js)
+	return render(request, 'eletricistas_registrados.html', {'eletricistas_registrados' : eletricistas_registrados, 'eletricistas_js' : eletricistas_js})
 
 def bloquear_eletricista_registrado(request, nickname):
 	eletricista_bloqueado = Eletricista.objects.get(nickname=nickname)
@@ -291,7 +297,11 @@ class RegistrarAdministradorView(View):
 		else:
 			return render(request, 'registrar_admin.html', {'form': form_user})
 
+
 def clientes_registrados(request):
 	clientes_registrados = Cliente.objects.all()
-	return render(request, 'clientes_registrados.html', {'clientes_registrados' : clientes_registrados})
+	clientes_js = []
+	for cliente in clientes_registrados:
+		clientes_js.append(cliente.nome)
 
+	return render(request, 'clientes_registrados.html', {'clientes_registrados' : clientes_registrados, 'clientes_js' : clientes_js})

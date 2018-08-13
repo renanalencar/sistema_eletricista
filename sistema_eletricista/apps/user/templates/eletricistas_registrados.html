@@ -21,61 +21,6 @@
         
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item dropdown">
-            <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-              <i class="mdi mdi-message-text-outline"></i>
-              <span class="count bg-warning">2</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-              <div class="dropdown-item py-3">
-                <p class="mb-0 font-weight-medium float-left">You have 7 unread mails
-                </p>
-                <span class="badge badge-inverse-info badge-pill float-right">View all</span>
-              </div>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <img src="https://placehold.it/100x100" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-normal text-dark mb-1">David Grey
-                    <span class="float-right font-weight-light small-text text-gray">1 Minutes ago</span>
-                  </h6>
-                  <p class="font-weight-light small-text mb-0">
-                    The meeting is cancelled
-                  </p>
-                </div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <img src="https://placehold.it/100x100" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-normal text-dark mb-1">Tim Cook
-                    <span class="float-right font-weight-light small-text text-gray">15 Minutes ago</span>
-                  </h6>
-                  <p class="font-weight-light small-text mb-0">
-                    New product launch
-                  </p>
-                </div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <img src="https://placehold.it/100x100" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-normal text-dark mb-1"> Johnson
-                    <span class="float-right font-weight-light small-text text-gray">18 Minutes ago</span>
-                  </h6>
-                  <p class="font-weight-light small-text mb-0">
-                    Upcoming board meeting
-                  </p>
-                </div>
-              </a>
-            </div>
-          </li>
-          <li class="nav-item dropdown">
             <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="mdi mdi-bell-outline"></i>
               <span class="count bg-success">10</span>
@@ -164,68 +109,6 @@
     </nav>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
-      <!-- partial:partials/_settings-panel.html -->
-      <div id="right-sidebar" class="settings-panel">
-        <i class="settings-close mdi mdi-close"></i>
-        <div class="d-flex align-items-center justify-content-between border-bottom">
-          <p class="settings-heading font-weight-bold border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
-        </div>
-        <ul class="chat-list">
-          <li class="list active">
-            <div class="profile"><img src="https://placehold.it/100x100" alt="image"><span class="online"></span></div>
-            <div class="info">
-              <p>Thomas Douglas</p>
-              <p>Available</p>
-            </div>
-            <small class="text-muted my-auto">19 min</small>
-          </li>
-          <li class="list">
-            <div class="profile"><img src="https://placehold.it/100x100" alt="image"><span class="offline"></span></div>
-            <div class="info">
-              <div class="wrapper d-flex">
-                <p>Catherine</p>
-              </div>
-              <p>Away</p>
-            </div>
-            <div class="badge badge-success badge-pill my-auto mx-2">4</div>
-            <small class="text-muted my-auto">23 min</small>
-          </li>
-          <li class="list">
-            <div class="profile"><img src="https://placehold.it/100x100" alt="image"><span class="online"></span></div>
-            <div class="info">
-              <p>Daniel Russell</p>
-              <p>Available</p>
-            </div>
-            <small class="text-muted my-auto">14 min</small>
-          </li>
-          <li class="list">
-            <div class="profile"><img src="https://placehold.it/100x100" alt="image"><span class="offline"></span></div>
-            <div class="info">
-              <p>James Richardson</p>
-              <p>Away</p>
-            </div>
-            <small class="text-muted my-auto">2 min</small>
-          </li>
-          <li class="list">
-            <div class="profile"><img src="https://placehold.it/100x100" alt="image"><span class="online"></span></div>
-            <div class="info">
-              <p>Madeline Kennedy</p>
-              <p>Available</p>
-            </div>
-            <small class="text-muted my-auto">5 min</small>
-          </li>
-          <li class="list">
-            <div class="profile"><img src="https://placehold.it/100x100" alt="image"><span class="online"></span></div>
-            <div class="info">
-              <p>Sarah Graves</p>
-              <p>Available</p>
-            </div>
-            <small class="text-muted my-auto">47 min</small>
-          </li>
-        </ul>
-      </div>
-      <!-- partial -->
-      <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item nav-profile">
@@ -280,16 +163,16 @@
                   </div>
                   <div class="portlet-body">
                     <form class="search-form" action="{% url 'BuscaEletricista' %}" role="search">
-                      <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Busca" name="buscaEletricista">
+                      <div class="input-group" style="padding-bottom: 20px">
+                        <input id="search" onkeyup="myFunction()" onkeydown="myStopFunction()" type="text" class="form-control" placeholder="Busca" name="buscaEletricista">
                           <span class="input-group-btn">
                         <!-- Essa tag aqui passar para uma views do Search no python -->
-                            <button type="submit" id = "submit" value="Click" class="btn btn-outline">Buscar</button>
+                            <button type="submit" id = "submit" value="Click" class="btn btn-light"><img src="{% static 'radiant/jquery/images/search.png' %}"></button>
                           </span>
                       </div>
                     </form>
                   </div>
-                  <div class="new-accounts">
+                  <div class="new-accounts" id="eletricistas" style="display: block">
                     <ul class="chats">
                       <!-- LISTA DOS QUESTIONARIOS -->
                       {% for eletricista in eletricistas_registrados %}
@@ -306,9 +189,9 @@
                               <p class="u-designation" style="font-size: 15px">Email: <strong>{{eletricista.email}}</strong></p>
                             </div>
                             {% if eletricista.bloqueado == 'False' %}
-                              <button type="button" style="margin-left: 50px; padding-left: 37px; padding-right: 37px;" disabled class="btn btn-success btn-lg float-sm-left">Ativo</button>
+                              <button type="button" style="margin-left: 95px; padding-left: 20px; padding-right: 18px;" disabled class="btn btn-success btn-sm float-sm-left">Ativo</button>
                             {% else %}
-                              <button type="button" style="margin-left: 50px" disabled class="btn btn-danger btn-lg float-sm-left">Inativo</button>
+                              <button type="button" style="margin-left: 95px" disabled class="btn btn-danger btn-sm float-sm-left">Inativo</button>
                             {% endif %}
                           </a>
                         </li>
@@ -317,6 +200,30 @@
                       <!-- FIM DA LISTA DOS QUESTIONARIOS -->
                     </ul>
                   </div>
+                  <div class="new-accounts" id="div" style="display: none">
+                    <ul class="chats" id="ul">
+                      <!--
+                      <li class="chat-persons">
+                        <a id="link" href="#">
+
+                          
+                          <span class="pro-pic"><img id="foto" src="https://placehold.it/100x100"></span>
+                        
+
+                          <div class="user" id="">
+                            <p class="u-name" id="nomejs"></p>
+                            <p class="u-designation" style="font-size: 15px">Email: <strong id="email"></strong></p>
+                          </div>
+                          <!
+                          {% if eletricista.bloqueado == 'False' %}
+                            <button type="button" style="margin-left: 50px; padding-left: 37px; padding-right: 37px;" disabled class="btn btn-success btn-lg float-sm-left">Ativo</button>
+                          {% else %}
+                            <button type="button" style="margin-left: 50px" disabled class="btn btn-danger btn-lg float-sm-left">Inativo</button>
+                          {% endif %}
+                          -->
+
+                        </a>
+                      </li>
                 </div>
               </div>
             </div>
@@ -348,4 +255,112 @@
   </div>
   <!-- container-scroller -->  
 </body>
+<script type="text/javascript">
+  var lista_nicknames = [];
+  var lista_email = [];
+  var lista_foto_url = [];
+  var lista = {{eletricistas_js|safe}}
+  {% for i in eletricistas_registrados %}
+    lista_nicknames.push('{{i.nickname}}');
+    lista_email.push('{{i.email}}');
+    {% if i.foto %}
+      lista_foto_url.push('{{i.foto.url}}');
+    {% else %}
+      lista_foto_url.push('https://placehold.it/100x100');
+    {% endif %}
+  {% endfor %}
+  console.log(lista_foto_url);
+  function ajax_search() {
+    
+    deletar('antiga');
+  
+    var input = document.getElementById('search');
+    var nome = document.getElementById('nomejs');
+    var link_perfil = document.getElementById('link');
+    var email = document.getElementById('email');
+    var foto = document.getElementById('foto');
+    var div_para_aparecer = document.getElementById('div');
+    var div_para_sumir = document.getElementById('eletricistas');
+    var resultados = 0;
+    var index = [];
+    for (var i = 0; i < lista.length; i++){
+      if (lista[i].toLowerCase().indexOf(input.value.toLowerCase()) > -1 || lista_email[i].indexOf(input.value) > -1){
+        //nome.textContent = lista[i];
+        //email.textContent = lista_email[i];
+        //link_perfil.href = '/user/adm/perfil_eletricista/' + lista_nicknames[i] + '/';
+        //foto.src = lista_foto_url[i];
+
+        div_para_aparecer.style.display = 'block';
+        div_para_sumir.style.display = 'none';
+        resultados += 1;
+        index.push(i);
+      }
+      if (input.value == ''){
+        div_para_aparecer.style.display = 'none';
+        div_para_sumir.style.display = 'block';
+      }
+    }
+    for (var t = 0; t < index.length; t++){
+      criar(index[t]);
+    }
+  }
+  var myVar;
+
+  function myFunction() {
+    myStopFunction(myVar);
+    myVar = setTimeout(ajax_search, 400);
+  }
+
+  function myStopFunction(x) {
+    clearTimeout(x);
+  }
+
+  function deletar(className){
+    var elements = document.getElementsByClassName(className);
+    while(elements.length > 0){
+        elements[0].parentNode.removeChild(elements[0]);
+    }
+}
+
+
+  function criar(i){
+
+    var li = document.createElement('li');
+    li.className = 'chat-persons antiga';
+    li.id = 'antiga';
+    var a = document.createElement('a');
+    a.href = '/user/adm/perfil_eletricista/' + lista_nicknames[i] + '/';
+    li.appendChild(a);
+    var span = document.createElement('span');
+    span.className = 'pro-pic';
+    var img = document.createElement('img');
+    img.src = lista_foto_url[i];
+    console.log(li);
+    span.appendChild(img);
+    a.appendChild(span);
+
+    var div = document.createElement('div');
+    div.className = 'user';
+    var p1 = document.createElement('p');
+    p1.className = 'u-name';
+    p1.textContent = lista[i];
+    div.appendChild(p1);
+
+    var p2 = document.createElement('p');
+    p2.className = 'u-designation';
+    p2.style.fontSize = '15px';
+    var strong = document.createElement('strong');
+    strong.textContent = lista_email[i];
+    p2.appendChild(strong);
+    p2.textContent = 'Email: ';
+    p2.appendChild(strong);
+    div.appendChild(p2);
+
+    a.appendChild(div);
+
+    li.appendChild(a);
+    var ul = document.getElementById('ul');
+    ul.appendChild(li);
+  }
+</script>
 {% endblock %}
