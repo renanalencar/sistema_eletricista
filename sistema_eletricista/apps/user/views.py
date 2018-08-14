@@ -160,7 +160,7 @@ class QuestionarioView(View):
 		eletricista_avaliado = Eletricista.objects.get(nickname=nome_eletricista)
 		questionario = Questionario.objects.create(eletricista_avaliado=eletricista_avaliado, pontuacao=pontuacao, pdf=pdf_curriculo)
 
-		return HttpResponse('Obrigado por completar o cadastro, aguarde nossa revisão.')
+		return redirect('/user/login')
 
 
 def adm(request):
@@ -261,3 +261,5 @@ def clientes_registrados(request):
 	clientes_registrados = Cliente.objects.all()
 	return render(request, 'clientes_registrados.html', {'clientes_registrados' : clientes_registrados})
 
+def registro_concluido(request):
+	return render(request, 'registro_concluido.html')
