@@ -64,7 +64,7 @@
 									<div class="form-group">
 										<p style="text-align: justify; font-size: 13px;"> >> O Cliente solicitou um chamado porque metade da casa dele está sem energia elétrica, mas ao abrir o chuveiro ou a torneira quente, a metade da casa que estava sem luz volta a funcionar. Qual seria seu procedimento para resolver o problema?</p>
 						                <div class="select-group">
-									        <select type="option" class="form-control" id="id_perguntaD" name="perguntaD" required>
+									        <select type="option" class="form-control" id="id_perguntaE" name="perguntaE" required>
 									        	<option disabled selected>Escolher</option>
 									            <option value="Errada">Sugerir ao cliente a compra de um chuveiro novo.</option>
 									            <option value="Errada">Trocar a resistencia do chuveiro.</option>
@@ -75,7 +75,7 @@
 									<div class="form-group">
 										<p style="text-align: justify; font-size: 13px;"> >> As luzes da casa do Cliente ficaram intermitentes, oscilando muito, e alguns setores da isntalação pararam de funcionar. Qual seria a causa?</p>
 						                <div class="select-group">
-									        <select type="option" class="form-control" id="id_perguntaD" name="perguntaD" required>
+									        <select type="option" class="form-control" id="id_perguntaF" name="perguntaF" required>
 									        	<option disabled selected>Escolher</option>
 									            <option value="Errada">As lâmpadas estão muito velhas e precisam ser trocadas.</option>
 									            <option value="Errada">Precisaria trocar toda a fiação.</option>
@@ -92,7 +92,13 @@
                         						<button class="file-upload-browse btn btn-info" type="button">Enviar</button>
                       						</span>
                   						</div>
+
+
+
+                					<div class="form-group" style="margin-top: 10px">
+                  						<button class="btn btn-success submit-btn btn-block" style="padding: 10px">Enviar respostas</button>
                 					</div>
+<<<<<<< HEAD
                 					<div class="modal" id="exampleModal-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true" style="display: none;">
                     					<div class="modal-dialog" role="document">
                     						<div class="modal-content">
@@ -115,6 +121,13 @@
                   					</div>
                 					<div class="form-group">
                   						<button type="button" class="btn btn-success submit-btn btn-block" data-toggle="modal" data-target="#exampleModal-2">Enviar respostas</button>
+=======
+                					{% if form_questionario.errors %}
+                  						<div class ="alert alert-danger">
+                    					<button type="button" class="close">&times;</button>
+                    					{{form_questionario.non_field_errors}}
+                    				{% endif %}
+>>>>>>> 240a5eafb29a6e1351ba90a947bf61e5b2499fd2
                 					</div>
 
 							        <!--<button type="submit">Enviar respostas</button> -->
@@ -125,9 +138,6 @@
 				</div>
 			</div>
 		</div>
-	    {% if pontuacao > 0 %}
-	    	<h3>Sua pontuacao foi : {{pontuacao}}</h3>
-	    {% endif %}
 	{% endblock %}
 </body>
 </html>

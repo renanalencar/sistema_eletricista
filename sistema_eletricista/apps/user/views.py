@@ -15,6 +15,9 @@ from django.urls import reverse
 from .eletricista.models import Eletricista, EletricistaManager
 from .eletricista.models import Questionario
 from .cliente.models import Cliente, ClienteManager
+
+from django.core.serializers.json import DjangoJSONEncoder
+
 # Create your views here.
 
 
@@ -79,11 +82,7 @@ class RegistrarEletricistaView(View):
 			else:
 				foto = None
 			dados_form = form_user.data
-
-			usuario = User.objects.create_user(dados_form['nome'], dados_form['email'], dados_form['senha'])
-			usuario.save()
 			
-			print (foto)
 
 			if dados_form['tipo'] == 'Eletricista':
 
@@ -102,12 +101,17 @@ class RegistrarEletricistaView(View):
 					foto=foto,
 					status='Inativo'
 				)
-				usuario = User.objects.create_user(dados_form['nickname'], dados_form['email'], dados_form['senha'])
+				User.objects.create_user(dados_form['nickname'], dados_form['email'], dados_form['senha'])
+				usuario = User.objects.get(username=dados_form['nickname'])
 				usuario.is_active = False
 				usuario.save()
+				enviar_email('Sistema Eletricista24hrs', 
+				 'Você, ' + dados_form['nome'] + ' foi registrado no nosso sistema, aguarde enquanto validamos seu cadastro',
+				 settings.EMAIL_HOST_USER,
+				 ['pedro.medeiros@polijunior.com.br']
+				)
 				
 				return HttpResponseRedirect(reverse('questionario', kwargs={'nome_eletricista': dados_form['nickname']}))
-				eletricista.save()
 			else:
 				cliente = Cliente.objects.create(
 					nome=dados_form['nome'],
@@ -123,8 +127,12 @@ class RegistrarEletricistaView(View):
 					tipo=dados_form['tipo'],
 					foto=foto
 				)
-				usuario = User.objects.create_user(dados_form['nickname'], dados_form['email'], dados_form['senha'])
-				cliente.save()
+				User.objects.create_user(dados_form['nickname'], dados_form['email'], dados_form['senha'])
+				enviar_email('Sistema Eletricista24hrs', 
+				 'Você, ' + dados_form['nome'] + ' foi cadastrado no Sistema Eletricista 24hrs. Estamos prontos para lhe ajudar :)',
+				 settings.EMAIL_HOST_USER,
+				 ['pedro.medeiros@polijunior.com.br']
+				)
 			return redirect('login')
 		else:
 			return render(request, 'registrar_exemplo.html', {'form': form_user})
@@ -140,10 +148,30 @@ class QuestionarioView(View):
 	def post(self, request, nome_eletricista):
 
 		form_questionario = QuestionarioForm(request.POST, request.FILES)
+		print (form_questionario.errors)
+		if form_questionario.is_valid():
+			if request.FILES.get('pdf'):
+				pdf_curriculo = request.FILES.get('pdf')
+			else:
+				pdf_curriculo = None
 
-		if request.FILES.get('pdf'):
-			pdf_curriculo = request.FILES.get('pdf')
+			dados_questionario = form_questionario.data
+			pontuacao = 0
+			if dados_questionario['perguntaA'] == 'Correta':
+				pontuacao = pontuacao + 1
+			if dados_questionario['perguntaB'] == 'Correta':
+				pontuacao = pontuacao + 1
+			if dados_questionario['perguntaC'] == 'Correta':
+				pontuacao = pontuacao + 1
+			if dados_questionario['perguntaD'] == 'Correta':
+				pontuacao = pontuacao + 1
+
+			eletricista_avaliado = Eletricista.objects.get(nickname=nome_eletricista)
+			questionario = Questionario.objects.create(eletricista_avaliado=eletricista_avaliado, pontuacao=pontuacao, pdf=pdf_curriculo)
+
+			return HttpResponse('Obrigado por completar o cadastro, aguarde nossa revisão.')
 		else:
+<<<<<<< HEAD
 			pdf_curriculo = None
 
 		dados_questionario = form_questionario.data
@@ -161,6 +189,9 @@ class QuestionarioView(View):
 		questionario = Questionario.objects.create(eletricista_avaliado=eletricista_avaliado, pontuacao=pontuacao, pdf=pdf_curriculo)
 
 		return redirect('/user/login')
+=======
+			return render(request, 'questionario.html', {'form_questionario' : form_questionario, 'nome_eletricista' : nome_eletricista})
+>>>>>>> 240a5eafb29a6e1351ba90a947bf61e5b2499fd2
 
 
 def adm(request):
@@ -193,11 +224,16 @@ def questionarios_pendentes(request):
 def aceitar(request, nickname):
 	usuario_aceito = User.objects.get(username=nickname)
 	usuario_aceito.is_active = True
-	usuario_aceito.bloqueado = 'False'
 	usuario_aceito.save()
 	eletricista_aceito = Eletricista.objects.get(nickname=nickname)
 	eletricista_aceito.status = 'Ativo'
+	eletricista_aceito.bloqueado = 'False'
 	eletricista_aceito.save()
+	enviar_email('Eletricista24hrs', 
+				 'Você, ' + nickname + ' foi aceito no nosso sistema.',
+				 settings.EMAIL_HOST_USER,
+				 ['pedro.medeiros@polijunior.com.br']
+				)
 
 	return redirect('/user/adm/questionarios_pendentes')
 	
@@ -206,24 +242,49 @@ def recusar(request, nickname):
 	eletricista_recusado_model.delete()
 	eletricista_recusado_user = User.objects.get(username=nickname)
 	eletricista_recusado_user.delete()
+	enviar_email('Sistema Eletricista24hrs', 
+				 'Você, ' + nickname + ' foi recusado no nosso sistema',
+				 settings.EMAIL_HOST_USER,
+				 ['pedro.medeiros@polijunior.com.br'] #aqui pode colocar o email da pessoa no caso, ou uma lista de varios emails
+				)
 	return redirect('/user/adm/questionarios_pendentes')
 
 def eletricistas_registrados(request):
 	eletricistas_registrados = Eletricista.objects.filter(status='Ativo')
-	return render(request, 'eletricistas_registrados.html', {'eletricistas_registrados' : eletricistas_registrados})
+	eletricistas_js = []
+	for eletricista in eletricistas_registrados:
+		eletricistas_js.append(eletricista.nome)
+	print(eletricistas_js)
+	return render(request, 'eletricistas_registrados.html', {'eletricistas_registrados' : eletricistas_registrados, 'eletricistas_js' : eletricistas_js})
 
 def bloquear_eletricista_registrado(request, nickname):
 	eletricista_bloqueado = Eletricista.objects.get(nickname=nickname)
 	eletricista_bloqueado.bloqueado = 'True'
 	eletricista_bloqueado.save()
-	print (eletricista_bloqueado.bloqueado)
+	user_bloqueado = User.objects.get(username=nickname)
+	user_bloqueado.is_active = False
+	user_bloqueado.save()
+	enviar_email('Sistema Eletricista24hrs', 
+				 'Você, ' + nickname + ' foi bloqueado do nosso sistema',
+				 settings.EMAIL_HOST_USER,
+				 ['pedro.medeiros@polijunior.com.br']
+				)
 	return redirect('/user/adm/eletricistas_registrados')
+
 
 def desbloquear_eletricista_registrado(request, nickname):
 	eletricista_desbloqueado = Eletricista.objects.get(nickname=nickname)
 	eletricista_desbloqueado.bloqueado = 'False'
 	eletricista_desbloqueado.save()
-	print (eletricista_desbloqueado.bloqueado)
+	user_desbloqueado = User.objects.get(username=nickname)
+	user_desbloqueado.is_active = True
+	user_desbloqueado.save()
+
+	enviar_email('Sistema Eletricista24hrs', 
+				 'Você, ' + nickname + ' foi desbloquado do nosso sistema',
+				 settings.EMAIL_HOST_USER,
+				 ['pedro.medeiros@polijunior.com.br']
+				)
 	return redirect('/user/adm/eletricistas_registrados')
 
 
@@ -253,13 +314,19 @@ class RegistrarAdministradorView(View):
 				administrador.save()
 
 			return redirect('/login')
-			# return redirect('/')
 		else:
 			return render(request, 'registrar_admin.html', {'form': form_user})
 
+
 def clientes_registrados(request):
 	clientes_registrados = Cliente.objects.all()
-	return render(request, 'clientes_registrados.html', {'clientes_registrados' : clientes_registrados})
+	clientes_js = []
+	for cliente in clientes_registrados:
+		clientes_js.append(cliente.nome)
 
+<<<<<<< HEAD
 def registro_concluido(request):
 	return render(request, 'registro_concluido.html')
+=======
+	return render(request, 'clientes_registrados.html', {'clientes_registrados' : clientes_registrados, 'clientes_js' : clientes_js})
+>>>>>>> 240a5eafb29a6e1351ba90a947bf61e5b2499fd2

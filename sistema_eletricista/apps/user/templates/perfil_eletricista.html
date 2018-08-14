@@ -2,278 +2,6 @@
 {% load staticfiles %}
 <body>
 {% block content %}
-  <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-      <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-        <a class=""></a>
-        <a class=""></a>
-      </div>
-      <div class="navbar-menu-wrapper d-flex align-items-center">
-        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-          <span class="mdi mdi-menu"></span>
-        </button>
-        
-        <ul class="navbar-nav navbar-nav-right">
-          <li class="nav-item dropdown">
-            <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-              <i class="mdi mdi-message-text-outline"></i>
-              <span class="count bg-warning">2</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-              <div class="dropdown-item py-3">
-                <p class="mb-0 font-weight-medium float-left">You have 7 unread mails
-                </p>
-                <span class="badge badge-inverse-info badge-pill float-right">View all</span>
-              </div>
-
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <img src="https://placehold.it/100x100" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-normal text-dark mb-1">David Grey
-                    <span class="float-right font-weight-light small-text text-gray">1 Minutes ago</span>
-                  </h6>
-                  <p class="font-weight-light small-text mb-0">
-                    The meeting is cancelled
-                  </p>
-                </div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <img src="https://placehold.it/100x100" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-normal text-dark mb-1">Tim Cook
-                    <span class="float-right font-weight-light small-text text-gray">15 Minutes ago</span>
-                  </h6>
-                  <p class="font-weight-light small-text mb-0">
-                    New product launch
-                  </p>
-                </div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <img src="https://placehold.it/100x100" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-normal text-dark mb-1"> Johnson
-                    <span class="float-right font-weight-light small-text text-gray">18 Minutes ago</span>
-                  </h6>
-                  <p class="font-weight-light small-text mb-0">
-                    Upcoming board meeting
-                  </p>
-                </div>
-              </a>
-            </div>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-              <i class="mdi mdi-bell-outline"></i>
-              <span class="count bg-success">4</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-              <a class="dropdown-item py-3">
-                <p class="mb-0 font-weight-medium float-left">You have 4 new notifications
-                </p>
-                <span class="badge badge-pill badge-inverse-info float-right">View all</span>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <div class="preview-icon bg-inverse-success">
-                    <i class="mdi mdi-alert-circle-outline mx-0"></i>
-                  </div>
-                </div>
-                <div class="preview-item-content">
-                  <h6 class="preview-subject font-weight-normal text-dark mb-1">Application Error</h6>
-                  <p class="font-weight-light small-text mb-0">
-                    Just now
-                  </p>
-                </div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <div class="preview-icon bg-inverse-warning">
-                    <i class="mdi mdi-comment-text-outline mx-0"></i>
-                  </div>
-                </div>
-                <div class="preview-item-content">
-                  <h6 class="preview-subject font-weight-normal text-dark mb-1">Settings</h6>
-                  <p class="font-weight-light small-text mb-0">
-                    Private message
-                  </p>
-                </div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <div class="preview-icon bg-inverse-info">
-                    <i class="mdi mdi-email-outline mx-0"></i>
-                  </div>
-                </div>
-                <div class="preview-item-content">
-                  <h6 class="preview-subject font-weight-normal text-dark mb-1">New user registration</h6>
-                  <p class="font-weight-light small-text mb-0">
-                    2 days ago
-                  </p>
-                </div>
-              </a>
-            </div>
-          </li>
-          
-          <li class="nav-item dropdown d-none d-xl-inline-block">
-            <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-              <span class="mr-3">Olá, Domingos</span><img class="img-xs rounded-circle" img="" src="/static/radiant/jquery/images/logo-personagem.png" alt="Profile image">
-            </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
-              <a class="dropdown-item p-0">
-                <div class="d-flex border-bottom">
-                  <div class="py-3 px-4 d-flex align-items-center justify-content-center"><i class="mdi mdi-bookmark-plus-outline mr-0 text-gray"></i></div>
-                  <div class="py-3 px-4 d-flex align-items-center justify-content-center border-left border-right"><i class="mdi mdi-account-outline mr-0 text-gray"></i></div>
-                  <div class="py-3 px-4 d-flex align-items-center justify-content-center"><i class="mdi mdi-alarm-check mr-0 text-gray"></i></div>
-                </div>
-              </a>
-              <a class="dropdown-item mt-2">
-                Manage Accounts
-              </a>
-              <a class="dropdown-item">
-                Change Password
-              </a>
-              <a class="dropdown-item">
-                Check Inbox
-              </a>
-              <a class="dropdown-item">
-                Sign Out
-              </a>
-            </div>
-          </li>
-        </ul>
-        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-          <span class="icon-menu"></span>
-        </button>
-      </div>
-    </nav>
-    <!-- partial -->
-    <div class="container-fluid page-body-wrapper">
-      <!-- partial:../../partials/_settings-panel.html -->
-      <div class="theme-setting-wrapper">
-        <div id="theme-settings" class="settings-panel">
-          <i class="settings-close mdi mdi-close"></i>
-          <div class="d-flex align-items-center justify-content-between border-bottom">
-            <p class="settings-heading font-weight-bold border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Template Skins</p>
-          </div>
-          <div class="sidebar-bg-options selected" id="sidebar-dark-theme"><div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark</div>
-          <div class="sidebar-bg-options" id="sidebar-light-theme"><div class="img-ss rounded-circle bg-light border mr-3"></div>Light</div>
-          <p class="settings-heading font-weight-bold mt-2">Header Skins</p>
-          <div class="color-tiles mx-0 px-4">
-            <div class="tiles primary"></div>
-            <div class="tiles success"></div>
-            <div class="tiles warning"></div>
-            <div class="tiles danger"></div>
-            <div class="tiles pink"></div>
-            <div class="tiles info"></div>
-            <div class="tiles dark"></div>
-            <div class="tiles default"></div>
-          </div>
-        </div>
-      </div>
-      <div id="right-sidebar" class="settings-panel">
-        <i class="settings-close mdi mdi-close"></i>
-        <div class="d-flex align-items-center justify-content-between border-bottom">
-          <p class="settings-heading font-weight-bold border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
-        </div>
-        <ul class="chat-list">
-          <li class="list active">
-            <div class="profile"><img src="https://placehold.it/100x100" alt="image"><span class="online"></span></div>
-            <div class="info">
-              <p>Thomas Douglas</p>
-              <p>Available</p>
-            </div>
-            <small class="text-muted my-auto">19 min</small>
-          </li>
-          <li class="list">
-            <div class="profile"><img src="https://placehold.it/100x100" alt="image"><span class="offline"></span></div>
-            <div class="info">
-              <div class="wrapper d-flex">
-                <p>Catherine</p>
-              </div>
-              <p>Away</p>
-            </div>
-            <div class="badge badge-success badge-pill my-auto mx-2">4</div>
-            <small class="text-muted my-auto">23 min</small>
-          </li>
-          <li class="list">
-            <div class="profile"><img src="https://placehold.it/100x100" alt="image"><span class="online"></span></div>
-            <div class="info">
-              <p>Daniel Russell</p>
-              <p>Available</p>
-            </div>
-            <small class="text-muted my-auto">14 min</small>
-          </li>
-          <li class="list">
-            <div class="profile"><img src="https://placehold.it/100x100" alt="image"><span class="offline"></span></div>
-            <div class="info">
-              <p>James Richardson</p>
-              <p>Away</p>
-            </div>
-            <small class="text-muted my-auto">2 min</small>
-          </li>
-          <li class="list">
-            <div class="profile"><img src="https://placehold.it/100x100" alt="image"><span class="online"></span></div>
-            <div class="info">
-              <p>Madeline Kennedy</p>
-              <p>Available</p>
-            </div>
-            <small class="text-muted my-auto">5 min</small>
-          </li>
-          <li class="list">
-            <div class="profile"><img src="https://placehold.it/100x100" alt="image"><span class="online"></span></div>
-            <div class="info">
-              <p>Sarah Graves</p>
-              <p>Available</p>
-            </div>
-            <small class="text-muted my-auto">47 min</small>
-          </li>
-        </ul>
-      </div>
-      <!-- partial -->
-      <!-- partial:../../partials/_sidebar.html -->
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
-          <li class="nav-item nav-profile">
-            <div class="nav-link">
-              <div class="profile-image"> <img src="/static/radiant/jquery/images/logo-personagem.png" alt="image"> <span class="online-status online"></span> </div>
-              <div class="profile-name">
-                <p class="name">José Domingos</p>
-                <p class="designation">Empresário</p>
-              </div>
-              <div class="notification-panel mt-4">
-                <span><i class="mdi mdi-settings"></i></span>
-                <span class="count-wrapper"><i class="mdi mdi-bell"></i><span class="count top-right bg-warning">4</span></span>
-                <span><i class="mdi mdi-email"></i></span>
-              </div>
-            </div>
-          </li>
-          <li class="nav-item"> <a class="nav-link" href="/user/adm/"> <img class="menu-icon" src="/static/radiant/jquery/images/menu_icons/01.png" alt="menu icon"> <span class="menu-title">Dashboard</span></a> </li>
-          <li class="nav-item"> <a class="nav-link" href="{% url 'questionarios_pendentes' %}"> <img class="menu-icon" src="/static/radiant/jquery/images/menu_icons/19.png" alt="menu icon"> <span class="menu-title">Questionarios Pendentes</span> </a> </li>
-          <li class="nav-item"> <a class="nav-link" href="#"> <img class="menu-icon" src="{% static 'radiant/jquery/images/menu_icons/05.png' %}" alt="menu icon"> <span class="menu-title">Documentação</span> </a> </li>
-          <li class="nav-item"> <a class="nav-link" href="{% url 'eletricistas_registrados' %}"> <img class="menu-icon" src="{% static 'radiant/jquery/images/menu_icons/15.png' %}" alt="menu icon"> <span class="menu-title">Eletricistas Registrados</span> </a> </li>
-          <li class="nav-item"> <a class="nav-link" href="{% url 'clientes_registrados' %}"> <img class="menu-icon" src="{% static 'radiant/jquery/images/menu_icons/12.png' %}" alt="menu icon"> <span class="menu-title">Clientes Registrados</span> </a> </li>
-          <li class="nav-item">
-            <div class="sidebar-sticker">
-              <div class="d-flex align-items-center text-primary">
-                <h6 class="mb-1">PRECISA DE AJUDA?</h6><i class="mdi ml-2 mdi-bell-ring-outline"></i>
-              </div>
-              <a class="d-block text-gray my-2" href="#">olá@hotmail.com</a>
-              <a class="d-block" href="#">Visite nosso FAQ</a>
-            </div>
-          </li>
-        </ul>
-      </nav>
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
@@ -281,7 +9,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <div class="header" style="background-image: url({% static 'radiant/jquery/images/elec.jpg' %})">
+                  <div class="header" style="background-image: url({% static 'radiant/jquery/images/fundo_perfil_eletricista.jpg' %})">
                     <div class="d-flex justify-content-around">
                       <div class="profile-info d-flex align-items-center">
                         {% if eletricista.foto %}
@@ -290,7 +18,7 @@
                             <span class="pro-pic"><img src="https://placehold.it/100x100"></span>
                         {% endif %}
                         <div class="wrapper pl-4">
-                          <p class="profile-user-name" style="font-size: 30px"><strong>{{ eletricista.nome }}</strong></p>
+                          <p class="profile-user-name" style="font-size: 30px; color: white"><strong>{{ eletricista.nome }}</strong></p>
                           <div class="wrapper d-flex align-items-center">
                           </div>
                         </div>
@@ -337,43 +65,6 @@
                               <div class="col-12 mt-5">
                                 <h5 class="mb-5">Currículo</h5>
                                   <embed src="/media/{{curriculo}}/" width="1000" height="700" type='application/pdf'>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-12 mt-5">
-                                <h5 class="mb-5">Outras Informações?/Comentários de Clientes?</h5>
-                                <div class="stage-wrapper pl-4">
-                                  <div class="stages border-left pl-5 pb-4">
-                                    <div class="btn btn-icons btn-rounded stage-badge btn-inverse-success">
-                                      <i class="mdi mdi-trophy-variant"></i>
-                                    </div>
-                                    <div class="d-flex align-items-center mb-2 justify-content-between">
-                                      <h5 class="mb-0">Notificação?</h5>
-                                      <small class="text-muted">28 mins ago</small>
-                                    </div>
-                                    <p>Fez 60 serviços em um único mês!</p>
-                                  </div>
-                                  <div class="stages border-left pl-5 pb-4">
-                                    <div class="btn btn-icons btn-rounded stage-badge btn-inverse-danger">
-                                      <i class="mdi mdi-comment"></i>
-                                    </div>
-                                    <div class="d-flex align-items-center mb-2 justify-content-between">
-                                      <h5 class="mb-0">Comentário?</h5>
-                                      <small class="text-muted">45 mins ago</small>
-                                    </div>
-                                    <p>Atendeu muito bem e esclareceu as nossas dúvidas. Houve demora pra obter o componente, mas no resto foi bem rápido e resolveu o problema.</p>
-                                  </div>
-                                  <div class="stages pl-5 pb-4">
-                                    <div class="btn btn-icons btn-rounded stage-badge btn-inverse-primary">
-                                      <i class="mdi mdi-calendar-clock"></i>
-                                    </div>
-                                    <div class="d-flex align-items-center mb-2 justify-content-between">
-                                      <h5 class="mb-0">Avisos?</h5>
-                                      <small class="text-muted">55 mins ago</small>
-                                    </div>
-                                    <p>Ficou 2 meses inativo.</p>
-                                  </div>
-                                </div>
                               </div>
                             </div>
                            </div>
@@ -437,8 +128,8 @@
                           <div class="row">
                             {% if eletricista.status == 'Inativo' %}
                               <div class="col-lg-12 mt-5" style="text-align: center">
-                                <a href="/user/adm/recusar/{{eletricista.nickname}}/"><button type="button" id="1" class="btn btn-danger btn-lg float-sm-left" style="margin-left: 28%; margin-right: 100px">Recusar Eletricista</button></a>
-                                <a href="/user/adm/aceitar/{{eletricista.nickname}}/"><button style="float: left" type="button" id="2" class="btn btn-success btn-lg float-sm-left" style="padding-left: 80%;">Aceitar Eletricista</button></a>
+                                <a href="/user/adm/aceitar/{{eletricista.nickname}}/"><button style="position: relative; margin-left: 25%" type="button" id="2" class="btn btn-success btn-lg float-sm-left">Aceitar Eletricista</button></a>
+                                <a href="/user/adm/recusar/{{eletricista.nickname}}/"><button type="button" id="1" class="btn btn-danger btn-lg float-sm-left" style="margin-left: 5%; position: absolute;">Recusar Eletricista</button></a>
                               </div>
                             {% else %}
                               {% if eletricista.bloqueado != 'True' %}
