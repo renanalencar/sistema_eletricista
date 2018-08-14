@@ -92,13 +92,6 @@
                         						<button class="file-upload-browse btn btn-info" type="button">Enviar</button>
                       						</span>
                   						</div>
-
-
-
-                					<div class="form-group" style="margin-top: 10px">
-                  						<button class="btn btn-success submit-btn btn-block" style="padding: 10px">Enviar respostas</button>
-                					</div>
-<<<<<<< HEAD
                 					<div class="modal" id="exampleModal-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true" style="display: none;">
                     					<div class="modal-dialog" role="document">
                     						<div class="modal-content">
@@ -119,15 +112,13 @@
                       						</div>
                     					</div>
                   					</div>
-                					<div class="form-group">
+                					<div class="form-group" style="margin-top: 10px">
                   						<button type="button" class="btn btn-success submit-btn btn-block" data-toggle="modal" data-target="#exampleModal-2">Enviar respostas</button>
-=======
-                					{% if form_questionario.errors %}
-                  						<div class ="alert alert-danger">
-                    					<button type="button" class="close">&times;</button>
+                						{% if form_questionario.errors %}
+                  							<div class ="alert alert-danger">
+                    						<button type="button" class="close">&times;</button>
                     					{{form_questionario.non_field_errors}}
-                    				{% endif %}
->>>>>>> 240a5eafb29a6e1351ba90a947bf61e5b2499fd2
+                    					{% endif %}
                 					</div>
 
 							        <!--<button type="submit">Enviar respostas</button> -->

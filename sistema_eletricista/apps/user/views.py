@@ -152,26 +152,7 @@ class QuestionarioView(View):
 		if form_questionario.is_valid():
 			if request.FILES.get('pdf'):
 				pdf_curriculo = request.FILES.get('pdf')
-			else:
-				pdf_curriculo = None
-
-			dados_questionario = form_questionario.data
-			pontuacao = 0
-			if dados_questionario['perguntaA'] == 'Correta':
-				pontuacao = pontuacao + 1
-			if dados_questionario['perguntaB'] == 'Correta':
-				pontuacao = pontuacao + 1
-			if dados_questionario['perguntaC'] == 'Correta':
-				pontuacao = pontuacao + 1
-			if dados_questionario['perguntaD'] == 'Correta':
-				pontuacao = pontuacao + 1
-
-			eletricista_avaliado = Eletricista.objects.get(nickname=nome_eletricista)
-			questionario = Questionario.objects.create(eletricista_avaliado=eletricista_avaliado, pontuacao=pontuacao, pdf=pdf_curriculo)
-
-			return HttpResponse('Obrigado por completar o cadastro, aguarde nossa revisão.')
 		else:
-<<<<<<< HEAD
 			pdf_curriculo = None
 
 		dados_questionario = form_questionario.data
@@ -189,10 +170,6 @@ class QuestionarioView(View):
 		questionario = Questionario.objects.create(eletricista_avaliado=eletricista_avaliado, pontuacao=pontuacao, pdf=pdf_curriculo)
 
 		return redirect('/user/login')
-=======
-			return render(request, 'questionario.html', {'form_questionario' : form_questionario, 'nome_eletricista' : nome_eletricista})
->>>>>>> 240a5eafb29a6e1351ba90a947bf61e5b2499fd2
-
 
 def adm(request):
 	numero_eletricista = 0
@@ -323,10 +300,5 @@ def clientes_registrados(request):
 	clientes_js = []
 	for cliente in clientes_registrados:
 		clientes_js.append(cliente.nome)
-
-<<<<<<< HEAD
-def registro_concluido(request):
-	return render(request, 'registro_concluido.html')
-=======
 	return render(request, 'clientes_registrados.html', {'clientes_registrados' : clientes_registrados, 'clientes_js' : clientes_js})
->>>>>>> 240a5eafb29a6e1351ba90a947bf61e5b2499fd2
+
