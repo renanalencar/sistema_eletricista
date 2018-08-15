@@ -31,8 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
+
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -42,7 +41,12 @@ INSTALLED_APPS = [
     'sistema_eletricista.apps.user.cliente',
     'sistema_eletricista.apps.user.eletricista',
     'sistema_eletricista.apps.post',
+
+    'django.contrib.admin',
+    'django.contrib.auth',
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -59,7 +63,7 @@ ROOT_URLCONF = 'sistema_eletricista.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': 'sistema_eletricista.apps.user.templates',
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -139,3 +143,5 @@ EMAIL_PORT = 587
 
 EMAIL_HOST_USER = 'eletricista.24hrs2018@gmail.com'
 EMAIL_HOST_PASSWORD = 'eletricista24hrs!'
+
+DEFAULT_FROM_EMAIL = 'Equipe Eletricistas24hs <noreply@eletricistas24hrs.com>'

@@ -1,23 +1,25 @@
+#Import from Django
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, request, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from .forms import RegistrarEletricistaForm
-from .forms import QuestionarioForm
 from django.views.generic.base import View
 from django.contrib.auth.models import User
-from .eletricista.models import Eletricista
-from .cliente.models import Cliente
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.urls import reverse
 from django.core.mail import send_mail
 from django.conf import settings
-from .models import Admin
 from django.urls import reverse
-from .eletricista.models import Eletricista, EletricistaManager
-from .eletricista.models import Questionario
-from .cliente.models import Cliente, ClienteManager
-
 from django.core.serializers.json import DjangoJSONEncoder
+from django.contrib import messages
 
+#Import from apps
+from .forms import RegistrarEletricistaForm
+from .forms import QuestionarioForm
+from .eletricista.models import Eletricista
+from .cliente.models import Cliente
+from .models import Admin
+from django.contrib.auth.views import *
 # Create your views here.
 
 
@@ -27,6 +29,19 @@ def enviar_email(subject, message, email_from, recipient_list):
 	print ('enviei')
 	return;
 
+def change_password(request):
+	if request.method == 'POST':
+		form = PasswordChangeForm(request.user, request.POST)
+		if form.is_valid():
+			user = form.save()
+			update_session_auth_hash(request, user)
+			messages.success(request, 'Senha alterada com sucesso!')
+			return redirect('change_password')
+		else:
+			messages.error(request, 'Não foi possível alterar sua senha.')
+	else:
+		form = PasswordChangeForm(request.user)
+	return render(request, 'change_password.html', {'form': form})
 
 @login_required
 def get_usuario_logado(request):
@@ -301,6 +316,60 @@ def clientes_registrados(request):
 	for cliente in clientes_registrados:
 		clientes_js.append(cliente.nome)
 	return render(request, 'clientes_registrados.html', {'clientes_registrados' : clientes_registrados, 'clientes_js' : clientes_js})
+
+
+#==============Recuperar Senha=============================================#
+
+def password_reset(request, is_admin_site=False,
+                   template_name='recuperar_senha.html',
+                   email_template_name='email.html',
+                   subject_template_name='assunto.html',
+                   password_reset_form=PasswordResetForm,
+                   token_generator=default_token_generator,
+                   post_reset_redirect=None,
+                   from_email=None,
+                   current_app=None,
+                   extra_context=None,
+                   html_email_template_name=None):
+    if post_reset_redirect is None:
+        post_reset_redirect = reverse('password_reset_done')
+    else:
+        post_reset_redirect = resolve_url(post_reset_redirect)
+    if request.method == "POST":
+        form = password_reset_form(request.POST)
+        if form.is_valid():
+            opts = {
+                'use_https': request.is_secure(),
+                'token_generator': token_generator,
+                'from_email': from_email,
+                'email_template_name': email_template_name,
+                'subject_template_name': subject_template_name,
+                'request': request,
+                'html_email_template_name': html_email_template_name,
+            }
+            if is_admin_site:
+                warnings.warn(
+                    "The is_admin_site argument to "
+                    "django.contrib.auth.views.password_reset() is deprecated "
+                    "and will be removed in Django 1.10.",
+                    RemovedInDjango110Warning, 3
+                )
+                opts = dict(opts, domain_override=request.get_host())
+            form.save(**opts)
+            return HttpResponseRedirect(post_reset_redirect)
+    else:
+        form = password_reset_form()
+    context = {
+        'form': form,
+        'title': 'Password reset',
+    }
+    if extra_context is not None:
+        context.update(extra_context)
+
+    if current_app is not None:
+        request.current_app = current_app
+
+    return TemplateResponse(request, template_name, context)
 
 def loginCliente(request):
 	return render(request, 'login-2.html')
