@@ -1,6 +1,6 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height:100%">
 
 <head>
   <!-- Required meta tags -->
@@ -24,12 +24,7 @@
 .ccontainer {
     position: relative;
     width: 100%;
-  }
-
-  .cimage {
-    display: block;
-    width: 100%;
-    height: auto;
+    height: 100%;
   }
 
   .coverlay {
@@ -62,12 +57,13 @@
   .econtainer {
     position: relative;
     width: 100%;
+    height:100%;
   }
 
-  .eimage {
+  .image {
     display: block;
-    width: 100%;
-    height: auto;
+    max-height: 100%;
+    width: auto;
   }
 
   .eoverlay {
@@ -98,29 +94,25 @@
   }
   </style>
 </head>
-<body>
-  <div style="display: inline;">
-    <img src="{% static 'radiant/jquery/images/logo-frase.png' %}" style="margin-left: 5em; height: 5em">
-    <img src="{% static 'radiant/jquery/images/logo-personagem.png' %}" style="height: 6em">
-  </div>
-  <div>
-    <div class="ccontainer" style="width:50%;float: left">
+<body style="height:100%">
+  <div style="height:100%; width:100%">
+    <div class="ccontainer" style="width:50%;margin-bottom:0px;float: left; overflow: hidden">
       <a href="/user/login/">
-      <img src="{% static 'radiant/jquery/images/cliente1.1.jpg' %}" style="height: 55em" class="cimage">
+      <img src="{% static 'radiant/jquery/images/cliente1.1.jpg' %}" class="image">
       <div class="coverlay">
         <div class="ctext">Cliente</div>
       </div>
       </a>
     </div>
-    <div class="econtainer" style="width:50%;float: right">
+    <div class="econtainer" style="width:50%; float: right; overflow: hidden">
       <a href="/user/login/">
-      <img src="{% static 'radiant/jquery/images/eletricista1.1.jpg' %}" style="height: 55em" class="eimage">
+      <img src="{% static 'radiant/jquery/images/eletricista1.1.jpg' %}" class="image">
       <div class="eoverlay">
           <div class="etext">Eletricista</div>
       </div>
       </a>
     </div>
-  </div>  
+  </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
   <script src="{% static 'radiant/jquery/vendors/js/vendor.bundle.base.js' %}"></script>
