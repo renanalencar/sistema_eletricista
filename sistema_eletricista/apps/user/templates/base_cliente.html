@@ -1,4 +1,3 @@
-
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
@@ -73,12 +72,26 @@
                   </p>
                 </div>
               </a>
-              
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-inverse-info">
+                    <i class="mdi mdi-email-outline mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-normal text-dark mb-1">New user registration</h6>
+                  <p class="font-weight-light small-text mb-0">
+                    2 days ago
+                  </p>
+                </div>
+              </a>
+            </div>
           </li>
           
           <li class="nav-item dropdown d-none d-xl-inline-block">
             <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-              <span class="mr-3">Olá, {{usuario}}</span><img class="img-xs rounded-circle" img src="{% static 'radiant/jquery/images/logo-personagem.png' %}" alt="Profile image">
+              <span class="mr-3">Olá, Domingos</span><img class="img-xs rounded-circle" img src="{% static 'radiant/jquery/images/logo-personagem.png' %}" alt="Profile image">
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
               <a class="dropdown-item p-0">
@@ -89,18 +102,18 @@
                 </div>
               </a>
               <a class="dropdown-item mt-2">
-                Editar Perfil
+                Manage Accounts
               </a>
               
               <a class="dropdown-item"  href="{% url 'change_password' %}">
-                Alterar Senha
+                Change Password
               </a>
 
               <a class="dropdown-item">
                 Check Inbox
               </a>
-              <a class="dropdown-item" href="{% url 'logout' %}">
-                Logout
+              <a class="dropdown-item">
+                Sign Out
               </a>
             </div>
           </li>
@@ -118,7 +131,7 @@
             <div class="nav-link">
               <div class="profile-image"> <img src="{% static 'radiant/jquery/images/logo-personagem.png' %}" alt="image"/> <span class="online-status online"></span> </div>
               <div class="profile-name">
-                <p class="name">{{usuario}}</p>
+                <p class="name">user.name</p>
               </div>
               <div class="notification-panel mt-4">
                 <span><i class="mdi mdi-settings"></i></span>
@@ -158,26 +171,6 @@
           </div>
 
   {% block content %}
-  	<h1>Parabens, voce logou como: {{usuario}}</h1>
-	<h2>{{usuario.email}}</h2>
-	<h2>{{usuario.telefone}}</h2>
-	<h2>{{usuario.CEP}}</h2>
-	<h2>{{usuario.CPF}}</h2>
-	<h2>{{usuario.endereco}}</h2>
-	<h2>{{usuario.genero}}</h2>
-	{% if usuario.foto %}
-		<img src="{{usuario.foto.url}}">
-	{% else %}
-		<h2> Voce nao possui imagem </h2>
-	{% endif %}
-	<h2>{% if usuario.tipo == 'Eletricista' %}
-			<h2>Voce se registrou como um: Eletricista</h2>
-		{% else %}
-			<h2>Voce se registrou como um:Cliente</h2>
-		{% endif %}
-
-	<a href="{% url 'logout' %}"><h2>Logout</h2></a>
-
   {% endblock %}
 
        <div class="col-md-7 grid-margin stretch-card">
