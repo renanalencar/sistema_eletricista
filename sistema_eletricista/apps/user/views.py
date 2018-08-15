@@ -167,27 +167,24 @@ class QuestionarioView(View):
 		if form_questionario.is_valid():
 			if request.FILES.get('pdf'):
 				pdf_curriculo = request.FILES.get('pdf')
-			else:
-				pdf_curriculo = None
-
-			dados_questionario = form_questionario.data
-			pontuacao = 0
-			if dados_questionario['perguntaA'] == 'Correta':
-				pontuacao = pontuacao + 1
-			if dados_questionario['perguntaB'] == 'Correta':
-				pontuacao = pontuacao + 1
-			if dados_questionario['perguntaC'] == 'Correta':
-				pontuacao = pontuacao + 1
-			if dados_questionario['perguntaD'] == 'Correta':
-				pontuacao = pontuacao + 1
-
-			eletricista_avaliado = Eletricista.objects.get(nickname=nome_eletricista)
-			questionario = Questionario.objects.create(eletricista_avaliado=eletricista_avaliado, pontuacao=pontuacao, pdf=pdf_curriculo)
-
-			return HttpResponse('Obrigado por completar o cadastro, aguarde nossa revisão.')
 		else:
-			return render(request, 'questionario.html', {'form_questionario' : form_questionario, 'nome_eletricista' : nome_eletricista})
+			pdf_curriculo = None
 
+		dados_questionario = form_questionario.data
+		pontuacao = 0
+		if dados_questionario['perguntaA'] == 'Correta':
+			pontuacao = pontuacao + 1
+		if dados_questionario['perguntaB'] == 'Correta':
+			pontuacao = pontuacao + 1
+		if dados_questionario['perguntaC'] == 'Correta':
+			pontuacao = pontuacao + 1
+		if dados_questionario['perguntaD'] == 'Correta':
+			pontuacao = pontuacao + 1
+		
+		eletricista_avaliado = Eletricista.objects.get(nickname=nome_eletricista)
+		questionario = Questionario.objects.create(eletricista_avaliado=eletricista_avaliado, pontuacao=pontuacao, pdf=pdf_curriculo)
+
+		return redirect('/user/login')
 
 def adm(request):
 	numero_eletricista = 0
@@ -318,8 +315,8 @@ def clientes_registrados(request):
 	clientes_js = []
 	for cliente in clientes_registrados:
 		clientes_js.append(cliente.nome)
-
 	return render(request, 'clientes_registrados.html', {'clientes_registrados' : clientes_registrados, 'clientes_js' : clientes_js})
+
 
 #==============Recuperar Senha=============================================#
 
@@ -374,3 +371,5 @@ def password_reset(request, is_admin_site=False,
 
     return TemplateResponse(request, template_name, context)
 
+def loginCliente(request):
+	return render(request, 'login-2.html')

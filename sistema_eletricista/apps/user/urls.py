@@ -15,7 +15,7 @@ urlpatterns = [
 	url(r'^admin/', admin.site.urls),
 	url(r'^login/$', login, {'template_name':'loginEletricista_exemplo.html', 'redirect_field_name': 'login'}, name='login'),
 	url(r'^logout/$', logout_then_login, {'login_url':'/user/login/'}, name='logout'),
-	url(r'^index/$', views.index, name='index'),
+	url(r'^index/$', views.loginCliente, name='loginCliente'),
 	url(r'^registrar/$', RegistrarEletricistaView.as_view(), name="registrar"),
 	url(r'^password_reset/$', auth_views.password_reset, name='password_reset'),
     url(r'^password_reset/done/$', auth_views.password_reset_done, name='password_reset_done'),
