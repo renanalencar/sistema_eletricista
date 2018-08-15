@@ -371,5 +371,5 @@ def password_reset(request, is_admin_site=False,
 
     return TemplateResponse(request, template_name, context)
 
-def loginCliente(request):
-	return render(request, 'login-2.html')
+def tela_inicial(request):
+	return render(request, 'tela_inicial.html')
