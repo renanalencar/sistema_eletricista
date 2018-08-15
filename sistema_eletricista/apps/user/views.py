@@ -302,3 +302,5 @@ def clientes_registrados(request):
 		clientes_js.append(cliente.nome)
 	return render(request, 'clientes_registrados.html', {'clientes_registrados' : clientes_registrados, 'clientes_js' : clientes_js})
 
+def loginCliente(request):
+	return render(request, 'login-2.html')
