@@ -15,8 +15,9 @@ from django.contrib import messages
 
 #Import from apps
 from .forms import RegistrarEletricistaForm
+#from .forms import QuestionarioForm
 from .forms import QuestionarioForm
-from .eletricista.models import Eletricista
+from .eletricista.models import *
 from .cliente.models import Cliente
 from .models import Admin
 from django.contrib.auth.views import *
