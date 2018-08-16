@@ -374,3 +374,7 @@ def password_reset(request, is_admin_site=False,
 
 def tela_inicial(request):
 	return render(request, 'tela_inicial.html')
+
+
+def loginCliente(request):
+	return render(request, 'base_cliente.html')
