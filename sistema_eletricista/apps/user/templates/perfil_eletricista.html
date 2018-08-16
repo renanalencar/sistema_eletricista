@@ -6,8 +6,8 @@
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row profile-page">
-            <div class="col-12">
-              <div class="card">
+            <div class="" style="width: 122%">
+              <div class="card" style="width: 112%">
                 <div class="card-body">
                   <div class="header" style="background-image: url({% static 'radiant/jquery/images/fundo_perfil_eletricista.jpg' %})">
                     <div class="d-flex justify-content-around">
@@ -133,9 +133,9 @@
                               </div>
                             {% else %}
                               {% if eletricista.bloqueado != 'True' %}
-                                <a style="text-align: center; margin-left: 50%" href="/user/adm/bloquear_eletricista/{{eletricista.nickname}}/"><button type="button" class="btn btn-danger btn-lg float-sm-left">Bloquear Eletricista</button></a>
+                                <a style="text-align: center; margin-left: 50%; margin-top: 10%" href="/user/adm/bloquear_eletricista/{{eletricista.nickname}}/"><button type="button" class="btn btn-danger btn-lg float-sm-left">Bloquear Eletricista</button></a>
                               {% else %}
-                                <a style="text-align: center; margin-left: 50%" href="/user/adm/desbloquear_eletricista/{{eletricista.nickname}}/"><button type="button" class="btn btn-success btn-lg float-sm-left">Desbloquear Eletricista</button></a>
+                                <a style="text-align: center; margin-left: 50%; margin-top: 10%" href="/user/adm/desbloquear_eletricista/{{eletricista.nickname}}/"><button type="button" class="btn btn-success btn-lg float-sm-left">Desbloquear Eletricista</button></a>
                               {% endif %}
                             {% endif %}
                           </div>
