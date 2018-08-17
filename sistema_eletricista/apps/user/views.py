@@ -124,7 +124,7 @@ class RegistrarEletricistaView(View):
 				enviar_email('Sistema Eletricista24hrs', 
 				 'Você, ' + dados_form['nome'] + ' foi registrado no nosso sistema, aguarde enquanto validamos seu cadastro',
 				 settings.EMAIL_HOST_USER,
-				 ['pedro.medeiros@polijunior.com.br']
+				 ['joao.meneghini@polijunior.com.br']
 				)
 				
 				return HttpResponseRedirect(reverse('questionario', kwargs={'nome_eletricista': dados_form['nickname']}))
