@@ -1,12 +1,27 @@
-{% extends 'base_adm.html' %}
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
+	  <!-- Required meta tags -->
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	  <title>Eletricista24hrs</title>
+	  <!-- plugins:css -->
+	  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/iconfonts/mdi/css/materialdesignicons.min.css' %}">
+	  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/iconfonts/puse-icons-feather/feather.css' %}">
+	  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/css/vendor.bundle.base.css' %}">
+	  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/css/vendor.bundle.addons.css' %}">
+	  <!-- endinject -->
+	  <!-- plugin css for this page -->
+	  <!-- End plugin css for this page -->
+	  <!-- inject:css -->
+	  <link rel="stylesheet" href="{% static 'radiant/jquery/css/style.css' %}">
+	  <!-- endinject -->
+	  <link rel="shortcut icon" href="{% static 'radiant/jquery/images/logo-personagem.png' %}" />
+</head>
 	<title>Questionario - Sistema Eletricista24hrs</title>
 </head>
 <body>
-	{% block content %}
 		<div class="container-scroller">
     		<div class="container-fluid page-body-wrapper full-page-wrapper">
       			<div class="content-wrapper d-flex align-items-center auth theme-one">
@@ -92,17 +107,18 @@
                         						<button class="file-upload-browse btn btn-info" type="button">Enviar</button>
                       						</span>
                   						</div>
-                					<div class="modal" id="exampleModal-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true" style="display: none;">
+
+                					<!--<div class="modal" id="exampleModal-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true" style="display: none;">
                     					<div class="modal-dialog" role="document">
                     						<div class="modal-content">
 	                        					<div class="modal-header">	
 	                        						<h5 class="modal-title">
-	                        							<p style="font-weight: bolder; font-size: 200%">Parabéns!</p>
+	                        							<p style="font-weight: bolder; font-size: 200%">Parabens!</p>
 	                        						</h5>
 	                        						<button type="button" class="close">
                             							<span aria-hidden="true">×</span>
                           							</button>
-	                        					</div>	
+	                        					</div>
                         						<div class="modal-body">
                           							<p style="font-weight: bolder; font-size: 200%; text-align: justify; text-align: center;"> Você concluiu o cadastro. Agora é aguardar pela avaliação.</p>
                         						</div>
@@ -112,12 +128,13 @@
                       						</div>
                     					</div>
                   					</div>
-                					<div class="form-group" style="margin-top: 10px">
-                  						<button type="button" class="btn btn-success submit-btn btn-block" data-toggle="modal" data-target="#exampleModal-2">Enviar respostas</button>
+                  				-->
+                					<div class="form-group" style="margin-top: 20px">
+                  						<button type="submit" class="btn btn-success submit-btn btn-block" data-toggle="modal" data-target="#exampleModal-2">Enviar respostas</button>
                 						{% if form_questionario.errors %}
-                  							<div class ="alert alert-danger">
+                  							<div class ="alert alert-danger" style="margin-top: 20px">
                     						<button type="button" class="close">&times;</button>
-                    					{{form_questionario.non_field_errors}}
+                    						{{form_questionario.non_field_errors}}
                     					{% endif %}
                 					</div>
 
@@ -129,6 +146,15 @@
 				</div>
 			</div>
 		</div>
-	{% endblock %}
+	  <script src="{% static 'radiant/jquery/vendors/js/vendor.bundle.base.js' %}"></script>
+	  <script src="{% static 'radiant/jquery/vendors/js/vendor.bundle.addons.js' %}"></script>
+	  <!-- endinject -->
+	  <!-- inject:js -->
+	  <script src="{% static 'radiant/jquery/js/off-canvas.js' %}"></script>
+	  <script src="{% static 'radiant/jquery/js/hoverable-collapse.js' %}"></script>
+	  <script src="{% static 'radiant/jquery/js/misc.js' %}"></script>
+	  <script src="{% static 'radiant/jquery/js/settings.js' %}"></script>
+	  <script src="{% static 'radiant/jquery/js/todolist.js' %}"></script>
+	  <script src="{% static 'radiant/jquery/js/file-upload.js' %}"></script>
 </body>
 </html>

@@ -1,4 +1,3 @@
-
 from django.conf.urls import url
 from django.contrib import admin
 from django.conf.urls import include
@@ -11,6 +10,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
 urlpatterns = [
+	url('api/', include('sistema_eletricista.apps.api.urls')),
     url('user/', include('sistema_eletricista.apps.user.urls')),
     url('admin/', admin.site.urls),
 ]

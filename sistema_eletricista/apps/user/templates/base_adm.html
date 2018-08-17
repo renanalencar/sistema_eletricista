@@ -41,52 +41,22 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <a class="dropdown-item py-3">
-                <p class="mb-0 font-weight-medium float-left">You have 4 new notifications
+                <p class="mb-0 font-weight-medium float-left">Você tem novas notificações.
                 </p>
               </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
+              <a class="dropdown-item preview-item" href="{% url 'questionarios_pendentes' %}">
                 <div class="preview-thumbnail">
                   <div class="preview-icon bg-inverse-success">
                     <i class="mdi mdi-alert-circle-outline mx-0"></i>
                   </div>
                 </div>
                 <div class="preview-item-content">
-                  <h6 class="preview-subject font-weight-normal text-dark mb-1">Application Error</h6>
-                  <p class="font-weight-light small-text mb-0">
-                    Just now
-                  </p>
+                  <h6 class="preview-subject font-weight-normal text-dark mb-1">Novo questionário recebido.</h6>
                 </div>
               </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <div class="preview-icon bg-inverse-warning">
-                    <i class="mdi mdi-comment-text-outline mx-0"></i>
-                  </div>
-                </div>
-                <div class="preview-item-content">
-                  <h6 class="preview-subject font-weight-normal text-dark mb-1">Settings</h6>
-                  <p class="font-weight-light small-text mb-0">
-                    Private message
-                  </p>
-                </div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <div class="preview-icon bg-inverse-info">
-                    <i class="mdi mdi-email-outline mx-0"></i>
-                  </div>
-                </div>
-                <div class="preview-item-content">
-                  <h6 class="preview-subject font-weight-normal text-dark mb-1">New user registration</h6>
-                  <p class="font-weight-light small-text mb-0">
-                    2 days ago
-                  </p>
-                </div>
-              </a>
-            </div>
+              
+  
           </li>
           
           <li class="nav-item dropdown d-none d-xl-inline-block">

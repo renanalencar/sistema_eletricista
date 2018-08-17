@@ -41,9 +41,13 @@ INSTALLED_APPS = [
     'sistema_eletricista.apps.user.cliente',
     'sistema_eletricista.apps.user.eletricista',
     'sistema_eletricista.apps.post',
+    'sistema_eletricista.apps.api',
 
     'django.contrib.admin',
     'django.contrib.auth',
+    'rest_framework',
+    'corsheaders'
+
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -56,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'sistema_eletricista.urls'
@@ -145,3 +150,12 @@ EMAIL_HOST_USER = 'eletricista.24hrs2018@gmail.com'
 EMAIL_HOST_PASSWORD = 'eletricista24hrs!'
 
 DEFAULT_FROM_EMAIL = 'Equipe Eletricistas24hs <noreply@eletricistas24hrs.com>'
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = (
+    'localhost:8000',
+)
+CORS_ORIGIN_REGEX_WHITELIST = (
+    'localhost:8000',
+)

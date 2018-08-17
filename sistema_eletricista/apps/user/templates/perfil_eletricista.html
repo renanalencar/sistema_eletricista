@@ -34,9 +34,11 @@
                       <li class="nav-item">
                         <a class="nav-link active" id="user-profile-info-tab" data-toggle="pill" href="#user-profile-info" role="tab" aria-controls="user-profile-info" aria-selected="true">Perfil</a>
                       </li>
-                      <li class="nav-item">
-                        <a class="nav-link" id="user-profile-activity-tab" data-toggle="pill" href="#user-profile-activity" role="tab" aria-controls="user-profile-activity" aria-selected="false">Atividade</a>
-                      </li>
+                      {% if eletricista.status == 'Ativo' %}
+                        <li class="nav-item">
+                          <a class="nav-link" id="user-profile-activity-tab" data-toggle="pill" href="#user-profile-activity" role="tab" aria-controls="user-profile-activity" aria-selected="false">Atividade</a>
+                        </li>
+                      {% endif %}
                     </ul>
                     <div class="row">
                       <div class="col-md-9">

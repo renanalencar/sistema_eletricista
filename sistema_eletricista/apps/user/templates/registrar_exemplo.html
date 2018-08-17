@@ -19,6 +19,8 @@
   <link rel="stylesheet" href="{% static 'radiant/jquery/css/style.css' %}">
   <!-- endinject -->
   <link rel="shortcut icon" href="{% static 'radiant/jquery/images/logo-personagem.png' %}" />
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 </head>
 <!-- http://www.oribatejo.pt/wp-content/uploads/2017/01/eletricidade.jpg -->
 <!--http://www.osul.com.br/wp-content/uploads/2018/03/energia.jpg-->
@@ -188,7 +190,7 @@
                 <div class="form-group d-flex justify-content-center">
                   <div class="form-check form-check-flat mt-0">
                     <label class="form-check-label">
-                      <input type="checkbox" class="form-check-input" checked>
+                      <input type="checkbox" class="form-check-input" unchecked>
                       Eu concordo com o termos
                     </label>
                   </div>
@@ -242,6 +244,11 @@
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
+  <script type="text/javascript">
+    $("#id_CEP").mask("00000-000");
+    $("#id_CPF").mask("000.000.000-00");
+    $("#id_tel").mask("(00) 900000000");
+  </script>
   <script src="{% static 'radiant/jquery/vendors/js/vendor.bundle.base.js' %}"></script>
   <script src="{% static 'radiant/jquery/vendors/js/vendor.bundle.addons.js' %}"></script>
   <!-- endinject -->

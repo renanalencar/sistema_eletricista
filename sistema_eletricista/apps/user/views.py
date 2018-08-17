@@ -124,7 +124,7 @@ class RegistrarEletricistaView(View):
 				enviar_email('Sistema Eletricista24hrs', 
 				 'Você, ' + dados_form['nome'] + ' foi registrado no nosso sistema, aguarde enquanto validamos seu cadastro',
 				 settings.EMAIL_HOST_USER,
-				 ['pedro.medeiros@polijunior.com.br']
+				 ['vinicius.roland@polijunior.com.br']
 				)
 				
 				return HttpResponseRedirect(reverse('questionario', kwargs={'nome_eletricista': dados_form['nickname']}))
@@ -134,7 +134,6 @@ class RegistrarEletricistaView(View):
 					nickname=dados_form['nickname'],
 					email=dados_form['email'],
 					senha=dados_form['senha'],
-					senha_novamente=dados_form['senha_novamente'],
 					telefone=dados_form['telefone'],
 					CEP=dados_form['CEP'],
 					CPF=dados_form['CPF'],
@@ -168,24 +167,26 @@ class QuestionarioView(View):
 		if form_questionario.is_valid():
 			if request.FILES.get('pdf'):
 				pdf_curriculo = request.FILES.get('pdf')
-		else:
-			pdf_curriculo = None
+			else:
+				pdf_curriculo = None
 
-		dados_questionario = form_questionario.data
-		pontuacao = 0
-		if dados_questionario['perguntaA'] == 'Correta':
-			pontuacao = pontuacao + 1
-		if dados_questionario['perguntaB'] == 'Correta':
-			pontuacao = pontuacao + 1
-		if dados_questionario['perguntaC'] == 'Correta':
-			pontuacao = pontuacao + 1
-		if dados_questionario['perguntaD'] == 'Correta':
-			pontuacao = pontuacao + 1
+			dados_questionario = form_questionario.data
+			pontuacao = 0
+			if dados_questionario['perguntaA'] == 'Correta':
+				pontuacao = pontuacao + 1
+			if dados_questionario['perguntaB'] == 'Correta':
+				pontuacao = pontuacao + 1
+			if dados_questionario['perguntaC'] == 'Correta':
+				pontuacao = pontuacao + 1
+			if dados_questionario['perguntaD'] == 'Correta':
+				pontuacao = pontuacao + 1
 		
-		eletricista_avaliado = Eletricista.objects.get(nickname=nome_eletricista)
-		questionario = Questionario.objects.create(eletricista_avaliado=eletricista_avaliado, pontuacao=pontuacao, pdf=pdf_curriculo)
+			eletricista_avaliado = Eletricista.objects.get(nickname=nome_eletricista)
+			questionario = Questionario.objects.create(eletricista_avaliado=eletricista_avaliado, pontuacao=pontuacao, pdf=pdf_curriculo)
 
-		return redirect('/user/login')
+			return redirect('/user/login')
+		else:
+			return render(request, 'questionario.html', {'form_questionario' : form_questionario, 'nome_eletricista' : nome_eletricista})
 
 def adm(request):
 	numero_eletricista = 0
