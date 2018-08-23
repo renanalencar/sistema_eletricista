@@ -3,33 +3,25 @@
 <body>
 {% block content %}
       <!-- partial -->
+      <style>
+        .table.table-borderless td{
+          font-size:130%;
+        }
+        .main-panel{
+          width:100%;
+        }
+
+        div{
+          width:100%;
+        }
+      </style>
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row profile-page">
-            <div class="" style="width: 122%">
-              <div class="card" style="width: 112%">
+          <div class="profile-page">
+            <div>
+              <div class="card" >
                 <div class="card-body">
-                  <div class="header" style="background-image: url({% static 'radiant/jquery/images/fundo_perfil_eletricista.jpg' %})">
-                    <div class="d-flex justify-content-around">
-                      <div class="profile-info d-flex align-items-center">
-                        {% if eletricista.foto %}
-                          <span class="pro-pic"><img src="{{eletricista.foto.url}}" style="height: 120px; width: 120px; border-radius: 90px;" alt="profile image"></span>
-                        {% else %}
-                            <span class="pro-pic"><img src="https://placehold.it/100x100"></span>
-                        {% endif %}
-                        <div class="wrapper pl-4">
-                          <p class="profile-user-name" style="font-size: 30px; color: white"><strong>{{ eletricista.nome }}</strong></p>
-                          <div class="wrapper d-flex align-items-center">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="details">
-                        <div class="detail-col">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="profile-body">
+                  <div class="profile-body" style="padding-top: 0px">
                     <ul class="nav tab-switch" role="tablist">
                       <li class="nav-item">
                         <a class="nav-link active" id="user-profile-info-tab" data-toggle="pill" href="#user-profile-info" role="tab" aria-controls="user-profile-info" aria-selected="true">Perfil</a>
@@ -41,10 +33,15 @@
                       {% endif %}
                     </ul>
                     <div class="row">
-                      <div class="col-md-9">
+                      <div>
                         <div class="tab-content tab-body" id="profile-log-switch">
-                          <div class="tab-pane fade show active pr-3" id="user-profile-info" role="tabpanel" aria-labelledby="user-profile-info-tab">
-                            <table style="font-size: 500%" class="table table-borderless w-100 mt-4">
+                          <div class="tab-pane fade show active pr-3" id="user-profile-info" role="tabpanel" aria-labelledby="user-profile-info-tab" style="display:inline-block;width:100%">
+                            {% if eletricista.foto %}
+                              <img src="{{eletricista.foto.url}}"  alt="profile image">
+                            {% else %}
+                              <img src="https://placehold.it/100x100" style="border-radius: 100%">
+                            {% endif %}
+                            <table class="table table-borderless w-100 mt-4 info-perfil" >
                               <tr>
                                 <td><strong>Nome :</strong> {{eletricista.nome}}</td>
                                 <td><strong>CPF :</strong> {{eletricista.CPF}}</td>
@@ -63,13 +60,13 @@
                                 <td><strong>Género :</strong> {{eletricista.genero}}</td>
                               </tr>
                             </table>
+                          </div>
                             <div class="row">
                               <div class="col-12 mt-5">
                                 <h5 class="mb-5">Currículo</h5>
-                                  <embed src="/media/{{curriculo}}/" width="1000" height="700" type='application/pdf'>
+                                  <embed src="/media/{{curriculo}}/" width=100% height="700" type='application/pdf'>
                               </div>
                             </div>
-                           </div>
                           <div class="tab-pane fade" id="user-profile-activity" role="tabpanel" aria-labelledby="user-profile-activity-tab">
                             <div class="horizontal-timeline">
                               <section class="time-frame">

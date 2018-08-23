@@ -11726,6 +11726,15 @@ input[type="button"].btn-block {
   .alert-teal .alert-link {
     color: #1f4c3a; }
 
+.alert-teal {
+  color: #2e7055;
+  background-color: #def7ed;
+  border-color: #d0f4e5; }
+  .alert-teal hr {
+    border-top-color: #bbefda; }
+  .alert-teal .alert-link {
+    color: #1f4c3a; }
+
 @keyframes progress-bar-stripes {
   from {
     background-position: 1rem 0; }

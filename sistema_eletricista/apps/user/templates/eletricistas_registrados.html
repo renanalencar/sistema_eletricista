@@ -13,7 +13,7 @@
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h5 class="card-title mb-0">Eletricistas Registrados</h5>
+                    <h5 class="card-title mb-0" style="font-size:200%">Eletricistas Registrados</h5>
                   </div>
                   <div class="portlet-body">
                     <form class="search-form" action="{% url 'BuscaEletricista' %}" role="search">
@@ -21,7 +21,7 @@
                         <input id="search" onkeyup="myFunction()" onkeydown="myStopFunction()" type="text" class="form-control" placeholder="Busca" name="buscaEletricista">
                           <span class="input-group-btn">
                         <!-- Essa tag aqui passar para uma views do Search no python -->
-                            <button type="submit" id = "submit" value="Click" class="btn btn-light"><img src="{% static 'radiant/jquery/images/search.png' %}"></button>
+                            <button type="submit" id = "submit" value="Click" class="btn btn-light"><span class="mdi mdi-magnify" ></span></button>
                           </span>
                       </div>
                     </form>

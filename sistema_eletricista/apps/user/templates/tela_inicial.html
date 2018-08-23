@@ -6,7 +6,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Eletricista24hrs</title>
+  <title>Eletricista24hs</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/iconfonts/mdi/css/materialdesignicons.min.css' %}">
   <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/iconfonts/puse-icons-feather/feather.css' %}">
@@ -46,7 +46,7 @@
 
   .ctext {
     color: white;
-    font-size: 150px;
+    font-size: 1000%;
     position: relative;
     top: 50%;
     left: 50%;
@@ -85,19 +85,67 @@
 
   .etext {
     color: white;
-    font-size: 150px;
+    font-size: 1000%;
     position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
   }
+
+    .flutuante {
+      position: absolute; 
+      z-index: 50;
+      width: 100%; 
+    }
+
+    .flutuante1{
+      left:23.5%;
+      top: 15%; 
+      color: white; 
+      font-weight: bold; 
+      font-size: 250%;     
+      -webkit-text-stroke-width: 0.8px; 
+      -webkit-text-stroke-color: #000;
+    }
+
+    .flutuante2{
+      top: 25%; 
+      color: white; 
+      font-weight: bold; 
+      font-size: 250%; 
+      -webkit-text-stroke-width: 0.5px; 
+      -webkit-text-stroke-color: #000;
+    }
+  
+    .alert-neutral {
+    background-color: rgba(153, 153, 153, 0.2);
+    border-color: transparent; }
+    
+    .p-alert{
+      color: white;
+      font-size: 100%;
+    }
+
+    .trapezoid {
+    background-color: black;
+    border-top: 5em solid #555;
+    border-left: 2.5em solid transparent;
+    border-right: 2.5em solid transparent;
+    width: 50%;
+    left:25%;
+    }
+
+    .trapezio{
+      border-left: 2.5em solid transparent;
+    border-right: 2.5em solid transparent;
+    }
   </style>
 </head>
 <body style="height:100%">
   <div style="height:100%; width:100%; position: relative;">
-    <div style="position: absolute; z-index: 100; left: 23%; top: 15%; color: white; font-weight: bold; font-size: 45px;     -webkit-text-stroke-width: 0.8px; -webkit-text-stroke-color: #000">Seja Bem Vindo ao Eletricistas 24h</div>
-    <div style="position: absolute; z-index: 100; left: 24.5%; top: 25%; color: white; font-weight: bold; font-size: 30px; -webkit-text-stroke-width: 0.5px; -webkit-text-stroke-color: #000">Escolha como quer fazer parte do nosso sistema!</div>
+    <div class="flutuante flutuante1">Bem Vindo ao Eletricistas 24h</div>
+    <div class="flutuante alert alert-primary trapezio">Como quer fazer parte do nosso sistema?</div>
     <div class="ccontainer" style="width:50%;margin-bottom:0px;float: left; overflow: hidden;">
       <a href="/user/login/">
       <img src="{% static 'radiant/jquery/images/cliente1.1.jpg' %}" class="image">

@@ -1,0 +1,21 @@
+  	.q_pergunta{
+  	text-align: justify;
+  	font-size: 170%;
+  	}
+
+  	.select-group select{
+  		height: 50px !important;
+  		font-size: 150% !important;
+  	}
+
+  	.form-group p{
+ 		padding-bottom: .1%;
+  	}
+
+    .page-footer{
+      position: relative;
+      bottom: : 0px;
+      right: 0px;
+    }
+
+    
