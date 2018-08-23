@@ -97,25 +97,10 @@
       position: absolute; 
       z-index: 50;
       width: 100%; 
-    }
-
-    .flutuante1{
-      left:23.5%;
-      top: 15%; 
-      color: white; 
-      font-weight: bold; 
-      font-size: 250%;     
-      -webkit-text-stroke-width: 0.8px; 
-      -webkit-text-stroke-color: #000;
-    }
-
-    .flutuante2{
-      top: 25%; 
-      color: white; 
-      font-weight: bold; 
-      font-size: 250%; 
-      -webkit-text-stroke-width: 0.5px; 
-      -webkit-text-stroke-color: #000;
+      font-size: 180%;
+      text-align: center;
+      font-weight: bold;
+      color: black;
     }
   
     .alert-neutral {
@@ -127,25 +112,11 @@
       font-size: 100%;
     }
 
-    .trapezoid {
-    background-color: black;
-    border-top: 5em solid #555;
-    border-left: 2.5em solid transparent;
-    border-right: 2.5em solid transparent;
-    width: 50%;
-    left:25%;
-    }
-
-    .trapezio{
-      border-left: 2.5em solid transparent;
-    border-right: 2.5em solid transparent;
-    }
   </style>
 </head>
 <body style="height:100%">
   <div style="height:100%; width:100%; position: relative;">
-    <div class="flutuante flutuante1">Bem Vindo ao Eletricistas 24h</div>
-    <div class="flutuante alert alert-primary trapezio">Como quer fazer parte do nosso sistema?</div>
+    <div class="flutuante alert alert-secondary">Bem Vindo ao Eletricistas 24h. Como quer fazer parte do nosso sistema?</div>
     <div class="ccontainer" style="width:50%;margin-bottom:0px;float: left; overflow: hidden;">
       <a href="/user/login/">
       <img src="{% static 'radiant/jquery/images/cliente1.1.jpg' %}" class="image">

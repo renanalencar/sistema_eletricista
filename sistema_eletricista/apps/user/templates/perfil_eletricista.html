@@ -37,9 +37,9 @@
                         <div class="tab-content tab-body" id="profile-log-switch">
                           <div class="tab-pane fade show active pr-3" id="user-profile-info" role="tabpanel" aria-labelledby="user-profile-info-tab" style="display:inline-block;width:100%">
                             {% if eletricista.foto %}
-                              <img src="{{eletricista.foto.url}}"  alt="profile image">
+                              <img src="{{eletricista.foto.url}}"  alt="profile image" style="border-radius: 100%; width: 100px; height: 100px">
                             {% else %}
-                              <img src="https://placehold.it/100x100" style="border-radius: 100%">
+                              <img src="https://placehold.it/100x100" style="border-radius: 100%; width: 100px; height: 100px">
                             {% endif %}
                             <table class="table table-borderless w-100 mt-4 info-perfil" >
                               <tr>

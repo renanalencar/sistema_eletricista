@@ -1,21 +1,26 @@
-  	.q_pergunta{
+.q_pergunta{
   	text-align: justify;
   	font-size: 170%;
   	}
 
   	.select-group select{
-  		height: 50px !important;
-  		font-size: 150% !important;
+  		width: 100% !important;
+      height: auto !important;
+  		font-size: 140% !important;
   	}
 
   	.form-group p{
  		padding-bottom: .1%;
+    font-size: 140%;
   	}
 
+    .form-group option{
+    width: 100%;
+    height:auto;
+    }
+
     .page-footer{
-      position: relative;
+      position: absolute;
       bottom: : 0px;
       right: 0px;
     }
-
-    
