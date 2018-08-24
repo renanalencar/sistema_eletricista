@@ -20,3 +20,7 @@ class UsuarioSerializer(serializers.ModelSerializer):
 		model = User
 		fields = '__all__'
 
+class JwtUsuarioSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = User
+		field = '__all__'

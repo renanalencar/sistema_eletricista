@@ -32,15 +32,15 @@
                       {% for eletricista in eletricistas_registrados %}
                         
                         <li class="chat-persons">
-                          <a href="/user/adm/perfil_eletricista/{{eletricista.nickname}}/">
+                          <a href="/user/adm/perfil_eletricista/{{eletricista.usuario.username}}/">
                             {% if eletricista.foto %}
                               <span class="pro-pic"><img src="{{eletricista.foto.url}}"></span>
                             {% else %}
                               <span class="pro-pic"><img src="https://placehold.it/100x100"></span>
                             {% endif %}
                             <div class="user">
-                              <p class="u-name">{{eletricista.nome}}</p>
-                              <p class="u-designation" style="font-size: 15px">Email: <strong>{{eletricista.email}}</strong></p>
+                              <p class="u-name">{{eletricista.usuario.first_name}}</p>
+                              <p class="u-designation" style="font-size: 15px">Email: <strong>{{eletricista.usuario.email}}</strong></p>
                             </div>
                             {% if eletricista.bloqueado == 'False' %}
                               <button type="button" style="margin-left: 95px; padding-left: 20px; padding-right: 18px;" disabled class="btn btn-success btn-sm float-sm-left">Ativo</button>
@@ -88,8 +88,8 @@
   var lista_foto_url = [];
   var lista = {{eletricistas_js|safe}}
   {% for i in eletricistas_registrados %}
-    lista_nicknames.push('{{i.nickname}}');
-    lista_email.push('{{i.email}}');
+    lista_nicknames.push('{{i.usuario.username}}');
+    lista_email.push('{{i.usuario.email}}');
     {% if i.foto %}
       lista_foto_url.push('{{i.foto.url}}');
     {% else %}

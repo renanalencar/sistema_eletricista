@@ -33,7 +33,6 @@ class RegistrarEletricistaForm(forms.Form):
 		if cpf_exists:
 			self.adiciona_erro('CPF em uso, tente outro.')
 			valid = False
-		return valid
 
 
 		user_exists = User.objects.filter(username=self.data['nickname']).exists()
@@ -61,8 +60,9 @@ class QuestionarioForm(forms.Form):
 	def is_valid(self):
 		valid = True
 		if not super(QuestionarioForm, self).is_valid():
-			self.adiciona_erro('Por favor responda todas as perguntas!')
+			self.adiciona_erro('Por favor, preencha todo o questionário e envie seu currículo!')
 			valid = False
+
 		return valid
 
 	def adiciona_erro(self, message):

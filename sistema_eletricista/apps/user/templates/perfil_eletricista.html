@@ -3,14 +3,17 @@
 <body>
 {% block content %}
       <!-- partial -->
-      <style>
-        .table.table-borderless td{
+      <!-- .table.table-borderless td{
           font-size:130%;
         }
         .main-panel{
           width:100%;
         }
-
+      -->
+      <style>
+        .table.table-borderless td{
+          font-size:130%;
+        }
         div{
           width:100%;
         }
@@ -18,8 +21,8 @@
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="profile-page">
-            <div>
-              <div class="card" >
+            <div class="" style="width: 120%">
+              <div class="card" style="width: 116%">
                 <div class="card-body">
                   <div class="profile-body" style="padding-top: 0px">
                     <ul class="nav tab-switch" role="tablist">
@@ -43,7 +46,7 @@
                             {% endif %}
                             <table class="table table-borderless w-100 mt-4 info-perfil" >
                               <tr>
-                                <td><strong>Nome :</strong> {{eletricista.nome}}</td>
+                                <td><strong>Nome :</strong> {{eletricista.usuario.first_name}}</td>
                                 <td><strong>CPF :</strong> {{eletricista.CPF}}</td>
                                 <td><strong>Currículo :</strong> <a href="/media/{{curriculo}}/"> {{questionario.pdf.name}}</a></td>
                               </tr>
@@ -53,7 +56,7 @@
                               </tr>
                               <tr>
                                 <td><strong>Telefone :</strong> {{eletricista.telefone}}</td>
-                                <td><strong>Email :</strong> {{eletricista.email}}</td>
+                                <td><strong>Email :</strong> {{eletricista.usuario.email}}</td>
                               </tr>
                               <tr>
                                 <td><strong>Pontuação :</strong> {{questionario.pontuacao}}</td>
@@ -127,14 +130,14 @@
                           <div class="row">
                             {% if eletricista.status == 'Inativo' %}
                               <div class="col-lg-12 mt-5" style="text-align: center">
-                                <a href="/user/adm/aceitar/{{eletricista.nickname}}/"><button style="position: relative; margin-left: 25%" type="button" id="2" class="btn btn-success btn-lg float-sm-left">Aceitar Eletricista</button></a>
-                                <a href="/user/adm/recusar/{{eletricista.nickname}}/"><button type="button" id="1" class="btn btn-danger btn-lg float-sm-left" style="margin-left: 5%; position: absolute;">Recusar Eletricista</button></a>
+                                <a href="/user/adm/aceitar/{{eletricista.usuario.username}}/"><button style="position: relative; margin-left: 25%" type="button" id="2" class="btn btn-success btn-lg float-sm-left">Aceitar Eletricista</button></a>
+                                <a href="/user/adm/recusar/{{eletricista.usuario.username}}/"><button type="button" id="1" class="btn btn-danger btn-lg float-sm-left" style="margin-left: 5%; position: absolute;">Recusar Eletricista</button></a>
                               </div>
                             {% else %}
                               {% if eletricista.bloqueado != 'True' %}
-                                <a style="text-align: center; margin-left: 50%; margin-top: 10%" href="/user/adm/bloquear_eletricista/{{eletricista.nickname}}/"><button type="button" class="btn btn-danger btn-lg float-sm-left">Bloquear Eletricista</button></a>
+                                <a style="text-align: center; margin-left: 50%; margin-top: 10%" href="/user/adm/bloquear_eletricista/{{eletricista.usuario.username}}/"><button type="button" class="btn btn-danger btn-lg float-sm-left">Bloquear Eletricista</button></a>
                               {% else %}
-                                <a style="text-align: center; margin-left: 50%; margin-top: 10%" href="/user/adm/desbloquear_eletricista/{{eletricista.nickname}}/"><button type="button" class="btn btn-success btn-lg float-sm-left">Desbloquear Eletricista</button></a>
+                                <a style="text-align: center; margin-left: 50%; margin-top: 10%" href="/user/adm/desbloquear_eletricista/{{eletricista.usuario.username}}/"><button type="button" class="btn btn-success btn-lg float-sm-left">Desbloquear Eletricista</button></a>
                               {% endif %}
                             {% endif %}
                           </div>

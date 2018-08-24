@@ -3,6 +3,14 @@
 <body>
 {% block content %}
       <!-- partial -->
+      <style>
+        .table.table-borderless td{
+          font-size:130%;
+        }
+        div{
+          width:100%;
+        }
+      </style>
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row profile-page">
@@ -42,9 +50,9 @@
                       <div class="col-md-9">
                         <div class="tab-content tab-body" id="profile-log-switch">
                           <div class="tab-pane fade show active pr-3" id="user-profile-info" role="tabpanel" aria-labelledby="user-profile-info-tab">
-                            <table style="font-size: 500%" class="table table-borderless w-100 mt-4">
+                            <table style="" class="table table-borderless w-100 mt-4">
                               <tr>
-                                <td><strong>Nome :</strong> {{cliente.nome}}</td>
+                                <td><strong>Nome :</strong> {{cliente.usuario.first_name}}</td>
                                 <td><strong>CPF :</strong> {{cliente.CPF}}</td>
                                 
                               </tr>
@@ -54,7 +62,7 @@
                               </tr>
                               <tr>
                                 <td><strong>Telefone :</strong> {{cliente.telefone}}</td>
-                                <td><strong>Email :</strong> {{cliente.email}}</td>
+                                <td><strong>Email :</strong> {{cliente.usuario.email}}</td>
                               </tr>
                               <tr>
                                 <td><strong>Género :</strong> {{cliente.genero}}</td>

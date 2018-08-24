@@ -183,4 +183,5 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_ALLOW_REFRESH': True,
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+    'JWT_RESPONSE_PAYLOAD_HANDLE': 'sistema_eletricista.apps.api.models.jwt_response_payload_handle'
 }
