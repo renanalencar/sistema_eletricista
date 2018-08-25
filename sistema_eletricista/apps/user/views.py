@@ -167,13 +167,13 @@ class QuestionarioView(View):
 
 			dados_questionario = form_questionario.data
 			pontuacao = 0
-			if dados_questionario['perguntaA'] == 'Correta':
+			if dados_questionario['perguntaA'] == 'x':
 				pontuacao = pontuacao + 1
-			if dados_questionario['perguntaB'] == 'Correta':
+			if dados_questionario['perguntaB'] == 'x':
 				pontuacao = pontuacao + 1
-			if dados_questionario['perguntaC'] == 'Correta':
+			if dados_questionario['perguntaC'] == 'x':
 				pontuacao = pontuacao + 1
-			if dados_questionario['perguntaD'] == 'Correta':
+			if dados_questionario['perguntaD'] == 'x':
 				pontuacao = pontuacao + 1
 			print ('olá-1')
 			usuario_em_questao = User.objects.get(username=nome_eletricista)

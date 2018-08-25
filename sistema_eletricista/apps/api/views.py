@@ -20,14 +20,7 @@ class ClienteViewSet(viewsets.ModelViewSet):
 	queryset = Cliente.objects.all()
 	serializer_class = ClienteSerializer
 
-	#@list_route(methods = ['get'])
-	#def gatos(self, request):
-	#	gatos = Perfil.objects.filter(tipo='Gato')
-	#	gatos_json = RegistroSerializer(gatos, many=True)
-	#	return Response(gatos_json.data)
+class QuestionarioViewSet(viewsets.ModelViewSet):
+	queryset = Questionario.objects.all()
+	serializer_class = QuestionarioSerializer
 
-	#@list_route(methods=['get'])
-	#def caes(self, request):
-	#	caes = Perfil.objects.filter(tipo='Cachorro')
-	#	caes_json = RegistroSerializer(caes, many='True')
-	#	return Response(gatos_json.data)

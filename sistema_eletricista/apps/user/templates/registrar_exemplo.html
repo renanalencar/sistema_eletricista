@@ -39,7 +39,7 @@
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Digite seu nome" id="id_nome" name="nome" required>
                     <div class="input-group-append">
-                      <span class="input-group-text"><i class="mdi mdi-check-circle-outline"></i></span>
+                      <span class="input-group-text"><i id="i-nome" class="mdi mdi-check-circle-outline"></i></span>
                     </div>
                   </div>
                 </div>
@@ -47,7 +47,7 @@
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Digite seu nome de usuario" id="id_nickname" name="nickname" required>
                     <div class="input-group-append">
-                      <span class="input-group-text"><i class="mdi mdi-check-circle-outline"></i></span>
+                      <span class="input-group-text"><i id="i-nickname" class="mdi mdi-check-circle-outline"></i></span>
                     </div>
                   </div>
                 </div>
@@ -55,7 +55,7 @@
                   <div class="input-group">
                     <input type="password" class="form-control" placeholder="Digite sua senha" id="id_senha" name="senha" required>
                     <div class="input-group-append">
-                      <span class="input-group-text"><i class="mdi mdi-checkbox-marked-circle" style="color: green"></i></span>
+                      <span class="input-group-text"><i id="i-senha" class="mdi mdi-check-circle-outline" style=""></i></span>
                     </div>
                   </div>
                 </div>
@@ -63,7 +63,7 @@
                   <div class="input-group">
                     <input type="password" class="form-control" placeholder="Digite sua senha novamente" id="id_senha_novamente" name="senha_novamente" required>
                     <div class="input-group-append">
-                      <span class="input-group-text"><i class="mdi mdi-check-circle-outline"></i></span>
+                      <span class="input-group-text"><i id="i-senha_novamente" class="mdi mdi-check-circle-outline"></i></span>
                     </div>
                   </div>
                 </div>
@@ -71,7 +71,7 @@
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Digite seu e-mail" id="id_email" name="email" required>
                     <div class="input-group-append">
-                      <span class="input-group-text"><i class="mdi mdi-check-circle-outline"></i></span>
+                      <span class="input-group-text"><i id="i-email" class="mdi mdi-check-circle-outline"></i></span>
                     </div>
                   </div>
                 </div>
@@ -79,7 +79,7 @@
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Digite seu telefone" id="id_tel" name="telefone" required>
                     <div class="input-group-append">
-                      <span class="input-group-text"><i class="mdi mdi-check-circle-outline"></i></span>
+                      <span class="input-group-text"><i id="i-tel" class="mdi mdi-check-circle-outline"></i></span>
                     </div>
                   </div>
                 </div>
@@ -87,7 +87,7 @@
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Digite seu CEP" id="id_CEP" name="CEP" required>
                     <div class="input-group-append">
-                      <span class="input-group-text"><i class="mdi mdi-check-circle-outline"></i></span>
+                      <span class="input-group-text"><i id="i-CEP"class="mdi mdi-check-circle-outline"></i></span>
                     </div>
                   </div>
                 </div>
@@ -95,7 +95,7 @@
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Digite seu CPF" id="id_CPF" name="CPF" required>
                     <div class="input-group-append">
-                      <span class="input-group-text"><i class="mdi mdi-check-circle-outline"></i></span>
+                      <span class="input-group-text"><i id="i-CPF" class="mdi mdi-check-circle-outline"></i></span>
                     </div>
                   </div>
                 </div>
@@ -103,7 +103,7 @@
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Digite seu endereço" id="id_endereco" name="endereco" required>
                     <div class="input-group-append">
-                      <span class="input-group-text"><i class="mdi mdi-check-circle-outline"></i></span>
+                      <span class="input-group-text"><i id="i-endereco" class="mdi mdi-check-circle-outline"></i></span>
                     </div>
                   </div>
                 </div>
@@ -227,7 +227,7 @@
                 {% endif %}
 
                 <div class="form-group">
-                  <button class="btn btn-success submit-btn btn-block">Cadastrar</button>
+                  <button id="cadastrar" class="btn btn-success submit-btn btn-block" disabled>Cadastrar</button>
                 </div>
                 <div class="text-block text-center my-3">
                   <span class="text-small font-weight-semibold">Ja possui uma conta?</span>
@@ -248,6 +248,58 @@
     $("#id_CEP").mask("00000-000");
     $("#id_CPF").mask("000.000.000-00");
     $("#id_tel").mask("(00) 900000000");
+    checked('nome');
+    checked('nickname');
+    checked('senha');
+    checked('senha_novamente');
+    checked('email');
+    checked('CPF');
+    checked('tel');
+    checked('CEP');
+    checked('endereco');
+
+    var bool = document.getElementsByClassName('mdi mdi-check-circle-outline');
+    if (bool == null){
+      alert('olá');
+    }
+
+
+    function checked(x){
+      var input = document.getElementById('id_' + x);
+      input.addEventListener('keyup', function(){
+        var bool = document.getElementsByClassName('mdi mdi-check-circle-outline');
+        var botao = document.getElementById('cadastrar');
+        var tamanho = 4;
+        if (x == 'CEP') {
+          tamanho = 8;
+        }
+        if (x == 'CPF') {
+          tamanho = 13;
+        }
+        if (x == 'tel') {
+          tamanho = 12;
+        }
+        if (input.value.length > tamanho){
+          let i = document.getElementById('i-' + x);
+          i.style.color = 'green';
+          i.className = 'mdi mdi-checkbox-marked-circle';
+        }
+        if (input.value.length < tamanho) {
+          let i = document.getElementById('i-' + x);
+          i.style.color = '';
+          i.className = 'mdi mdi-check-circle-outline';
+        }
+        console.log(bool.length, botao.disabled);
+        if (bool.length == 0){
+          botao.disabled = false;
+        }
+        if(bool.length > 0) {
+          console.log('chegueiaqui');
+          botao.disabled = true;
+        }
+      })
+    }
+
   </script>
   <script src="{% static 'radiant/jquery/vendors/js/vendor.bundle.base.js' %}"></script>
   <script src="{% static 'radiant/jquery/vendors/js/vendor.bundle.addons.js' %}"></script>
