@@ -37,4 +37,6 @@ urlpatterns = [
     url(r'^buscar-eletricista/$', views.BuscaEletricista, name='BuscaEletricista'),
    	url(r'^adm/clientes_registrados/$', views.clientes_registrados, name='clientes_registrados'),
    	url(r'^buscar-cliente/$', views.BuscaCliente, name='BuscaCliente'),
+   	url(r'^registrar_cliente/$', RegistrarEletricistaView.as_view(), name='registrar_cliente'),
+   	url(r'^registrar_eletricista/$', RegistrarEletricistaView.as_view(), name='registrar_eletricista')
 ]

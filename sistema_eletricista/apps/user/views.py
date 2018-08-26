@@ -75,10 +75,10 @@ def BuscaEletricista(request):
 
 
 def BuscaCliente(request):
-    q1 = request.GET.get('buscaCliente')
-    if q1 is not None:
-        resultCliente = Cliente.objects.BuscarCliente(q1)
-    return render(request, 'busca_cliente.html', {'resultCliente': resultCliente})
+	q1 = request.GET.get('buscaCliente')
+	if q1 is not None:
+		resultCliente = Cliente.objects.BuscarCliente(q1)
+	return render(request, 'busca_cliente.html', {'resultCliente': resultCliente})
 
 
 
@@ -381,3 +381,5 @@ def tela_inicial(request):
 
 def loginCliente(request):
 	return render(request, 'base_cliente.html')
+
+

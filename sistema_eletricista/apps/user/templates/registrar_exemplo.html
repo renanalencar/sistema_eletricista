@@ -133,9 +133,9 @@
                 <div class="form-group">
                   <div class="select-group">
                     <select type="option" class="form-control" id="id_tipo" name="tipo" required>
-                      <option disabled selected>Cliente ou Eletricista?</option>
-                      <option value="Eletricista">Eletricista</option>
-                      <option value="Cliente">Cliente</option>
+                      <option id="placeholder" disabled selected>Cliente ou Eletricista?</option>
+                      <option id="eletricista" value="Eletricista">Eletricista</option>
+                      <option id="cliente" value="Cliente">Cliente</option>
                     </select>
                   </div>
                 </div>
@@ -259,6 +259,20 @@
   <!-- container-scroller -->
   <!-- plugins:js -->
   <script type="text/javascript">
+    var url = window.location.pathname;
+    console.log(window.location.pathname);
+    if (url == '/user/registrar_eletricista/'){
+      var placeholder = document.getElementById("placeholder");
+      placeholder.selected = false; 
+      var eletricista = document.getElementById("eletricista");
+      eletricista.selected = true;
+    }
+    if (url == '/user/registrar_cliente/'){
+      var placeholder = document.getElementById("placeholder");
+      placeholder.selected = false;
+      var cliente = document.getElementById("cliente");
+      cliente.selected = true;
+    }
     $("#id_CEP").mask("00000-000");
     $("#id_CPF").mask("000.000.000-00");
     $("#id_tel").mask("(00) 900000000");
