@@ -31,21 +31,16 @@
                       {% for cliente in clientes_registrados %}
                         
                         <li class="chat-persons">
-                          <a href="/user/adm/perfil_cliente/{{cliente.nickname}}/">
+                          <a href="/user/adm/perfil_cliente/{{cliente.usuario.username}}/">
                             {% if cliente.foto %}
                               <span class="pro-pic"><img src="{{cliente.foto.url}}"></span>
                             {% else %}
                               <span class="pro-pic"><img src="https://placehold.it/100x100"></span>
                             {% endif %}
                             <div class="user">
-                              <p class="u-name">{{cliente.nome}}</p>
-                              <p class="u-designation" style="font-size: 15px">Email: <strong>{{cliente.email}}</strong></p>
+                              <p class="u-name">{{cliente.usuario.first_name}}</p>
+                              <p class="u-designation" style="font-size: 15px">Email: <strong>{{cliente.usuario.email}}</strong></p>
                             </div>
-                            {% if cliente.status == 'ativado' %}
-                              <button type="button" style="margin-left: 95px; padding-left: 20px; padding-right: 18px;" disabled class="btn btn-success btn-sm float-sm-left">Ativo</button>
-                            {% else %}
-                              <button type="button" style="margin-left: 95px" disabled class="btn btn-danger btn-sm float-sm-left">Inativo</button>
-                            {% endif %}
                           </a>
                         </li>
                       {% endfor %}
@@ -66,8 +61,8 @@
   var lista_foto_url = [];
   var lista = {{clientes_js|safe}}
   {% for i in clientes_registrados %}
-    lista_nicknames.push('{{i.nickname}}');
-    lista_email.push('{{i.email}}');
+    lista_nicknames.push('{{i.usuario.username}}');
+    lista_email.push('{{i.usuario.email}}');
     {% if i.foto %}
       lista_foto_url.push('{{i.foto.url}}');
     {% else %}

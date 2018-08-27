@@ -1,112 +1,41 @@
-{% extends 'base_adm.html' %}
 {% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Cadastre-se - Eletricista24hs</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/iconfonts/mdi/css/materialdesignicons.min.css' %}">
+  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/iconfonts/puse-icons-feather/feather.css' %}">
+  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/css/vendor.bundle.base.css' %}">
+  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/css/vendor.bundle.addons.css' %}">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{% static 'radiant/jquery/css/style.css' %}">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="{% static 'radiant/jquery/images/logo-personagem.png' %}" />
+</head>
+<!-- http://www.oribatejo.pt/wp-content/uploads/2017/01/eletricidade.jpg -->
+<!--http://www.osul.com.br/wp-content/uploads/2018/03/energia.jpg-->
 <body>
-{% block content %}
-      <!-- partial -->
-      <div class="main-panel">
-        <div class="content-wrapper">
-          <div class="row">
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-              <div class="card card-statistics">
-                <div class="card-body">
-                  <div class="d-flex align-items-center justify-content-center">
-                    <div class="highlight-icon bg-light mr-3">
-                      <i class="mdi mdi-cube text-success icon-lg"></i>
-                    </div>
-                    <div class="wrapper">
-                      <p class="card-text mb-0">Receita</p>
-                      <div class="fluid-container">
-                        <h3 class="card-title mb-0">$65,650</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-              <div class="card card-statistics">
-                <div class="card-body">
-                  <div class="d-flex align-items-center justify-content-center">
-                    <div class="highlight-icon bg-light mr-3">
-                      <i class="mdi mdi-briefcase-check text-primary icon-lg"></i>
-                    </div>
-                    <div class="wrapper">
-                      <p class="card-text mb-0">Serviços</p>
-                      <div class="fluid-container">
-                        <h3 class="card-title mb-0">$45,650</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-              <div class="card card-statistics">
-                <div class="card-body">
-                  <div class="d-flex align-items-center justify-content-center">
-                    <div class="highlight-icon bg-light mr-3">
-                      <i class="mdi mdi-account-multiple text-danger icon-lg"></i>
-                    </div>
-                    <div class="wrapper">
-                      <p class="card-text mb-0">Retorno</p>
-                      <div class="fluid-container">
-                        <h3 class="card-title mb-0">$12,357</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-              <div class="card card-statistics">
-                <div class="card-body">
-                  <div class="d-flex align-items-center justify-content-center">
-                    <div class="highlight-icon bg-light mr-3">
-                      <i class="mdi mdi-airballoon text-info icon-lg"></i>
-                    </div>
-                    <div class="wrapper">
-                      <p class="card-text mb-0">Vendas</p>
-                      <div class="fluid-container">
-                        <h3 class="card-title mb-0">$45,650</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <!-- INSERIR TABELA AQUI -->
-            </div>
-          <div class="col-md-4 grid-margin stretch-card">
-              <!-- INSERIR TABELA AQUI -->
-          </div>
-          <div class="row">
-          <!-- INSERIR TABELA AQUI -->
-            
-          </div>
-          <div class="">
-            <div class="col-md-10 stretch-card">
-              <div class="card">
-                  <!-- INSERIR TTABELA AQUI -->
-                  </div>
-                </div>
-              </div>
-            </div>
-          <div class="col-md-7 grid-margin stretch-card" style="margin-left: 40%; ">
-            <form class="form-signin" actions="{% url 'registrar' %}" method="post" enctype="multipart/form-data">
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <img src="/static/radiant/jquery/images/torre_eletricidade.png" style="z-index: 0; position: absolute; height: 142%; width: 100%;">
+      <div class="content-wrapper d-flex align-items-center auth theme-one">
+        <div class="row w-100">
+          <div class="col-lg-4 mx-auto">
+            <div class="auto-form-wrapper">
+              <img src="{% static 'radiant/jquery/images/logo-personagem.png' %}" style="padding-left: 120px; padding-bottom: 40px" >
+              <form class="form-signin" actions="{% url 'registrar' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Digite seu nome" id="id_nome" name="nome" required>
-                    <div class="input-group-append">
-                      <span class="input-group-text"><i class="mdi mdi-check-circle-outline"></i></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Digite seu nome de usuario" id="id_nickname" name="nickname" required>
+                    <input type="text" class="form-control" placeholder="Digite seu usuario" id="id_nome" name="nome" required>
                     <div class="input-group-append">
                       <span class="input-group-text"><i class="mdi mdi-check-circle-outline"></i></span>
                     </div>
@@ -122,7 +51,7 @@
                 </div>
                 <div class="form-group">
                   <div class="input-group">
-                    <input type="password" class="form-control" placeholder="Digite sua senha novamente" id="id_senha_novamente" name="senha_novamente" required>
+                    <input type="text" class="form-control" placeholder="Digite seu e-mail" id="id_email" name="email" required>
                     <div class="input-group-append">
                       <span class="input-group-text"><i class="mdi mdi-check-circle-outline"></i></span>
                     </div>
@@ -130,10 +59,69 @@
                 </div>
                 <div class="form-group">
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Digite seu e-mail" id="id_email" name="email" required>
+                    <input type="text" class="form-control" placeholder="Digite seu telefone" id="id_tel" name="telefone" required>
                     <div class="input-group-append">
                       <span class="input-group-text"><i class="mdi mdi-check-circle-outline"></i></span>
                     </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Digite seu CEP" id="id_CEP" name="CEP" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i class="mdi mdi-check-circle-outline"></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Digite seu CPF" id="id_CPF" name="CPF" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i class="mdi mdi-check-circle-outline"></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Digite seu endereço" id="id_endereco" name="endereco" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i class="mdi mdi-check-circle-outline"></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="select-group">
+                    <select type="option" class="form-control" id="id_genero" name="genero" required>
+                      <option disabled selected>Escolha seu gênero</option>
+                      <option value="Masculino">Masculino</option>
+                      <option value="Feminino">Feminino</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="select-group">
+                    <select type="option" class="form-control" id="id_tipo" name="tipo" required>
+                      <option disabled selected>Cliente ou Eletricista?</option>
+                      <option value="Eletricista">Eletricista</option>
+                      <option value="Cliente">Cliente</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="file" name="foto" id="id_foto" class="file-upload-default">
+                  <div class="input-group col-xs-12">
+                    <input type="text" class="form-control file-upload-info" disabled placeholder="Envie sua foto">
+                      <span class="input-group-append">
+                        <button class="file-upload-browse btn btn-info" type="button">Enviar</button>
+                      </span>
+                  </div>
+                </div>
+                <div class="form-group d-flex justify-content-center">
+                  <div class="form-check form-check-flat mt-0">
+                    <label class="form-check-label">
+                      <input type="checkbox" class="form-check-input" checked>
+                      Eu concordo com o termos
+                    </label>
                   </div>
                 </div>
                 {% if form.errors %}
@@ -171,25 +159,32 @@
                   <button class="btn btn-success submit-btn btn-block">Cadastrar</button>
                 </div>
                 <div class="text-block text-center my-3">
-              </form>                
+                  <span class="text-small font-weight-semibold">Ja possui uma conta?</span>
+                  <a href="{% url 'login' %}" class="text-black text-small">Login</a>
+                </div>
+              </form>
+            </div>
           </div>
-          <div class="row">
-            <!-- INSERIR TTABELA AQUI -->
-          </div>
-          <div class="row">
-            <!-- INSERIR TTABELA AQUI -->
-          </div>
-          <div class="row">
-            <!-- INSERIR TTABELA AQUI -->
-          </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-        <!-- partial -->
+        </div>
       </div>
-      <!-- main-panel ends -->
+      <!-- content-wrapper ends -->
     </div>
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-{% endblock %}
+  <!-- plugins:js -->
+  <script src="{% static 'radiant/jquery/vendors/js/vendor.bundle.base.js' %}"></script>
+  <script src="{% static 'radiant/jquery/vendors/js/vendor.bundle.addons.js' %}"></script>
+  <!-- endinject -->
+  <!-- inject:js -->
+  <script src="{% static 'radiant/jquery/js/off-canvas.js' %}"></script>
+  <script src="{% static 'radiant/jquery/js/hoverable-collapse.js' %}"></script>
+  <script src="{% static 'radiant/jquery/js/misc.js' %}"></script>
+  <script src="{% static 'radiant/jquery/js/settings.js' %}"></script>
+  <script src="{% static 'radiant/jquery/js/todolist.js' %}"></script>
+  <script src="{% static 'radiant/jquery/js/file-upload.js' %}"></script>
+  <!-- endinject -->
 </body>
+
+</html>
+

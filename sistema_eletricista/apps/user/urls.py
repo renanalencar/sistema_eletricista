@@ -12,7 +12,7 @@ from sistema_eletricista.apps.user.eletricista.views import *
 
 
 urlpatterns = [
-	url(r'^index/$', views.index, name='loginCliente'),
+	url(r'^index/$', views.loginCliente, name='loginCliente'),
 	url(r'^admin/', admin.site.urls),
 	url(r'^login/$', login, {'template_name':'loginEletricista_exemplo.html', 'redirect_field_name': 'login'}, name='login'),
 	url(r'^logout/$', logout_then_login, {'login_url':'/user/login/'}, name='logout'),
@@ -36,7 +36,7 @@ urlpatterns = [
 	url(r'^registrar_adm/$', RegistrarAdministradorView.as_view(), name="registraradm"),
     url(r'^buscar-eletricista/$', views.BuscaEletricista, name='BuscaEletricista'),
    	url(r'^adm/clientes_registrados/$', views.clientes_registrados, name='clientes_registrados'),
-   	url(r'^adm/bloquear_cliente/(?P<nickname>\w+)/$', views.bloquear_cliente_registrado, name='bloquear_cliente_registrado'),
-	url(r'^adm/desbloquear_cliente/(?P<nickname>\w+)/$', views.desbloquear_cliente_registrado, name='desbloquear_cliente_registrado'),
    	url(r'^buscar-cliente/$', views.BuscaCliente, name='BuscaCliente'),
+   	url(r'^registrar_cliente/$', RegistrarEletricistaView.as_view(), name='registrar_cliente'),
+   	url(r'^registrar_eletricista/$', RegistrarEletricistaView.as_view(), name='registrar_eletricista')
 ]

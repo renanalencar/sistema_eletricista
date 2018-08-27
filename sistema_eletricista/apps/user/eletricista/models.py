@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class EletricistaManager(models.Manager):
@@ -6,14 +7,9 @@ class EletricistaManager(models.Manager):
 		return self.get_queryset().filter(models.Q(nome__icontains=query) | models.Q(nickname__icontains=query) | models.Q(email__icontains=query))
 
 class Eletricista(models.Model):
-
-	nome = models.CharField(max_length=50, null=False)
-	nickname = models.CharField(max_length=50, null=False, default='aleatorio')
-	email = models.EmailField(max_length=50, null=False)
-	senha = models.CharField(max_length=30, null=False)
-	senha_novamente = models.CharField(max_length=30, null=False, default='SOME STRING')
-	telefone = models.IntegerField(null=False)
-	CEP = models.IntegerField(null=False)
+	usuario = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
+	telefone = models.CharField(max_length=20, null=False)
+	CEP = models.CharField(max_length=20, null=False)
 	CPF  = models.CharField(max_length=14, null=False)
 	endereco = models.CharField(max_length=100, null=False)
 	genero = models.CharField(max_length=255, null=False)
@@ -24,10 +20,10 @@ class Eletricista(models.Model):
 	objects = EletricistaManager()
 
 	def __str__(self):
-		return self.nome
+		return self.usuario.first_name
 
 class Questionario(models.Model):
-	eletricista_avaliado = models.OneToOneField(Eletricista, on_delete=models.CASCADE, primary_key=True)
-	pontuacao = models.IntegerField(null=False)
+	eletricista_avaliado = models.OneToOneField(Eletricista, on_delete=models.CASCADE, default=None)
+	pontuacao = models.IntegerField(null=False, default=None)
 	pdf = models.FileField(null=True, blank=True)
 

@@ -52,6 +52,8 @@ INSTALLED_APPS = [
 
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -67,9 +69,9 @@ ROOT_URLCONF = 'sistema_eletricista.urls'
 
 TEMPLATES = [
     {
-        'APP_DIRS': True,
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': 'sistema_eletricista/sistema_eletricista/apps/user/templates/',
+        'DIRS': 'sistema_eletricista.apps.user.templates',
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -117,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'pt-br'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
@@ -145,8 +147,10 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media")
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
+
 EMAIL_HOST_USER = 'eletricista.24hrs2018@gmail.com'
 EMAIL_HOST_PASSWORD = 'eletricista24hrs!'
+
 DEFAULT_FROM_EMAIL = 'Equipe Eletricistas24hs <noreply@eletricistas24hrs.com>'
 
 CORS_ORIGIN_ALLOW_ALL = True
