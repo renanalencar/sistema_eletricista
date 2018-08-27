@@ -14,6 +14,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.contrib import messages
 from .forms import RegistrarAdministradorForm
 
+
 #Import from apps
 from .forms import RegistrarEletricistaForm
 #from .forms import QuestionarioForm
@@ -313,6 +314,7 @@ class RegistrarAdministradorView(View):
 			return redirect('/user/login')
 		else:
 			return render(request, 'registrar_admin.html', {'form': form_user})
+
 
 def clientes_registrados(request):
 	clientes_registrados = Cliente.objects.all()

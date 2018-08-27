@@ -6,3 +6,4 @@ def BuscaCliente(request):
     if q is not None:
         resultCliente = Cliente.objects.BuscarCliente(q)
     return render(request, 'busca_cliente.html', {'resultcliente': resultCliente})
+    
