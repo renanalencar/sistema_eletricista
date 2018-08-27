@@ -1,104 +1,85 @@
+{% extends 'base_adm.html' %}
 {% load staticfiles %}
 <!DOCTYPE html>
-<html style="width:100%">
+<html>
 <head>
-	  <!-- Required meta tags -->
-	  <meta charset="utf-8">
-	  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	  <title>Questionário - Eletricista24hs</title>
-	  <!-- plugins:css -->
-	  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/iconfonts/mdi/css/materialdesignicons.min.css' %}">
-	  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/iconfonts/puse-icons-feather/feather.css' %}">
-	  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/css/vendor.bundle.base.css' %}">
-	  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/css/vendor.bundle.addons.css' %}">
-	  <!-- endinject -->
-	  <!-- plugin css for this page -->
-	  <!-- End plugin css for this page -->
-	  <!-- inject:css -->
-	  <link rel="stylesheet" href="{% static 'radiant/jquery/css/style.css' %}">
-	  <link rel="stylesheet" href="{% static 'radiant/jquery/css/adaptacoes.css' %}">
-	  <!-- endinject -->
-	  <link rel="shortcut icon" href="{% static 'radiant/jquery/images/logo-personagem.png' %}" />
-
+	<title>Questionario - Sistema Eletricista24hrs</title>
 </head>
-<body style="width:100%">
+<body>
+	{% block content %}
 		<div class="container-scroller">
     		<div class="container-fluid page-body-wrapper full-page-wrapper">
       			<div class="content-wrapper d-flex align-items-center auth theme-one">
         			<div class="row w-100">
-          				<div class=" mx-auto" style="max-width: 95%;">
+          				<div class=" mx-auto" style="padding-left: 30px">
             				<div class="auto-form-wrapper">
 								<form method="post" action="{% url 'questionario' nome_eletricista=nome_eletricista %}" enctype="multipart/form-data">
 									{% csrf_token %}
-									<div>
-										<img src="{% static 'radiant/jquery/images/logo-personagem.png' %}" style="height: 100%; width: auto; float: left">
-										<p style="text-align: justify; text-align: center; font-size:130%"><strong>Antes de te registrarmos no sistema, precisamos analisar certas informações técnicas sobre você, para isso, responda o questionário, por gentileza.</strong></p>
-									</div>
+									<img src="{% static 'radiant/jquery/images/logo-personagem.png' %}" style="padding-left: 46%; padding-bottom: 40px">
+									<p style="text-align: justify; text-align: center"><strong>Antes de te registrarmos no sistema, precisamos analisar certas informações técnicas sobre você, para isso, responda o questionário, por gentileza.</strong></p>
 									<div class="form-group">
-										<p class="q_pergunta"> Ao atender um chamado de um Cliente com sua Residência totalmente sem energia elétrica, quais procedimentos você usaria?</p>
+										<p style="text-align: justify; font-size: 13px;"> >> Ao atender um chamado de um Cliente com sua Residência totalmente sem energia elétrica, quais procedimentos você usaria?</p>
 						            	<div class="select-group">
 											<select type="option" class="form-control" id="id_perguntaA" name="perguntaA" required>
 									        	<option disabled selected>Escolher</option>
-									            <option value="x">Verificaria se algum setor da instalação elétrica está em curto circuito, com algum fio rompido, ou disjuntor queimado.</option>
-									            <option value="y">Falava para o Cliente soliciar socorro à Concessionário (Eletropaulo ou outras).</option>
-									            <option value="z">Sugeria para o Cliente trocar toda a fiação elétrica da casa para resolver o problema.</option>
+									            <option value="Correta">Verificaria se algum setor da instalação elétrica está em curto circuito, com algum fio rompido, ou disjuntor desarmado ou queimado.</option>
+									            <option value="Errada">Falava para o Cliente soliciar socorro à Concessionário (Eletropaulo ou outras).</option>
+									            <option value="Errada">Sugeria para o Cliente trocar toda a fiação elétrica da casa para resolver o problema.</option>
 									        </select>
 									    </div>
 								    </div>
 								    <div class="form-group">
-								    	<p class="q_pergunta"> Quais são as funções de um Dispositivo DR (Interruptor Diferencial Residual)?</p>
+								    	<p style="text-align: justify; font-size: 13px;"> >> Quais são as funções de um Dispositivo DR (Interruptor Diferencial Residual)?</p>
 						                <div class="select-group">
 									        <select type="option" class="form-control" id="id_perguntaB" name="perguntaB" required>
 									        	<option disabled selected>Escolher</option>
-									            <option value="z">Um relé que auxilia na abertura e fechamento de contatos elétricos.</option>
-									            <option value="x">Proteger usuários contra riscos de acidentes com choques elétricos.</option>
-									            <option value="y">Um dispositivo que serve apenas para ligar e desligar a energia elétrica.</option>
+									            <option value="Errada">Um relé que auxilia na abertura e fechamento de contatos elétricos.</option>
+									            <option value="Correta">Proteger usuários contra riscos de acidentes com choques elétricos.</option>
+									            <option value="Errada">Um dispositivo que serve apenas para ligar e desligar a energia elétrica.</option>
 									        </select>
 									    </div>
 									</div>
 									<div class="form-group">
-										<p class="q_pergunta"> A instalação do Cliente possui um disjuntor DR que está desarmando com frequência. Qual solução voce daria para o problema?</p>
+										<p style="text-align: justify; font-size: 13px;"> >> A instalação do Cliente possui um disjuntor DR que está desarmando com frequência. Qual solução voce daria para o problema?</p>
 						                <div class="select-group">
 									        <select type="option" class="form-control" id="id_perguntaC" name="perguntaC" required>
 									        	<option disabled selected>Escolher</option>
-									            <option value="z">Eleminava o disjunto DR colocando um comum no lugar.</option>
-									            <option value="y">Não conheço o dispositivo DR, por isso nao sei o que faria.</option>
-									            <option value="x">Faria testes em todos os circuitos elétricos até identificar a causa do problema.</option>
+									            <option value="Errada">Eleminava o disjunto DR colocando um comum no lugar.</option>
+									            <option value="Errada">Não conheço o dispositivo DR, por isso nao sei o que faria.</option>
+									            <option value="Correta">Faria testes em todos os circuitos elétricos até identificar a causa do problema.</option>
 									        </select>
 									    </div>
 									</div>
 									<div class="form-group">
-										<p class="q_pergunta"> Qual a bitola de cabo e disjuntor voce usaria para um circuito elétrico de um chuveiro de 7500W X 220V?</p>
+										<p style="text-align: justify; font-size: 13px;"> >> Qual a bitola de cabo e disjuntor voce usaria para um circuito elétrico de um chuveiro de 7500W X 220V?</p>
 						                <div class="select-group">
 									        <select type="option" class="form-control" id="id_perguntaD" name="perguntaD" required>
 									        	<option disabled selected>Escolher</option>
-									            <option value="y">Cabo 2,5mm e disjuntor unipolar 16 âmperes.</option>
-									            <option value="z">Cabo 2,5mm e disjuntor bipolar 10 âmperes.</option>
-									            <option value="x">Cabo 6,00mm e disjuntor bipolar 40 âmperes.</option>
+									            <option value="Errada">Cabo 2,5mm e disjuntor unipolar 16 âmperes.</option>
+									            <option value="Errada">Cabo 2,5mm e disjuntor bipolar 10 âmperes.</option>
+									            <option value="Correta">Cabo 6,00mm e disjuntor bipolar 40 âmperes.</option>
 									        </select>
 									    </div>
 									</div>
 									<div class="form-group">
-										<p class="q_pergunta"> O Cliente solicitou um chamado porque metade da casa dele está sem energia elétrica, mas ao abrir o chuveiro ou a torneira quente, a metade da casa que estava sem luz volta a funcionar. Qual seria seu procedimento para resolver o problema?</p>
+										<p style="text-align: justify; font-size: 13px;"> >> O Cliente solicitou um chamado porque metade da casa dele está sem energia elétrica, mas ao abrir o chuveiro ou a torneira quente, a metade da casa que estava sem luz volta a funcionar. Qual seria seu procedimento para resolver o problema?</p>
 						                <div class="select-group">
 									        <select type="option" class="form-control" id="id_perguntaE" name="perguntaE" required>
-									        	<optgroup>
 									        	<option disabled selected>Escolher</option>
-									            <option value="z">Sugerir ao cliente a compra de um chuveiro novo.</option>
-									            <option value="y">Trocar a resistencia do chuveiro.</option>
-									            <option value="x">Faria testes na instalação para verificar uma possível falta de fase.</option>
-									        	</optgroup>
+									            <option value="Errada">Sugerir ao cliente a compra de um chuveiro novo.</option>
+									            <option value="Errada">Trocar a resistencia do chuveiro.</option>
+									            <option value="Correta">Faria testes na instalação para verificar uma possível falta de fase.</option>
 									        </select>
 									    </div>
 									</div>
 									<div class="form-group">
-										<p class="q_pergunta"> As luzes da casa do Cliente ficaram intermitentes, oscilando muito, e alguns setores da isntalação pararam de funcionar. Qual seria a causa?</p>
+										<p style="text-align: justify; font-size: 13px;"> >> As luzes da casa do Cliente ficaram intermitentes, oscilando muito, e alguns setores da isntalação pararam de funcionar. Qual seria a causa?</p>
 						                <div class="select-group">
-									        <select type="option" class="form-control" id="id_perguntaF" name="perguntaF" required style="">
+									        <select type="option" class="form-control" id="id_perguntaF" name="perguntaF" required>
 									        	<option disabled selected>Escolher</option>
-									            <option value="y">As lâmpadas estão muito velhas e precisam ser trocadas.</option>
-									            <option value="z">Precisaria trocar toda a fiação.</option>
-									            <option value="x">O fio neutro da instalação foi rompido em algum setor da instalãção elétrica.</option>
+									            <option value="Errada">As lâmpadas estão muito velhas e precisam ser trocadas.</option>
+									            <option value="Errada">Precisaria trocar toda a fiação.</option>
+									            <option value="Correta">O fio neutro da instalação foi rompido em algum setor da instalãção elétrica.</option>
 									        </select>
 									    </div>
 									</div>
@@ -108,21 +89,20 @@
                   						<div class="input-group col-xs-12">
                     						<input type="text" class="form-control file-upload-info" disabled placeholder="Envie seu curriculo como arquivo .pdf">
                       						<span class="input-group-append">
-                        						<button class="file-upload-browse btn btn-info" type="button" style="background-color:#fcc425; border-width: 0px" >Enviar</button>
+                        						<button class="file-upload-browse btn btn-info" type="button">Enviar</button>
                       						</span>
                   						</div>
-
-                					<!--<div class="modal" id="exampleModal-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true" style="display: none;">
+                					<div class="modal" id="exampleModal-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true" style="display: none;">
                     					<div class="modal-dialog" role="document">
                     						<div class="modal-content">
 	                        					<div class="modal-header">	
 	                        						<h5 class="modal-title">
-	                        							<p style="font-weight: bolder; font-size: 200%">Parabens!</p>
+	                        							<p style="font-weight: bolder; font-size: 200%">Parabéns!</p>
 	                        						</h5>
 	                        						<button type="button" class="close">
                             							<span aria-hidden="true">×</span>
                           							</button>
-	                        					</div>
+	                        					</div>	
                         						<div class="modal-body">
                           							<p style="font-weight: bolder; font-size: 200%; text-align: justify; text-align: center;"> Você concluiu o cadastro. Agora é aguardar pela avaliação.</p>
                         						</div>
@@ -132,13 +112,12 @@
                       						</div>
                     					</div>
                   					</div>
-                  				-->
-                					<div class="form-group" style="margin-top: 20px">
-                  						<button type="submit" class="btn btn-success submit-btn btn-block" data-toggle="modal" data-target="#exampleModal-2" style="margin-top: 30px; margin-bottom: 20px; background-color: #fcc425; border: none; font-weight: bold; font-size: 100%; letter-spacing: 3px">Enviar respostas</button>
+                					<div class="form-group" style="margin-top: 10px">
+                  						<button type="button" class="btn btn-success submit-btn btn-block" data-toggle="modal" data-target="#exampleModal-2">Enviar respostas</button>
                 						{% if form_questionario.errors %}
-                  							<div class ="alert alert-danger" style="margin-top: 20px">
+                  							<div class ="alert alert-danger">
                     						<button type="button" class="close">&times;</button>
-                    						{{form_questionario.non_field_errors}}
+                    					{{form_questionario.non_field_errors}}
                     					{% endif %}
                 					</div>
 
@@ -150,15 +129,6 @@
 				</div>
 			</div>
 		</div>
-	  <script src="{% static 'radiant/jquery/vendors/js/vendor.bundle.base.js' %}"></script>
-	  <script src="{% static 'radiant/jquery/vendors/js/vendor.bundle.addons.js' %}"></script>
-	  <!-- endinject -->
-	  <!-- inject:js -->
-	  <script src="{% static 'radiant/jquery/js/off-canvas.js' %}"></script>
-	  <script src="{% static 'radiant/jquery/js/hoverable-collapse.js' %}"></script>
-	  <script src="{% static 'radiant/jquery/js/misc.js' %}"></script>
-	  <script src="{% static 'radiant/jquery/js/settings.js' %}"></script>
-	  <script src="{% static 'radiant/jquery/js/todolist.js' %}"></script>
-	  <script src="{% static 'radiant/jquery/js/file-upload.js' %}"></script>
+	{% endblock %}
 </body>
 </html>

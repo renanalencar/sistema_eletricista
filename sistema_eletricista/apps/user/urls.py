@@ -12,16 +12,16 @@ from sistema_eletricista.apps.user.eletricista.views import *
 
 
 urlpatterns = [
-	url(r'^index/$', views.loginCliente, name='loginCliente'),
+	url(r'^index/$', views.index, name='loginCliente'),
 	url(r'^admin/', admin.site.urls),
 	url(r'^login/$', login, {'template_name':'loginEletricista_exemplo.html', 'redirect_field_name': 'login'}, name='login'),
 	url(r'^logout/$', logout_then_login, {'login_url':'/user/login/'}, name='logout'),
 	url(r'^registrar/$', RegistrarEletricistaView.as_view(), name="registrar"),
-	url(r'^password_reset/$', auth_views.password_reset, {'template_name':'password_reset_form.html'}, name='password_reset'),
-    url(r'^password_reset/done/$', auth_views.password_reset_done,{'template_name':'password_reset_done.html'}, name='password_reset_done'),
+	url(r'^password_reset/$', auth_views.password_reset, name='password_reset'),
+    url(r'^password_reset/done/$', auth_views.password_reset_done, name='password_reset_done'),
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-        auth_views.password_reset_confirm,{'template_name':'password_reset_confirm.html'}, name='password_reset_confirm'),
-    url(r'^reset/done/$', auth_views.password_reset_complete,{'template_name':'password_reset_complete.html'}, name='password_reset_complete'),
+        auth_views.password_reset_confirm, name='password_reset_confirm'),
+    url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
 	url(r'^questionario/(?P<nome_eletricista>\w+)/$', QuestionarioView.as_view(), name='questionario'),
 	url(r'^adm/$', views.adm, name='adm'),
 	url(r'^adm/alterar-senha/$', views.change_password, name='change_password'),
@@ -36,7 +36,7 @@ urlpatterns = [
 	url(r'^registrar_adm/$', RegistrarAdministradorView.as_view(), name="registraradm"),
     url(r'^buscar-eletricista/$', views.BuscaEletricista, name='BuscaEletricista'),
    	url(r'^adm/clientes_registrados/$', views.clientes_registrados, name='clientes_registrados'),
+   	url(r'^adm/bloquear_cliente/(?P<nickname>\w+)/$', views.bloquear_cliente_registrado, name='bloquear_cliente_registrado'),
+	url(r'^adm/desbloquear_cliente/(?P<nickname>\w+)/$', views.desbloquear_cliente_registrado, name='desbloquear_cliente_registrado'),
    	url(r'^buscar-cliente/$', views.BuscaCliente, name='BuscaCliente'),
-   	url(r'^registrar_cliente/$', RegistrarEletricistaView.as_view(), name='registrar_cliente'),
-   	url(r'^registrar_eletricista/$', RegistrarEletricistaView.as_view(), name='registrar_eletricista')
 ]
