@@ -175,7 +175,7 @@ class QuestionarioView(View):
 			if dados_questionario['perguntaA'] == 'Correta':
 				pontuacao = pontuacao + 1
 			if dados_questionario['perguntaB'] == 'Correta':
-				pontuacao = pontuacao + 1
+				pontuac
 			if dados_questionario['perguntaC'] == 'Correta':
 				pontuacao = pontuacao + 1
 			if dados_questionario['perguntaD'] == 'Correta':
@@ -184,7 +184,7 @@ class QuestionarioView(View):
 			eletricista_avaliado = Eletricista.objects.get(nickname=nome_eletricista)
 			questionario = Questionario.objects.create(eletricista_avaliado=eletricista_avaliado, pontuacao=pontuacao, pdf=pdf_curriculo)
 
-			return redirect('/user/login')
+			return redirect('/user/registro_concluido')
 		else:
 			return render(request, 'questionario.html', {'form_questionario' : form_questionario, 'nome_eletricista' : nome_eletricista})
 
@@ -376,6 +376,8 @@ def password_reset(request, is_admin_site=False,
 def tela_inicial(request):
 	return render(request, 'tela_inicial.html')
 
+def registro_concluido(request):
+	return render(request, 'error-404.html')
 
 def loginCliente(request):
 	return render(request, 'base_cliente.html')

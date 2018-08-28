@@ -23,6 +23,7 @@ urlpatterns = [
         auth_views.password_reset_confirm, name='password_reset_confirm'),
     url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
 	url(r'^questionario/(?P<nome_eletricista>\w+)/$', QuestionarioView.as_view(), name='questionario'),
+	url(r'^registro_concluido/$', views.registro_concluido, name='registro_concluido'),
 	url(r'^adm/$', views.adm, name='adm'),
 	url(r'^adm/alterar-senha/$', views.change_password, name='change_password'),
 	url(r'^adm/questionarios_pendentes$', views.questionarios_pendentes, name='questionarios_pendentes'),
