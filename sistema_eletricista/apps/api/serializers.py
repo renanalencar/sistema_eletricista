@@ -6,19 +6,19 @@ from sistema_eletricista.apps.user.cliente.models import *
 class EletricistaSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Eletricista
-		depth = 2
+		depth = 1
 		fields = '__all__'
 
 class ClienteSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Cliente
-		depth = 2
+		depth = 1
 		fields = '__all__'
 
 class UsuarioSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
-		fields = '__all__'
+		fields = ('first_name', 'email', 'password', 'username', 'is_active')
 
 
 class QuestionarioSerializer(serializers.ModelSerializer):
