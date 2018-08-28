@@ -7,11 +7,7 @@ class ClienteManager(models.Manager):
 		return self.get_queryset().filter(models.Q(nome__icontains=query) | models.Q(nickname__icontains=query) | models.Q(email__icontains=query))
 
 class Cliente(models.Model):
-	nome = models.CharField(max_length=50, null=False)
-	nickname = models.CharField(max_length=50, null=False, default="w/e")
-	email = models.EmailField(max_length=50, null=False)
-	senha = models.CharField(max_length=30, null=False)
-	senha_novamente = models.CharField(max_length=30, null=False, default="w/e")
+	usuario = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
 	telefone = models.CharField(max_length=20, null=False)
 	CEP = models.CharField(max_length=20, null=False)
 	CPF  = models.CharField(max_length=14, null=False)
@@ -22,4 +18,4 @@ class Cliente(models.Model):
 	objects = ClienteManager()
 
 	def __str__(self):
-		return self.nome
+		return self.usuario.first_name

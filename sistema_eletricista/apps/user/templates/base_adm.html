@@ -24,7 +24,7 @@
 <body>
     <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
-    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row" style="">
       <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
         <a class=""></a>
         <a class=""></a>
@@ -62,7 +62,7 @@
           
           <li class="nav-item dropdown d-none d-xl-inline-block">
             <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-              <span class="mr-3">Olá, Domingos</span><img class="img-xs rounded-circle" img src="{% static 'radiant/jquery/images/logo-personagem.png' %}" alt="Profile image">
+              <span class="mr-3">Olá, {{ user.first_name }}</span><img class="img-xs rounded-circle" img src="{% static 'radiant/jquery/images/logo-personagem.png' %}" alt="Profile image">
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
               <a class="dropdown-item p-0">
@@ -102,7 +102,7 @@
             <div class="nav-link">
               <div class="profile-image"> <img src="{% static 'radiant/jquery/images/logo-personagem.png' %}" alt="image"/> <span class="online-status online"></span> </div>
               <div class="profile-name">
-                <p class="name">José Domingos</p>
+                <p class="name">{{ user.first_name }}</p>
                 <p class="designation">Empresário</p>
               </div>
               <div class="notification-panel mt-4">
