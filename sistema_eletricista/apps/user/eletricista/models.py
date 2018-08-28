@@ -10,7 +10,7 @@ class Eletricista(models.Model):
 	usuario = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
 	telefone = models.CharField(max_length=20, null=False)
 	CEP = models.CharField(max_length=20, null=False)
-	CPF  = models.CharField(max_length=14, null=False)
+	CPF  = models.CharField(max_length=14, null=True)
 	endereco = models.CharField(max_length=100, null=False)
 	genero = models.CharField(max_length=255, null=False)
 	tipo = models.CharField(max_length=12, null=False)

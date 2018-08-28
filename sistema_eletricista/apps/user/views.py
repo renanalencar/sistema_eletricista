@@ -21,6 +21,7 @@ from .eletricista.models import *
 from .cliente.models import Cliente
 from .models import Admin
 from django.contrib.auth.views import *
+import pagarme
 # Create your views here.
 
 
@@ -115,6 +116,7 @@ class RegistrarEletricistaView(View):
 					foto=foto,
 					status='Inativo'
 				)
+
 				print ('criei o eletricista')
 				usuario = User.objects.get(username=dados_form['nickname'])
 				usuario.is_active = False
@@ -126,6 +128,7 @@ class RegistrarEletricistaView(View):
 				)
 				
 				return HttpResponseRedirect(reverse('questionario', kwargs={'nome_eletricista': dados_form['nickname']}))
+			
 			else:
 				usuario_cliente = User.objects.create_user(username=dados_form['nickname'], email=dados_form['email'], password=dados_form['senha'], first_name=dados_form['nome'])
 				cliente = Cliente.objects.create(
@@ -138,6 +141,29 @@ class RegistrarEletricistaView(View):
 					tipo=dados_form['tipo'],
 					foto=foto
 				)
+
+				pagarme.authentication_key('ak_test_uSXZcO1zJua2nG3ZhjmiUwcwnxnCgM')
+
+				customer_data = {
+				  'external_id': dados_form['nickname'],
+				  'name': dados_form['nome'],
+				  'type': 'individual',
+				  'country': 'br',
+				  'email': dados_form['email'],
+				  'documents': [
+				    {
+				      'type': 'cpf',
+				      'number': dados_form['CPF'],
+				    }
+				  ],
+				  'phone_numbers': [dados_form['telefone']],
+				  'birthday': '1998-05-01',
+				}
+
+				customer = pagarme.customer.create(customer_data)
+
+				print(customer)
+
 				enviar_email('Sistema Eletricista24hrs', 
 				 'Você, ' + dados_form['nome'] + ' foi cadastrado no Sistema Eletricista 24hrs. Estamos prontos para lhe ajudar :)',
 				 settings.EMAIL_HOST_USER,

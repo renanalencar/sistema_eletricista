@@ -88,7 +88,7 @@
                 <div class="form-group">
                   <h5>Telefone ou celular</h5>
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Ex: (11) 912344321" id="id_tel" name="telefone" required>
+                    <input type="text" class="form-control" placeholder="Ex:+55 11 912344321" id="id_tel" name="telefone" required>
                     <div class="input-group-append">
                       <span class="input-group-text"><i id="i-tel" class="mdi mdi-check-circle-outline"></i></span>
                     </div>
@@ -112,6 +112,17 @@
                     </div>
                   </div>
                 </div>
+                <!---
+                <div class="form-group">
+                  <h5>Nascimento</h5>
+                  <div class="input-group">
+                    <input type="date" class="form-control" placeholder="Ex:17/09/1991" id="id_CPF" name="nascimento" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i id="i-nascimento" class="mdi mdi-check-circle-outline"></i></span>
+                    </div>
+                  </div>
+                </div>
+                --->
                 <div class="form-group">
                   <h5>Endereço completo</h5>
                   <div class="input-group">
@@ -274,8 +285,8 @@
       cliente.selected = true;
     }
     $("#id_CEP").mask("00000-000");
-    $("#id_CPF").mask("000.000.000-00");
-    $("#id_tel").mask("(00) 900000000");
+    $("#id_CPF").mask("00000000000");
+    $("#id_tel").mask("+5500900000000");
     checked('nome');
     checked('nickname');
     checked('senha');
@@ -302,10 +313,10 @@
           tamanho = 8;
         }
         if (x == 'CPF') {
-          tamanho = 13;
+          tamanho = 10;
         }
         if (x == 'tel') {
-          tamanho = 12;
+          tamanho = 13;
         }
         if (input.value.length > tamanho){
           let i = document.getElementById('i-' + x);
