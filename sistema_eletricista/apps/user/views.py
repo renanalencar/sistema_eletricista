@@ -205,8 +205,12 @@ class QuestionarioView(View):
 			usuario_em_questao = User.objects.get(username=nome_eletricista)
 			eletricista_avaliado = Eletricista.objects.get(usuario=usuario_em_questao)
 			questionario = Questionario.objects.create(eletricista_avaliado=eletricista_avaliado, pontuacao=pontuacao, pdf=pdf_curriculo)
+
+			return redirect('/user/registro_concluido')
+
 			print ('olá2')
 			return redirect('/user/login')
+
 		else:
 			return render(request, 'questionario.html', {'form_questionario' : form_questionario, 'nome_eletricista' : nome_eletricista})
 
@@ -404,6 +408,8 @@ def password_reset(request, is_admin_site=False,
 def tela_inicial(request):
 	return render(request, 'tela_inicial.html')
 
+def registro_concluido(request):
+	return render(request, 'error-404.html')
 
 def loginCliente(request):
 	return render(request, 'base_cliente.html')

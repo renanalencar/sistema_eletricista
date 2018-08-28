@@ -35,24 +35,15 @@
     right: 0;
     height: 100%;
     width: 100%;
-    opacity: 0;
+    opacity: 0.8;
     transition: .5s ease;
     background-color: #999999;
   }
 
   .ccontainer:hover .coverlay {
-    opacity: 0.8;
+    opacity: 0;
     }
 
-  .ctext {
-    color: white;
-    font-size: 1000%;
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-  }
   
   .econtainer {
     position: relative;
@@ -74,20 +65,30 @@
     right: 0;
     height: 100%;
     width: 100%;
-    opacity: 0;
+    opacity: 0.8;
     transition: .5s ease;
     background-color: #999999;
   }
 
   .econtainer:hover .eoverlay {
-    opacity: 0.8;
+    opacity: 0;
   }
 
-  .etext {
+  .texto-inicial {
     color: white;
     font-size: 1000%;
     position: relative;
-    top: 50%;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+  }
+
+  .entrar-como {
+    color: white;
+    font-size: 400%;
+    position: relative;
+    top: 42.5%;
     left: 50%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
@@ -116,12 +117,12 @@
 </head>
 <body style="height:100%">
   <div style="height:100%; width:100%; position: relative;">
-    <div class="flutuante alert alert-secondary">Bem Vindo ao Eletricistas 24h. Como quer fazer parte do nosso sistema?</div>
     <div class="ccontainer" style="width:50%;margin-bottom:0px;float: left; overflow: hidden;">
       <a href="/user/registrar_cliente/">
       <img src="{% static 'radiant/jquery/images/cliente1.1.jpg' %}" class="image">
       <div class="coverlay">
-        <div class="ctext" style="text-align: center;">Cliente</div>
+        <div class="entrar-como" style="text-align: center;">Entrar como</div>
+        <div class="texto-inicial" style="text-align: center;">Cliente</div>
       </div>
       </a>
     </div>
@@ -129,7 +130,8 @@
       <a href="/user/registrar_eletricista/">
       <img src="{% static 'radiant/jquery/images/eletricista1.1.jpg' %}" class="image">
       <div class="eoverlay">
-          <div class="etext" style="text-align: center">Eletricista</div>
+          <div class="entrar-como" style="text-align: center;">Entrar como</div>
+          <div class="texto-inicial" style="text-align: center">Eletricista</div>
       </div>
       </a>
     </div>

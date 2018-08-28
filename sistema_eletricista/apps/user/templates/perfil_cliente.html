@@ -7,45 +7,35 @@
         .table.table-borderless td{
           font-size:130%;
         }
+
         div{
           width:100%;
         }
       </style>
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row profile-page">
-            <div class="" style="width: 152%">
-              <div class="card" style="width: 136%">
+          <div class="profile-page">
+            <div>
+              <div class="card">
                 <div class="card-body">
-                  <div class="header" style="background-image: url({% static 'radiant/jquery/images/fundo_perfil_eletricista.jpg' %})">
-                    <div class="d-flex justify-content-around">
-                      <div class="profile-info d-flex align-items-center">
-                        {% if cliente.foto %}
-                          <span class="pro-pic"><img src="{{cliente.foto.url}}" style="height: 120px; width: 120px; border-radius: 90px;" alt="profile image"></span>
-                        {% else %}
-                            <span class="pro-pic"><img src="https://placehold.it/100x100" style="height: 120px; width: 120px; border-radius: 90px;"></span>
-                        {% endif %}
-                        <div class="wrapper pl-4">
-                          <p class="profile-user-name" style="font-size: 30px; color: white"><strong>{{ cliente.nome }}</strong></p>
-                          <div class="wrapper d-flex align-items-center">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="details">
-                        <div class="detail-col">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="profile-body">
+                  <div class="profile-body" style="padding-top: 0px">
                     <ul class="nav tab-switch" role="tablist">
                       <li class="nav-item">
                         <a class="nav-link active" id="user-profile-info-tab" data-toggle="pill" href="#user-profile-info" role="tab" aria-controls="user-profile-info" aria-selected="true">Perfil</a>
                       </li>
-                      <li class="nav-item">
-                        <a class="nav-link" id="user-profile-activity-tab" data-toggle="pill" href="#user-profile-activity" role="tab" aria-controls="user-profile-activity" aria-selected="false">Atividade</a>
-                      </li>
                     </ul>
+                    <div class="row" >
+                       <div class="tab-content tab-body" id="profile-log-switch">
+                          <div class="tab-pane fade show active pr-3" id="user-profile-info" role="tabpanel" aria-labelledby="user-profile-info-tab" style="display: inline-block">
+                            <div>
+                            {% if cliente.foto %}
+                              <img src="{{cliente.foto.url}}"  alt="profile image" style="border-radius: 100%; width: 100px; height: 100px">
+                            {% else %}
+                              <img src="https://placehold.it/100x100" style="border-radius: 100%; width: 100px; height: 100px">
+                            {% endif %}
+                            </div>
+                            <div >
+                            <table class="table table-borderless mt-4 info-perfil" >
                     <div class="row">
                       <div class="col-md-9">
                         <div class="tab-content tab-body" id="profile-log-switch">
@@ -54,7 +44,6 @@
                               <tr>
                                 <td><strong>Nome :</strong> {{cliente.usuario.first_name}}</td>
                                 <td><strong>CPF :</strong> {{cliente.CPF}}</td>
-                                
                               </tr>
                               <tr>
                                 <td><strong>CEP :</strong> {{cliente.CEP}}</td>
@@ -68,8 +57,8 @@
                                 <td><strong>Género :</strong> {{cliente.genero}}</td>
                               </tr>
                             </table>
-                            
-                           </div>
+                            </div>
+                          </div>
                           <div class="tab-pane fade" id="user-profile-activity" role="tabpanel" aria-labelledby="user-profile-activity-tab">
                             <div class="horizontal-timeline">
                               <section class="time-frame">
@@ -143,8 +132,7 @@
                             {% endif %}
                           </div>
                         -->
-                        </div>
-                      </div>   
+                        </div>   
                             
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->

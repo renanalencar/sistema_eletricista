@@ -24,3 +24,34 @@
       bottom: : 0px;
       right: 0px;
     }
+
+    .botao-recusar{
+      margin-right: 25%; 
+      position: relative;
+      height: 150%; 
+      width: 20%
+    }
+
+    .botao-aceitar{
+      margin-left: 25%; 
+      position: relative;
+      height: 150%; 
+      width: 20%
+    }
+
+    .botao-bloqueio{
+      height: 150%; 
+      width: 20%
+    }
+
+    .content-wraper, .main-panel{
+      width:100%;
+    }
+
+    .table.table-borderless td{
+      font-size:130%;
+    }
+
+    .tab-body{
+      width:100%;
+    }
