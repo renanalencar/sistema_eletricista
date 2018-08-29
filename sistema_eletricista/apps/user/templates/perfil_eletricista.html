@@ -129,17 +129,17 @@
                           <div class="row">
                             {% if eletricista.status == 'Inativo' %}
                               <div class="col-lg-12 mt-5" style="text-align: center">
-                                <a href="/user/adm/aceitar/{{eletricista.nickname}}"><button type="button" id="2" class="btn btn-success btn-lg float-sm-left botao-aceitar">Aceitar Eletricista</button></a>
-                                <a href="/user/adm/recusar/{{eletricista.nickname}}/"><button  type="button" id="1" class="btn btn-danger btn-lg float-sm-right botao-recusar">Recusar Eletricista</button></a>
+                                <a href="/user/adm/aceitar/{{eletricista.usuario.username}}"><button type="button" id="2" class="btn btn-success btn-lg float-sm-left botao-aceitar">Aceitar Eletricista</button></a>
+                                <a href="/user/adm/recusar/{{eletricista.usuario.username}}/"><button  type="button" id="1" class="btn btn-danger btn-lg float-sm-right botao-recusar">Recusar Eletricista</button></a>
                               </div>
                             {% else %}
                               {% if eletricista.bloqueado != 'True' %}
                               <div class="col-lg-12 mt-5" style="text-align: center">
-                                <a  href="/user/adm/bloquear_eletricista/{{eletricista.nickname}}/"><button type="button" class="btn btn-danger btn-lg botao-bloqueio">Bloquear Eletricista</button></a>
+                                <a  href="/user/adm/bloquear_eletricista/{{eletricista.usuario.username}}/"><button type="button" class="btn btn-danger btn-lg botao-bloqueio">Bloquear Eletricista</button></a>
                               </div>
                               {% else %}
                               <div class="col-lg-12 mt-5" style="text-align: center">
-                                <a  href="/user/adm/desbloquear_eletricista/{{eletricista.nickname}}/"><button type="button" class="btn btn-success btn-lg botao-bloqueio">Desbloquear Eletricista</button></a>
+                                <a  href="/user/adm/desbloquear_eletricista/{{eletricista.usuario.username}}/"><button type="button" class="btn btn-success btn-lg botao-bloqueio">Desbloquear Eletricista</button></a>
                               </div>
                               {% endif %}
                             {% endif %}

@@ -124,7 +124,7 @@ class RegistrarEletricistaView(View):
 				enviar_email('Sistema Eletricista24hrs', 
 				 'Você, ' + dados_form['nome'] + ' foi registrado no nosso sistema, aguarde enquanto validamos seu cadastro',
 				 settings.EMAIL_HOST_USER,
-				 ['vinicius.roland@polijunior.com.br']
+				 [usuario_eletri.email]
 				)
 				
 				return HttpResponseRedirect(reverse('questionario', kwargs={'nome_eletricista': dados_form['nickname']}))
@@ -167,7 +167,7 @@ class RegistrarEletricistaView(View):
 				enviar_email('Sistema Eletricista24hrs', 
 				 'Você, ' + dados_form['nome'] + ' foi cadastrado no Sistema Eletricista 24hrs. Estamos prontos para lhe ajudar :)',
 				 settings.EMAIL_HOST_USER,
-				 ['pedro.medeiros@polijunior.com.br']
+				 [usuario_cliente.email]
 				)
 			return redirect('login')
 		else:
@@ -268,7 +268,7 @@ def recusar(request, nickname):
 	enviar_email('Sistema Eletricista24hrs', 
 				 'Você, ' + nickname + ' foi recusado no nosso sistema',
 				 settings.EMAIL_HOST_USER,
-				 ['pedro.medeiros@polijunior.com.br'] #aqui pode colocar o email da pessoa no caso, ou uma lista de varios emails
+				 [usuario_em_questao.email] #aqui pode colocar o email da pessoa no caso, ou uma lista de varios emails
 				)
 	return redirect('/user/adm/questionarios_pendentes')
 
@@ -291,7 +291,7 @@ def bloquear_eletricista_registrado(request, nickname):
 	enviar_email('Sistema Eletricista24hrs', 
 				 'Você, ' + nickname + ' foi bloqueado do nosso sistema',
 				 settings.EMAIL_HOST_USER,
-				 ['pedro.medeiros@polijunior.com.br']
+				 [usuario_em_questao.email]
 				)
 	return redirect('/user/adm/eletricistas_registrados')
 
@@ -308,7 +308,7 @@ def desbloquear_eletricista_registrado(request, nickname):
 	enviar_email('Sistema Eletricista24hrs', 
 				 'Você, ' + nickname + ' foi desbloquado do nosso sistema',
 				 settings.EMAIL_HOST_USER,
-				 ['pedro.medeiros@polijunior.com.br']
+				 [usuario_em_questao.email]
 				)
 	return redirect('/user/adm/eletricistas_registrados')
 
