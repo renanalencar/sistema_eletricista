@@ -28,7 +28,6 @@ import pagarme
 #Função de enviar emails
 def enviar_email(subject, message, email_from, recipient_list):
 	send_mail(subject, message, email_from, recipient_list)
-	print ('enviei')
 	return;
 
 def change_password(request):
@@ -59,11 +58,6 @@ def get_usuario_logado(request):
 
 @login_required
 def index(request):
-	#subject = 'TESTE DO TESTE DO TESTE'
-	#message = 'teste teste teste'
-	#email_from = settings.EMAIL_HOST_USER
-	#recipient_list = ['vinicius.roland@polijunior.com.br',]
-	#enviar_email(subject, message, email_from, recipient_list)
 	return render(request, 'logado_com_sucesso.html', {'usuario' : get_usuario_logado(request)})
 
 
@@ -103,7 +97,6 @@ class RegistrarEletricistaView(View):
 
 			if dados_form['tipo'] == 'Eletricista':
 				usuario_eletri = User.objects.create_user(first_name=dados_form['nome'], email=dados_form['email'], password=dados_form['senha'], username=dados_form['nickname'])
-				print (usuario_eletri)
 				eletricista = Eletricista.objects.create(
 
 					usuario=usuario_eletri,
@@ -117,7 +110,6 @@ class RegistrarEletricistaView(View):
 					status='Inativo'
 				)
 
-				print ('criei o eletricista')
 				usuario = User.objects.get(username=dados_form['nickname'])
 				usuario.is_active = False
 				usuario.save()
@@ -162,7 +154,6 @@ class RegistrarEletricistaView(View):
 
 				customer = pagarme.customer.create(customer_data)
 
-				print(customer)
 
 				enviar_email('Sistema Eletricista24hrs', 
 				 'Você, ' + dados_form['nome'] + ' foi cadastrado no Sistema Eletricista 24hrs. Estamos prontos para lhe ajudar :)',
@@ -174,7 +165,6 @@ class RegistrarEletricistaView(View):
 			return render(request, 'registrar_exemplo.html', {'form': form_user})
 
 
-
 class QuestionarioView(View):
 
 	template_name = 'questionario.html'
@@ -184,7 +174,6 @@ class QuestionarioView(View):
 	def post(self, request, nome_eletricista):
 
 		form_questionario = QuestionarioForm(request.POST, request.FILES)
-		print (form_questionario.errors)
 		if form_questionario.is_valid():
 			if request.FILES.get('pdf'):
 				pdf_curriculo = request.FILES.get('pdf')
@@ -201,14 +190,13 @@ class QuestionarioView(View):
 				pontuacao = pontuacao + 1
 			if dados_questionario['perguntaD'] == 'x':
 				pontuacao = pontuacao + 1
-			print ('olá-1')
+
 			usuario_em_questao = User.objects.get(username=nome_eletricista)
 			eletricista_avaliado = Eletricista.objects.get(usuario=usuario_em_questao)
 			questionario = Questionario.objects.create(eletricista_avaliado=eletricista_avaliado, pontuacao=pontuacao, pdf=pdf_curriculo)
 
 			return redirect('/user/registro_concluido')
 
-			print ('olá2')
 			return redirect('/user/login')
 
 		else:
@@ -277,7 +265,6 @@ def eletricistas_registrados(request):
 	eletricistas_js = []
 	for eletricista in eletricistas_registrados:
 		eletricistas_js.append(eletricista.usuario.first_name)
-	print(eletricistas_js)
 	return render(request, 'eletricistas_registrados.html', {'eletricistas_registrados' : eletricistas_registrados, 'eletricistas_js' : eletricistas_js})
 
 def bloquear_eletricista_registrado(request, nickname):
@@ -322,7 +309,6 @@ class RegistrarAdministradorView(View):
 	def post(self, request, *args, **kwargs):
 		if request.user.is_authenticated() & Admin.objects.filter(user=user).exists():
 			form_user = RegistrarAdministradorForm(request.POST, request.FILES)
-			print (request.FILES)
 
 			if form_user.is_valid():
 				dados_form = form_user.data
@@ -348,7 +334,6 @@ def clientes_registrados(request):
 	clientes_js = []
 	for cliente in clientes_registrados:
 		clientes_js.append(cliente.usuario.first_name)
-		print (clientes_js)
 	return render(request, 'clientes_registrados.html', {'clientes_registrados' : clientes_registrados, 'clientes_js' : clientes_js})
 
 
@@ -413,5 +398,6 @@ def registro_concluido(request):
 
 def loginCliente(request):
 	return render(request, 'base_cliente.html')
+
 
 
