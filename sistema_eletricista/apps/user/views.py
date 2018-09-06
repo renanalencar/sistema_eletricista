@@ -85,22 +85,24 @@ class RegistrarCartaoView(View):
 
 	def post(self, request, *args, **kwargs):
 		form_cartao = RegistrarCartaoForm(request.POST)
+		if form_cartao.is_valid():
+			dados_form_cartao = form_cartao.data
 
-		dados_form_cartao = form_cartao.data
+			pagarme.authentication_key('ak_test_uSXZcO1zJua2nG3ZhjmiUwcwnxnCgM')
 
-		pagarme.authentication_key('ak_test_uSXZcO1zJua2nG3ZhjmiUwcwnxnCgM')
+			card_data = {
+			    "card_expiration_date": dados_form_cartao['card_expiration_date'],
+			    "card_number": dados_form_cartao['card_number'],
+			    "card_cvv": dados_form_cartao['card_cvv'],
+			    "card_holder_name": dados_form_cartao['card_holder_name'],
 
-		card_data = {
-		    "card_expiration_date": dados_form_cartao['card_expiration_date'],
-		    "card_number": dados_form_cartao['card_number'],
-		    "card_cvv": dados_form_cartao['card_cvv'],
-		    "card_holder_name": dados_form_cartao['card_holder_name'],
+				}
 
-			}
+			print (pagarme.card.create(card_data))
 
-		print (pagarme.card.create(card_data))
-
-		return redirect('loginCliente')
+			return redirect('loginCliente')
+		else:
+			return render(request, 'registrar_cartao.html', {'form' : form_cartao})
 
 	
 
