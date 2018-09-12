@@ -13,3 +13,9 @@ class Admin(models.Model):
 
 	def __str__(self):
 		return self.nome
+
+class Coordenadas(models.Model):
+	usuario = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
+	lat = models.FloatField()
+	lng = models.FloatField()
+

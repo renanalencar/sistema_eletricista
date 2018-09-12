@@ -23,8 +23,7 @@ SECRET_KEY = 'lh+c3$e1(ql0sx)i$)v%o42(((j-3-+puiq@8%-v90lt&30hq_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['192.168.0.106', 'localhost', '10.148.3.130']
 
 # Application definition
 
@@ -148,23 +147,24 @@ DEFAULT_FROM_EMAIL = 'Equipe Eletricistas24hs <noreply@eletricistas24hrs.com>'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = (
-    'localhost:8000',
-)
-CORS_ORIGIN_REGEX_WHITELIST = (
-    'localhost:8000',
-)
+#CORS_ORIGIN_WHITELIST = (
+#    'localhost:8000',
+#)
+#CORS_ORIGIN_REGEX_WHITELIST = (
+#    'localhost:8000',
+#)
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        #por questoes de segurança mudar apos fim do desenvolvimento para
-        #'rest_framework.permissions.IsAuthenticated',
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        #por questoes de segurança mudar apos fim do desenvolvimento para
+        #'rest_framework.permissions.IsAuthenticated',
+        #'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        'rest_framework.permissions.AllowAny',
     ),
 }
 

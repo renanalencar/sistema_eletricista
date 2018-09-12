@@ -425,5 +425,5 @@ def registro_concluido(request):
 	return render(request, 'error-404.html')
 
 def loginCliente(request):
-	return render(request, 'base_cliente.html')
+	return render(request, 'solicitar_servico.html')
 
