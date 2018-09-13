@@ -424,6 +424,6 @@ def tela_inicial(request):
 def registro_concluido(request):
 	return render(request, 'error-404.html')
 
-def loginCliente(request):
+def Cliente(request):
 	return render(request, 'solicitar_servico.html')
 

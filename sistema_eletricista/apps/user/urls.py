@@ -12,7 +12,7 @@ from sistema_eletricista.apps.user.eletricista.views import *
 
 
 urlpatterns = [
-	url(r'^index/$', views.loginCliente, name='loginCliente'),
+	url(r'^cliente/$', views.Cliente, name='cliente'),
 	url(r'^admin/', admin.site.urls),
 	url(r'^login/$', login, {'template_name':'loginEletricista_exemplo.html', 'redirect_field_name': 'login'}, name='login'),
 	url(r'^logout/$', logout_then_login, {'login_url':'/user/login/'}, name='logout'),
@@ -40,5 +40,5 @@ urlpatterns = [
    	url(r'^adm/clientes_registrados/$', views.clientes_registrados, name='clientes_registrados'),
    	url(r'^buscar-cliente/$', views.BuscaCliente, name='BuscaCliente'),
    	url(r'^registrar_cliente/$', RegistrarEletricistaView.as_view(), name='registrar_cliente'),
-   	url(r'^registrar_eletricista/$', RegistrarEletricistaView.as_view(), name='registrar_eletricista')
+   	url(r'^registrar_eletricista/$', RegistrarEletricistaView.as_view(), name='registrar_eletricista'),
 ]
