@@ -424,9 +424,12 @@ def tela_inicial(request):
 def registro_concluido(request):
 	return render(request, 'error-404.html')
 
-def Cliente(request):
-	return render(request, 'solicitar_servico.html')
+def Base(request):
+	return render(request, 'base_cliente.html')
 
-def Eletricista(request):
+def tela_cliente(request):
+	return render(request, 'solicitar_servico.html', {"usuario" : request.user})
+
+def tela_eletricista(request):
 	return render(request, 'base_eletricista.html')
 
