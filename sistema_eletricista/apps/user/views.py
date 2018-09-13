@@ -427,3 +427,6 @@ def registro_concluido(request):
 def Cliente(request):
 	return render(request, 'solicitar_servico.html')
 
+def Eletricista(request):
+	return render(request, 'base_eletricista.html')
+

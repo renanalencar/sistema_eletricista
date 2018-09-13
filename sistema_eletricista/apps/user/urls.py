@@ -13,6 +13,7 @@ from sistema_eletricista.apps.user.eletricista.views import *
 
 urlpatterns = [
 	url(r'^cliente/$', views.Cliente, name='cliente'),
+	url(r'^eletricista/$', views.Eletricista, name='eletricista'),
 	url(r'^admin/', admin.site.urls),
 	url(r'^login/$', login, {'template_name':'loginEletricista_exemplo.html', 'redirect_field_name': 'login'}, name='login'),
 	url(r'^logout/$', logout_then_login, {'login_url':'/user/login/'}, name='logout'),
