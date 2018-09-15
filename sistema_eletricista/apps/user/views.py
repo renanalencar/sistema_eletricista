@@ -48,18 +48,23 @@ def change_password(request):
 @login_required
 def get_usuario_logado(request):
 	usuario = request.user
-	eletricista_existe = Eletricista.objects.filter(nickname=usuario).exists()
+	eletricista_existe = Eletricista.objects.filter(usuario=usuario).exists()
 	if eletricista_existe:
-		eletricista = Eletricista.objects.get(nickname=usuario)
+		eletricista = Eletricista.objects.get(usuario=usuario)
 		return eletricista
 	else:
-		cliente = Cliente.objects.get(nickname=usuario)
+		cliente = Cliente.objects.get(usuario=usuario)
 		return cliente
 
 
 @login_required
 def index(request):
-	return render(request, 'logado_com_sucesso.html', {'usuario' : get_usuario_logado(request)})
+	if request.method == 'GET':
+		return render(request, 'solicitar_servico.html', {'usuario' : get_usuario_logado(request)})
+	if request.method == 'POST':
+		#funcionando, ou seja, pegando as informações do cliente
+		print (request.POST['teste'])
+		return render(request, 'solicitar_servico.html', {'usuario' : get_usuario_logado(request)})		
 
 
 def BuscaEletricista(request):

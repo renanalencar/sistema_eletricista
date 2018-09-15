@@ -2,31 +2,100 @@
 {% load staticfiles %}
 
 {% block content %}
+	<style type="text/css">
+		.modal {
+		    display: none; /* Hidden by default */
+		    position: fixed; /* Stay in place */
+		    z-index: 1; /* Sit on top */
+		    left: 0;
+		    top: 0;
+		    width: 100%; /* Full width */
+		    height: 100%; /* Full height */
+		    overflow: auto; /* Enable scroll if needed */
+		    background-color: rgb(0,0,0); /* Fallback color */
+		    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		}
+
+		/* Modal Content/Box */
+		.modal-content {
+		    background-color: #green;
+		    
+		    margin: 15% auto; /* 15% from the top and centered */
+		    padding: 20px;
+		    border: 1px solid #888;
+		    width: 40%; /* Could be more or less, depending on screen size */
+		    margin-right: 25%;
+		}
+
+		/* The Close Button */
+		.close {
+		    color: #aaa;
+		    float: right;
+		    font-size: 28px;
+		    font-weight: bold;
+		    width: 5%;
+		}
+
+		.close:hover,
+		.close:focus {
+		    color: black;
+		    text-decoration: none;
+		    cursor: pointer;
+		}
+	</style>
     <!-- Horizontal Menu Ends -->
       <div class="main-panel">
         <div class="content-wrapper mt-0 p-0" >
           <div class="container mx-0 p-0 wid">
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <div id="map"></div>
-  <!--<input type="text" name="enderecoA" placeholder="Digite o local da partida" style="margin: 15px" id="A" class="form-control">
-  <input type="text" name="enderecoB" placeholder="Digite o local de destino" style="margin: 15px; float: center; margin-left: 15px" id="B" class="form-control">
-  <button id="botao" class="btn btn-success" style="margin-left: 46%">Enviar</button>-->
-  <h4 id="local_a" class="info" >Local A: </h4>
-  <h4 id="local_b" class="info" >Local B: </h4>
-  <h4 id="t" class="info" >Tempo de chegada: </h4>
-  <h4 id="d" class="info" >Distancia total: </h4>
-  <div class="fundo-botao">
-    <button id="solicitar" class="btn btn-warning botao2" >Solicitar Serviço</button>
-  </div>
+  			<div id="map"></div>
+  			<!-- Trigger/Open The Modal -->
+			<!-- The Modal -->
+			<div id="myModal" class="modal">
+			  <!-- Modal content -->
+			  <div class="">
+			    <span class="close">&times;</span>
+			    <div class="modal-content">
+			    	<!--<form type="submit" method="post">-->
+			    		<!--{% csrf_token %}-->
+					    <h4>Qual o seu problema?</h4>
+					    <input type="text" id="id_teste" name="teste" />
+					    <button id="enviardevez" class="btn btn-success" style="width: 50%; margin-left: 25%; margin-top: 10px">Enviar</button>
+				   <!-- </form>-->
+				</div>
+			  </div>
+			</div>
+			  <h4 id="local_a" class="info" >Local A: </h4>
+			  <h4 id="local_b" class="info" >Local B: </h4>
+			  <h4 id="t" class="info" >Tempo de chegada: </h4>
+			  <h4 id="d" class="info" >Distancia total: </h4>
+			  <div class="fundo-botao">
+			    <button id="solicitar" class="btn btn-warning botao2" >Solicitar Serviço</button>
+			  </div>
           </div>
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
         <!-- partial -->
       </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
   //geocoding transforma adress em latlng
-  alert('Temos 1 cliente na minha casa(Rua Cubatao) e 5 eletricistas(Na faria lima, na poli, na paulista, num extra do lado de casa e num sesc da vila mariana) todos estáticos, depois é só trocar essas dados com dados reais(latitude e longitude, armazenados no db)')
+  var modal = document.getElementById('myModal')
+  var modalbtn = document.getElementById('myBtn')
+  var enviardevez = document.getElementById('enviardevez')
+  enviardevez.addEventListener('click', function(){
+  	mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
+  	modal.style.display = 'none'
+  })
+  var span = document.getElementsByClassName("close")[0]
+  span.addEventListener('click', function(){
+  	modal.style.display = 'none'
+  })
+  window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+  }
   var distancia = []
   var tempo = []
   var eletricistas = []
@@ -52,11 +121,12 @@
   //})
   var solicitar_servico = document.getElementById('solicitar')
   solicitar_servico.addEventListener('click', () => {
-    mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
+  	modal.style.display = 'block'
+    //mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
   })
-  setInterval(function(){console.log('set1')}, 2000)
-  setInterval(function(){console.log('set2')}, 1000)
-  setInterval(function(){console.log('set3')}, 5000)
+  //setInterval(function(){console.log('set1')}, 2000)
+  //setInterval(function(){console.log('set2')}, 1000)
+  //setInterval(function(){console.log('set3')}, 5000)
   function initMap() {
     setTimeout(function(){
       var options = {
