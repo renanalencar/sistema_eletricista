@@ -1,0 +1,85 @@
+{% extends 'base_cliente.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-11">
+        <!-- BEGIN SAMPLE TABLE PORTLET-->
+        <div class="portlet box green-jungle">
+            <div class="portlet-title">
+                <div class="caption">
+                   <h1>Histórico de Serviços</h1>
+            </div>
+            <div class="portlet-body">
+
+
+                <div class="table-striped">
+                    <table class="table-striped">
+                        <thead>
+                          <tr>
+                            <th>Data</th>
+                            <th>Endereço</th>
+                            <th>Valor</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                              <tr>
+                                <td>
+                                  10/10/2018
+                                </td>
+                                <td>
+                                  Rua do teste
+                                </td>
+                                <td>
+                                  R$17,25
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  12/08/2018
+                                </td>
+                                <td>
+                                  Rua do teste 2
+                                </td>
+                                <td>
+                                  R$20,25
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  27/02/2018
+                                </td>
+                                <td>
+                                  Rua do teste 3
+                                </td>
+                                <td>
+                                  R$37,64
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  12/10/2018
+                                </td>
+                                <td>
+                                  Rua do teste 4
+                                </td>
+                                <td>
+                                  R$24,25
+                                </td>   
+                              </tr> 
+                        </tbody>
+                    </table>
+                </div>
+                 
+            </div>
+        </div>
+        <!-- END SAMPLE TABLE PORTLET-->
+    </div>
+    
+</div>
+<!-- END CONTENT BODY -->
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+
+{% endblock %}

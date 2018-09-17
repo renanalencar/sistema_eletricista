@@ -112,3 +112,24 @@ class RegistrarCartaoForm(forms.Form):
 	def adiciona_erro(self, message):
 		erros = self._errors.setdefault(forms.forms.NON_FIELD_ERRORS, forms.utils.ErrorList())
 		erros.append(message)
+
+class RegistrarRecebedorForm(forms.Form):
+
+	agencia = forms.IntegerField(required=True)
+	agencia_dv = forms.IntegerField(required=False)
+	bank_code = forms.IntegerField(required=True)
+	conta = forms.IntegerField(required=True)
+	document_number = forms.CharField(required=True)
+	legal_name = forms.CharField(required=True)
+
+	def is_valid(self):
+		valid = True
+		if not super(RegistrarRecebedorForm, self).is_valid():
+			self.adiciona_erro('Por favor verifique os dados informados')
+			valid = False
+
+		return valid
+
+	def adiciona_erro(self, message):
+		erros = self._errors.setdefault(forms.forms.NON_FIELD_ERRORS, forms.utils.ErrorList())
+		erros.append(message)
