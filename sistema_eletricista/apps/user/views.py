@@ -12,7 +12,7 @@ from django.conf import settings
 from django.urls import reverse
 from django.core.serializers.json import DjangoJSONEncoder
 from django.contrib import messages
-from vanilla import ListView
+#from vanilla import ListView
 
 
 #Import from apps

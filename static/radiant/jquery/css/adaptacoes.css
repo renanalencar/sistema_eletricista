@@ -70,12 +70,10 @@
     }
 
     #map {
-      height: 42rem;
+      height: 54rem;
       object-fit: cover;
       position: relative;
-      bottom: 0px;
-      top:0px;
-      left:0px;
+      
       z-index: 0%;
     }
 

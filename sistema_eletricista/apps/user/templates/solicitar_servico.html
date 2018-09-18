@@ -47,35 +47,35 @@
       <div class="main-panel">
         <div class="content-wrapper mt-0 p-0" >
           <div class="container mx-0 p-0 wid">
-  			<div id="map"></div>
+          <div id="map"></div>
   			<!-- Trigger/Open The Modal -->
 			<!-- The Modal -->
-			<div id="myModal" class="modal">
-			  <!-- Modal content -->
-			  <div class="">
-			    <span class="close">&times;</span>
-			    <div class="modal-content">
-			    	<!--<form type="submit" method="post">-->
-			    		<!--{% csrf_token %}-->
-					    <h4>Qual o seu problema?</h4>
-					    <input type="text" id="id_teste" name="teste" />
-					    <button id="enviardevez" class="btn btn-success" style="width: 50%; margin-left: 25%; margin-top: 10px">Enviar</button>
-				   <!-- </form>-->
-				</div>
-			  </div>
-			</div>
-			  <h4 id="local_a" class="info" >Local A: </h4>
-			  <h4 id="local_b" class="info" >Local B: </h4>
-			  <h4 id="t" class="info" >Tempo de chegada: </h4>
-			  <h4 id="d" class="info" >Distancia total: </h4>
-			  <div class="fundo-botao">
-			    <button id="solicitar" class="btn btn-warning botao2" >Solicitar Serviço</button>
-			  </div>
+  			  <h4 id="local_a" class="info" >Local A: </h4>
+  			  <h4 id="local_b" class="info" >Local B: </h4>
+  			  <h4 id="t" class="info" >Tempo de chegada: </h4>
+  			  <h4 id="d" class="info" >Distancia total: </h4>
+  			  <div class="fundo-botao">
+  			    <button id="solicitar" class="btn btn-warning botao2" >Solicitar Serviço</button>
+  			  </div>
           </div>
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
         <!-- partial -->
+      </div>
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="">
+          <span class="close">&times;</span>
+          <div class="modal-content">
+            <!--<form type="submit" method="post">-->
+              <!--{% csrf_token %}-->
+              <h4>Qual o seu problema?</h4>
+              <input type="text" id="id_teste" name="teste" />
+              <button id="enviardevez" class="btn btn-success" style="width: 50%; margin-left: 25%; margin-top: 10px">Enviar</button>
+           <!-- </form>-->
+          </div>
+        </div>
       </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
