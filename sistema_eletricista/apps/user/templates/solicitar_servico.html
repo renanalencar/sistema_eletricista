@@ -55,7 +55,9 @@
   			  <h4 id="t" class="info" >Tempo de chegada: </h4>
   			  <h4 id="d" class="info" >Distancia total: </h4>
   			  <div class="fundo-botao">
-  			    <button id="solicitar" class="btn btn-warning botao2" >Solicitar Serviço</button>
+  			    <button id="solicitar" class="btn btn-warning botao2">
+            <div class="solicitar">Solicitar Serviço</div>
+            </button>
   			  </div>
           </div>
         </div>
@@ -67,13 +69,28 @@
         <!-- Modal content -->
         <div class="">
           <span class="close">&times;</span>
-          <div class="modal-content">
-            <!--<form type="submit" method="post">-->
-              <!--{% csrf_token %}-->
-              <h4>Qual o seu problema?</h4>
-              <input type="text" id="id_teste" name="teste" />
-              <button id="enviardevez" class="btn btn-success" style="width: 50%; margin-left: 25%; margin-top: 10px">Enviar</button>
-           <!-- </form>-->
+            <div class="modal fade show" id="exampleModal-4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-4" style="display: block; padding-right: 21px;">
+            <div class="modal-dialog" role="document" style="position: center; top: 20%">
+              <div class="modal-content mx-0" style="width:100%">
+                <div class="modal-body mb-0 pb-0" style="position: relative">
+                  <form>
+                    <div>
+                      <label for="problema" class="row-form-label"><h2>O que houve de errado?
+                        <h2></label>
+                      <textarea rows="4" style="width: 110%"> </textarea>
+                    </div>
+                    <div>
+                      <label for="message-text" class="row-form-label"><h3>Qual o endereço?<h3></label>
+                      <input type="text" id="id_teste" name="teste" style="width: 130%">
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button id="enviardevez" class="btn btn-success" style="width: 50%; margin-top: 10px">Enviar</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal" style="width: 50%; margin-top: 10px">Cancelar</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
