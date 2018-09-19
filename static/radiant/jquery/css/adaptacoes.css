@@ -70,12 +70,10 @@
     }
 
     #map {
-      height: 42rem;
+      height: 54rem;
       object-fit: cover;
       position: relative;
-      bottom: 0px;
-      top:0px;
-      left:0px;
+      
       z-index: 0%;
     }
 
@@ -120,4 +118,9 @@
       font-weight: bold; 
       font-size: 100%; 
       letter-spacing: 3px;
+    }
+
+    .solicitar{
+      font-size: 110%; 
+      line-height: 120%
     }

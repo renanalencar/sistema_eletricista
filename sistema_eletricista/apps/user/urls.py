@@ -9,10 +9,12 @@ from .views import QuestionarioView
 from .views import *
 from . import views
 from sistema_eletricista.apps.user.eletricista.views import *
-
+from sistema_eletricista.apps.user.cliente.views import *
+from sistema_eletricista.apps.user.views import *
 
 urlpatterns = [
 	url(r'^cliente/$', views.tela_cliente, name='tela_cliente'),
+	url(r'^cliente/historico-de-servicos', views.ListarPedidos, name='ListarPedidos'),
 	url(r'^index/$', views.index, name='index'),
 	url(r'^eletricista/$', views.tela_eletricista, name='tela_eletricista'),
 	url(r'^admin/', admin.site.urls),
@@ -20,6 +22,7 @@ urlpatterns = [
 	url(r'^logout/$', logout_then_login, {'login_url':'/user/login/'}, name='logout'),
 	url(r'^registrar/$', RegistrarEletricistaView.as_view(), name="registrar"),
 	url(r'^registrar/cartao', RegistrarCartaoView.as_view(), name="registrar_cartao"),
+	url(r'^registrar/conta', RegistrarRecebedorView.as_view(), name="registrar_recebedor"),
 	url(r'^password_reset/$', auth_views.password_reset, {'template_name':'password_reset_form.html'}, name='password_reset'),
     url(r'^password_reset/done/$', auth_views.password_reset_done,{'template_name':'password_reset_done.html'}, name='password_reset_done'),
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',

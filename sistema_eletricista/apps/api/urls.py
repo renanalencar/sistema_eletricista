@@ -16,6 +16,7 @@ urlpatterns = [
 	url(r'^login/$', obtain_jwt_token),
 	url(r'^token-verify/$', obtain_jwt_token),
 	url(r'^token-refresh/$', obtain_jwt_token),
+	url(r'^coords/(?P<nickname>\w+)/$', CoordsViewSet.as_view()),
 ]
 
 urlpatterns += router.urls

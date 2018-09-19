@@ -90,9 +90,9 @@ class CoordenadasSerializer(serializers.ModelSerializer):
 		else:
 			usuario = None
 
-		coordanadas = Coordenadas.objects.create(**validated_data)  
+		coordenadas = Coordenadas.objects.create(**validated_data)  
  
-		return coordanadas
+		return coordenadas
 
 	def update(self, instance, validated_data):
 

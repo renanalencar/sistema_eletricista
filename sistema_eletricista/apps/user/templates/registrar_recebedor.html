@@ -39,42 +39,69 @@
               <form class="form-signin" actions="{% url 'registrar' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
-                  <h5>Nome do Titular do Cartão</h5>
+                  <h5>Agência</h5>
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Ex: JOSÉ SANTOS" id="id_card_holder_name" name="card_holder_name" required>
+                    <input type="text" class="form-control" placeholder="Ex: 0932" id="id_agencia" name="agencia" required>
                     <div class="input-group-append">
-                      <span class="input-group-text"><i id="i-card_holder_name" class="mdi mdi-check-circle-outline"></i></span>
+                      <span class="input-group-text"><i id="i-agencia" class="mdi mdi-check-circle-outline"></i></span>
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
-                  <h5>Número do Cartão</h5>
+                  <h5>Dígito da agência</h5>
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Ex: 0000 0000 0000 0000" id="id_card_number" name="card_number" required>
+                    <input type="text" class="form-control" placeholder="Ex:0" id="id_agencia_dv" name="agencia_dv" required>
                     <div class="input-group-append">
-                      <span class="input-group-text"><i id="i-card_number" class="mdi mdi-check-circle-outline"></i></span>
+                      <span class="input-group-text"><i id="i-agencia_dv" class="mdi mdi-check-circle-outline"></i></span>
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
-                  <h5>Vencimento</h5>
+                  <h5>Código do Banco</h5>
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Ex: 10/22" id="id_card_expiration_date" name="card_expiration_date" required>
+                    <input type="text" class="form-control" placeholder="Ex: 000" id="id_bank_code" name="bank_code" required>
                     <div class="input-group-append">
-                      <span class="input-group-text"><i id="i-card_expiration_date" class="mdi mdi-check-circle-outline"></i></span>
+                      <span class="input-group-text"><i id="i-bank_code" class="mdi mdi-check-circle-outline"></i></span>
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
-                  <h5>Código de Segurança</h5>
+                  <h5>Conta</h5>
                   <div class="input-group">
-                    <input type="password" class="form-control" placeholder="000" id="id_card_cvv" name="card_cvv" required>
+                    <input type="text" class="form-control" placeholder="000" id="id_conta" name="conta" required>
                     <div class="input-group-append">
-                      <span class="input-group-text"><i id="i-card_cvv" class="mdi mdi-check-circle-outline" style=""></i></span>
+                      <span class="input-group-text"><i id="i-conta" class="mdi mdi-check-circle-outline" style=""></i></span>
                     </div>
                   </div>
                 </div>
-               
+                <div class="form-group">
+                  <h5>Dígito da conta</h5>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="0" id="id_conta_dv" name="conta_dv" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i id="i-conta_dv" class="mdi mdi-check-circle-outline" style=""></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <h5>CPF</h5>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="000.000.000-00" id="id_document_number" name="document_number" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i id="i-document_number" class="mdi mdi-check-circle-outline" style=""></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <h5>Nome</h5>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="JOSÉ SANTOS" id="id_legal_name" name="legal_name" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i id="i-legal_name" class="mdi mdi-check-circle-outline" style=""></i></span>
+                    </div>
+                  </div>
+                </div>
+
                 {% if form.errors %}
                   <div class ="alert alert-danger">
                     <button type="button" class="close">&times;</button>
@@ -82,17 +109,26 @@
                     <ul>
                       {% for field in form %}
                         {% if field.errors %}
-                          {% if field.label == 'card_holder_name' %}
+                          {% if field.label == 'agencia' %}
+                            <li>{{ field.label }}: Digite uma agência válida</li>
+                          {% endif %}
+                          {% if field.label == 'agencia_dv' %}
+                            <li>{{ field.label }}: Digite um dígito válido</li>
+                          {% endif %}
+                          {% if field.label == 'bank_code' %}
+                            <li>{{ field.label }}: Digite um Código de Banco válido</li>
+                          {% endif %}
+                          {% if field.label == 'conta' %}
+                            <li>{{ field.label }}: Digite uma conta válida</li>
+                          {% endif %}
+                          {% if field.label == 'conta_dv' %}
+                            <li>{{ field.label }}: Digite um dígito válido</li>
+                          {% endif %}
+                          {% if field.label == 'document_number' %}
+                            <li>{{ field.label }}: Digite um CPF válido</li>
+                          {% endif %}
+                          {% if field.label == 'legal_name' %}
                             <li>{{ field.label }}: Digite um nome válido</li>
-                          {% endif %}
-                          {% if field.label == 'card_number' %}
-                            <li>{{ field.label }}: Digite um número válido</li>
-                          {% endif %}
-                          {% if field.label == 'card_cvv' %}
-                            <li>{{ field.label }}: Digite um Código de Segurança válido</li>
-                          {% endif %}
-                          {% if field.label == 'card_expiration_date' %}
-                            <li>{{ field.label }}: Digite um vencimento válido</li>
                           {% endif %}
                        
                         {% endif %}
@@ -121,15 +157,20 @@
   <script type="text/javascript">
     var url = window.location.pathname;
     
-    $("#id_card_number").mask("0000 0000 0000 0000");
-    $("#id_card_cvv").mask("000");
+    $("#id_document_number").mask("00000000000");
+    $("#id_agencia").mask("0000");
+    $("#id_bank_code").mask("000");
+    $("#id_conta").mask("00000");
 
     var bool = document.getElementsByClassName('mdi mdi-check-circle-outline');
 
-    checked('card_holder_name')
-    checked('card_cvv')
-    checked('card_number')
-    checked('card_expiration_date')
+    checked('agencia')
+    checked('agencia_dv')
+    checked('bank_code')
+    checked('conta')
+    checked('conta_dv')
+    checked('document_number')
+    checked('legal_name')
 
      function checked(x){
       var input = document.getElementById('id_' + x);
@@ -137,16 +178,25 @@
         var bool = document.getElementsByClassName('mdi mdi-check-circle-outline');
         var botao = document.getElementById('salvar');
         var tamanho = 4;
-        if (x == 'card_number') {
-          tamanho = 16;
+        if (x == 'agencia') {
+          tamanho = 3;
         }
-        if (x == 'card_cvv') {
+        if (x == 'agencia_dv') {
+          tamanho = 0;
+        }
+        if (x == 'bank_code') {
           tamanho = 2;
         }
-        if (x == 'card_expiration_date') {
-          tamanho = 4;
+        if (x == 'conta') {
+          tamanho = 3;
         }
-        if (x == 'card_holder_name') {
+        if (x == 'conta_dv') {
+          tamanho = 0;
+        }
+        if (x == 'document_number') {
+          tamanho = 10;
+        }
+        if (x == 'legal_name') {
           tamanho = 5;
         }
         if (input.value.length > tamanho){

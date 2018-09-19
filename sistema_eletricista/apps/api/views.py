@@ -10,11 +10,31 @@ from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
+from django.http import HttpResponse, request, HttpResponseRedirect
 
 class CoordenadasViewSet(viewsets.ModelViewSet):
 	queryset = Coordenadas.objects.all()
 	serializer_class = CoordenadasSerializer
 
+class CoordsViewSet(APIView):
+	def get(self, request, nickname):
+		user_ = User.objects.get(username=nickname)
+		coords = Coordenadas.objects.get(usuario=user_)
+		serializer = CoordenadasSerializer(coords)
+		return Response(serializer.data)
+	def patch(self, request, nickname):
+		user_ = User.objects.get(username=nickname)
+		coords = Coordenadas.objects.get(usuario=user_)
+		print (request.data)
+		serializer = CoordenadasSerializer(coords, data=request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.data)
+		print (serializer.errors)
+		return HttpResponse('errrou')
+
+	
+	
 class UsuarioViewSet(viewsets.ModelViewSet):
 	queryset = User.objects.all()
 	serializer_class = UsuarioSerializer

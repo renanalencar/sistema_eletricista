@@ -12,11 +12,15 @@ from django.conf import settings
 from django.urls import reverse
 from django.core.serializers.json import DjangoJSONEncoder
 from django.contrib import messages
+#from vanilla import ListView
+
 
 #Import from apps
 from .forms import RegistrarEletricistaForm
 from .forms import RegistrarCartaoForm
 from .forms import RegistrarAdministradorForm
+from .forms import RegistrarRecebedorForm
+
 #from .forms import QuestionarioForm
 from .forms import QuestionarioForm
 from .eletricista.models import *
@@ -124,9 +128,47 @@ class RegistrarCartaoView(View):
 
 			print (pagarme.card.create(card_data))
 
-			return redirect('loginCliente')
+			return redirect('tela_cliente')
 		else:
 			return render(request, 'registrar_cartao.html', {'form' : form_cartao})
+
+class RegistrarRecebedorView(View):
+
+	template_name = 'registrar_recebedor.html'
+	def get(self, request, *args, **kwargs):
+		return render(request, self.template_name)
+
+	def post(self, request, *args, **kwargs):
+		form_recebedor = RegistrarRecebedorForm(request.POST)
+		if form_recebedor.is_valid():
+			dados_form_recebedor = form_recebedor.data
+
+			pagarme.authentication_key('ak_test_uSXZcO1zJua2nG3ZhjmiUwcwnxnCgM')
+
+			params = {
+			    'anticipatable_volume_percentage': '80',
+			    'automatic_anticipation_enabled': 'true',
+			    'transfer_day': '5',
+			    'transfer_enabled': 'true',
+			    'transfer_interval': 'weekly',
+			    'bank_account':{
+			        'agencia': dados_form_recebedor['agencia'],
+			        'agencia_dv': dados_form_recebedor['agencia_dv'],
+			        'bank_code': dados_form_recebedor['bank_code'],
+			        'conta': dados_form_recebedor['conta'],
+			        'conta_dv': dados_form_recebedor['conta_dv'],
+			        'document_number': dados_form_recebedor['document_number'],
+			        'legal_name': dados_form_recebedor['legal_name'],
+			    }
+			}
+
+			recipient = pagarme.recipient.create(params)
+
+			print(recipient)
+
+			return redirect('tela_eletricista')
+		else:
+			return render(request, 'registrar_recebedor.html', {'form' : form_recebedor})
 	
 
 class RegistrarEletricistaView(View):
@@ -169,7 +211,7 @@ class RegistrarEletricistaView(View):
 				 settings.EMAIL_HOST_USER,
 				 [usuario_eletri.email]
 				)
-				
+				return redirect('registrar_recebedor')
 				return HttpResponseRedirect(reverse('questionario', kwargs={'nome_eletricista': dados_form['nickname']}))
 			
 			else:
@@ -462,3 +504,5 @@ def tela_cliente(request):
 def tela_eletricista(request):
 	return render(request, 'base_eletricista.html')
 
+def ListarPedidos(request):
+	return render(request, 'listar_pedido_servico.html')
