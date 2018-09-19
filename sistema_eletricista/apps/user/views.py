@@ -16,6 +16,7 @@ from django.contrib import messages
 #Import from apps
 from .forms import RegistrarEletricistaForm
 from .forms import RegistrarCartaoForm
+from .forms import RegistrarAdministradorForm
 #from .forms import QuestionarioForm
 from .forms import QuestionarioForm
 from .eletricista.models import *
@@ -49,22 +50,40 @@ def change_password(request):
 def get_usuario_logado(request):
 	usuario = request.user
 	eletricista_existe = Eletricista.objects.filter(usuario=usuario).exists()
+	cliente_existe = Cliente.objects.filter(usuario=usuario).exists()
+	admin_existe = Admin.objects.filter(user=usuario).exists()
 	if eletricista_existe:
 		eletricista = Eletricista.objects.get(usuario=usuario)
 		return eletricista
-	else:
+	if cliente_existe:
 		cliente = Cliente.objects.get(usuario=usuario)
 		return cliente
+	if admin_existe:
+		admin = Admin.objects.get(user=usuario)
+		return admin
 
+def get_client_ip(request):
+	x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+	if x_forwarded_for:
+		ip = x_forwarded_for.split(',')[0]
+	else:
+		ip = request.META.get('REMOTE_ADDR')
+	return ip
 
 @login_required
 def index(request):
 	if request.method == 'GET':
-		return render(request, 'solicitar_servico.html', {'usuario' : get_usuario_logado(request)})
-	if request.method == 'POST':
-		#funcionando, ou seja, pegando as informações do cliente
-		print (request.POST['teste'])
-		return render(request, 'solicitar_servico.html', {'usuario' : get_usuario_logado(request)})		
+		username = request.user
+		usuario = User.objects.get(username=username)
+		eletricista_existe = Eletricista.objects.filter(usuario=usuario).exists()
+		cliente_existe = Cliente.objects.filter(usuario=usuario).exists()
+		admin_existe = Admin.objects.filter(user=usuario).exists()
+		if eletricista_existe:
+			return render(request, 'solicitar_servico.html', {'usuario' : get_usuario_logado(request), 'ip' : get_client_ip(request)})
+		if cliente_existe:
+			return render(request, 'solicitar_servico.html', {'usuario' : get_usuario_logado(request), 'ip' : get_client_ip(request)})	
+		if admin_existe:
+			return render(request, 'dashboard_exemplo.html', {'usuario' : get_usuario_logado(request), 'ip' : get_client_ip(request)})
 
 
 def BuscaEletricista(request):
@@ -108,7 +127,6 @@ class RegistrarCartaoView(View):
 			return redirect('loginCliente')
 		else:
 			return render(request, 'registrar_cartao.html', {'form' : form_cartao})
-
 	
 
 class RegistrarEletricistaView(View):
@@ -184,8 +202,12 @@ class RegistrarEletricistaView(View):
 				  'phone_numbers': [dados_form['telefone']],
 				  'birthday': '1998-05-01',
 				}
+				try:
+					customer = pagarme.customer.create(customer_data)
+				except:
+					print ('errrrrrrrrrou')
+					return HttpResponse('cpf inválido')
 
-				customer = pagarme.customer.create(customer_data)
 
 
 				enviar_email('Sistema Eletricista24hrs', 
@@ -317,7 +339,7 @@ def bloquear_eletricista_registrado(request, nickname):
 
 
 def desbloquear_eletricista_registrado(request, nickname):
-	usuario_em_questao = User.objects.get(username=nome_eletricista)
+	usuario_em_questao = User.objects.get(username=nickname)
 	eletricista_desbloqueado = Eletricista.objects.get(usuario=usuario_em_questao)
 	eletricista_desbloqueado.bloqueado = 'False'
 	eletricista_desbloqueado.save()
@@ -335,13 +357,13 @@ def desbloquear_eletricista_registrado(request, nickname):
 
 class RegistrarAdministradorView(View):
 
-	template_name = 'registrar_exemplo.html'
+	template_name = 'diegao.html'
 	def get(self, request, *args, **kwargs):
 		return render(request, self.template_name)
 
 	def post(self, request, *args, **kwargs):
-		if request.user.is_authenticated() & Admin.objects.filter(user=user).exists():
-			form_user = RegistrarAdministradorForm(request.POST, request.FILES)
+		form_user = RegistrarAdministradorForm(request.POST, request.FILES)
+		if Admin.objects.filter(user=request.user).exists():
 
 			if form_user.is_valid():
 				dados_form = form_user.data
@@ -357,9 +379,11 @@ class RegistrarAdministradorView(View):
 					)
 				administrador.save()
 
-			return redirect('/login')
+				return redirect('/user/adm/')
+			else:
+				return render(request, 'registrar_admin.html', {'form': form_user})
 		else:
-			return render(request, 'registrar_admin.html', {'form': form_user})
+			return HttpResponse('voce nao é permitido a criar um administrador')
 
 
 def clientes_registrados(request):

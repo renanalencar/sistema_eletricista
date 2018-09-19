@@ -58,7 +58,9 @@
 			    	<!--<form type="submit" method="post">-->
 			    		<!--{% csrf_token %}-->
 					    <h4>Qual o seu problema?</h4>
-					    <input type="text" id="id_teste" name="teste" />
+					    <input type="text" id="id_necessidade" name="necessidade">
+              <h4>Qual seu endereço?</h4>
+              <input type="text" id="id_endereco" name="endereco">
 					    <button id="enviardevez" class="btn btn-success" style="width: 50%; margin-left: 25%; margin-top: 10px">Enviar</button>
 				   <!-- </form>-->
 				</div>
@@ -78,291 +80,323 @@
         <!-- partial -->
       </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    var pedido_aceito;
+    var url = 'ws://' + '{{ip}}' + ':8000/ws/user/index/'
+    var ws = new WebSocket(url);
+    ws.onopen = function(e) {
+      console.log('WebSocket conectado!')
+    }
+    ws.onclose = function(e) {
+      console.error('WebSocket disconectado')
+    }
+    ws.onmessage = function(e) {
+      let data = JSON.parse(e.data)
+      console.log(data)
+      pedido_aceito = data['pedido_status']
+      if(pedido_aceito) {
+        mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
+      }
+      if(!data['pedido_enviado']){
+        alert('O eletricista mais proximo recusou, tente de novo')
+      }
+    }
+  </script>
   <script>
-  //geocoding transforma adress em latlng
-  var modal = document.getElementById('myModal')
-  var modalbtn = document.getElementById('myBtn')
-  var enviardevez = document.getElementById('enviardevez')
-  enviardevez.addEventListener('click', function(){
-  	mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
-  	modal.style.display = 'none'
-  })
-  var span = document.getElementsByClassName("close")[0]
-  span.addEventListener('click', function(){
-  	modal.style.display = 'none'
-  })
-  window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-  }
-  var distancia = []
-  var tempo = []
-  var eletricistas = []
-  var end_cliente
-  var end_elec
-  var map
-  var dirdisplay
-  var dirservice
-  var eu
-  var botao = document.getElementById('botao')
-  var lat_real
-  var lng_real
-  var markers = []
-  var end_cliente = []
-  var end_elec = []
-  jsonRequest(lat_real, lng_real)
-  //botao.addEventListener('click', () => {
-    //var partida = document.getElementById('A').value
-    //ar destino = document.getElementById('B').value
-    //jsonRequest(partida, destino, map)
-    //distanciaETempoDaRota(partida, destino)
-    //setaRotaDoFormulario(partida, destino)
-  //})
-  var solicitar_servico = document.getElementById('solicitar')
-  solicitar_servico.addEventListener('click', () => {
-  	modal.style.display = 'block'
-    //mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
-  })
-  //setInterval(function(){console.log('set1')}, 2000)
-  //setInterval(function(){console.log('set2')}, 1000)
-  //setInterval(function(){console.log('set3')}, 5000)
-  function initMap() {
-    setTimeout(function(){
-      var options = {
-        zoom: 15,
-        center: {lat:lat_real, lng:lng_real}
+    console.log(ws)
+    var necessidade = document.getElementById('id_necessidade')
+    var endereco = document.getElementById('id_endereco')
+    //geocoding transforma adress em latlng
+    var modal = document.getElementById('myModal')
+    var modalbtn = document.getElementById('myBtn')
+    var enviardevez = document.getElementById('enviardevez')
+    enviardevez.addEventListener('click', function(){
+      modal.style.display = 'none'
+      ws.send(JSON.stringify({
+        necessidade : necessidade.value,
+        pedido_enviado : true,
+        pedido_status : false,
+        usuario : '{{usuario}}',
+        endereco : endereco.value
+      }))
+    })
+    var span = document.getElementsByClassName("close")[0]
+    span.addEventListener('click', function(){
+      modal.style.display = 'none'
+    })
+    window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
       }
-      map = new google.maps.Map(document.getElementById('map'), options);
-      console.log(map)
-      eu = new google.maps.LatLng(lat_real, lng_real) // coords imprecisas do gps do laptop
-      var infowindow = new google.maps.InfoWindow({
-            content: '{{usuario}}'
+    }
+    var distancia = []
+    var tempo = []
+    var eletricistas = []
+    var end_cliente
+    var end_elec
+    var map
+    var dirdisplay
+    var dirservice
+    var eu
+    var botao = document.getElementById('botao')
+    var lat_real
+    var lng_real
+    var markers = []
+    var end_cliente = []
+    var end_elec = []
+    jsonRequest(lat_real, lng_real)
+    //botao.addEventListener('click', () => {
+      //var partida = document.getElementById('A').value
+      //ar destino = document.getElementById('B').value
+      //jsonRequest(partida, destino, map)
+      //distanciaETempoDaRota(partida, destino)
+      //setaRotaDoFormulario(partida, destino)
+    //})
+    var solicitar_servico = document.getElementById('solicitar')
+    solicitar_servico.addEventListener('click', () => {
+    	modal.style.display = 'block'
+      //mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
+    })
+    //setInterval(function(){console.log('set1')}, 2000)
+    //setInterval(function(){console.log('set2')}, 1000)
+    //setInterval(function(){console.log('set3')}, 5000)
+    function initMap() {
+      setTimeout(function(){
+        var options = {
+          zoom: 15,
+          center: {lat:lat_real, lng:lng_real}
+        }
+        map = new google.maps.Map(document.getElementById('map'), options);
+        console.log(map)
+        eu = new google.maps.LatLng(lat_real, lng_real) // coords imprecisas do gps do laptop
+        var infowindow = new google.maps.InfoWindow({
+              content: '{{usuario}}'
+          });
+        addMarker(eu, map, "{% static 'radiant/jquery/images/red_MarkerC.png' %}", infowindow)
+        //eu = new google.maps.LatLng(-23.5782479, -46.6425898) //cliente em questao(no caso eu, rola)
+        eletricistas[0] = new google.maps.LatLng(-23.5773671, -46.6868916) //faria lima
+        eletricistas[1] = new google.maps.LatLng(-23.5631043, -46.6543825) //av paulista
+        eletricistas[2] = new google.maps.LatLng(-23.5571644, -46.730234) //poli
+        eletricistas[3] = new google.maps.LatLng(-23.5822135, -46.6441941) //sesc vila mariana
+        eletricistas[4] = new google.maps.LatLng(-23.5799952, -46.6403997) //extra vila mariana
+        eletricistas[5] = new google.maps.LatLng(-23.5793521, -46.641414) //local mais próximo de todos do cliente
+        for (var x = 0; x < eletricistas.length; x++){
+          addMarker(eletricistas[x], map, "{% static 'radiant/jquery/images/logo-personagem-teste (2).png' %}")
+        }
+
+        dirdisplay = new google.maps.DirectionsRenderer();
+        dirservice = new google.maps.DirectionsService();
+    
+      }, 10)
+    }
+
+    function addMarker(position, map, icon, window_) {
+      var marker = new google.maps.Marker({position : position, map : map, icon : icon});
+      markers.push(marker)
+      marker.addListener('click', function() {
+            window_.open(map, markers[0]);
         });
-      addMarker(eu, map, "{% static 'radiant/jquery/images/red_MarkerC.png' %}", infowindow)
-      //eu = new google.maps.LatLng(-23.5782479, -46.6425898) //cliente em questao(no caso eu, rola)
-      eletricistas[0] = new google.maps.LatLng(-23.5773671, -46.6868916) //faria lima
-      eletricistas[1] = new google.maps.LatLng(-23.5631043, -46.6543825) //av paulista
-      eletricistas[2] = new google.maps.LatLng(-23.5571644, -46.730234) //poli
-      eletricistas[3] = new google.maps.LatLng(-23.5822135, -46.6441941) //sesc vila mariana
-      eletricistas[4] = new google.maps.LatLng(-23.5799952, -46.6403997) //extra vila mariana
-      eletricistas[5] = new google.maps.LatLng(-23.5793521, -46.641414) //local mais próximo de todos do cliente
-      for (var x = 0; x < eletricistas.length; x++){
-        addMarker(eletricistas[x], map, "{% static 'radiant/jquery/images/yellow_MarkerE.png' %}")
-      }
-
-      dirdisplay = new google.maps.DirectionsRenderer();
-      dirservice = new google.maps.DirectionsService();
-  
-    }, 10)
-  }
-
-  function addMarker(position, map, icon, window_) {
-    var marker = new google.maps.Marker({position : position, map : map, icon : icon});
-    markers.push(marker)
-    marker.addListener('click', function() {
-          window_.open(map, markers[0]);
-      });
-  }
-  
-  function calculateRoute(dir, dis, ori, dest) {
-    //origins=-23.5782479,-46.6425898&destinations=-23.6229423,-46.6360948
-    apagaMapa(dis)
-
-    var request = {
-      //origin: new google.maps.LatLng(-23.5782479, -46.6425898),
-      origin: ori,
-      //destination: new google.maps.LatLng(-23.6229423, -46.630948),
-      destination: dest,
-      travelMode:'WALKING',
-    };
-    //var dir = new google.maps.DirectionsService();
-    dir.route(request, function(response, status) {
-      console.log(status);
-      if(status == 'OK'){
-        //var dis = new google.maps.DirectionsRenderer();
-        console.log(response);
-        dis.setDirections(response);
-      }
-    });
-  }
-
-
-  
-  function jsonRequest() {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-
-        var data = JSON.parse(this.responseText);
-        console.log(data.lat, data.lng)
-        lat_real = data.lat
-        lng_real = data.lng
-        console.log(lat_real, lng_real)
-
-      }
-    };
-    //dirdisplay.setMap(mapa) //usar para setar o mapa
-    //calculateRoute(dirservice, dirdisplay, partida, destino); //usar em uniao com o de cima para plotar rota
-    //"https://maps.googleapis.com/maps/api/distancematrix/json?origins=-23.5782479,-46.6425898&destinations=-23.6229423,-46.630948&departure_time=now&key=AIzaSyBdJ_Kts10iRTTj6tZh8pv0mjB2vp6Mcm4" url exemplo
-    xhr.open("GET" , "http://localhost:8000/api/coordenadas/1/");
-    xhr.send()
-  }
-  
-  function apagaMapa (d) {
-      d.set('directions', null)
-    }
-  function distanciaETempoDaRota(ori, dest) {
-    var service = new google.maps.DistanceMatrixService();
-    service.getDistanceMatrix(
-      {
-        origins: [ori],
-        destinations: [dest],
-        travelMode: 'DRIVING',
-      }, function(response, status) {
-        console.log(response)
-        let di = response.rows[0].elements[0].distance.text
-        let di_replace = di.replace(',', '.')
-        console.log(di_replace)
-        let te = response.rows[0].elements[0].duration.text
-        distancia.push(parseFloat(di_replace))
-        tempo.push(te)
-        end_cliente.push(response.originAddresses[0])
-        end_elec.push(response.destinationAddresses[0])
-      });
-  }
-  function distanciaETempoDaRotaFormulario(parti, desti) {
-    var service = new google.maps.DistanceMatrixService();
-    service.getDistanceMatrix(
-      {
-        origins: [parti],
-        destinations: [desti],
-        travelMode: 'DRIVING',
-      }, function(response, status) {
-        console.log('RESPOSTA', response)
-        let di = response.rows[0].elements[0].distance.text
-        let di_replace = di.replace(',', '.')
-        let te = response.rows[0].elements[0].duration.text
-        var local_a = document.getElementById('local_a')
-        local_a.textContent = 'Local de partida: ' + response.originAddresses[0]
-        local_a.style = 'color: black'
-        var local_b = document.getElementById('local_b')
-        local_b.textContent = 'Local de destino: ' + response.destinationAddresses[0]
-        local_b.style = 'color: black'
-        var km = document.getElementById('d')
-        km.textContent = 'Distancia: ' + di_replace
-        var hrs = document.getElementById('t')
-        hrs.textContent = 'Tempo: ' + te
-        var info = document.getElementsByClassName('info')
-        for (var p = 0; p < info.length; p++) {
-          info[p].style = 'display : block'
-        }
-        
-      });
-  }
-  function mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista () {
-    setTimeout(function() {
-      for (var m = 0; m < eletricistas.length; m++) {
-        distanciaETempoDaRota(eu, eletricistas[m])
-      }
-      setTimeout(calculaMenorESetaRota, 500)
-      //jsonRequest({lat:eu.lat(), lng:eu.lng()}, {lat:elec1.lat(), lng:elec1.lng()}, map)
-    }, 500)
-  }
-  function calculaMenorESetaRota() {
-    var menor = distancia[0]
-    var k;
-    var indice
-    for (k = 1; k < distancia.length; k++) {
-      if(distancia[k] < menor) {
-        menor = distancia[k];
-        indice = k
-      }
-    }
-    console.log("o menor é: ", menor)
-    console.log("com indice: ", indice)
-    console.log("tamanho: ", distancia.length)
-    dirdisplay.setMap(map)
-    calculateRoute(dirservice, dirdisplay, eu, eletricistas[indice])
-    escreverDeltaTeDeltaD(menor, indice, end_cliente[indice], end_elec[indice])
-    keepTracking(indice)
-    
-  }
-  function keepTracking(index) {
-    setInterval(function() {
-      console.log(eletricistas[index].lat(), eletricistas[index].lng())
-      markers[index+1].setMap(null)
-      eletricistas[index] = new google.maps.LatLng(-23.5565433, -46.7334037)
-      addMarker(eletricistas[index], map, "{% static 'radiant/jquery/images/yellow_MarkerE.png' %}")
-      calculateRoute(dirservice, dirdisplay, eu, eletricistas[index])
-    }, 1000*3)
-  }
-  function escreverDeltaTeDeltaD(menordistancia, index, endereco_cliente, endereco_eletricista){
-    var t = document.getElementById('t')
-    var strong_t = document.createElement('strong')
-    t.textContent = 'Tempo: ' + tempo[index]
-    var d = document.getElementById('d')
-    var strong_d = document.createElement('strong')
-    d.textContent = 'Distancia: ' + menordistancia + ' km'
-    var local_a = document.getElementById('local_a')
-    local_a.textContent = 'Você está em: ' + endereco_cliente
-    var local_b = document.getElementById('local_b')
-    local_b.textContent = 'O Eletricista está em: ' + endereco_eletricista
-    var info = document.getElementsByClassName('info')
-    for (var l = 0; l < info.length; l++) {
-      info[l].style = 'display : block'
     }
     
-  }
-  function setaRotaDoFormulario(partida, destino) {
-    dirdisplay.setMap(map)
-    calculateRoute(dirservice, dirdisplay, partida, destino)
-    distanciaETempoDaRotaFormulario(partida, destino)
-  }
-  function patchLatLng() {
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
+    function calculateRoute(dir, dis, ori, dest) {
+      //origins=-23.5782479,-46.6425898&destinations=-23.6229423,-46.6360948
+      apagaMapa(dis)
+
+      var request = {
+        //origin: new google.maps.LatLng(-23.5782479, -46.6425898),
+        origin: ori,
+        //destination: new google.maps.LatLng(-23.6229423, -46.630948),
+        destination: dest,
+        travelMode:'WALKING',
+      };
+      //var dir = new google.maps.DirectionsService();
+      dir.route(request, function(response, status) {
+        console.log(status);
+        if(status == 'OK'){
+          //var dis = new google.maps.DirectionsRenderer();
+          console.log(response);
+          dis.setDirections(response);
         }
-        return cookieValue;
+      });
     }
-    var csrftoken = getCookie('csrftoken');
-    fetch('http://localhost:8000/api/eletricistas/', {
-        method: 'post',
-        headers: {
-          'Accept': 'application/json, text/plain, */*',
-          'Content-Type': 'application/json',
-          'X-CSRFToken': csrftoken
-        },
-        body: JSON.stringify({
-              telefone: "0192",
-              CEP: "000",
-              CPF: "00101",
-              endereco: "123",
-              genero: "Feminino",
-              tipo: "Eletricista",
-              status: "Ativo",
-              bloqueado: "False",
-              usuario: {
-                  first_name: "doria",
-                  email: "joaodoria@hotmail.com",
-                  password: "1234567",
-                  username: "doriaeoq",
-                  is_active: true
+
+
+    
+    function jsonRequest() {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+
+          var data = JSON.parse(this.responseText);
+          console.log(data.lat, data.lng)
+          lat_real = data.lat
+          lng_real = data.lng
+          console.log(lat_real, lng_real)
+
+        }
+      };
+      //dirdisplay.setMap(mapa) //usar para setar o mapa
+      //calculateRoute(dirservice, dirdisplay, partida, destino); //usar em uniao com o de cima para plotar rota
+      //"https://maps.googleapis.com/maps/api/distancematrix/json?origins=-23.5782479,-46.6425898&destinations=-23.6229423,-46.630948&departure_time=now&key=AIzaSyBdJ_Kts10iRTTj6tZh8pv0mjB2vp6Mcm4" url exemplo
+      //xhr.open("GET" , "http://" + '{{ip}}' + ":8000/api/coordenadas/1/");
+      xhr.open("GET" , "http://localhost:8000/api/coordenadas/1/");
+      xhr.send()
+    }
+    
+    function apagaMapa (d) {
+        d.set('directions', null)
+      }
+    function distanciaETempoDaRota(ori, dest) {
+      var service = new google.maps.DistanceMatrixService();
+      service.getDistanceMatrix(
+        {
+          origins: [ori],
+          destinations: [dest],
+          travelMode: 'DRIVING',
+        }, function(response, status) {
+          console.log(response)
+          let di = response.rows[0].elements[0].distance.text
+          let di_replace = di.replace(',', '.')
+          console.log(di_replace)
+          let te = response.rows[0].elements[0].duration.text
+          distancia.push(parseFloat(di_replace))
+          tempo.push(te)
+          end_cliente.push(response.originAddresses[0])
+          end_elec.push(response.destinationAddresses[0])
+        });
+    }
+    function distanciaETempoDaRotaFormulario(parti, desti) {
+      var service = new google.maps.DistanceMatrixService();
+      service.getDistanceMatrix(
+        {
+          origins: [parti],
+          destinations: [desti],
+          travelMode: 'DRIVING',
+        }, function(response, status) {
+          console.log('RESPOSTA', response)
+          let di = response.rows[0].elements[0].distance.text
+          let di_replace = di.replace(',', '.')
+          let te = response.rows[0].elements[0].duration.text
+          var local_a = document.getElementById('local_a')
+          local_a.textContent = 'Local de partida: ' + response.originAddresses[0]
+          local_a.style = 'color: black'
+          var local_b = document.getElementById('local_b')
+          local_b.textContent = 'Local de destino: ' + response.destinationAddresses[0]
+          local_b.style = 'color: black'
+          var km = document.getElementById('d')
+          km.textContent = 'Distancia: ' + di_replace
+          var hrs = document.getElementById('t')
+          hrs.textContent = 'Tempo: ' + te
+          var info = document.getElementsByClassName('info')
+          for (var p = 0; p < info.length; p++) {
+            info[p].style = 'display : block'
+          }
+          
+        });
+    }
+    function mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista () {
+      setTimeout(function() {
+        for (var m = 0; m < eletricistas.length; m++) {
+          distanciaETempoDaRota(eu, eletricistas[m])
+        }
+        setTimeout(calculaMenorESetaRota, 500)
+        //jsonRequest({lat:eu.lat(), lng:eu.lng()}, {lat:elec1.lat(), lng:elec1.lng()}, map)
+      }, 500)
+    }
+    function calculaMenorESetaRota() {
+      var menor = distancia[0]
+      var k;
+      var indice
+      for (k = 1; k < distancia.length; k++) {
+        if(distancia[k] < menor) {
+          menor = distancia[k];
+          indice = k
+        }
+      }
+      console.log("o menor é: ", menor)
+      console.log("com indice: ", indice)
+      console.log("tamanho: ", distancia.length)
+      dirdisplay.setMap(map)
+      calculateRoute(dirservice, dirdisplay, eu, eletricistas[indice])
+      escreverDeltaTeDeltaD(menor, indice, end_cliente[indice], end_elec[indice])
+      keepTracking(indice)
+      
+    }
+    function keepTracking(index) {
+      setInterval(function() {
+        console.log(eletricistas[index].lat(), eletricistas[index].lng())
+        markers[index+1].setMap(null)
+        eletricistas[index] = new google.maps.LatLng(-23.5565433, -46.7334037)
+        addMarker(eletricistas[index], map, "{% static 'radiant/jquery/images/logo-personagem-teste (2).png' %}")
+        calculateRoute(dirservice, dirdisplay, eu, eletricistas[index])
+      }, 1000*30*30*10000)
+    }
+    function escreverDeltaTeDeltaD(menordistancia, index, endereco_cliente, endereco_eletricista){
+      var t = document.getElementById('t')
+      var strong_t = document.createElement('strong')
+      t.textContent = 'Tempo: ' + tempo[index]
+      var d = document.getElementById('d')
+      var strong_d = document.createElement('strong')
+      d.textContent = 'Distancia: ' + menordistancia + ' km'
+      var local_a = document.getElementById('local_a')
+      local_a.textContent = 'Você está em: ' + endereco_cliente
+      var local_b = document.getElementById('local_b')
+      local_b.textContent = 'O Eletricista está em: ' + endereco_eletricista
+      var info = document.getElementsByClassName('info')
+      for (var l = 0; l < info.length; l++) {
+        info[l].style = 'display : block'
+      }
+      
+    }
+    function setaRotaDoFormulario(partida, destino) {
+      dirdisplay.setMap(map)
+      calculateRoute(dirservice, dirdisplay, partida, destino)
+      distanciaETempoDaRotaFormulario(partida, destino)
+    }
+    function patchLatLng() {
+      function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                  var cookie = jQuery.trim(cookies[i]);
+                  // Does this cookie string begin with the name we want?
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
               }
-          })
-      }).then((res) => console.log(res))
-  }
-  //patchLatLng()
+          }
+          return cookieValue;
+      }
+      var csrftoken = getCookie('csrftoken');
+      fetch('http://localhost:8000/api/eletricistas/', {
+          method: 'post',
+          headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
+          },
+          body: JSON.stringify({
+                telefone: "0192",
+                CEP: "000",
+                CPF: "00101",
+                endereco: "123",
+                genero: "Feminino",
+                tipo: "Eletricista",
+                status: "Ativo",
+                bloqueado: "False",
+                usuario: {
+                    first_name: "doria",
+                    email: "joaodoria@hotmail.com",
+                    password: "1234567",
+                    username: "doriaeoq",
+                    is_active: true
+                }
+            })
+        }).then((res) => console.log(res))
+    }
+    //patchLatLng()
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdJ_Kts10iRTTj6tZh8pv0mjB2vp6Mcm4&callback=initMap"
 async defer></script>

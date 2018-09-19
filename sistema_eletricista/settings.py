@@ -23,7 +23,7 @@ SECRET_KEY = 'lh+c3$e1(ql0sx)i$)v%o42(((j-3-+puiq@8%-v90lt&30hq_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.106', 'localhost', '10.148.3.130']
+ALLOWED_HOSTS = ['192.168.0.106', 'localhost', '10.148.3.130', '192.168.0.100', '10.10.117.156', '192.168.42.145', '192.168.0.103']
 
 # Application definition
 
@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'rest_framework',
     'corsheaders',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'channels'
 
 ]
 
@@ -77,8 +78,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'sistema_eletricista.wsgi.application'
-
+#WSGI_APPLICATION = 'sistema_eletricista.wsgi.application'
+ASGI_APPLICATION = "sistema_eletricista.routing.application"
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -178,4 +179,13 @@ JWT_AUTH = {
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'sistema_eletricista.apps.api.models.jwt_response_payload_handle',
     'JWT_PAYLOAD_GET_USER_ID_HANDLER': 'rest_framework_jwt.utils.jwt_get_user_id_from_payload_handler'
+}
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
 }
