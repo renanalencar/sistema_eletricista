@@ -131,8 +131,9 @@
         necessidade : necessidade.value,
         pedido_enviado : true,
         pedido_status : false,
-        usuario : '{{usuario}}',
-        endereco : endereco.value
+        nome : '{{nome}}',
+        endereco : endereco.value,
+        user : '{{user}}'
       }))
     })
     var span = document.getElementsByClassName("close")[0]
@@ -246,15 +247,10 @@
           console.log(data.lat, data.lng)
           lat_real = data.lat
           lng_real = data.lng
-          console.log(lat_real, lng_real)
 
         }
       };
-      //dirdisplay.setMap(mapa) //usar para setar o mapa
-      //calculateRoute(dirservice, dirdisplay, partida, destino); //usar em uniao com o de cima para plotar rota
-      //"https://maps.googleapis.com/maps/api/distancematrix/json?origins=-23.5782479,-46.6425898&destinations=-23.6229423,-46.630948&departure_time=now&key=AIzaSyBdJ_Kts10iRTTj6tZh8pv0mjB2vp6Mcm4" url exemplo
-      //xhr.open("GET" , "http://" + '{{ip}}' + ":8000/api/coordenadas/1/");
-      xhr.open("GET" , "http://localhost:8000/api/coordenadas/1/");
+      xhr.open("GET" , "http://localhost:8000/api/coords/{{user}}/");
       xhr.send()
     }
     
@@ -334,11 +330,12 @@
       dirdisplay.setMap(map)
       calculateRoute(dirservice, dirdisplay, eu, eletricistas[indice])
       escreverDeltaTeDeltaD(menor, indice, end_cliente[indice], end_elec[indice])
-      keepTracking(indice)
+      //keepTracking(indice)
       
     }
     function keepTracking(index) {
       setInterval(function() {
+        //user jsonRequest para ficar constantemente pegando coords da api
         console.log(eletricistas[index].lat(), eletricistas[index].lng())
         markers[index+1].setMap(null)
         eletricistas[index] = new google.maps.LatLng(-23.5565433, -46.7334037)
@@ -368,7 +365,7 @@
       calculateRoute(dirservice, dirdisplay, partida, destino)
       distanciaETempoDaRotaFormulario(partida, destino)
     }
-    function patchLatLng() {
+    function patchLatLng() { // para caso precise atualizar coords do cliente, mas acho desne
       function getCookie(name) {
           var cookieValue = null;
           if (document.cookie && document.cookie !== '') {

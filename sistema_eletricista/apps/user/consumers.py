@@ -16,12 +16,13 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 
 	async def receive(self, text_data):
 		data = json.loads(text_data)
-		print (data)
+		print (data.get('nome'))
 		necessidade = data['necessidade']
 		pedido_enviado = data['pedido_enviado']
 		pedido_status = data['pedido_status']
-		usuario = data['usuario']
+		nome_ = data['nome']
 		endereco = data['endereco']
+		user = data['user']
 		await self.channel_layer.group_send(
 			self.room_name,
 			{
@@ -29,8 +30,9 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 				'pedido_enviado' : pedido_enviado,
 				'pedido_status' : pedido_status,
 				'necessidade' : necessidade,
-				'usuario' : usuario,
-				'endereco' : endereco
+				'nome' : nome_,
+				'endereco' : endereco,
+				'user' : user
 			})
 	
 
@@ -42,7 +44,8 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 				'pedido_enviado' : event['pedido_enviado'],
 				'pedido_status' : event['pedido_status'],
 				'necessidade' : event['necessidade'],
-				'usuario' : event['usuario'],
-				'endereco' : event['endereco']
+				'nome' : event['nome'],
+				'endereco' : event['endereco'],
+				'user' : event['user']
 			}))
 

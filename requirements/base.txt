@@ -8,3 +8,5 @@ django-ckeditor
 django_extensions
 django-password-reset
 django-channels
+gunicorn
+django-heroku

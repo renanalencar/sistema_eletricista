@@ -53,19 +53,9 @@ def change_password(request):
 @login_required
 def get_usuario_logado(request):
 	usuario = request.user
-	eletricista_existe = Eletricista.objects.filter(usuario=usuario).exists()
-	cliente_existe = Cliente.objects.filter(usuario=usuario).exists()
-	admin_existe = Admin.objects.filter(user=usuario).exists()
-	if eletricista_existe:
-		eletricista = Eletricista.objects.get(usuario=usuario)
-		return eletricista
-	if cliente_existe:
-		cliente = Cliente.objects.get(usuario=usuario)
-		return cliente
-	if admin_existe:
-		admin = Admin.objects.get(user=usuario)
-		return admin
+	return usuario.first_name
 
+@login_required
 def get_client_ip(request):
 	x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
 	if x_forwarded_for:
@@ -83,12 +73,25 @@ def index(request):
 		cliente_existe = Cliente.objects.filter(usuario=usuario).exists()
 		admin_existe = Admin.objects.filter(user=usuario).exists()
 		if eletricista_existe:
-			return render(request, 'solicitar_servico.html', {'usuario' : get_usuario_logado(request), 'ip' : get_client_ip(request)})
+			return render(request, 'solicitar_servico.html', {
+				'nome' : get_usuario_logado(request),
+				'ip' : get_client_ip(request),
+				'user': request.user
+				})
 		if cliente_existe:
-			return render(request, 'solicitar_servico.html', {'usuario' : get_usuario_logado(request), 'ip' : get_client_ip(request)})	
+			return render(request, 'solicitar_servico.html', {
+				'nome' : get_usuario_logado(request),
+				'ip' : get_client_ip(request),
+				'user': request.user
+				})	
 		if admin_existe:
-			return render(request, 'dashboard_exemplo.html', {'usuario' : get_usuario_logado(request), 'ip' : get_client_ip(request)})
-
+			return render(request, 'dashboard_exemplo.html', {
+				'nome' : get_usuario_logado(request),
+				'ip' : get_client_ip(request),
+				'user': request.user
+				})
+		return render(request, 'solicitar_servico.html', {'nome' : get_usuario_logado(request), 'ip' : get_client_ip(request), 'user': request.user})
+		#teste para coords
 
 def BuscaEletricista(request):
     q = request.GET.get('buscaEletricista')
