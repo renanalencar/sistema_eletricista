@@ -122,13 +122,14 @@ class RegistrarCartaoView(View):
 			pagarme.authentication_key('ak_test_uSXZcO1zJua2nG3ZhjmiUwcwnxnCgM')
 
 			card_data = {
-			    "card_expiration_date": dados_form_cartao['card_expiration_date'],
-			    "card_number": dados_form_cartao['card_number'],
+			    "card_expiration_date": dados_form_cartao['card_expiration_date'].replace("/", ""),
+			    "card_number": dados_form_cartao['card_number'].replace(" ", ""),
 			    "card_cvv": dados_form_cartao['card_cvv'],
 			    "card_holder_name": dados_form_cartao['card_holder_name'],
 
 				}
 
+			print (card_data)
 			print (pagarme.card.create(card_data))
 
 			return redirect('tela_cliente')

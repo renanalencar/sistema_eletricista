@@ -14,7 +14,7 @@ class EletricistaSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Eletricista
 		depth = 2
-		fields = ('telefone', 'CEP', 'CPF', 'endereco', 'genero', 'tipo', 'status', 'bloqueado', 'usuario')
+		fields = ('telefone', 'CEP', 'CPF', 'endereco', 'genero', 'tipo', 'status', 'bloqueado', 'foto', 'usuario')
 
 	def create(self, validated_data):
 		if(validated_data.get('usuario')):
@@ -56,7 +56,7 @@ class ClienteSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Cliente
 		depth = 2
-		fields = ('telefone', 'CEP', 'CPF', 'endereco', 'genero', 'tipo', 'usuario')
+		fields = ('telefone', 'CEP', 'CPF', 'endereco', 'genero', 'tipo', 'foto', 'usuario')
 
 	def create(self, validated_data):
 		if(validated_data.get('usuario')):
