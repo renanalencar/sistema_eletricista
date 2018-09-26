@@ -115,7 +115,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link count-indicator" href="">
+              <a class="nav-link count-indicator" href="{% url 'ListarPedidos' %}">
                 Histórico de serviços
               </a>
             </li>
@@ -144,11 +144,10 @@
       </div>
     </nav>
     <!-- Horizontal Menu Ends -->
-    <div class="container-fluid page-body-wrapper">
       {% block content %}
+
       {% endblock %}
       <!-- main-panel ends -->
-    </div>
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->

@@ -2,82 +2,85 @@
 {% load staticfiles %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-11">
-        <!-- BEGIN SAMPLE TABLE PORTLET-->
-        <div class="portlet box green-jungle">
-            <div class="portlet-title">
-                <div class="caption">
-                   <h1>Histórico de Serviços</h1>
-            </div>
-            <div class="portlet-body">
-
-
-                <div class="table-striped">
-                    <table class="table-striped">
-                        <thead>
-                          <tr>
-                            <th>Data</th>
-                            <th>Endereço</th>
-                            <th>Valor</th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                              <tr>
-                                <td>
-                                  10/10/2018
-                                </td>
-                                <td>
-                                  Rua do teste
-                                </td>
-                                <td>
-                                  R$17,25
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  12/08/2018
-                                </td>
-                                <td>
-                                  Rua do teste 2
-                                </td>
-                                <td>
-                                  R$20,25
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  27/02/2018
-                                </td>
-                                <td>
-                                  Rua do teste 3
-                                </td>
-                                <td>
-                                  R$37,64
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  12/10/2018
-                                </td>
-                                <td>
-                                  Rua do teste 4
-                                </td>
-                                <td>
-                                  R$24,25
-                                </td>   
-                              </tr> 
-                        </tbody>
-                    </table>
+<html lang="pt-br">
+  <body class="horizontal-menu">
+    <div class="container-scroller">
+      <div class="container-fluid page-body-wrapper">
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="container">
+              <div class="row">
+                <div class="col-12 grid-margin">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Histórico de Serviços</h4>
+                        <table class="table center-aligned-table">
+                          <thead>
+                            <tr>
+                              <th class="border-bottom-0">Data</th>
+                              <th class="border-bottom-0">Endereço</th>
+                              <th class="border-bottom-0">Valor</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                                <tr>
+                                  <td>
+                                    10/10/2018
+                                  </td>
+                                  <td>
+                                    Rua do teste
+                                  </td>
+                                  <td>
+                                    R$17,25
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                   12/08/2018
+                                  </td>
+                                  <td>
+                                    Rua do teste 2
+                                  </td>
+                                  <td>
+                                    R$20,25
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    27/02/2018
+                                  </td>
+                                  <td>
+                                    Rua do teste 3
+                                  </td>
+                                  <td>
+                                    R$37,64
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    12/10/2018
+                                  </td>
+                                  <td>
+                                    Rua do teste 4
+                                  </td>
+                                  <td>
+                                    R$24,25
+                                  </td>   
+                                </tr> 
+                          </tbody>
+                        </table>
+                    </div>
+                  </div>
                 </div>
-                 
-            </div>
+              </div>
+            </div>            
+          </div>
         </div>
-        <!-- END SAMPLE TABLE PORTLET-->
+      </div>
     </div>
-    
-</div>
+  </body>
+</html>
 <!-- END CONTENT BODY -->
 <!-- END CONTENT -->
 <!-- BEGIN QUICK SIDEBAR -->
