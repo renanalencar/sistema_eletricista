@@ -438,7 +438,6 @@ def clientes_registrados(request):
 		clientes_js.append(cliente.usuario.first_name)
 	return render(request, 'clientes_registrados.html', {'clientes_registrados' : clientes_registrados, 'clientes_js' : clientes_js})
 
-
 #==============Recuperar Senha=============================================#
 
 def password_reset(request, is_admin_site=False,
@@ -509,3 +508,6 @@ def tela_eletricista(request):
 
 def ListarPedidos(request):
 	return render(request, 'listar_pedido_servico.html')
+
+def dump(request):
+	return render(request, 'dump.html')
