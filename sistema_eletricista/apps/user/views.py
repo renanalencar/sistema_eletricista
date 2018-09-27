@@ -93,6 +93,34 @@ def index(request):
 		return render(request, 'solicitar_servico.html', {'nome' : get_usuario_logado(request), 'ip' : get_client_ip(request), 'user': request.user})
 		#teste para coords
 
+@login_required
+def Pagamento(request):
+	if request.method == 'GET':
+		username = request.user
+		usuario = User.objects.get(username=username)
+		eletricista_existe = Eletricista.objects.filter(usuario=usuario).exists()
+		cliente_existe = Cliente.objects.filter(usuario=usuario).exists()
+		admin_existe = Admin.objects.filter(user=usuario).exists()
+		if eletricista_existe:
+			return render(request, 'pagamento_eletricista.html', {
+				'nome' : get_usuario_logado(request),
+				'ip' : get_client_ip(request),
+				'user': request.user
+				})
+		if cliente_existe:
+			return render(request, 'pagamento_cliente.html', {
+				'nome' : get_usuario_logado(request),
+				'ip' : get_client_ip(request),
+				'user': request.user
+				})	
+		if admin_existe:
+			return render(request, 'pagamento_admin.html', {
+				'nome' : get_usuario_logado(request),
+				'ip' : get_client_ip(request),
+				'user': request.user
+				})
+		#return render(request, 'solicitar_servico.html', {'nome' : get_usuario_logado(request), 'ip' : get_client_ip(request), 'user': request.user})
+
 def BuscaEletricista(request):
     q = request.GET.get('buscaEletricista')
     if q is not None:
@@ -122,13 +150,14 @@ class RegistrarCartaoView(View):
 			pagarme.authentication_key('ak_test_uSXZcO1zJua2nG3ZhjmiUwcwnxnCgM')
 
 			card_data = {
-			    "card_expiration_date": dados_form_cartao['card_expiration_date'],
-			    "card_number": dados_form_cartao['card_number'],
+			    "card_expiration_date": dados_form_cartao['card_expiration_date'].replace("/", ""),
+			    "card_number": dados_form_cartao['card_number'].replace(" ", ""),
 			    "card_cvv": dados_form_cartao['card_cvv'],
 			    "card_holder_name": dados_form_cartao['card_holder_name'],
 
 				}
 
+			print (card_data)
 			print (pagarme.card.create(card_data))
 
 			return redirect('tela_cliente')

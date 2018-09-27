@@ -96,9 +96,9 @@ class RegistrarAdministradorForm(forms.Form):
 
 class RegistrarCartaoForm(forms.Form):
 
-	card_number = forms.IntegerField(required=True)
+	card_number = forms.CharField(required=True)
 	card_expiration_date = forms.CharField(required=True, max_length=10)
-	card_cvv = forms.IntegerField(required=True)
+	card_cvv = forms.CharField(required=True)
 	card_holder_name = forms.CharField(required=True, max_length=50)
 
 	def is_valid(self):

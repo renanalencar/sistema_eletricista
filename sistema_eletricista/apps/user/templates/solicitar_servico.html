@@ -81,7 +81,7 @@
                 </div>
                 <div class="modal-footer">
                   <button id="enviardevez" class="btn btn-success" style="width: 50%; margin-top: 10px">Enviar</button>
-                  <button type="button" class="btn btn-danger" data-dismiss="modal" style="width: 50%; margin-top: 10px">Cancelar</button>
+                  <button type="button" class="btn btn-danger" id="cancelar" data-dismiss="modal" style="width: 50%; margin-top: 10px">Cancelar</button>
                 </div>
               </div>
             </div>
@@ -135,7 +135,15 @@
     span.addEventListener('click', function(){
       //modal.style.display = 'none'
     })
+<<<<<<< HEAD
     
+=======
+    window.onclick = function(event) {
+      if (event.target != modal) {
+          modal.style.display = "none";
+      }
+    }
+>>>>>>> 9c94667aaa5e556bc4b629e6db8a83f7ddc8daf0
     var distancia = []
     var tempo = []
     var eletricistas = []
@@ -177,7 +185,7 @@
         console.log(map)
         eu = new google.maps.LatLng(lat_real, lng_real) // coords imprecisas do gps do laptop
         var infowindow = new google.maps.InfoWindow({
-              content: '{{usuario}}'
+              content: '{{user}}'
           });
         addMarker(eu, map, "{% static 'radiant/jquery/images/red_MarkerC.png' %}", infowindow)
         //eu = new google.maps.LatLng(-23.5782479, -46.6425898) //cliente em questao(no caso eu, rola)

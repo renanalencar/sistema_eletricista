@@ -93,7 +93,7 @@
             </li>
             <li class="nav-item mr-0">
               <a href="#" class="nav-link py-0 pr-0">
-                <span class="text-black d-none d-lg-inline-block text-white mr-2">Olá, {{usuario}} !</span>
+                <span class="text-black d-none d-lg-inline-block text-white mr-2">Olá, {{user}} !</span>
                 <img class="img-xs rounded-circle" src="https://placehold.it/100x100" alt="profile image">
               </a>
             </li>
@@ -115,12 +115,12 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link count-indicator" href="">
+              <a class="nav-link count-indicator" href="{% url 'ListarPedidos' %}">
                 Histórico de serviços
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link count-indicator" href="">
+              <a class="nav-link count-indicator" href="{% url 'Pagamento' %}">
                 Pagamento
               </a>
             </li>
@@ -144,11 +144,10 @@
       </div>
     </nav>
     <!-- Horizontal Menu Ends -->
-    <div class="container-fluid page-body-wrapper">
       {% block content %}
+
       {% endblock %}
       <!-- main-panel ends -->
-    </div>
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
