@@ -93,6 +93,34 @@ def index(request):
 		return render(request, 'solicitar_servico.html', {'nome' : get_usuario_logado(request), 'ip' : get_client_ip(request), 'user': request.user})
 		#teste para coords
 
+@login_required
+def Pagamento(request):
+	if request.method == 'GET':
+		username = request.user
+		usuario = User.objects.get(username=username)
+		eletricista_existe = Eletricista.objects.filter(usuario=usuario).exists()
+		cliente_existe = Cliente.objects.filter(usuario=usuario).exists()
+		admin_existe = Admin.objects.filter(user=usuario).exists()
+		if eletricista_existe:
+			return render(request, 'pagamento_eletricista.html', {
+				'nome' : get_usuario_logado(request),
+				'ip' : get_client_ip(request),
+				'user': request.user
+				})
+		if cliente_existe:
+			return render(request, 'pagamento_cliente.html', {
+				'nome' : get_usuario_logado(request),
+				'ip' : get_client_ip(request),
+				'user': request.user
+				})	
+		if admin_existe:
+			return render(request, 'pagamento_admin.html', {
+				'nome' : get_usuario_logado(request),
+				'ip' : get_client_ip(request),
+				'user': request.user
+				})
+		#return render(request, 'solicitar_servico.html', {'nome' : get_usuario_logado(request), 'ip' : get_client_ip(request), 'user': request.user})
+
 def BuscaEletricista(request):
     q = request.GET.get('buscaEletricista')
     if q is not None:
