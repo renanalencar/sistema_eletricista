@@ -63,7 +63,7 @@
         <!-- partial:../../partials/_footer.html -->
         <!-- partial -->
       </div>
-      <div id="myModal" class="modal" role="dialog" aria-labelledby="myModal" >
+      <div id="myModal" class="modal" tabindex= "-1" role="dialog" aria-labelledby="myModal" aria-hidden="true">
             <div class="modal-dialog" role="document" style="position: center; top: 20%">
               <div class="modal-content mx-0" style="width:100%">
                 <div class="modal-body mb-0 pb-0" style="position: relative">
@@ -80,12 +80,24 @@
                   </form>
                 </div>
                 <div class="modal-footer">
-                  <button id="enviardevez" class="btn btn-success" style="width: 50%; margin-top: 10px">Enviar</button>
+                  <button type="button" id="enviardevez" class="btn btn-success" data-toggle="modal" data-target="#carregando" style="width: 50%; margin-top: 10px" data-dismiss="modal">Enviar</button>
                   <button type="button" class="btn btn-danger" id="cancelar" data-dismiss="modal" style="width: 50%; margin-top: 10px">Cancelar</button>
                 </div>
               </div>
             </div>
           </div>
+          <div class="modal fade p-0 " id="carregando" tabindex="-1" role="dialog" aria-labelledby="carregando" aria-hidden="true">
+          <div class="modal-dialog " role="document" style="position: center; top: 20%;">
+            <div class="modal-content" style="position: center; top: 20%; width: 60%">
+              <div class="modal-header pt-0" style="text-align:center">
+                <h2 class="modal-title" id="exampleModalLabel-2">Procurando Eletricista</h2>
+              </div>
+              <div class="modal-body center-div p-0" style="text-align:center; margin-left: 25%">
+                <div class="loader" style="display:inline-block;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
         </div>
       </div>
       
@@ -135,15 +147,13 @@
     span.addEventListener('click', function(){
       //modal.style.display = 'none'
     })
-<<<<<<< HEAD
-    
-=======
+
     window.onclick = function(event) {
       if (event.target != modal) {
           modal.style.display = "none";
       }
     }
->>>>>>> 9c94667aaa5e556bc4b629e6db8a83f7ddc8daf0
+
     var distancia = []
     var tempo = []
     var eletricistas = []
