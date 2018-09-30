@@ -98,8 +98,8 @@
       position: absolute;
       left: 40%; 
       bottom:5%;
-      height: 11%;
-      width: 20%;
+      height:10%;
+      width:20%;
     }
 
     .botao1{
@@ -120,7 +120,7 @@
       letter-spacing: 3px;
     }
 
-    .solicitar{
+    .solicitar, .iniciar, .cancelar, .pausar, .finalizar{
       font-size: 110%; 
       line-height: 120%
     }

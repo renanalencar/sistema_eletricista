@@ -111,10 +111,12 @@ def BuscaCliente(request):
 class RegistrarCartaoView(View):
 
 	template_name = 'registrar_cartao.html'
-	def get(self, request, *args, **kwargs):
+	def get(self, request, nickname_cliente):
+		print ('estou com o nickname')
+		print (nickname_cliente)
 		return render(request, self.template_name)
 
-	def post(self, request, *args, **kwargs):
+	def post(self, request, nickname_cliente):
 		form_cartao = RegistrarCartaoForm(request.POST)
 		if form_cartao.is_valid():
 			dados_form_cartao = form_cartao.data
@@ -126,6 +128,7 @@ class RegistrarCartaoView(View):
 			    "card_number": dados_form_cartao['card_number'].replace(" ", ""),
 			    "card_cvv": dados_form_cartao['card_cvv'],
 			    "card_holder_name": dados_form_cartao['card_holder_name'],
+			    "id_customer": nickname_cliente,
 
 				}
 
@@ -215,7 +218,6 @@ class RegistrarEletricistaView(View):
 				 settings.EMAIL_HOST_USER,
 				 [usuario_eletri.email]
 				)
-				return redirect('registrar_recebedor')
 				return HttpResponseRedirect(reverse('questionario', kwargs={'nome_eletricista': dados_form['nickname']}))
 			
 			else:
@@ -261,7 +263,7 @@ class RegistrarEletricistaView(View):
 				 settings.EMAIL_HOST_USER,
 				 [usuario_cliente.email]
 				)
-			return redirect('registrar_cartao')
+			return redirect('/user/registrar/cartao/' + dados_form['nickname'] + '/')
 		else:
 			return render(request, 'registrar_exemplo.html', {'form': form_user})
 
@@ -296,6 +298,8 @@ class QuestionarioView(View):
 			eletricista_avaliado = Eletricista.objects.get(usuario=usuario_em_questao)
 			questionario = Questionario.objects.create(eletricista_avaliado=eletricista_avaliado, pontuacao=pontuacao, pdf=pdf_curriculo)
 
+			return redirect('registrar_recebedor')
+			
 			return redirect('/user/registro_concluido')
 
 			return redirect('/user/login')
@@ -343,7 +347,7 @@ def aceitar(request, nickname):
 	enviar_email('Eletricista24hrs', 
 				 'Você, ' + nickname + ' foi aceito no nosso sistema.',
 				 settings.EMAIL_HOST_USER,
-				 ['pedro.medeiros@polijunior.com.br']
+				 [usuario_em_questao.email]
 				)
 
 	return redirect('/user/adm/questionarios_pendentes')

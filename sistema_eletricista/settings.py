@@ -9,11 +9,10 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 import datetime
-#import django_heroku
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-#django_heroku.settings(locals())
 
 
 # Quick-start development settings - unsuitable for production
@@ -191,3 +190,4 @@ CHANNEL_LAYERS = {
         },
     },
 }
+django_heroku.settings(locals())
