@@ -65,7 +65,10 @@
     			  <h4 id="d" class="info" >Distancia total: </h4>
     			  <div class="fundo-botao">
 
-    			    <button id="solicitar" class="btn btn-warning botao2">
+    			    <!--<button id="solicitar" class="btn btn-warning botao2">
+                <div class="solicitar">Solicitar Serviço</div>
+              </button>-->
+              <button type="button" id="solicitar" class="btn btn-warning botao2" data-toggle="modal" data-target="#myModal">
                 <div class="solicitar">Solicitar Serviço</div>
               </button>
 
@@ -78,6 +81,10 @@
 
                 <button id="pausar_servico" class="btn btn-danger" style="float: left; display: none; padding-right: 30px; padding-left: 30px">
                 <div class="pausar">Pausar</div>
+
+                <button id="continuar_servico" class="btn btn-danger" style="float: left; display: none; padding-right: 30px; padding-left: 30px">
+                <div class="continuar">Continuar</div>
+
               </button>
 
               <button id="finalizar_servico" class="btn btn-warning" style="float: right; display: none">
@@ -90,11 +97,7 @@
         <!-- partial:../../partials/_footer.html -->
         <!-- partial -->
       </div>
-      <div id="myModal" class="modal">
-        <!-- Modal content -->
-        <div class="">
-          <span class="close">&times;</span>
-            <div class="modal fade show" id="exampleModal-4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-4" style="display: block; padding-right: 21px;">
+      <div id="myModal" class="modal" tabindex= "-1" role="dialog" aria-labelledby="myModal" aria-hidden="true">
             <div class="modal-dialog" role="document" style="position: center; top: 20%">
               <div class="modal-content mx-0" style="width:100%">
                 <div class="modal-body mb-0 pb-0" style="position: relative">
@@ -111,14 +114,27 @@
                   </form>
                 </div>
                 <div class="modal-footer">
-                  <button id="enviardevez" class="btn btn-success" style="width: 50%; margin-top: 10px">Enviar</button>
+                  <button type="button" id="enviardevez" class="btn btn-success" data-toggle="modal" data-target="#carregando" style="width: 50%; margin-top: 10px" data-dismiss="modal">Enviar</button>
                   <button type="button" class="btn btn-danger" id="cancelar" data-dismiss="modal" style="width: 50%; margin-top: 10px">Cancelar</button>
                 </div>
               </div>
             </div>
           </div>
+          <div class="modal fade p-0 " id="carregando" tabindex="-1" role="dialog" aria-labelledby="carregando" aria-hidden="true">
+          <div class="modal-dialog " role="document" style="position: center; top: 20%;">
+            <div class="modal-content" style="position: center; top: 20%; width: 60%">
+              <div class="modal-header pt-0" style="text-align:center">
+                <h2 class="modal-title" id="exampleModalLabel-2">Procurando Eletricista</h2>
+              </div>
+              <div class="modal-body center-div p-0" style="text-align:center; margin-left: 25%">
+                <div class="loader" style="display:inline-block;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
         </div>
       </div>
+      
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript">
     var resposta_cliente;
@@ -170,8 +186,13 @@
       pausar_cliente = data['pausar_resposta_cliente']
       pausar_eletricista = data['pausar_resposta_eletricista']
       if(pedido_aceito) {
+        let modal = document.getElementById('carregando')
+        modal.style.display = 'none'
         mostrarIniciarCancelar()
         mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
+      } else {
+        let modal = document.getElementById('carregando')
+        modal.style.display = 'none'
       }
       if(resposta_eletricista && resposta_cliente){
         
@@ -206,7 +227,10 @@
     })
     var pausar = document.getElementById('pausar_servico')
     pausar.addEventListener('click', () => {
-      pausar.textContent = 'Continuar'
+      //pausar.textContent = 'Continuar'
+      pausar.style.display = 'none'
+      let continuar_servico = document.getElementById('continuar_servico')
+      continuar_servico.style.display = 'block'
       if(pausar_eletricista ==  undefined) {
         pausar_eletricista = false;
       }
@@ -226,7 +250,7 @@
     var modalbtn = document.getElementById('myBtn')
     var enviardevez = document.getElementById('enviardevez')
     enviardevez.addEventListener('click', function(){
-      modal.style.display = 'none'
+      //modal.style.display = 'none'
       ws.send(JSON.stringify({
         necessidade : necessidade.value,
         pedido_enviado : true,
@@ -236,21 +260,20 @@
         user : '{{user}}'
       }))
     })
-    //var span = document.getElementsByClassName("close")[0]
-    //qspan.addEventListener('click', function(){
-    //  modal.style.display = 'none'
-    //  console.log('......')
-    //})
+
     var cancelar = document.getElementById('cancelar')
     cancelar.addEventListener('click', function() {
       modal.style.display = 'none'
       console.log('clicked')
     })
+
+
     window.onclick = function(event) {
       if (event.target == modal) {
           modal.style.display = "none";
       }
     }
+
     var distancia = []
     var tempo = []
     var eletricistas = []
@@ -276,8 +299,9 @@
     //})
     var solicitar_servico = document.getElementById('solicitar')
     solicitar_servico.addEventListener('click', () => {
-    	modal.style.display = 'block',
+    	//modal.style.display = 'block',
       console.log("solicitei servico")
+    	//modal.style.display = 'block'
       //mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
     })
     //setInterval(function(){console.log('set1')}, 2000)

@@ -120,7 +120,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link count-indicator" href="">
+              <a class="nav-link count-indicator" href="{% url 'Pagamento' %}">
                 Pagamento
               </a>
             </li>
@@ -144,11 +144,10 @@
       </div>
     </nav>
     <!-- Horizontal Menu Ends -->
-    <div class="container-fluid page-body-wrapper">
       {% block content %}
+
       {% endblock %}
       <!-- main-panel ends -->
-    </div>
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
@@ -168,6 +167,7 @@
   <!-- Custom js for this page-->
   <script src="{% static 'radiant/jquery/js/dashboard.js' %}"></script>
   <script src="{% static 'radiant/jquery/js/horizontal-menu.js' %}"></script>
+  <script src="{% static 'radiant/jquery/js/modal-demo.js' %}"></script>
   <!-- End custom js for this page-->
 </body>
 
