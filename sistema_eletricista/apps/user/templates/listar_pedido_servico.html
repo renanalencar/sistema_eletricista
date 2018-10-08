@@ -20,7 +20,7 @@
                             <th>Data</th>
                             <th>Endereço</th>
                             <th>Valor</th>
-                            <th></th>
+                            <th>Eletricista</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -35,6 +35,25 @@
                                   R$17,25
                                 </td>
                               </tr>
+                              {% for servico in pedidos_list %}
+                                <tr>
+                                  <td>
+                                    {{servico.data}}
+                                  </td>
+                                  <td>
+                                    {{servico.endereco}}
+                                  </td>
+                                  <td>
+                                   {{servico.valor}}
+                                  </td>
+                                  <td>
+                                   {{servico.eletricista}}
+                                  </td>
+                                </tr>
+                              {% endfor %}
+
+
+
                               <tr>
                                 <td>
                                   12/08/2018

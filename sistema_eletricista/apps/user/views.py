@@ -22,6 +22,7 @@ from .forms import RegistrarAdministradorForm
 from .forms import RegistrarRecebedorForm
 
 #from .forms import QuestionarioForm
+from sistema_eletricista.apps.post.PedidoDeServico.models import PedidoDeServico
 from .forms import QuestionarioForm
 from .eletricista.models import *
 from .cliente.models import Cliente
@@ -66,9 +67,12 @@ def get_client_ip(request):
 
 @login_required
 def index(request):
+	
 	if request.method == 'GET':
 		username = request.user
 		usuario = User.objects.get(username=username)
+		print ('printando usuario')
+		print (usuario)
 		eletricista_existe = Eletricista.objects.filter(usuario=usuario).exists()
 		cliente_existe = Cliente.objects.filter(usuario=usuario).exists()
 		admin_existe = Admin.objects.filter(user=usuario).exists()
@@ -365,10 +369,10 @@ def questionarios_pendentes(request):
 	return render(request, 'questionarios_pendentes.html', context)
 
 def aceitar(request, nickname):
-	usuario_aceito = User.objects.get(username=nickname)
-	usuario_aceito.is_active = True
-	usuario_aceito.save()
-	eletricista_aceito = Eletricista.objects.get(usuario=usuario_aceito)
+	usuario_em_questao = User.objects.get(username=nickname)
+	usuario_em_questao.is_active = True
+	usuario_em_questao.save()
+	eletricista_aceito = Eletricista.objects.get(usuario=usuario_em_questao)
 	eletricista_aceito.status = 'Ativo'
 	eletricista_aceito.bloqueado = 'False'
 	eletricista_aceito.save()
@@ -540,7 +544,10 @@ def tela_eletricista(request):
 	return render(request, 'base_eletricista.html')
 
 def ListarPedidos(request):
-	return render(request, 'listar_pedido_servico.html')
+	context = {
+	 'pedidos_list' : PedidoDeServico.objects.all()
+	}
+	return render(request, 'listar_pedido_servico.html', context)
 
 def dump(request):
 	return render(request, 'dump.html')
