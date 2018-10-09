@@ -7,16 +7,28 @@ from .eletricista.models import Eletricista
 from sistema_eletricista.apps.post.PedidoDeServico.models import PedidoDeServico
 import json
 import datetime
+
 dados = []
+eletricistas_finalizar = []
+clientes_finalizar = []
+usuarios_final = []
+print ('eu estou aqui')
+
 
 
 class ClienteConsumer(AsyncWebsocketConsumer):
-	dados = []
+
+
+
 	async def connect(self):
 		self.user = None
 		print (self.user)
-
+		#self.usuarios_final = []
+		# self.clientes_finalizar = []
+		self.index_elec = 0
+		self.index_cliente = 0
 		print ('eu sou o usuario')
+		
 		#print (self.user.username)
 		self.room_name = 'teste'
 		await self.channel_layer.group_add(self.room_name, self.channel_name)
@@ -25,6 +37,8 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 		await self.accept()
 
 	async def receive(self, text_data):
+		#print(self.eletricistas_finalizar, self.clientes_finalizar)
+		
 		data = json.loads(text_data)
 		#print (data)
 		# nomes.append(data.get('user_em_questao'))
@@ -34,6 +48,7 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 		# 	print('self.user ja ocupado')
 		# print(nomes)
 		# print(self.user)
+
 		if data.get('nome'):
 		
 			necessidade = data['necessidade']
@@ -124,15 +139,30 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 
 		elif data.get('finalizar_resposta_eletricista') == True or data.get('finalizar_resposta_eletricista') == False:
 			print ('estou passando por aqui também')
+			
 			finalizar_resposta_eletricista = data['finalizar_resposta_eletricista'],
 			finalizar_resposta_cliente = data['finalizar_resposta_cliente']
 			if(data.get('user_eletricista')):
 				user_eletricista = data['user_eletricista']
+				x = {
+					'eletricista' : user_eletricista
+				}
+				usuarios_final.append(x)
+				print(usuarios_final)
+				print('dentro do iffffffffffffffffffffff elec')
+				#eletricistas_finalizar.append(user_eletricista)
 			else:
 				user_eletricista = None
 
 			if(data.get('user')):
 				user_cliente = data['user']
+				x = {
+					'cliente' : user_cliente
+				}
+				usuarios_final.append(x)
+				print(usuarios_final)
+				print ('dentro do ifffffffff cliente')
+				#clientes_finalizar.append(user_cliente)
 			else:
 				user_cliente = None
 			dados_ = {
@@ -145,21 +175,36 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 			if data.get('finalizar_resposta_eletricista') == True and data.get('finalizar_resposta_cliente') == True:
 				dados.append(dados_)
 				print (dados)
-				data_parcial = datetime.datetime.now()
-				data_real = str(data_parcial.day) + '/' + str(data_parcial.month) + '/' + str(data_parcial.year)
+				
+				# data_parcial = datetime.datetime.now()
+				# data_real = str(data_parcial.day) + '/' + str(data_parcial.month) + '/' + str(data_parcial.year)
+				cliente = dados[0]['nome']
+				# eletricista = dados[1]['user_eletricista']
 				valor = 53.30
 				endereco = dados[0]['endereco']
-				cliente = dados[0]['nome']
-				eletricista = dados[1]['user_eletricista']
-				print (eletricista)
+				print ('eu sou o user_cliente e user_eletricista')
+				print(usuarios_final)
+				u = usuarios_final[0]
+				w = usuarios_final[1]
+				if 'eletricista' in u:
+					eletricista = u['eletricista']
+					cliente = w['cliente']
+				else:
+					eletricista = w['eletricista']
+					cliente = u['cliente']
+
+				#print (clientes_finalizar, eletricistas_finalizar)
+				# falta só o endereço para terminar o objeto PedidoDeServico
+				
 				servico_feito = PedidoDeServico.objects.create(
 					#data=data_real,
 					valor=valor,
 					endereco=endereco,
 					cliente=cliente,
-					eletricista='eletricista_teste'
+					eletricista=eletricista
 					)
 				print (servico_feito)
+				#print(self.eletricistas_finalizar, self.clientes_finalizar)
 
 
 

@@ -545,7 +545,7 @@ def tela_eletricista(request):
 
 def ListarPedidos(request):
 	context = {
-	 'pedidos_list' : PedidoDeServico.objects.all()
+	 'pedidos_list' : reversed(PedidoDeServico.objects.all())
 	}
 	return render(request, 'listar_pedido_servico.html', context)
 
