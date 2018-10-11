@@ -191,5 +191,54 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
+<script type="text/javascript">
+    checked('usuario');
+    checked('senha');
+    checked('senha_novamente');
+    checked('email');
+
+  var bool = document.getElementsByClassName('mdi mdi-check-circle-outline');
+    if (bool == null){
+      alert('olá');
+    }
+
+
+    function checked(x){
+      var input = document.getElementById('id_' + x);
+      input.addEventListener('keyup', function(){
+        var bool = document.getElementsByClassName('mdi mdi-check-circle-outline');
+        var botao = document.getElementById('cadastrar');
+        var tamanho = 4;
+        if (x == 'CEP') {
+          tamanho = 8;
+        }
+        if (x == 'CPF') {
+          tamanho = 10;
+        }
+        if (x == 'tel') {
+          tamanho = 13;
+        }
+        if (input.value.length > tamanho){
+          let i = document.getElementById('i-' + x);
+          i.style.color = 'green';
+          i.className = 'mdi mdi-checkbox-marked-circle';
+        }
+        if (input.value.length < tamanho) {
+          let i = document.getElementById('i-' + x);
+          i.style.color = '';
+          i.className = 'mdi mdi-check-circle-outline';
+        }
+        console.log(bool.length, botao.disabled);
+        if (bool.length == 0){
+          botao.disabled = false;
+        }
+        if(bool.length > 0) {
+          console.log('chegueiaqui');
+          botao.disabled = true;
+        }
+      })
+    }
+</script>
 {% endblock %}
+
 </body>

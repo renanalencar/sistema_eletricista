@@ -121,13 +121,13 @@
             </div>
           </div>
           <div class="modal fade p-0 " id="carregando" tabindex="-1" role="dialog" aria-labelledby="carregando" aria-hidden="true">
-          <div class="modal-dialog " role="document" style="position: center; top: 20%;">
+          <div class="modal-dialog" role="document" style="position: center; top: 20%;">
             <div class="modal-content" style="position: center; top: 20%; width: 60%">
               <div class="modal-header pt-0" style="text-align:center">
                 <h2 class="modal-title" id="exampleModalLabel-2">Procurando Eletricista</h2>
               </div>
-              <div class="modal-body center-div p-0" style="text-align:center; margin-left: 25%">
-                <div class="loader" style="display:inline-block;"></div>
+              <div class="modal-body center-div p-0" style="text-align:center; margin-left: 25%; height:100px">
+                <div class="lds-ripple"><div></div><div></div></div>
               </div>
             </div>
           </div>
@@ -167,6 +167,7 @@
       let fundoBotao = document.getElementsByClassName('fundo-botao')[0]
       fundoBotao.style = 'height: 5%' 
     }
+
 
     var pedido_aceito;
     var url = 'ws://' + '{{ip}}' + ':8000/ws/user/index/'

@@ -544,3 +544,6 @@ def ListarPedidos(request):
 
 def dump(request):
 	return render(request, 'dump.html')
+
+def serviço(request):
+	return render(request, 'serviço.html')
