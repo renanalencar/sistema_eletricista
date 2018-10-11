@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'sistema_eletricista.apps.user.cliente',
     'sistema_eletricista.apps.user.eletricista',
     'sistema_eletricista.apps.post',
+    'sistema_eletricista.apps.post.PedidoDeServico',
     'sistema_eletricista.apps.api',
 
     'django.contrib.admin',

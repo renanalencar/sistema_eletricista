@@ -105,11 +105,11 @@
                     <div>
                       <label for="problema" class="row-form-label"><h2>O que houve de errado?
                         <h2></label>
-                      <textarea rows="4" id="id_necessidade" name="necessidade" style="width: 110%"> </textarea>
+                      <textarea rows="4" required id="id_necessidade" name="necessidade" style="width: 110%"> </textarea>
                     </div>
                     <div>
                       <label for="message-text" class="row-form-label"><h3>Qual o endereço?<h3></label>
-                      <input type="text" id="id_endereco" name="endereco" style="width: 130%">
+                      <input type="text" required id="id_endereco" name="endereco" style="width: 130%">
                     </div>
                   </form>
                 </div>
@@ -137,11 +137,20 @@
       
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript">
+    var usuario_em_questao = '{{user}}'
+    var user_cliente;
+    var ELETRICISTA;
     var resposta_cliente;
     var resposta_eletricista;
     var pausar_cliente;
     var pausar_eletricista;
+    var continuar_cliente;
+    var continuar_eletricista;
+    var finalizar_cliente;
+    var finalizar_eletricista;
     var RELOGIO;
+    var RELOGIO2;
+    var tempo;
     
     function contarTempo() {
       console.log('eu sou o tempo', tempo++)
@@ -170,10 +179,14 @@
 
 
     var pedido_aceito;
+    var OLA = 0;
+    var verifica_entrada1 = false;
+    var verifica_entrada2 = false;
     var url = 'ws://' + '{{ip}}' + ':8000/ws/user/index/'
     var ws = new WebSocket(url);
     ws.onopen = function(e) {
       console.log('WebSocket conectado!')
+      console.log('enviei o user')
     }
     ws.onclose = function(e) {
       console.error('WebSocket disconectado')
@@ -186,7 +199,20 @@
       resposta_cliente = data['pedido_resposta_cliente']
       pausar_cliente = data['pausar_resposta_cliente']
       pausar_eletricista = data['pausar_resposta_eletricista']
-      if(pedido_aceito) {
+      continuar_cliente = data['continuar_resposta_cliente']
+      continuar_eletricista = data['continuar_resposta_eletricista']
+      finalizar_cliente = data['finalizar_resposta_cliente']
+      finalizar_eletricista = data['finalizar_resposta_eletricista']
+      
+      //console.log('ELETRICISTA NESSE BODEGO', ELETRICISTA)
+      if(data['user'] != undefined){
+        //usuario volatil
+        user_cliente = data['user']
+      }
+      //console.log('USERCLIENTE NESSE BODEGO', user_cliente)
+      console.error('COMPARANDO OS 2', user_cliente, usuario_em_questao)
+      if(pedido_aceito && user_cliente == usuario_em_questao) {
+        
         let modal = document.getElementById('carregando')
         modal.style.display = 'none'
         mostrarIniciarCancelar()
@@ -195,7 +221,7 @@
         let modal = document.getElementById('carregando')
         modal.style.display = 'none'
       }
-      if(resposta_eletricista && resposta_cliente){
+      if(resposta_eletricista && resposta_cliente && user_cliente == usuario_em_questao){
         
           // document.getElementById('iniciar_servico').textContent = 'Tempo: ' + i;
         
@@ -204,14 +230,40 @@
         iniciar.style.display = 'none'
         cancelar.style.display = 'none'
         mostrarFinalizarPausar();
-        var tempo = 1;
+        tempo = 1;
         RELOGIO = setInterval(function(){
           console.log(tempo++)
         }, 2000)
       }
-      if(pausar_cliente && pausar_eletricista) {
+      if(pausar_cliente && pausar_eletricista && user_cliente == usuario_em_questao) {
+        let pausar = document.getElementById('pausar_servico')
+        pausar.textContent = 'Pausar'
+        pausar.style.display = 'none'
+        let continuar_servico = document.getElementById('continuar_servico')
+        continuar_servico.style.display = 'block'
         clearInterval(RELOGIO)
         console.log('relogio si pausado')
+      }
+      if(continuar_cliente && continuar_eletricista && user_cliente == usuario_em_questao) {
+        let continuar = document.getElementById('continuar_servico')
+        continuar.textContent = 'Continuar'
+        continuar.style.display = 'none'
+        let pausar = document.getElementById('pausar_servico')
+        pausar.style.display = 'block'
+        console.log(pausar)
+        console.log('relogio si continuado')
+        console.log('eu sou o tempo', tempo)
+        RELOGIO = setInterval(function(){
+          console.log('entrei no relogio')
+          console.log(tempo++)
+        }, 2000)
+      }
+      if(finalizar_cliente && finalizar_eletricista && user_cliente == usuario_em_questao) {
+        console.log('FINALIZEI SI')
+        let finalizar = document.getElementById('finalizar_servico')
+        finalizar.textContent = 'FINALIZADO'
+        finalizar.disabled = true
+        clearInterval(RELOGIO)
       }
     }
     var iniciar = document.getElementById('iniciar_servico')
@@ -222,22 +274,48 @@
         resposta_eletricista = false;
       }
       ws.send(JSON.stringify({
+         //user_eletricista : ELETRICISTA,
+        user : '{{user}}',
         pedido_resposta_eletricista : resposta_eletricista,
         pedido_resposta_cliente : true,
       }))
     })
     var pausar = document.getElementById('pausar_servico')
     pausar.addEventListener('click', () => {
-      //pausar.textContent = 'Continuar'
-      pausar.style.display = 'none'
-      let continuar_servico = document.getElementById('continuar_servico')
-      continuar_servico.style.display = 'block'
+      pausar.textContent = 'Aguardando Eletricista'
+      
       if(pausar_eletricista ==  undefined) {
         pausar_eletricista = false;
       }
       ws.send(JSON.stringify({
+        user : '{{user}}',
         pausar_resposta_eletricista : pausar_eletricista,
         pausar_resposta_cliente : true
+      }))
+    })
+    var continuar = document.getElementById('continuar_servico')
+    continuar.addEventListener('click', () => {
+      continuar.textContent = 'Aguardando Eletricista'
+      if(continuar_eletricista ==  undefined) {
+        continuar_eletricista = false;
+      }
+      console.log('continei si')
+      ws.send(JSON.stringify({
+        user : '{{user}}',
+        continuar_resposta_eletricista : continuar_eletricista,
+        continuar_resposta_cliente : true
+      }))
+    })
+    var finalizar = document.getElementById('finalizar_servico')
+    finalizar.addEventListener('click', () => {
+      finalizar.textContent = 'Aguardando Eletricista'
+      if(finalizar_eletricista == undefined) {
+        finalizar_eletricista = false
+      }
+      ws.send(JSON.stringify({
+        user : '{{user}}',
+        finalizar_resposta_eletricista : finalizar_eletricista,
+        finalizar_resposta_cliente : true
       }))
     })
   </script>
@@ -442,7 +520,7 @@
         for (var m = 0; m < eletricistas.length; m++) {
           distanciaETempoDaRota(eu, eletricistas[m])
         }
-        setTimeout(calculaMenorESetaRota, 500)
+        setTimeout(calculaMenorESetaRota, 1000)
         //jsonRequest({lat:eu.lat(), lng:eu.lng()}, {lat:elec1.lat(), lng:elec1.lng()}, map)
       }, 500)
     }
