@@ -73,28 +73,37 @@ def index(request):
 		usuario = User.objects.get(username=username)
 		print ('printando usuario')
 		print (usuario)
+		print ('COOKIES')
+		sessionid = request.COOKIES['sessionid']
+		print(request.COOKIES['sessionid'])
 		eletricista_existe = Eletricista.objects.filter(usuario=usuario).exists()
 		cliente_existe = Cliente.objects.filter(usuario=usuario).exists()
 		admin_existe = Admin.objects.filter(user=usuario).exists()
-		if eletricista_existe:
-			return render(request, 'solicitar_servico.html', {
+		if eletricista_existe or cliente_existe:
+			response =  render(request, 'solicitar_servico.html', {
 				'nome' : get_usuario_logado(request),
 				'ip' : get_client_ip(request),
-				'user': request.user
+				'user': request.user,
+				'sessionid' : sessionid
 				})
-		if cliente_existe:
-			return render(request, 'solicitar_servico.html', {
-				'nome' : get_usuario_logado(request),
-				'ip' : get_client_ip(request),
-				'user': request.user
-				})	
+			response.set_cookie('currentstate', True)
+			return response
+		# if cliente_existe:
+		# 	return render(request, 'solicitar_servico.html', {
+		# 		'nome' : get_usuario_logado(request),
+		# 		'ip' : get_client_ip(request),
+		# 		'user': request.user
+		# 		})	
 		if admin_existe:
 			return render(request, 'dashboard_exemplo.html', {
 				'nome' : get_usuario_logado(request),
 				'ip' : get_client_ip(request),
-				'user': request.user
+				'user': request.user,
+				'sessionid' : sessionid
 				})
-		return render(request, 'solicitar_servico.html', {'nome' : get_usuario_logado(request), 'ip' : get_client_ip(request), 'user': request.user})
+		response =  render(request, 'solicitar_servico.html', {'nome' : get_usuario_logado(request), 'ip' : get_client_ip(request), 'user': request.user, 'sessionid' : sessionid})
+		response.set_cookie('currentstate', True)
+		return response
 		#teste para coords
 
 @login_required
@@ -544,6 +553,10 @@ def tela_eletricista(request):
 	return render(request, 'base_eletricista.html')
 
 def ListarPedidos(request):
+	
+	pedidos = PedidoDeServico.objects.filter(cliente=request.user.username)
+	#user o pedidos acima pra filtar apenas os servicos do cliente logado no momento
+
 	context = {
 	 'pedidos_list' : reversed(PedidoDeServico.objects.all())
 	}
