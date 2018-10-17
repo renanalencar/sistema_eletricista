@@ -137,6 +137,9 @@
       
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript">
+    var lat_real
+    var lng_real
+    jsonRequest(lat_real, lng_real)
     var usuario_em_questao = '{{user}}'
     var user_cliente;
     var ELETRICISTA;
@@ -150,10 +153,89 @@
     var finalizar_eletricista;
     var RELOGIO;
     var RELOGIO2;
-    var tempo;
+    var tictac;
+    var sessionid = '{{sessionid}}'
+    var cookie = document.cookie
+    // resetar cookies
+    function resetarCookies() {
+      setCookie("pedido_aceito", false);
+      setCookie("resposta_cliente", false);
+      setCookie("resposta_eletricista", false);
+      setCookie("pausar_cliente", false);
+      setCookie("pausar_eletricista", false);
+      setCookie("continuar_cliente", false);
+      setCookie("continuar_eletricista", false);
+      setCookie("finalizar_cliente", false);
+      setCookie("finalizar_eletricista", false);
+    }
+    // resetarCookies();
+
+    if(getCookie("pedido_aceito")) {
+      setTimeout(() => {
+        mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
+      }, 1000)
+      let modal = document.getElementById('carregando')
+      modal.style.display = 'none'
+      mostrarIniciarCancelar()
+      
+    }
+    if(getCookie("resposta_cliente") && getCookie("resposta_eletricista")) {
+      
+      // mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
+      let iniciar = document.getElementById('iniciar_servico')
+      let cancelar = document.getElementById('cancelar_servico')
+      iniciar.style.display = 'none'
+      cancelar.style.display = 'none'
+      mostrarFinalizarPausar();
+      tictac = 1;
+      RELOGIO = setInterval(function(){
+        console.log(tictac++)
+      }, 2000)
+    }
+
+    if(getCookie("pausar_cliente") && getCookie("pausar_eletricista")) {
+      
+      // mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
+      let pausar = document.getElementById('pausar_servico')
+      pausar.textContent = 'Pausar'
+      pausar.style.display = 'none'
+      let continuar_servico = document.getElementById('continuar_servico')
+      continuar_servico.style.display = 'block'
+      clearInterval(RELOGIO)
+      console.log('relogio si pausado')
+    }
+
+    if(getCookie("continuar_cliente") && getCookie("continuar_eletricista")) {
+      
+      // mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
+      let continuar = document.getElementById('continuar_servico')
+      continuar.textContent = 'Continuar'
+      continuar.style.display = 'none'
+      let pausar = document.getElementById('pausar_servico')
+      pausar.style.display = 'block'
+      console.log(pausar)
+      console.log('relogio si continuado')
+      console.log('eu sou o tictac', tictac)
+      RELOGIO = setInterval(function(){
+        console.log('entrei no relogio')
+        console.log(tictac++)
+      }, 2000)
+    }
+
+    if(getCookie("finalizar_cliente") && getCookie("finalizar_eletricista")) {
+      
+      // mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
+      console.log('FINALIZEI SI')
+      let finalizar = document.getElementById('finalizar_servico')
+      finalizar.textContent = 'FINALIZADO'
+      finalizar.disabled = true
+      clearInterval(RELOGIO)
+    }
+    console.log(cookie)
+    console.log(sessionid);
     
-    function contarTempo() {
-      console.log('eu sou o tempo', tempo++)
+    function contartictac() {
+      console.log('eu sou o tictac', tictac++)
     }
 
     function mostrarIniciarCancelar(resp) {
@@ -212,10 +294,11 @@
       //console.log('USERCLIENTE NESSE BODEGO', user_cliente)
       console.error('COMPARANDO OS 2', user_cliente, usuario_em_questao)
       if(pedido_aceito && user_cliente == usuario_em_questao) {
-        
+        setCookie("pedido_aceito", true)
         let modal = document.getElementById('carregando')
         modal.style.display = 'none'
         mostrarIniciarCancelar()
+        
         mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
       } else {
         let modal = document.getElementById('carregando')
@@ -223,19 +306,20 @@
       }
       if(resposta_eletricista && resposta_cliente && user_cliente == usuario_em_questao){
         
-          // document.getElementById('iniciar_servico').textContent = 'Tempo: ' + i;
-        
+          // document.getElementById('iniciar_servico').textContent = 'tictac: ' + i;
+        setCookie("resposta_eletricista", true)
         let iniciar = document.getElementById('iniciar_servico')
         let cancelar = document.getElementById('cancelar_servico')
         iniciar.style.display = 'none'
         cancelar.style.display = 'none'
         mostrarFinalizarPausar();
-        tempo = 1;
+        tictac = 1;
         RELOGIO = setInterval(function(){
-          console.log(tempo++)
+          console.log(tictac++)
         }, 2000)
       }
       if(pausar_cliente && pausar_eletricista && user_cliente == usuario_em_questao) {
+        setCookie("pausar_eletricista", true)
         let pausar = document.getElementById('pausar_servico')
         pausar.textContent = 'Pausar'
         pausar.style.display = 'none'
@@ -245,6 +329,7 @@
         console.log('relogio si pausado')
       }
       if(continuar_cliente && continuar_eletricista && user_cliente == usuario_em_questao) {
+        setCookie("continuar_eletricista", true)
         let continuar = document.getElementById('continuar_servico')
         continuar.textContent = 'Continuar'
         continuar.style.display = 'none'
@@ -252,13 +337,14 @@
         pausar.style.display = 'block'
         console.log(pausar)
         console.log('relogio si continuado')
-        console.log('eu sou o tempo', tempo)
+        console.log('eu sou o tictac', tictac)
         RELOGIO = setInterval(function(){
           console.log('entrei no relogio')
-          console.log(tempo++)
+          console.log(tictac++)
         }, 2000)
       }
       if(finalizar_cliente && finalizar_eletricista && user_cliente == usuario_em_questao) {
+        setCookie("finalizar_eletricista", true)
         console.log('FINALIZEI SI')
         let finalizar = document.getElementById('finalizar_servico')
         finalizar.textContent = 'FINALIZADO'
@@ -273,6 +359,7 @@
       if(resposta_eletricista == undefined) {
         resposta_eletricista = false;
       }
+      setCookie("resposta_cliente", true);
       ws.send(JSON.stringify({
          //user_eletricista : ELETRICISTA,
         user : '{{user}}',
@@ -287,6 +374,7 @@
       if(pausar_eletricista ==  undefined) {
         pausar_eletricista = false;
       }
+      setCookie("pausar_cliente", true)
       ws.send(JSON.stringify({
         user : '{{user}}',
         pausar_resposta_eletricista : pausar_eletricista,
@@ -299,6 +387,7 @@
       if(continuar_eletricista ==  undefined) {
         continuar_eletricista = false;
       }
+      setCookie("continuar_cliente", true)
       console.log('continei si')
       ws.send(JSON.stringify({
         user : '{{user}}',
@@ -312,14 +401,14 @@
       if(finalizar_eletricista == undefined) {
         finalizar_eletricista = false
       }
+      setCookie("finalizar_cliente", true)
       ws.send(JSON.stringify({
         user : '{{user}}',
         finalizar_resposta_eletricista : finalizar_eletricista,
         finalizar_resposta_cliente : true
       }))
     })
-  </script>
-  <script>
+  
     console.log(ws)
     var necessidade = document.getElementById('id_necessidade')
     var endereco = document.getElementById('id_endereco')
@@ -363,12 +452,12 @@
     var dirservice
     var eu
     var botao = document.getElementById('botao')
-    var lat_real
-    var lng_real
+    // var lat_real
+    // var lng_real
     var markers = []
     var end_cliente = []
     var end_elec = []
-    jsonRequest(lat_real, lng_real)
+    // jsonRequest(lat_real, lng_real)
     //botao.addEventListener('click', () => {
       //var partida = document.getElementById('A').value
       //ar destino = document.getElementById('B').value
@@ -392,9 +481,15 @@
           zoom: 15,
           center: {lat:lat_real, lng:lng_real}
         }
+        console.log(options.center)
+
         map = new google.maps.Map(document.getElementById('map'), options);
         console.log(map)
+        console.log(lat_real, lng_real)
         eu = new google.maps.LatLng(lat_real, lng_real) // coords imprecisas do gps do laptop
+        let vc = new google.maps.LatLng(lng_real, lat_real)
+        console.log(vc.lat(), vc.lng())
+        console.log('eu', eu)
         var infowindow = new google.maps.InfoWindow({
               content: '{{user}}'
           });
@@ -406,8 +501,10 @@
         eletricistas[3] = new google.maps.LatLng(-23.5822135, -46.6441941) //sesc vila mariana
         eletricistas[4] = new google.maps.LatLng(-23.5799952, -46.6403997) //extra vila mariana
         eletricistas[5] = new google.maps.LatLng(-23.5793521, -46.641414) //local mais próximo de todos do cliente
+        console.log(eletricistas)
         for (var x = 0; x < eletricistas.length; x++){
           addMarker(eletricistas[x], map, "{% static 'radiant/jquery/images/logo-personagem-teste (2).png' %}")
+          console.log(eletricistas[x].lat())
         }
 
         dirdisplay = new google.maps.DirectionsRenderer();
@@ -462,6 +559,7 @@
       };
       xhr.open("GET" , "http://localhost:8000/api/coords/{{user}}/");
       xhr.send()
+      return;
     }
     
     function apagaMapa (d) {
@@ -516,13 +614,14 @@
         });
     }
     function mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista () {
+      console.log(eletricistas.length, 'LENGTH')
       setTimeout(function() {
         for (var m = 0; m < eletricistas.length; m++) {
           distanciaETempoDaRota(eu, eletricistas[m])
         }
         setTimeout(calculaMenorESetaRota, 1000)
         //jsonRequest({lat:eu.lat(), lng:eu.lng()}, {lat:elec1.lat(), lng:elec1.lng()}, map)
-      }, 500)
+      }, 1000)
     }
     function calculaMenorESetaRota() {
       var menor = distancia[0]
@@ -538,10 +637,12 @@
       console.log("com indice: ", indice)
       console.log("tamanho: ", distancia.length)
       dirdisplay.setMap(map)
+      console.log("passei o setMap")
       calculateRoute(dirservice, dirdisplay, eu, eletricistas[indice])
-      escreverDeltaTeDeltaD(menor, indice, end_cliente[indice], end_elec[indice])
+      console.log("passei o calculateRoute")
+      // escreverDeltaTeDeltaD(menor, indice, end_cliente[indice], end_elec[indice])
       //keepTracking(indice)
-      
+      indice = 0;
     }
     function keepTracking(index) {
       setInterval(function() {
@@ -619,6 +720,26 @@
         }).then((res) => console.log(res))
     }
     //patchLatLng()
+    function setCookie(nome, valor) {
+      document.cookie = nome + "=" + valor;
+      console.log(cookie)
+    }
+    function getCookie(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+              c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+              return JSON.parse(c.substring(name.length, c.length));
+          }
+      }
+      return "";
+    }
+    
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdJ_Kts10iRTTj6tZh8pv0mjB2vp6Mcm4&callback=initMap"
 async defer></script>

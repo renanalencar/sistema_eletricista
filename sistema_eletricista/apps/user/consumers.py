@@ -67,14 +67,13 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 				'endereco' : endereco,
 				'user' : user,
 				'user_eletricista' : user_eletricista
-				#'meu' : meu
+				
 			}
 			dados.append(dados_)
 
 
 		elif data.get('pedido_resposta_eletricista') == True or data.get('pedido_resposta_eletricista') == False:
-			print('to em cima dos dados do userelec')
-			print (data)
+			
 			pedido_resposta_eletricista = data['pedido_resposta_eletricista']
 			pedido_resposta_cliente = data['pedido_resposta_cliente']
 			if(data.get('user_eletricista')):
@@ -86,13 +85,7 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 				user_cliente = data['user']
 			else:
 				user_cliente = None
-			dados_ = {
-				'pedido_resposta_cliente' : pedido_resposta_cliente,
-				'pedido_resposta_eletricista' : pedido_resposta_eletricista,
-				'user_eletricista' : user_eletricista,
-				'user' : user_cliente,
-			}
-			dados.append(dados_)
+			
 
 		elif data.get('pausar_resposta_eletricista') == True or data.get('pausar_resposta_eletricista') == False:
 			
@@ -107,17 +100,11 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 				user_cliente = data['user']
 			else:
 				user_cliente = None
-			dados_ = {
-				'pausar_resposta_cliente' : pausar_resposta_cliente,
-				'pausar_resposta_eletricista' : pausar_resposta_eletricista,
-				'user_eletricista' : user_eletricista,
-				'user' : user_cliente,
-			}
 			
-			dados.append(dados_)
+			
+		
 
 		elif data.get('continuar_resposta_eletricista') == True or data.get('continuar_resposta_eletricista') == False:
-			print ('estou passando por aqui também')
 			continuar_resposta_eletricista = data['continuar_resposta_eletricista'],
 			continuar_resposta_cliente = data['continuar_resposta_cliente']
 			if(data.get('user_eletricista')):
@@ -129,16 +116,9 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 				user_cliente = data['user']
 			else:
 				user_cliente = None
-			dados_ = {
-				'continuar_resposta_cliente' : continuar_resposta_cliente,
-				'continuar_resposta_eletricista' : continuar_resposta_eletricista,
-				'user_eletricista' : user_eletricista,
-				'user' : user_cliente,
-			}
-			dados.append(dados_)
+			
 
 		elif data.get('finalizar_resposta_eletricista') == True or data.get('finalizar_resposta_eletricista') == False:
-			print ('estou passando por aqui também')
 			
 			finalizar_resposta_eletricista = data['finalizar_resposta_eletricista'],
 			finalizar_resposta_cliente = data['finalizar_resposta_cliente']
@@ -148,8 +128,7 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 					'eletricista' : user_eletricista
 				}
 				usuarios_final.append(x)
-				print(usuarios_final)
-				print('dentro do iffffffffffffffffffffff elec')
+				
 				#eletricistas_finalizar.append(user_eletricista)
 			else:
 				user_eletricista = None
@@ -160,21 +139,12 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 					'cliente' : user_cliente
 				}
 				usuarios_final.append(x)
-				print(usuarios_final)
-				print ('dentro do ifffffffff cliente')
+				
 				#clientes_finalizar.append(user_cliente)
 			else:
 				user_cliente = None
-			dados_ = {
-				'finalizar_resposta_cliente' : finalizar_resposta_cliente,
-				'finalizar_resposta_eletricista' : finalizar_resposta_eletricista,
-				'user_eletricista' : user_eletricista,
-				'user' : user_cliente,
-			}
-			dados.append(dados_)
+			
 			if data.get('finalizar_resposta_eletricista') == True and data.get('finalizar_resposta_cliente') == True:
-				dados.append(dados_)
-				print (dados)
 				
 				# data_parcial = datetime.datetime.now()
 				# data_real = str(data_parcial.day) + '/' + str(data_parcial.month) + '/' + str(data_parcial.year)
@@ -182,8 +152,6 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 				# eletricista = dados[1]['user_eletricista']
 				valor = 53.30
 				endereco = dados[0]['endereco']
-				print ('eu sou o user_cliente e user_eletricista')
-				print(usuarios_final)
 				u = usuarios_final[0]
 				w = usuarios_final[1]
 				if 'eletricista' in u:
