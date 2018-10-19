@@ -180,7 +180,7 @@
     if(getCookie("pedido_aceito")) {
       setTimeout(() => {
         mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
-      }, 1000)
+      }, 1500)
       let modal = document.getElementById('carregando')
       modal.style.display = 'none'
       mostrarIniciarCancelar()
@@ -274,8 +274,11 @@
     var OLA = 0;
     var verifica_entrada1 = false;
     var verifica_entrada2 = false;
-    var url = 'ws://localhost:8000/ws/user/index/'
-    var ws = new WebSocket(url);
+    var host = window.location.host
+    var pathname = window.location.pathname
+    
+    var url2 = 'ws://' + host + '/ws' + pathname;
+    var ws = new WebSocket(url2);
     var kkk = 0;
     var jjj = 0;
     ws.onopen = function(e) {
@@ -288,27 +291,17 @@
     ws.onmessage = function(e) {
       let data = JSON.parse(e.data)
       console.log(data)
-      console.error("CASAL", data['casal'])
       var pedido_aceito = data['pedido_status']
       
-      if(eletricista_em_questao == undefined && data['user'] == usuario_em_questao) {
-         eletricista_em_questao = data['user_eletricista']
-      }
-      
-      if(data['user_eletricista'] != undefined){
-        user_eletricista = data['user_eletricista']
-        testeeletricista = user_eletricista
-      }
-      if(data['user'] != undefined){
-        //usuario volatil
-        user_cliente = data['user']
-        testecliente = user_cliente
-      }
-      var casal = {
-          eletricista : eletricista_em_questao,
-          cliente : usuario_em_questao
-        }
-      console.warn("CASAL", casal)
+      // if(eletricista_em_questao == undefined && data['user'] == usuario_em_questao) {
+      //   eletricista_em_questao = data['user_eletricista']
+      //   console.log('ELETRICISTA_EM_QUESTAO', eletricista_em_questao)
+      // }
+      // var casal = {
+      //     eletricista : eletricista_em_questao,
+      //     cliente : usuario_em_questao
+      //   }
+      // console.warn("CASAL", casal)
       //if(data['user_eletricista'] == eletricista_em_questao && data['user'] == usuario_em_questao) {  
       resposta_eletricista = data['pedido_resposta_eletricista']
       resposta_cliente = data['pedido_resposta_cliente']
@@ -325,136 +318,126 @@
       //console.log('USERCLIENTE NESSE BODEGO', user_cliente)
       console.error('COMPARANDO OS 2 cliente', user_cliente, usuario_em_questao)
       console.error('COMPARANDO OS 2 ELETRICISTA', user_eletricista, eletricista_em_questao)
-      if(pedido_aceito && user_cliente == usuario_em_questao) {
-        setCookie("pedido_aceito", true)
-        let modal = document.getElementById('carregando')
-        modal.style.display = 'none'
-        mostrarIniciarCancelar()
-        resetarCookies()
-        window.location.href = 'http://localhost:8000/user/servico/' + data['servico_id'] + '/'
+      setCookie("pedido_aceito", true)
+      let modal = document.getElementById('carregando')
+      modal.style.display = 'none'
+      if(resposta_eletricista && resposta_cliente){
         
-        mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
-      } else {
-        let modal = document.getElementById('carregando')
-        modal.style.display = 'none'
+          // document.getElementById('iniciar_servico').textContent = 'tictac: ' + i;
+        setCookie("resposta_eletricista", true)
+        let iniciar = document.getElementById('iniciar_servico')
+        let cancelar = document.getElementById('cancelar_servico')
+        iniciar.style.display = 'none'
+        cancelar.style.display = 'none'
+        mostrarFinalizarPausar();
+        tictac = 1;
+        RELOGIO = setInterval(function(){
+          console.log(tictac++)
+        }, 2000)
+      }
+      if(pausar_cliente && pausar_eletricista) {
+        setCookie("pausar_eletricista", true)
+        let pausar = document.getElementById('pausar_servico')
+        pausar.textContent = 'Pausar'
+        pausar.style.display = 'none'
+        let continuar_servico = document.getElementById('continuar_servico')
+        continuar_servico.style.display = 'block'
+        clearInterval(RELOGIO)
+        console.log('relogio si pausado')
+      }
+      if(continuar_cliente && continuar_eletricista) {
+        setCookie("continuar_eletricista", true)
+        let continuar = document.getElementById('continuar_servico')
+        continuar.textContent = 'Continuar'
+        continuar.style.display = 'none'
+        let pausar = document.getElementById('pausar_servico')
+        pausar.style.display = 'block'
+        console.log(pausar)
+        console.log('relogio si continuado')
+        console.log('eu sou o tictac', tictac)
+        RELOGIO = setInterval(function(){
+          console.log('entrei no relogio')
+          console.log(tictac++)
+        }, 2000)
+      }
+      if(finalizar_cliente && finalizar_eletricista) {
+        setCookie("finalizar_eletricista", true)
+        console.log('FINALIZEI SI')
+        let finalizar = document.getElementById('finalizar_servico')
+        finalizar.textContent = 'FINALIZADO'
+        finalizar.disabled = true
+        clearInterval(RELOGIO)
+        resetarCookies()
       }
     }
-    //   if(resposta_eletricista && resposta_cliente && user_cliente == usuario_em_questao && user_eletricista == eletricista_em_questao){
-        
-    //       // document.getElementById('iniciar_servico').textContent = 'tictac: ' + i;
-    //     setCookie("resposta_eletricista", true)
-    //     let iniciar = document.getElementById('iniciar_servico')
-    //     let cancelar = document.getElementById('cancelar_servico')
-    //     iniciar.style.display = 'none'
-    //     cancelar.style.display = 'none'
-    //     mostrarFinalizarPausar();
-    //     tictac = 1;
-    //     RELOGIO = setInterval(function(){
-    //       console.log(tictac++)
-    //     }, 2000)
-    //   }
-    //   if(pausar_cliente && pausar_eletricista && user_cliente == usuario_em_questao && user_eletricista == eletricista_em_questao) {
-    //     setCookie("pausar_eletricista", true)
-    //     let pausar = document.getElementById('pausar_servico')
-    //     pausar.textContent = 'Pausar'
-    //     pausar.style.display = 'none'
-    //     let continuar_servico = document.getElementById('continuar_servico')
-    //     continuar_servico.style.display = 'block'
-    //     clearInterval(RELOGIO)
-    //     console.log('relogio si pausado')
-    //   }
-    //   if(continuar_cliente && continuar_eletricista && user_cliente == usuario_em_questao && user_eletricista == eletricista_em_questao) {
-    //     setCookie("continuar_eletricista", true)
-    //     let continuar = document.getElementById('continuar_servico')
-    //     continuar.textContent = 'Continuar'
-    //     continuar.style.display = 'none'
-    //     let pausar = document.getElementById('pausar_servico')
-    //     pausar.style.display = 'block'
-    //     console.log(pausar)
-    //     console.log('relogio si continuado')
-    //     console.log('eu sou o tictac', tictac)
-    //     RELOGIO = setInterval(function(){
-    //       console.log('entrei no relogio')
-    //       console.log(tictac++)
-    //     }, 2000)
-    //   }
-    //   if(finalizar_cliente && finalizar_eletricista && user_cliente == usuario_em_questao && user_eletricista == eletricista_em_questao) {
-    //     setCookie("finalizar_eletricista", true)
-    //     console.log('FINALIZEI SI')
-    //     let finalizar = document.getElementById('finalizar_servico')
-    //     finalizar.textContent = 'FINALIZADO'
-    //     finalizar.disabled = true
-    //     clearInterval(RELOGIO)
-    //   }
-    // }
-    // var iniciar = document.getElementById('iniciar_servico')
-    // iniciar.addEventListener('click', () => {
-    //   clickado = true;
-    //   iniciar.textContent = 'Aguardando Eletricista'
-    //   document.getElementById('cancelar_servico').style.display = 'none'
-    //   if(resposta_eletricista == undefined) {
-    //     resposta_eletricista = false;
-    //   }
-    //   console.log("antes de enviar", enviado_app)
+    var iniciar = document.getElementById('iniciar_servico')
+    iniciar.addEventListener('click', () => {
+      clickado = true;
+      iniciar.textContent = 'Aguardando Eletricista'
+      document.getElementById('cancelar_servico').style.display = 'none'
+      if(resposta_eletricista == undefined) {
+        resposta_eletricista = false;
+      }
+      console.log("antes de enviar", enviado_app)
      
-    //   setCookie("resposta_cliente", true);
-    //   ws.send(JSON.stringify({
-    //     //user_eletricista : eletricista_em_questao,
-    //     user : '{{user}}',
-    //     pedido_resposta_eletricista : resposta_eletricista,
-    //     pedido_resposta_cliente : true,
+      setCookie("resposta_cliente", true);
+      ws.send(JSON.stringify({
+        //user_eletricista : eletricista_em_questao,
+        user : '{{user}}',
+        pedido_resposta_eletricista : resposta_eletricista,
+        pedido_resposta_cliente : true,
         
-    //   }))
-    // })
-    // var pausar = document.getElementById('pausar_servico')
-    // pausar.addEventListener('click', () => {
-    //   clickado = true;
-    //   pausar.textContent = 'Aguardando Eletricista'
+      }))
+    })
+    var pausar = document.getElementById('pausar_servico')
+    pausar.addEventListener('click', () => {
+      clickado = true;
+      pausar.textContent = 'Aguardando Eletricista'
       
-    //   if(pausar_eletricista ==  undefined) {
-    //     pausar_eletricista = false;
-    //   }
-    //   setCookie("pausar_cliente", true)
-    //   ws.send(JSON.stringify({
-    //     //user_eletricista : eletricista_em_questao,
-    //     user : '{{user}}',
-    //     pausar_resposta_eletricista : pausar_eletricista,
-    //     pausar_resposta_cliente : true,
+      if(pausar_eletricista ==  undefined) {
+        pausar_eletricista = false;
+      }
+      setCookie("pausar_cliente", true)
+      ws.send(JSON.stringify({
+        //user_eletricista : eletricista_em_questao,
+        user : '{{user}}',
+        pausar_resposta_eletricista : pausar_eletricista,
+        pausar_resposta_cliente : true,
         
-    //   }))
-    // })
-    // var continuar = document.getElementById('continuar_servico')
-    // continuar.addEventListener('click', () => {
-    //   clickado = true;
-    //   continuar.textContent = 'Aguardando Eletricista'
-    //   if(continuar_eletricista ==  undefined) {
-    //     continuar_eletricista = false;
-    //   }
-    //   setCookie("continuar_cliente", true)
-    //   console.log('continei si')
-    //   ws.send(JSON.stringify({
-    //     //user_eletricista : eletricista_em_questao,
-    //     user : '{{user}}',
-    //     continuar_resposta_eletricista : continuar_eletricista,
-    //     continuar_resposta_cliente : true,
+      }))
+    })
+    var continuar = document.getElementById('continuar_servico')
+    continuar.addEventListener('click', () => {
+      clickado = true;
+      continuar.textContent = 'Aguardando Eletricista'
+      if(continuar_eletricista ==  undefined) {
+        continuar_eletricista = false;
+      }
+      setCookie("continuar_cliente", true)
+      console.log('continei si')
+      ws.send(JSON.stringify({
+        //user_eletricista : eletricista_em_questao,
+        user : '{{user}}',
+        continuar_resposta_eletricista : continuar_eletricista,
+        continuar_resposta_cliente : true,
        
-    //   }))
-    // })
-    // var finalizar = document.getElementById('finalizar_servico')
-    // finalizar.addEventListener('click', () => {
-    //   clickado = true;
-    //   finalizar.textContent = 'Aguardando Eletricista'
-    //   if(finalizar_eletricista == undefined) {
-    //     finalizar_eletricista = false
-    //   }
-    //   setCookie("finalizar_cliente", true)
-    //   ws.send(JSON.stringify({
-    //     //user_eletricista : eletricista_em_questao,
-    //     user : '{{user}}',
-    //     finalizar_resposta_eletricista : finalizar_eletricista,
-    //     finalizar_resposta_cliente : true,
-    //   }))
-    // })
+      }))
+    })
+    var finalizar = document.getElementById('finalizar_servico')
+    finalizar.addEventListener('click', () => {
+      clickado = true;
+      finalizar.textContent = 'Aguardando Eletricista'
+      if(finalizar_eletricista == undefined) {
+        finalizar_eletricista = false
+      }
+      setCookie("finalizar_cliente", true)
+      ws.send(JSON.stringify({
+        //user_eletricista : eletricista_em_questao,
+        user : '{{user}}',
+        finalizar_resposta_eletricista : finalizar_eletricista,
+        finalizar_resposta_cliente : true,
+      }))
+    })
   
     console.log(ws)
     var necessidade = document.getElementById('id_necessidade')
@@ -604,7 +587,7 @@
 
         }
       };
-      xhr.open("GET" , "http://"+'{{ip}}'+ ":8000/api/coords/{{user}}/");
+      xhr.open("GET" , "http://localhost:8000/api/coords/{{user}}/");
       xhr.send()
       return;
     }
@@ -685,6 +668,7 @@
       console.log("tamanho: ", distancia.length)
       dirdisplay.setMap(map)
       console.log("passei o setMap")
+      console.log(eletricistas[indice])
       calculateRoute(dirservice, dirdisplay, eu, eletricistas[indice])
       console.log("passei o calculateRoute")
       // escreverDeltaTeDeltaD(menor, indice, end_cliente[indice], end_elec[indice])
@@ -786,6 +770,8 @@
       }
       return "";
     }
+    mostrarIniciarCancelar()
+    mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
     
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdJ_Kts10iRTTj6tZh8pv0mjB2vp6Mcm4&callback=initMap"

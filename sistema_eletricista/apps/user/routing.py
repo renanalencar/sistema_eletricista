@@ -4,4 +4,5 @@ from . import consumers
 
 websocket_urlpatterns = [
     url(r'^ws/user/index/$', consumers.ClienteConsumer),
+    url(r'^ws/user/servico/(?P<id_servico>\w+)/$', consumers.ServicoConsumer)
 ]
