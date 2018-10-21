@@ -232,7 +232,7 @@
     .tempo{
       position: relative;
       margin-top: 3.5%;
-      font-size: 14vw;
+      font-size: 8vw;
       color: black;
       text-align: center; 
     }
@@ -246,6 +246,9 @@
 
     .relogio{
       border-radius: 10px;
+      width:70%;
+      position: relative;
+      left:15%;
       background: linear-gradient(-45deg, #fcf425, #fcfcbe, #ffffff, #fcfcbe, #fcf425);
       background-size: 1000% 1000%;
       -webkit-animation: Gradient 15s ease infinite;
@@ -287,6 +290,11 @@
       100% {
         background-position: 0% 50%
       }
+    }
+
+    .cartao{
+      background-color: rgba(250,250,250,0.8);
+      border-radius: 20px;
     }
 
     .portfolio-grid figure{
