@@ -178,12 +178,13 @@
     // resetarCookies();
 
     if(getCookie("pedido_aceito")) {
+      mostrarIniciarCancelar()
+      console.warn("ALOOOOOOOOOOOOOOOOOOOOOOO")
       setTimeout(() => {
         mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
-      }, 1500)
+      }, 1000)
       let modal = document.getElementById('carregando')
       modal.style.display = 'none'
-      mostrarIniciarCancelar()
       
     }
     if(getCookie("resposta_cliente") && getCookie("resposta_eletricista")) {

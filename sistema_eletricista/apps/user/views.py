@@ -77,6 +77,9 @@ def index(request):
 	if request.method == 'GET':
 		username = request.user
 		usuario = User.objects.get(username=username)
+		userteste = User.objects.get(username='UserCliente')
+		cliente = Cliente.objects.get(usuario=userteste)
+		print(cliente.foto)
 		print ('printando usuario')
 		print (usuario)
 		print ('COOKIES')
@@ -90,7 +93,8 @@ def index(request):
 				'nome' : get_usuario_logado(request),
 				'ip' : get_client_ip(request),
 				'user': request.user,
-				'sessionid' : sessionid
+				'sessionid' : sessionid,
+				'foto' : cliente.foto
 				})
 			response.set_cookie('currentstate', True)
 			return response
@@ -107,7 +111,7 @@ def index(request):
 				'user': request.user,
 				'sessionid' : sessionid
 				})
-		response =  render(request, 'solicitar_servico.html', {'nome' : get_usuario_logado(request), 'ip' : get_client_ip(request), 'user': request.user, 'sessionid' : sessionid})
+		response =  render(request, 'solicitar_servico.html', {'nome' : get_usuario_logado(request), 'ip' : get_client_ip(request), 'user': request.user, 'sessionid' : sessionid, 'foto' : cliente.foto})
 		response.set_cookie('currentstate', True)
 		return response
 		#teste para coords
@@ -562,7 +566,6 @@ def ListarPedidos(request):
 	
 	pedidos = PedidoDeServico.objects.filter(cliente=request.user.username)
 	#user o pedidos acima pra filtar apenas os servicos do cliente logado no momento
-
 	context = {
 	 'pedidos_list' : reversed(PedidoDeServico.objects.all())
 	}
@@ -572,4 +575,4 @@ def dump(request):
 	return render(request, 'dump.html')
 
 def serviço(request):
-	return render(request, 'serviço.html')
+	return render(request, 'servico.html')
