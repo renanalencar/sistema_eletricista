@@ -19,17 +19,12 @@ print ('eu estou aqui')
 class ClienteConsumer(AsyncWebsocketConsumer):
 
 
+	async def disconnect(self, close_code):
+		pass
 
 	async def connect(self):
 		self.user = None
 		print (self.user)
-		#self.usuarios_final = []
-		# self.clientes_finalizar = []
-		self.index_elec = 0
-		self.index_cliente = 0
-		print ('eu sou o usuario')
-		
-		#print (self.user.username)
 		self.room_name = 'teste'
 		await self.channel_layer.group_add(self.room_name, self.channel_name)
 		print (self.channel_name)
@@ -37,19 +32,11 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 		await self.accept()
 
 	async def receive(self, text_data):
-		#print(self.eletricistas_finalizar, self.clientes_finalizar)
 		
 		data = json.loads(text_data)
-		#print (data)
-		# nomes.append(data.get('user_em_questao'))
-		# if self.user == None:
-		# 	self.user = data.get('user_em_questao')
-		# else:
-		# 	print('self.user ja ocupado')
-		# print(nomes)
-		# print(self.user)
 
 		if data.get('nome'):
+			servico_id = None
 		
 			necessidade = data['necessidade']
 			pedido_enviado = data['pedido_enviado']
@@ -70,9 +57,147 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 				
 			}
 			dados.append(dados_)
+			if(data.get('user_eletricista')):
+				user_eletricista = data['user_eletricista']
+				x = {
+					'eletricista' : user_eletricista
+				}
+				usuarios_final.append(x)
+				
+				#eletricistas_finalizar.append(user_eletricista)
+			else:
+				user_eletricista = None
+
+			if(data.get('user')):
+				user_cliente = data['user']
+				x = {
+					'cliente' : user_cliente
+				}
+				usuarios_final.append(x)
+				
+				#clientes_finalizar.append(user_cliente)
+			else:
+				user_cliente = None
+			cliente = dados[0]['nome']
+			# eletricista = dados[1]['user_eletricista']
+			valor = 53.30
+			endereco = dados[0]['endereco']
+
+			#print (clientes_finalizar, eletricistas_finalizar)
+			# falta só o endereço para terminar o objeto PedidoDeServico
+			print ('USUARIOS_FINAL')
+			if(data.get('casal')):
+				print(data.get('casal'))
+				eletricista = data.get('casal')['eletricista']
+				cliente = data.get('casal')['cliente']
+				servico_feito = PedidoDeServico.objects.create(
+					#data=data_real,
+					valor=valor,
+					endereco=endereco,
+					cliente=cliente,
+					eletricista=eletricista,
+					status='Em andamento'
+					)
+				print (servico_feito.id)
+				print (servico_feito)
+				servico_id = servico_feito.id
 
 
-		elif data.get('pedido_resposta_eletricista') == True or data.get('pedido_resposta_eletricista') == False:
+
+
+
+		#print (dados)
+		if data.get('nome'):
+			await self.channel_layer.group_send(
+				self.room_name,
+				{
+					'type' : 'ws_message',
+					'pedido_enviado' : pedido_enviado,
+					'pedido_status' : pedido_status,
+					'necessidade' : necessidade,
+					'nome' : nome_,
+					'endereco' : endereco,
+					'user' : user,
+					'user_eletricista' : user_eletricista,
+					'servico_id' : servico_id
+					
+				})
+		
+	
+
+
+	async def ws_message(self, event):
+		await self.send(text_data=json.dumps({
+				'pedido_enviado' : event['pedido_enviado'],
+				'pedido_status' : event['pedido_status'],
+				'necessidade' : event['necessidade'],
+				'nome' : event['nome'],
+				'endereco' : event['endereco'],
+				'user' : event['user'],
+				'user_eletricista' : event['user_eletricista'],
+				'servico_id' : event['servico_id']
+				
+			}))
+
+
+
+
+
+
+
+
+
+
+
+class ServicoConsumer(AsyncWebsocketConsumer):
+	async def connect(self):
+		self.user = None
+		
+		#self.usuarios_final = []
+		# self.clientes_finalizar = [
+		
+		#print (self.user.username)
+		print(self.scope)
+		self.room_name = self.scope['url_route']['kwargs']['id_servico']
+		await self.channel_layer.group_add(self.room_name, self.channel_name)
+		
+		await self.accept()
+
+	async def receive(self, text_data):
+		data = json.loads(text_data)
+		#print (data)
+		# nomes.append(data.get('user_em_questao'))
+		# if self.user == None:
+		# 	self.user = data.get('user_em_questao')
+		# else:
+		# 	print('self.user ja ocupado')
+		# print(nomes)
+		# print(self.user)
+
+		# if data.get('nome'):
+		
+		# 	necessidade = data['necessidade']
+		# 	pedido_enviado = data['pedido_enviado']
+		# 	pedido_status = data['pedido_status']
+		# 	nome_ = data['nome']
+		# 	endereco = data['endereco']
+		# 	user = data['user']
+		# 	user_eletricista = data.get('user_eletricista')
+			
+		# 	dados_ = {
+		# 		'necessidade' : necessidade,
+		# 		'pedido_enviado' : pedido_enviado,
+		# 		'pedido_status' : pedido_status,
+		# 		'nome' : nome_,
+		# 		'endereco' : endereco,
+		# 		'user' : user,
+		# 		'user_eletricista' : user_eletricista
+				
+		# 	}
+		# 	dados.append(dados_)
+
+
+		if data.get('pedido_resposta_eletricista') == True or data.get('pedido_resposta_eletricista') == False:
 			
 			pedido_resposta_eletricista = data['pedido_resposta_eletricista']
 			pedido_resposta_cliente = data['pedido_resposta_cliente']
@@ -89,7 +214,7 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 
 		elif data.get('pausar_resposta_eletricista') == True or data.get('pausar_resposta_eletricista') == False:
 			
-			pausar_resposta_eletricista = data['pausar_resposta_eletricista'],
+			pausar_resposta_eletricista = data['pausar_resposta_eletricista']
 			pausar_resposta_cliente = data['pausar_resposta_cliente']
 			if(data.get('user_eletricista')):
 				user_eletricista = data['user_eletricista']
@@ -120,7 +245,7 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 
 		elif data.get('finalizar_resposta_eletricista') == True or data.get('finalizar_resposta_eletricista') == False:
 			
-			finalizar_resposta_eletricista = data['finalizar_resposta_eletricista'],
+			finalizar_resposta_eletricista = data['finalizar_resposta_eletricista']
 			finalizar_resposta_cliente = data['finalizar_resposta_cliente']
 			if(data.get('user_eletricista')):
 				user_eletricista = data['user_eletricista']
@@ -152,6 +277,7 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 				# eletricista = dados[1]['user_eletricista']
 				valor = 53.30
 				endereco = dados[0]['endereco']
+				print(usuarios_final)
 				u = usuarios_final[0]
 				w = usuarios_final[1]
 				if 'eletricista' in u:
@@ -163,15 +289,22 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 
 				#print (clientes_finalizar, eletricistas_finalizar)
 				# falta só o endereço para terminar o objeto PedidoDeServico
+				servico_finalizado = PedidoDeServico.objects.get(id=self.room_name)
+				servico_finalizado.status = 'Finalizado'
+				servico_finalizado.save()
 				
-				servico_feito = PedidoDeServico.objects.create(
-					#data=data_real,
-					valor=valor,
-					endereco=endereco,
-					cliente=cliente,
-					eletricista=eletricista
-					)
-				print (servico_feito)
+				# servico_feito = PedidoDeServico.objects.create(
+				# 	#data=data_real,
+				# 	valor=valor,
+				# 	endereco=endereco,
+				# 	cliente=cliente,
+				# 	eletricista=eletricista,
+				# 	status='Finalizado'
+				# 	)
+				# print (servico_feito)
+				print (servico_finalizado)
+				print(servico_finalizado.status)
+				
 				#print(self.eletricistas_finalizar, self.clientes_finalizar)
 
 
@@ -189,7 +322,8 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 					'nome' : nome_,
 					'endereco' : endereco,
 					'user' : user,
-					'user_eletricista' : user_eletricista
+					'user_eletricista' : user_eletricista,
+					
 				})
 		elif (data.get('pedido_resposta_eletricista') == True or data.get('pedido_resposta_eletricista') == False):
 			await self.channel_layer.group_send(
@@ -199,7 +333,8 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 					'pedido_resposta_eletricista' : data['pedido_resposta_eletricista'],
 					'pedido_resposta_cliente' : data['pedido_resposta_cliente'],
 					'user' : user_cliente,
-					'user_eletricista' : user_eletricista
+					'user_eletricista' : user_eletricista,
+					
 					#'user_eletricista' : data['user_eletricista']
 					
 				})
@@ -211,7 +346,8 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 					'pausar_resposta_eletricista' : data['pausar_resposta_eletricista'],
 					'pausar_resposta_cliente' : data['pausar_resposta_cliente'],
 					'user' : user_cliente,
-					'user_eletricista' : user_eletricista
+					'user_eletricista' : user_eletricista,
+					
 					
 				})
 		elif data.get('continuar_resposta_eletricista') == True or data.get('continuar_resposta_eletricista') == False:
@@ -222,7 +358,8 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 					'continuar_resposta_eletricista' : data['continuar_resposta_eletricista'],
 					'continuar_resposta_cliente' : data['continuar_resposta_cliente'],
 					'user' : user_cliente,
-					'user_eletricista' : user_eletricista
+					'user_eletricista' : user_eletricista,
+					
 					
 				})
 		elif data.get('finalizar_resposta_eletricista') == True or data.get('finalizar_resposta_eletricista') == False:
@@ -233,13 +370,11 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 					'finalizar_resposta_eletricista' : data['finalizar_resposta_eletricista'],
 					'finalizar_resposta_cliente' : data['finalizar_resposta_cliente'],
 					'user' : user_cliente,
-					'user_eletricista' : user_eletricista
+					'user_eletricista' : user_eletricista,
+					
 					
 				})
 	
-
-	async def disconnect(self, close_code):
-		pass
 
 	async def ws_message(self, event):
 		await self.send(text_data=json.dumps({
@@ -250,6 +385,7 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 				'endereco' : event['endereco'],
 				'user' : event['user'],
 				'user_eletricista' : event['user_eletricista']
+				
 				#'meu' : json.dumps(event['meu'])
 			}))
 
@@ -258,7 +394,8 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 				'pedido_resposta_eletricista' : event['pedido_resposta_eletricista'],
 				'pedido_resposta_cliente' : event['pedido_resposta_cliente'],
 				'user' : event['user'],
-				'user_eletricista' : event['user_eletricista']
+				'user_eletricista' : event['user_eletricista'],
+				
 				#'user_eletricista' : event['user_eletricista']
 				
 			}))
@@ -268,7 +405,8 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 				'pausar_resposta_eletricista' : event['pausar_resposta_eletricista'],
 				'pausar_resposta_cliente' : event['pausar_resposta_cliente'],
 				'user' : event['user'],
-				'user_eletricista' : event['user_eletricista']
+				'user_eletricista' : event['user_eletricista'],
+				
 				
 			}))
 
@@ -277,7 +415,8 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 				'continuar_resposta_eletricista' : event['continuar_resposta_eletricista'],
 				'continuar_resposta_cliente' : event['continuar_resposta_cliente'],
 				'user' : event['user'],
-				'user_eletricista' : event['user_eletricista']
+				'user_eletricista' : event['user_eletricista'],
+				
 				
 			}))
 
@@ -286,7 +425,13 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 				'finalizar_resposta_eletricista' : event['finalizar_resposta_eletricista'],
 				'finalizar_resposta_cliente' : event['finalizar_resposta_cliente'],
 				'user' : event['user'],
-				'user_eletricista' : event['user_eletricista']
+				'user_eletricista' : event['user_eletricista'],
+				
 				
 			}))
+
+
+	async def disconnect(self, close_code):
+		pass
+
 

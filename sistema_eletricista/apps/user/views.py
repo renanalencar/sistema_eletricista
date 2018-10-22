@@ -33,6 +33,12 @@ import pagarme
 
 
 #Função de enviar emails
+
+def servico_ws(request, id_servico):
+	return render(request, 'servico_ws.html', {'nome' : get_usuario_logado(request),
+	 											'ip' : get_client_ip(request),
+	 											'user': request.user,
+	 											})
 def enviar_email(subject, message, email_from, recipient_list):
 	send_mail(subject, message, email_from, recipient_list)
 	return;

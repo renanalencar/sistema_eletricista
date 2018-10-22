@@ -4,6 +4,9 @@
 {% block content %} 
   <div class="h m-0" style="background-color: #e3e3e3;">
     <div class="card-body cartao m-4">
+{% block content %}
+  <div class="h" style="background-color: #f3f3f3">
+    <div class="card-body relogio m-4">
       <div class="header_relogio">
       <p class="card-title mb-4 ml-3 serviço-em-exec">Serviço em Execução</p>
      <div class="info_eletricista"> 
@@ -35,6 +38,5 @@
   
         <!-- partial -->
 </div>
-<script src="{% static 'radiant/jquery/js/hoverable-collapse.js' %}"></script>
 {% endblock %}
   
