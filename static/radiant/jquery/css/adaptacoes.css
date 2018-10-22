@@ -71,10 +71,11 @@
     #solicitar{
       z-index:90%; 
       position: absolute;
-      margin-left: 5%; 
+      align-self: center; 
       bottom:7%;
       height: 85%;
-      width:90%;
+      width:40vw;
+      padding: 0px;
     }
 
     #map {
@@ -90,6 +91,21 @@
       left:10%;
     }
 
+    .horizontal-menu-2 .navbar.horizontal-layout-2 .nav-bottom .navbar-nav {
+      width: 100%;
+      display:inline-flex; 
+      justify-content: space-around; 
+    }
+
+    .horizontal-menu-2 .navbar.horizontal-layout-2 .nav-bottom .navbar-nav .nav-item .nav-link  {
+      font-size: 180%; 
+    }
+
+    .horizontal-menu-2 .navbar.horizontal-layout-2 .nav-bottom{
+      height: 7vh
+    }
+
+    
     .wid{
       max-width: none; 
       width: 100%
@@ -104,10 +120,10 @@
       background-color: rgba(255,255,255,0.5);
       z-index:100%; 
       position: absolute;
-      left: 40%; 
+      left: 30vw; 
       bottom:5%;
       height:10%;
-      width:20%;
+      width:40vw;
     }
 
     .botao1{
@@ -139,7 +155,7 @@
     }
 
     .solicitar{
-      font-size: 100%; 
+      font-size: 4vmin; 
       line-height: 120%;
     }
 
