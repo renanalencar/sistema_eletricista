@@ -44,6 +44,7 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 			nome_ = data['nome']
 			endereco = data['endereco']
 			user = data['user']
+			foto = data['foto']
 			user_eletricista = data.get('user_eletricista')
 			
 			dados_ = {
@@ -119,7 +120,8 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 					'endereco' : endereco,
 					'user' : user,
 					'user_eletricista' : user_eletricista,
-					'servico_id' : servico_id
+					'servico_id' : servico_id,
+					'foto' : foto
 					
 				})
 		
@@ -135,7 +137,8 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 				'endereco' : event['endereco'],
 				'user' : event['user'],
 				'user_eletricista' : event['user_eletricista'],
-				'servico_id' : event['servico_id']
+				'servico_id' : event['servico_id'],
+				'foto' : event['foto']
 				
 			}))
 
@@ -270,42 +273,15 @@ class ServicoConsumer(AsyncWebsocketConsumer):
 				user_cliente = None
 			
 			if data.get('finalizar_resposta_eletricista') == True and data.get('finalizar_resposta_cliente') == True:
-				
-				# data_parcial = datetime.datetime.now()
-				# data_real = str(data_parcial.day) + '/' + str(data_parcial.month) + '/' + str(data_parcial.year)
-				cliente = dados[0]['nome']
-				# eletricista = dados[1]['user_eletricista']
-				valor = 53.30
-				endereco = dados[0]['endereco']
-				print(usuarios_final)
-				u = usuarios_final[0]
-				w = usuarios_final[1]
-				if 'eletricista' in u:
-					eletricista = u['eletricista']
-					cliente = w['cliente']
-				else:
-					eletricista = w['eletricista']
-					cliente = u['cliente']
 
-				#print (clientes_finalizar, eletricistas_finalizar)
-				# falta só o endereço para terminar o objeto PedidoDeServico
 				servico_finalizado = PedidoDeServico.objects.get(id=self.room_name)
 				servico_finalizado.status = 'Finalizado'
 				servico_finalizado.save()
 				
-				# servico_feito = PedidoDeServico.objects.create(
-				# 	#data=data_real,
-				# 	valor=valor,
-				# 	endereco=endereco,
-				# 	cliente=cliente,
-				# 	eletricista=eletricista,
-				# 	status='Finalizado'
-				# 	)
-				# print (servico_feito)
 				print (servico_finalizado)
 				print(servico_finalizado.status)
 				
-				#print(self.eletricistas_finalizar, self.clientes_finalizar)
+				
 
 
 
