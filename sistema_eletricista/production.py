@@ -6,7 +6,7 @@ DEBUG = True
 
 DATABASES = {
 	'default' : {
-		'ENGINE' : 'django.db.backend.mysql',
+		'ENGINE' : 'django.db.backends.mysql',
 		'NAME' : 'eletricista24hs',
 		'USER' : 'eletricista24hs',
 		'PASSWORD' : 'NSWFpj17',
