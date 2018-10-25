@@ -576,3 +576,16 @@ def dump(request):
 
 def serviço(request):
 	return render(request, 'servico.html')
+
+def Perfil_do_cliente(request, nickname):
+	usuario_em_questao = User.objects.get(username=nickname)
+	cliente_em_questao = Cliente.objects.get(usuario=usuario_em_questao)
+	return render(request, 'Perfil_do_cliente.html', {'cliente' : cliente_em_questao})
+
+# class Perfil_do_cliente(View)
+# 	template_name = 'Perfil_do_cliente.html'
+# 	def get(self, request, nickname)
+# 		usuario_em_questao = User.objects.get(username=nickname)
+# 		cliente_em_questao = Cliente.objects.get(usuario=usuario_em_questao)
+# 		return render(request, 'Perfil_do_cliente.html', {'cliente' : cliente_em_questao})
+# 	def post
