@@ -82,21 +82,22 @@ def index(request):
 		eletricista_existe = Eletricista.objects.filter(usuario=usuario).exists()
 		cliente_existe = Cliente.objects.filter(usuario=usuario).exists()
 		admin_existe = Admin.objects.filter(user=usuario).exists()
-		if eletricista_existe or cliente_existe:
+		if eletricista_existe:
 			response =  render(request, 'solicitar_servico.html', {
 				'nome' : get_usuario_logado(request),
 				'ip' : get_client_ip(request),
 				'user': request.user,
-				'foto' : cliente.foto
+				'foto' : Eletricista.objects.get(usuario=username).foto
 				})
 			response.set_cookie('currentstate', True)
 			return response
-		# if cliente_existe:
-		# 	return render(request, 'solicitar_servico.html', {
-		# 		'nome' : get_usuario_logado(request),
-		# 		'ip' : get_client_ip(request),
-		# 		'user': request.user
-		# 		})	
+		if cliente_existe:
+			return render(request, 'solicitar_servico.html', {
+				'nome' : get_usuario_logado(request),
+				'ip' : get_client_ip(request),
+				'user': request.user,
+				'foto' : cliente.foto
+				})	
 		if admin_existe:
 			return render(request, 'dashboard_exemplo.html', {
 				'nome' : get_usuario_logado(request),
