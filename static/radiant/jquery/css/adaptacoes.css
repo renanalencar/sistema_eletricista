@@ -75,6 +75,8 @@
       bottom:7%;
       height: 85%;
       width:40vw;
+      max-width: 80%;
+      min-width: 100px;
       padding: 0px;
     }
 
@@ -120,10 +122,14 @@
       background-color: rgba(255,255,255,0.5);
       z-index:100%; 
       position: absolute;
-      left: 30vw; 
+      left: 28vw; 
       bottom:5%;
       height:10%;
-      width:40vw;
+      width:20vw;
+      max-width: 60%;
+      min-width: 40%;
+      padding-left: 4vw;
+      padding-right: 4vw;
     }
 
     .botao1{
@@ -155,8 +161,9 @@
     }
 
     .solicitar{
-      font-size: 4vmin; 
+      font-size: 3.5vmin; 
       line-height: 120%;
+      word-wrap: break-word;
     }
 
     .loader {
@@ -324,4 +331,43 @@
 
     .hover-open{
       height: 1040px;
+    }
+
+    .conteudo_perfil{
+      position: relative;
+      top: 4vh;
+      padding: 1.5rem 6rem;
+    }
+
+    .card-statistics .highlight-icon{
+      height: 100px;
+      width:100px;
+    }
+
+    .conteudo_perfil .wrapper{
+      margin-left: 2vw;
+    }
+
+    .middle-text{
+      
+    }
+
+    .alterar_dados{
+      top:30px;
+      position: relative;
+    }
+
+    #alterar_dados{
+      top:30px;
+      position: relative;
+    }
+
+    .editar{
+      margin-top: -3vh;
+      float: right;
+    }
+
+    #editar{
+      margin-top: -3vh;
+      float: right;
     }

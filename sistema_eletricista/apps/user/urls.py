@@ -18,6 +18,7 @@ urlpatterns = [
 	url(r'^index/$', views.index, name='index'),
 	url(r'^index/historico-de-servicos', views.ListarPedidos, name='ListarPedidos'),
 	url(r'^index/pagamento', views.Pagamento, name='Pagamento'),
+	url(r'^index/perfil/(?P<nickname>\w+)/$', views.Perfil_do_cliente, name='Perfil_do_cliente'),
 	url(r'^eletricista/$', views.tela_eletricista, name='tela_eletricista'),
 	url(r'^admin/', admin.site.urls),
 	url(r'^login/$', login, {'template_name':'loginEletricista_exemplo.html', 'redirect_field_name': 'login'}, name='login'),

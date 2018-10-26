@@ -1,0 +1,168 @@
+{% extends 'base_cliente.html' %}
+{% load staticfiles %}
+
+{% block content %}
+      <div class="main-panel">
+        <div class="content-wrapper conteudo_perfil">
+          <div class="row">
+            <div class="col">
+                <div class="grid-margin stretch-card">
+                  <div class="card card-statistics">
+                    <div class="card-body">
+                      <div class="d-flex align-items-left justify-content-left ml-2">
+                        <div>
+                          <img src="https://placehold.it/100x100?text=ESTÁTICA" style="border-radius: 100%; width: 100px; height: 100px">
+                        </div>
+                        <div class="wrapper">
+                          <div class="fluid-container alterar_dados">
+                            <h3 class="card-title mb-0 middle-text">Minha foto</h3>
+                          </div>
+                        </div>
+                      </div>
+                     <div class="editar"> Editar </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid-margin stretch-card">
+                  <div class="card card-statistics">
+                    <div class="card-body">
+                      <div class="d-flex align-items-left justify-content-left ml-2">
+                        <div class="highlight-icon bg-light mr-3">
+                          <i class="mdi mdi-textbox text-primary icon-lg"></i>
+                        </div>
+                        <div class="wrapper">
+                          <div class="fluid-container" id="alterar_dados">
+                            <h3 class="card-title mb-0 middle-text">{{cliente.usuario.first_name}}</h3>
+                          </div>
+                        </div>
+                      </div>
+                    <div id="editar"> Editar </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="grid-margin stretch-card">
+                  <div class="card card-statistics">
+                    <div class="card-body">
+                      <div class="d-flex align-items-left justify-content-left ml-2">
+                        <div class="highlight-icon bg-light mr-3">
+                          <i class="mdi mdi-numeric text-primary icon-lg"></i>
+                        </div>
+                        <div class="wrapper">
+                          <div class="fluid-container alterar_dados">
+                            <h3 class="card-title mb-0 middle-text">{{cliente.CPF}}</h3>
+                          </div>
+                        </div>
+                      </div>
+                     <div class="editar"> Editar </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid-margin stretch-card">
+                  <div class="card card-statistics">
+                    <div class="card-body">
+                      <div class="d-flex align-items-left justify-content-left ml-2">
+                        <div class="highlight-icon bg-light mr-3">
+                          <i class="mdi mdi-map-marker text-primary icon-lg"></i>
+                        </div>
+                        <div class="wrapper">
+                          <div class="fluid-container alterar_dados">
+                            <h3 class="card-title mb-0 middle-text">{{cliente.CEP}}</h3>
+                          </div>
+                        </div>
+                      </div>
+                    <div class="editar"> Editar </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+            <div class="col">
+                <div class="grid-margin stretch-card">
+                  <div class="card card-statistics">
+                    <div class="card-body">
+                      <div class="d-flex align-items-left justify-content-left ml-2">
+                        <div class="highlight-icon bg-light mr-3">
+                          <i class="mdi mdi-home text-primary icon-lg"></i>
+                        </div>
+                        <div class="wrapper">
+                          <div class="fluid-container alterar_dados">
+                            <h3 class="card-title mb-0 middle-text">{{cliente.endereço}}</h3>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="editar"> Editar </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid-margin stretch-card">
+                  <div class="card card-statistics">
+                    <div class="card-body">
+                      <div class="d-flex align-items-left justify-content-left ml-2">
+                        <div class="highlight-icon bg-light mr-3">
+                          <i class="mdi mdi-phone text-primary icon-lg"></i>
+                        </div>
+                        <div class="wrapper">
+                          <div class="fluid-container alterar_dados">
+                            <h3 class="card-title mb-0 middle-text">{{cliente.telefone}}</h3>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="editar"> Editar </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="grid-margin stretch-card">
+                  <div class="card card-statistics">
+                    <div class="card-body">
+                      <div class="d-flex align-items-left justify-content-left ml-2">
+                        <div class="highlight-icon bg-light mr-3">
+                          <i class="mdi mdi-at text-primary icon-lg"></i>
+                        </div>
+                        <div class="wrapper">
+                          <div class="fluid-container alterar_dados">
+                            <h3 class="card-title mb-0 middle-text">{{cliente.usuario.email}}</h3>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="editar"> Editar </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid-margin stretch-card">
+                  <div class="card card-statistics">
+                    <div class="card-body">
+                      <div class="d-flex align-items-left justify-content-left ml-2">
+                        <div class="highlight-icon bg-light mr-3">
+                          <i class="mdi mdi-gender-male-female text-primary icon-lg"></i>
+                        </div>
+                        <div class="wrapper">
+                          <div class="fluid-container alterar_dados">
+                            <h3 class="card-title mb-0 middle-text">{{cliente.genero}}</h3>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="editar"> Editar </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>  
+        </div>  
+
+<script type="text/javascript">
+  var nome = document.getElementById("editar")
+  nome.addEventListener('click', function(){
+    console.log('oi')
+    document.getElementById('alterar_dados').innerHTML = '<input type="text" class="form-control" placeholder="Ex: José Da Silva" id="id_nome" name="nome"><button id="cadastrar" class="btn btn-success submit-btn btn-block">Salvar</button>'
+  })
+  
+
+</script>        
+{% endblock %}
+  
