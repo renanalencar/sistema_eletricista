@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework.authtoken',
     'channels',
-    'channels_redis'
 
 ]
 
@@ -186,10 +185,10 @@ JWT_AUTH = {
 }
 
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
         },
     },
 }
