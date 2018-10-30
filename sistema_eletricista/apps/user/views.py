@@ -341,12 +341,8 @@ class QuestionarioView(View):
 			usuario_em_questao = User.objects.get(username=nome_eletricista)
 			eletricista_avaliado = Eletricista.objects.get(usuario=usuario_em_questao)
 			questionario = Questionario.objects.create(eletricista_avaliado=eletricista_avaliado, pontuacao=pontuacao, pdf=pdf_curriculo)
-
-			return redirect('registrar_recebedor')
 			
 			return redirect('/user/registro_concluido')
-
-			return redirect('/user/login')
 
 		else:
 			return render(request, 'questionario.html', {'form_questionario' : form_questionario, 'nome_eletricista' : nome_eletricista})
@@ -570,15 +566,66 @@ def dump(request):
 def serviço(request):
 	return render(request, 'servico.html')
 
-def Perfil_do_cliente(request, nickname):
-	usuario_em_questao = User.objects.get(username=nickname)
-	cliente_em_questao = Cliente.objects.get(usuario=usuario_em_questao)
-	return render(request, 'Perfil_do_cliente.html', {'cliente' : cliente_em_questao})
+# def Perfil_do_cliente(request, nickname):
+# 	usuario_em_questao = User.objects.get(username=nickname)
+# 	cliente_em_questao = Cliente.objects.get(usuario=usuario_em_questao)
+# 	return render(request, 'Perfil_do_cliente.html', {'cliente' : cliente_em_questao})
 
-# class Perfil_do_cliente(View)
-# 	template_name = 'Perfil_do_cliente.html'
-# 	def get(self, request, nickname)
-# 		usuario_em_questao = User.objects.get(username=nickname)
-# 		cliente_em_questao = Cliente.objects.get(usuario=usuario_em_questao)
-# 		return render(request, 'Perfil_do_cliente.html', {'cliente' : cliente_em_questao})
-# 	def post
+class Perfil_do_cliente(View):
+	template_name = 'Perfil_do_cliente.html'
+	def get(self, request, nickname):
+		usuario_em_questao = User.objects.get(username=nickname)
+		cliente_em_questao = Cliente.objects.get(usuario=usuario_em_questao)
+		return render(request, 'Perfil_do_cliente.html', {'cliente' : cliente_em_questao})
+	def post(self, request, nickname):
+		if(request.POST.get("nome")):
+			print(request.POST)
+			usuario_em_questao = User.objects.get(username=nickname)
+			cliente_em_questao = Cliente.objects.get(usuario=usuario_em_questao)
+			usuario_em_questao.first_name = request.POST.get("nome")
+			usuario_em_questao.save()
+			print(usuario_em_questao)
+		if(request.POST.get("CPF")):
+			print(request.POST)
+			usuario_em_questao = User.objects.get(username=nickname)
+			cliente_em_questao = Cliente.objects.get(usuario=usuario_em_questao)
+			cliente_em_questao.CPF = request.POST.get("CPF")
+			cliente_em_questao.save()
+			print(usuario_em_questao)
+		if(request.POST.get("CEP")):
+			print(request.POST)
+			usuario_em_questao = User.objects.get(username=nickname)
+			cliente_em_questao = Cliente.objects.get(usuario=usuario_em_questao)
+			cliente_em_questao.CEP = request.POST.get("CEP")
+			cliente_em_questao.save()
+			print(usuario_em_questao)
+		if(request.POST.get("endereco")):
+			print(request.POST)
+			usuario_em_questao = User.objects.get(username=nickname)
+			cliente_em_questao = Cliente.objects.get(usuario=usuario_em_questao)
+			cliente_em_questao.endereco = request.POST.get("endereco")
+			cliente_em_questao.save()
+			print(usuario_em_questao)
+		if(request.POST.get("telefone")):
+			print(request.POST)
+			usuario_em_questao = User.objects.get(username=nickname)
+			cliente_em_questao = Cliente.objects.get(usuario=usuario_em_questao)
+			cliente_em_questao.telefone = request.POST.get("telefone")
+			cliente_em_questao.save()
+			print(usuario_em_questao)
+		if(request.POST.get("email")):
+			print(request.POST)
+			usuario_em_questao = User.objects.get(username=nickname)
+			cliente_em_questao = Cliente.objects.get(usuario=usuario_em_questao)
+			usuario_em_questao.email = request.POST.get("email")
+			usuario_em_questao.save()
+			print(usuario_em_questao)
+		if(request.POST.get("genero")):
+			print(request.POST)
+			usuario_em_questao = User.objects.get(username=nickname)
+			cliente_em_questao = Cliente.objects.get(usuario=usuario_em_questao)
+			cliente_em_questao.genero = request.POST.get("genero")
+			cliente_em_questao.save()
+			print(usuario_em_questao)
+		return render(request, 'Perfil_do_cliente.html', {'cliente' : cliente_em_questao})	
+

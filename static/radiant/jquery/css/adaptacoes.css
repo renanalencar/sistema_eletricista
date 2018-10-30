@@ -11,6 +11,16 @@
   	font-size: 170%;
   	}
 
+    .enviar_respostas{
+      margin-top: 30px;
+      margin-bottom: 20px; 
+      background-color: #fcc425; 
+      border: none; 
+      font-weight: bold; 
+      font-size: 100%; 
+      letter-spacing: 3px;
+    }
+
   	.select-group select{
   		width: 100% !important;
       height: auto !important;
@@ -336,7 +346,7 @@
     .conteudo_perfil{
       position: relative;
       top: 4vh;
-      padding: 1.5rem 6rem;
+      padding: 1.5vw 6vw;
     }
 
     .card-statistics .highlight-icon{
@@ -349,7 +359,8 @@
     }
 
     .middle-text{
-      
+      height: 100px;
+      line-height: 100px;
     }
 
     .alterar_dados{
@@ -370,4 +381,25 @@
     #editar{
       margin-top: -3vh;
       float: right;
+    }
+
+    .amarelo{
+      color: #fcc425;
+    }
+
+    .rise{
+      transform: perspective(0px) translateZ(0px);
+      box-shadow: 0 0 0px 0px rgba(0, 0, 0, 0);
+      transition-duration: 0.5s;
+    }    
+
+    .rise:hover{
+      transform: perspective(50px) translateZ(2px);
+      box-shadow: 0 0 1px 0px rgba(125, 125, 125, 50);
+      transition-duration: 0.3s;
+    }
+
+    .destaca:hover{
+      color: blue;
+      transition-duration: 0.2s;
     }
