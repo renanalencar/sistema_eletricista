@@ -2,7 +2,14 @@
 {% load staticfiles %}
 
 {% block content %}
-	
+    <style type="text/css">
+      .pac-container {
+         z-index: 1051 !important;
+      }
+      .pac-item {
+        padding: 10px
+      }
+    </style>
     <!-- Horizontal Menu Ends -->
       <div class="main-panel">
         <div class="content-wrapper mt-0 p-0" >
@@ -50,7 +57,8 @@
       </div>
       <div id="myModal" class="modal" tabindex= "-1" role="dialog" aria-labelledby="myModal" aria-hidden="true">
             <div class="modal-dialog" role="document" style="position: center; top: 20%">
-              <div class="modal-content mx-0" style="width:100%">
+              <!-- trocar -100px por porcentagem e -20px também -->
+              <div class="modal-content mx-0" style="width:100%; top : -100px; left: -20px">
                 <div class="modal-body mb-0 pb-0" style="position: relative">
                   <form>
                     <div>
@@ -88,6 +96,38 @@
       
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript">
+    var coords;
+    var coords_elec;
+    var autocomplete;
+    setTimeout(function(){
+      var defaultBounds = new google.maps.LatLngBounds(
+        new google.maps.LatLng(-33.8902, 151.1759),
+        new google.maps.LatLng(-33.8474, 151.2631));
+
+      var input = document.getElementById('id_endereco');
+      var options = {
+        bounds: defaultBounds
+      };
+      autocomplete = new google.maps.places.Autocomplete(input, options);
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var geolocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          coords = geolocation;
+          var circle = new google.maps.Circle({
+            center: geolocation,
+            radius: position.coords.accuracy
+          });
+          console.log(geolocation)
+          console.log(circle.getBounds())
+          console.log('ola mundo')
+          autocomplete.setBounds(circle.getBounds());
+        });
+      }
+    }, 1000)
+
     var enviado_app;
     var ip = '{{ip}}'
     var foto_url = '{{foto}}'
@@ -227,7 +267,7 @@
     var OLA = 0;
     var verifica_entrada1 = false;
     var verifica_entrada2 = false;
-    var url = 'ws://eletricista24hs.polijunior.com.br/ws/ws/user/index/'
+    var url = 'ws://localhost:8000/ws/user/index/'
     var ws = new WebSocket(url);
     var kkk = 0;
     var jjj = 0;
@@ -271,20 +311,24 @@
       continuar_eletricista = data['continuar_resposta_eletricista']
       finalizar_cliente = data['finalizar_resposta_cliente']
       finalizar_eletricista = data['finalizar_resposta_eletricista']
+      coords_elec = data['coords_elec']
       console.error(data)
 
       
       //console.log('ELETRICISTA NESSE BODEGO', ELETRICISTA)
       //console.log('USERCLIENTE NESSE BODEGO', user_cliente)
-      console.error('COMPARANDO OS 2 cliente', user_cliente, usuario_em_questao)
-      console.error('COMPARANDO OS 2 ELETRICISTA', user_eletricista, eletricista_em_questao)
+      
       if(pedido_aceito && user_cliente == usuario_em_questao) {
         setCookie("pedido_aceito", true)
         let modal = document.getElementById('carregando')
         modal.style.display = 'none'
         mostrarIniciarCancelar()
         resetarCookies()
-        window.location.href = 'http://eletricista24hs.polijunior.com.br/user/servico/' + data['servico_id'] + '/'
+        setCookie("coords_cliente_lat", coords.lat)
+        setCookie("coords_cliente_lng", coords.lng)
+        setCookie("coords_elec_lat", coords_elec.lat)
+        setCookie("coords_elec_lng", coords_elec.lng)
+        window.location.href = 'http://localhost:8000/user/servico/' + data['servico_id'] + '/'
         
         mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
       } else {
@@ -416,6 +460,7 @@
     var modal = document.getElementById('myModal')
     //var modal_teste = document.getElementById('exampleModal-4')
     var modalbtn = document.getElementById('myBtn')
+
     var enviardevez = document.getElementById('enviardevez')
     enviardevez.addEventListener('click', function(){
       //modal.style.display = 'none'
@@ -426,7 +471,8 @@
         nome : '{{nome}}',
         endereco : endereco.value,
         user : '{{user}}',
-        foto : '{{foto}}'
+        foto : '{{foto}}',
+        coords_cliente : coords
       }))
     })
 
@@ -485,12 +531,6 @@
         console.log(options.center)
 
         map = new google.maps.Map(document.getElementById('map'), options);
-        console.log(map)
-        console.log(lat_real, lng_real)
-        eu = new google.maps.LatLng(lat_real, lng_real) // coords imprecisas do gps do laptop
-        let vc = new google.maps.LatLng(lng_real, lat_real)
-        console.log(vc.lat(), vc.lng())
-        console.log('eu', eu)
         var infowindow = new google.maps.InfoWindow({
               content: '{{user}}'
           });
@@ -511,7 +551,7 @@
         dirdisplay = new google.maps.DirectionsRenderer();
         dirservice = new google.maps.DirectionsService();
     
-      }, 10)
+      }, 100)
     }
 
     function addMarker(position, map, icon, window_) {
@@ -558,7 +598,7 @@
 
         }
       };
-      xhr.open("GET" , "http://eletricista24hs.polijunior.com.br/api/coords/{{user}}/");
+      xhr.open("GET" , "http://localhost:8000/api/coords/{{user}}/");
       xhr.send()
       return;
     }
@@ -742,7 +782,7 @@
     }
     
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdJ_Kts10iRTTj6tZh8pv0mjB2vp6Mcm4&callback=initMap"
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdJ_Kts10iRTTj6tZh8pv0mjB2vp6Mcm4&libraries=places&callback=initMap"
 async defer></script>
 
       <!-- main-panel ends -->
