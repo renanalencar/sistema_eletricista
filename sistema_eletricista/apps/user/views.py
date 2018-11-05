@@ -566,6 +566,9 @@ def dump(request):
 def serviço(request):
 	return render(request, 'servico.html')
 
+def avaliar(request):
+	return render(request, 'avaliar.html')
+
 # def Perfil_do_cliente(request, nickname):
 # 	usuario_em_questao = User.objects.get(username=nickname)
 # 	cliente_em_questao = Cliente.objects.get(usuario=usuario_em_questao)

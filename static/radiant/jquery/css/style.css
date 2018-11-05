@@ -15127,9 +15127,9 @@ input:focus {
         color: #424546; }
     .navbar.default-layout .navbar-brand-wrapper .brand-logo-mini {
       display: none;
-      width: calc(70px - 41px);
+      width: 39vw;
       max-width: 100%;
-      height: 30px;
+      height: 10vw;
       margin: auto;
       background: url("../images/logo-mini.svg") no-repeat center; }
       .sidebar-light .navbar.default-layout .navbar-brand-wrapper .brand-logo-mini {
@@ -23464,9 +23464,7 @@ div.tagsinput {
       margin-left: 20px;
       border-radius: 50px; }
   .auth.theme-two .auto-form-wrapper form {
-    width: 50%;
-    min-width: 300px;
-    max-width: 480px; }
+     }
     .auth.theme-two .auto-form-wrapper form .form-group {
       width: 100%;
       margin-bottom: 25px; }
@@ -23475,7 +23473,7 @@ div.tagsinput {
           margin-right: auto;
           margin-left: auto; } }
       .auth.theme-two .auto-form-wrapper form .form-group .input-group, .auth.theme-two .auto-form-wrapper form .form-group .asColorPicker-wrap {
-        height: 44px; }
+         }
         .auth.theme-two .auto-form-wrapper form .form-group .input-group .form-control, .auth.theme-two .auto-form-wrapper form .form-group .asColorPicker-wrap .form-control, .auth.theme-two .auto-form-wrapper form .form-group .input-group .asColorPicker-input, .auth.theme-two .auto-form-wrapper form .form-group .asColorPicker-wrap .asColorPicker-input, .auth.theme-two .auto-form-wrapper form .form-group .input-group .dataTables_wrapper select, .dataTables_wrapper .auth.theme-two .auto-form-wrapper form .form-group .input-group select, .auth.theme-two .auto-form-wrapper form .form-group .asColorPicker-wrap .dataTables_wrapper select, .dataTables_wrapper .auth.theme-two .auto-form-wrapper form .form-group .asColorPicker-wrap select, .auth.theme-two .auto-form-wrapper form .form-group .input-group .jsgrid .jsgrid-table .jsgrid-filter-row input[type=text], .jsgrid .jsgrid-table .jsgrid-filter-row .auth.theme-two .auto-form-wrapper form .form-group .input-group input[type=text], .auth.theme-two .auto-form-wrapper form .form-group .asColorPicker-wrap .jsgrid .jsgrid-table .jsgrid-filter-row input[type=text], .jsgrid .jsgrid-table .jsgrid-filter-row .auth.theme-two .auto-form-wrapper form .form-group .asColorPicker-wrap input[type=text], .auth.theme-two .auto-form-wrapper form .form-group .input-group
         .jsgrid .jsgrid-table .jsgrid-filter-row select,
         .jsgrid .jsgrid-table .jsgrid-filter-row .auth.theme-two .auto-form-wrapper form .form-group .input-group select, .auth.theme-two .auto-form-wrapper form .form-group .asColorPicker-wrap
@@ -23486,7 +23484,7 @@ div.tagsinput {
         .typeahead, .auth.theme-two .auto-form-wrapper form .form-group .asColorPicker-wrap
         .typeahead {
           border: 1px solid #e6e6e6;
-          border-left: none;
+          border-left: ;
           border-radius: 0 6px 6px 0; }
           .auth.theme-two .auto-form-wrapper form .form-group .input-group .form-control:focus, .auth.theme-two .auto-form-wrapper form .form-group .asColorPicker-wrap .form-control:focus, .auth.theme-two .auto-form-wrapper form .form-group .input-group .asColorPicker-input:focus, .auth.theme-two .auto-form-wrapper form .form-group .asColorPicker-wrap .asColorPicker-input:focus, .auth.theme-two .auto-form-wrapper form .form-group .input-group .dataTables_wrapper select:focus, .dataTables_wrapper .auth.theme-two .auto-form-wrapper form .form-group .input-group select:focus, .auth.theme-two .auto-form-wrapper form .form-group .asColorPicker-wrap .dataTables_wrapper select:focus, .dataTables_wrapper .auth.theme-two .auto-form-wrapper form .form-group .asColorPicker-wrap select:focus, .auth.theme-two .auto-form-wrapper form .form-group .input-group .jsgrid .jsgrid-table .jsgrid-filter-row input[type=text]:focus, .jsgrid .jsgrid-table .jsgrid-filter-row .auth.theme-two .auto-form-wrapper form .form-group .input-group input[type=text]:focus, .auth.theme-two .auto-form-wrapper form .form-group .asColorPicker-wrap .jsgrid .jsgrid-table .jsgrid-filter-row input[type=text]:focus, .jsgrid .jsgrid-table .jsgrid-filter-row .auth.theme-two .auto-form-wrapper form .form-group .asColorPicker-wrap input[type=text]:focus, .auth.theme-two .auto-form-wrapper form .form-group .input-group
           .jsgrid .jsgrid-table .jsgrid-filter-row select:focus,
@@ -23497,7 +23495,7 @@ div.tagsinput {
           .tt-query:focus, .auth.theme-two .auto-form-wrapper form .form-group .input-group
           .typeahead:focus, .auth.theme-two .auto-form-wrapper form .form-group .asColorPicker-wrap
           .typeahead:focus {
-            border-left: none;
+            border-left: ;
             border-color: #e6e6e6; }
         .auth.theme-two .auto-form-wrapper form .form-group .input-group .input-group-prepend .input-group-text, .auth.theme-two .auto-form-wrapper form .form-group .asColorPicker-wrap .input-group-prepend .input-group-text, .auth.theme-two .auto-form-wrapper form .form-group .input-group .asColorPicker-trigger .input-group-text, .auth.theme-two .auto-form-wrapper form .form-group .asColorPicker-wrap .asColorPicker-trigger .input-group-text {
           border-radius: 6px 0 0 6px;
@@ -23855,9 +23853,9 @@ div.tagsinput {
     .horizontal-menu .navbar.horizontal-layout .navbar-brand-wrapper .brand-logo-mini {
       display: none; }
       .horizontal-menu .navbar.horizontal-layout .navbar-brand-wrapper .brand-logo-mini img {
-        width: calc(70px - 50px);
+        width: 39vw;
         max-width: 100%;
-        height: 28px;
+        height: 10vw;
         margin: auto; }
     @media (max-width: 1020px) {
       .horizontal-menu .navbar.horizontal-layout .navbar-brand-wrapper {
@@ -24060,9 +24058,9 @@ div.tagsinput {
     .horizontal-menu-2 .navbar.horizontal-layout-2 .navbar-brand-wrapper .brand-logo-mini {
       display: none; }
       .horizontal-menu-2 .navbar.horizontal-layout-2 .navbar-brand-wrapper .brand-logo-mini img {
-        width: calc(70px - 50px);
+        width: 39vw;
         max-width: 100%;
-        height: 28px;
+        height: 10vw;
         margin: auto; }
     @media (max-width: 840px) {
       .horizontal-menu-2 .navbar.horizontal-layout-2 .navbar-brand-wrapper {

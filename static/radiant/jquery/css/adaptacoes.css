@@ -376,6 +376,7 @@
     .editar{
       margin-top: -3vh;
       float: right;
+      cursor: pointer;
     }
 
     #editar{
@@ -402,4 +403,40 @@
     .destaca:hover{
       color: blue;
       transition-duration: 0.2s;
+    }
+
+    .ola{
+      font-size: 140%;
+    }
+
+    .fotinha{
+      height: 50px;
+      width: 50px;
+    }
+
+    .mini {
+      width: 39vw;
+      height: 10vw;
+      max-width: 100%;
+    }
+
+    .comentario{
+      height: 40vh;
+      width: 45vw;
+      position: relative;
+    }
+
+    .textarea_comentario{
+      font-size: 2.5vmax;
+      line-height: 3vmax;
+    }
+
+    .form_avaliar{
+      width:80%;
+      min-width: 10vw;
+      max-width: 100vw;
+    }
+
+    .obrigado{
+      margin-bottom: 2vh;
     }

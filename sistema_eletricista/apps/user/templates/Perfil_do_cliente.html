@@ -17,7 +17,7 @@
                           <form class="form-signin" actions="{% url 'registrar' %}" method="post" enctype="multipart/form-data"> 
                             {% csrf_token %}
                           <div class="fluid-container alterar_foto">
-                            <h3 class="card-title mb-0 middle-text">Minha foto</h3>
+                            <h3 class="card-title mb-0">Minha foto</h3>
                           </div>
                           </form>
                         </div>
@@ -37,7 +37,8 @@
                           <form class="form-signin" actions="{% url 'registrar' %}" method="post" enctype="multipart/form-data"> 
                             {% csrf_token %}
                           <div class="fluid-container" id="alterar_nome">
-                            <h3 class="card-title mb-0 middle-text">{{cliente.usuario.first_name}}</h3>
+                            <h4>Meu nome:</h4>
+                            <h3 class="card-title mb-0">{{cliente.usuario.first_name}}</h3>
                           </div>
                           </form>
                         </div>
@@ -59,7 +60,8 @@
                           <form class="form-signin" actions="{% url 'registrar' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                           <div class="fluid-container" id="alterar_CPF">
-                            <h3 class="card-title mb-0 middle-text">{{cliente.CPF}}</h3>
+                            <h4>Meu CPF:</h4>
+                            <h3 class="card-title mb-0">{{cliente.CPF}}</h3>
                           </div>
                           </form>
                         </div>
@@ -72,14 +74,15 @@
                   <div class="card card-statistics">
                     <div class="card-body">
                       <div class="d-flex align-items-left justify-content-left ml-2">
-                        <div class="highlight-icon bg-light mr-3">
+                        <div class="highlight-icon bg-light mr-3" >
                           <i class="mdi mdi-map-marker amarelo icon-lg"></i>
                         </div>
                         <div class="wrapper">
                           <form class="form-signin" actions="{% url 'registrar' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                           <div class="fluid-container" id="alterar_CEP">
-                            <h3 class="card-title mb-0 middle-text">{{cliente.CEP}}</h3>
+                            <h4>Meu CEP:</h4>
+                            <h3 class="card-title mb-0">{{cliente.CEP}}</h3>
                           </div>
                           </form>
                         </div>
@@ -103,7 +106,8 @@
                           <form class="form-signin" actions="{% url 'registrar' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                           <div class="fluid-container" id="alterar_endereco">
-                            <h3 class="card-title mb-0 middle-text">{{cliente.endereço}}</h3>
+                            <h4>Meu endereço:</h4>
+                            <h3 class="card-title mb-0">{{cliente.endereço}}</h3>
                           </div>
                           </form>
                         </div>
@@ -123,7 +127,8 @@
                           <form class="form-signin" actions="{% url 'registrar' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                           <div class="fluid-container" id="alterar_telefone">
-                            <h3 class="card-title mb-0 middle-text">{{cliente.telefone}}</h3>
+                            <h4>Meu telefone:</h4>
+                            <h3 class="card-title mb-0">{{cliente.telefone}}</h3>
                           </div>
                           </form>
                         </div>
@@ -145,7 +150,8 @@
                           <form class="form-signin" actions="{% url 'registrar' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                           <div class="fluid-container" id="alterar_email">
-                            <h3 class="card-title mb-0 middle-text">{{cliente.usuario.email}}</h3>
+                            <h4>Meu email:</h4>
+                            <h3 class="card-title mb-0">{{cliente.usuario.email}}</h3>
                           </div>
                         </form>
                         </div>
@@ -165,7 +171,8 @@
                           <form class="form-signin" actions="{% url 'registrar' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                           <div class="fluid-container" id="alterar_genero">
-                            <h3 class="card-title mb-0 middle-text">{{cliente.genero}}</h3>
+                            <h4>Meu gênero:</h4>
+                            <h3 class="card-title mb-0">{{cliente.genero}}</h3>
                           </div>
                         </form>
                         </div>
