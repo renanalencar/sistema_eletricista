@@ -12,7 +12,6 @@ dados = []
 eletricistas_finalizar = []
 clientes_finalizar = []
 usuarios_final = []
-print ('eu estou aqui')
 
 
 
@@ -46,6 +45,8 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 			user = data['user']
 			foto = data['foto']
 			user_eletricista = data.get('user_eletricista')
+			coords_cliente = data.get('coords_cliente')
+			coords_elec = data.get('coords_elec')
 			
 			dados_ = {
 				'necessidade' : necessidade,
@@ -54,10 +55,13 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 				'nome' : nome_,
 				'endereco' : endereco,
 				'user' : user,
-				'user_eletricista' : user_eletricista
+				'user_eletricista' : user_eletricista,
+				'coords_cliente' : coords_cliente,
+				'coords_elec' : coords_elec
 				
 			}
 			dados.append(dados_)
+			print (dados)
 			if(data.get('user_eletricista')):
 				user_eletricista = data['user_eletricista']
 				x = {
@@ -121,7 +125,9 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 					'user' : user,
 					'user_eletricista' : user_eletricista,
 					'servico_id' : servico_id,
-					'foto' : foto
+					'foto' : foto,
+					'coords_cliente' : coords_cliente,
+					'coords_elec' : coords_elec
 					
 				})
 		
@@ -138,7 +144,9 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 				'user' : event['user'],
 				'user_eletricista' : event['user_eletricista'],
 				'servico_id' : event['servico_id'],
-				'foto' : event['foto']
+				'foto' : event['foto'],
+				'coords_cliente' : event['coords_cliente'],
+				'coords_elec' : event['coords_elec']
 				
 			}))
 

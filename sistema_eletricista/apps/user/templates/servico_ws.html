@@ -179,7 +179,6 @@
 
     if(getCookie("pedido_aceito")) {
       mostrarIniciarCancelar()
-      console.warn("ALOOOOOOOOOOOOOOOOOOOOOOO")
       setTimeout(() => {
         mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
       }, 1000)
@@ -277,8 +276,8 @@
     var verifica_entrada2 = false;
     var host = window.location.host
     var pathname = window.location.pathname
-    
-    var url2 = 'ws://' + host + '/ws/ws' + pathname;
+    var url2 = 'ws://' + host + '/ws' + pathname;
+    console.warn(url2)
     var ws = new WebSocket(url2);
     var kkk = 0;
     var jjj = 0;
@@ -518,9 +517,6 @@
         console.log(map)
         console.log(lat_real, lng_real)
         eu = new google.maps.LatLng(lat_real, lng_real) // coords imprecisas do gps do laptop
-        let vc = new google.maps.LatLng(lng_real, lat_real)
-        console.log(vc.lat(), vc.lng())
-        console.log('eu', eu)
         var infowindow = new google.maps.InfoWindow({
               content: '{{user}}'
           });
@@ -588,7 +584,7 @@
 
         }
       };
-      xhr.open("GET" , "http://eletricista24hs.polijunior.com.br/api/coords/{{user}}/");
+      xhr.open("GET" , "http://localhost:8000/api/coords/{{user}}/");
       xhr.send()
       return;
     }
@@ -670,7 +666,16 @@
       dirdisplay.setMap(map)
       console.log("passei o setMap")
       console.log(eletricistas[indice])
-      calculateRoute(dirservice, dirdisplay, eu, eletricistas[indice])
+      let euzinho = new google.maps.LatLng(
+          getCookie("coords_cliente_lat"),
+          getCookie("coords_cliente_lng")
+        )
+      let eletricistazinho = new google.maps.LatLng(
+          getCookie("coords_elec_lat"),
+          getCookie("coords_elec_lng")
+        )
+      //calculateRoute(dirservice, dirdisplay, eu, eletricistas[indice])
+      calculateRoute(dirservice, dirdisplay, euzinho, eletricistazinho)
       console.log("passei o calculateRoute")
       // escreverDeltaTeDeltaD(menor, indice, end_cliente[indice], end_elec[indice])
       //keepTracking(indice)
