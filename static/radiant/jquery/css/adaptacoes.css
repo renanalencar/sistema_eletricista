@@ -440,3 +440,27 @@
     .obrigado{
       margin-bottom: 2vh;
     }
+
+    .form-editar{
+     width: 100%;
+     max-width: 500px;
+     box-sizing: border-box;
+     background-color: #eeeeeeee;
+    }
+
+    .form-editar::placeholder{
+      color: #00000099;
+      font-style: italic;
+    }
+
+    .rise .wrapper{
+      width: 60%;
+    }
+
+    #cadastrar{
+      width:50%;
+    }
+
+    .salvar{
+      margin-top: 4px;
+    }

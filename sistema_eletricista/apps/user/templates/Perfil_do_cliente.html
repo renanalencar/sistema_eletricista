@@ -11,18 +11,18 @@
                     <div class="card-body">
                       <div class="d-flex align-items-left justify-content-left ml-2">
                         <div>
-                          <img src="https://placehold.it/100x100?text=ESTÁTICA" style="border-radius: 100%; width: 100px; height: 100px">
+                          <img src="{{eletricista.foto.url}}" style="border-radius: 100%; width: 100px; height: 100px">
                         </div>
                         <div class="wrapper">
                           <form class="form-signin" actions="{% url 'registrar' %}" method="post" enctype="multipart/form-data"> 
                             {% csrf_token %}
-                          <div class="fluid-container alterar_foto">
-                            <h3 class="card-title mb-0">Minha foto</h3>
+                          <h4>Minha foto:</h4>
+                          <div class="fluid-container" id="alterar_foto">
                           </div>
                           </form>
                         </div>
                       </div>
-                     <div class="editar destaca"> Editar </div>
+                      <div class="editar destaca" id="editar_foto"> Editar </div>
                     </div>
                   </div>
                 </div>
@@ -36,8 +36,8 @@
                         <div class="wrapper">
                           <form class="form-signin" actions="{% url 'registrar' %}" method="post" enctype="multipart/form-data"> 
                             {% csrf_token %}
-                          <div class="fluid-container" id="alterar_nome">
-                            <h4>Meu nome:</h4>
+                          <h4>Meu nome:</h4>
+                          <div class="fluid-container" id="alterar_nome" style="position: relative; width: 100%">
                             <h3 class="card-title mb-0">{{cliente.usuario.first_name}}</h3>
                           </div>
                           </form>
@@ -59,8 +59,8 @@
                         <div class="wrapper">
                           <form class="form-signin" actions="{% url 'registrar' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
+                          <h4>Meu CPF:</h4>
                           <div class="fluid-container" id="alterar_CPF">
-                            <h4>Meu CPF:</h4>
                             <h3 class="card-title mb-0">{{cliente.CPF}}</h3>
                           </div>
                           </form>
@@ -80,8 +80,8 @@
                         <div class="wrapper">
                           <form class="form-signin" actions="{% url 'registrar' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
+                          <h4>Meu CEP:</h4>
                           <div class="fluid-container" id="alterar_CEP">
-                            <h4>Meu CEP:</h4>
                             <h3 class="card-title mb-0">{{cliente.CEP}}</h3>
                           </div>
                           </form>
@@ -105,8 +105,8 @@
                         <div class="wrapper">
                           <form class="form-signin" actions="{% url 'registrar' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
+                          <h4>Meu endereço:</h4>
                           <div class="fluid-container" id="alterar_endereco">
-                            <h4>Meu endereço:</h4>
                             <h3 class="card-title mb-0">{{cliente.endereço}}</h3>
                           </div>
                           </form>
@@ -126,8 +126,8 @@
                         <div class="wrapper">
                           <form class="form-signin" actions="{% url 'registrar' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
+                          <h4>Meu telefone:</h4>
                           <div class="fluid-container" id="alterar_telefone">
-                            <h4>Meu telefone:</h4>
                             <h3 class="card-title mb-0">{{cliente.telefone}}</h3>
                           </div>
                           </form>
@@ -149,8 +149,8 @@
                         <div class="wrapper">
                           <form class="form-signin" actions="{% url 'registrar' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
+                          <h4>Meu email:</h4>
                           <div class="fluid-container" id="alterar_email">
-                            <h4>Meu email:</h4>
                             <h3 class="card-title mb-0">{{cliente.usuario.email}}</h3>
                           </div>
                         </form>
@@ -170,8 +170,8 @@
                         <div class="wrapper">
                           <form class="form-signin" actions="{% url 'registrar' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
+                          <h4>Meu gênero:</h4>
                           <div class="fluid-container" id="alterar_genero">
-                            <h4>Meu gênero:</h4>
                             <h3 class="card-title mb-0">{{cliente.genero}}</h3>
                           </div>
                         </form>
@@ -189,33 +189,37 @@
 
 
 <script type="text/javascript">
+  var nome = document.getElementById("editar_foto")
+  nome.addEventListener('click', function(){
+    document.getElementById('alterar_foto').innerHTML = '<input type="file" name="foto" id="id_foto" class="file-upload-default"> <button id="cadastrar" class="btn btn-success submit-btn btn-block salvar">Salvar</button>'
+  })
   var nome = document.getElementById("editar_nome")
   nome.addEventListener('click', function(){
-    document.getElementById('alterar_nome').innerHTML = '<input type="text" class="form-control" placeholder="Ex: José Da Silva" id="id_nome" name="nome"><button id="cadastrar" class="btn btn-success submit-btn btn-block">Salvar</button>'
+    document.getElementById('alterar_nome').innerHTML = '<input type="text" class="form-control form-editar" placeholder="Ex: José Da Silva" id="id_nome" name="nome"><button id="cadastrar" class="btn btn-success submit-btn btn-block salvar">Salvar</button>'
   })
   var nome = document.getElementById("editar_CPF")
   nome.addEventListener('click', function(){
-    document.getElementById('alterar_CPF').innerHTML = '<input type="text" class="form-control" placeholder="Ex: 123.456.789-10" id="id_CPF" name="CPF"><button id="cadastrar" class="btn btn-success submit-btn btn-block">Salvar</button>'
+    document.getElementById('alterar_CPF').innerHTML = '<input type="text" class="form-control form-editar" placeholder="Ex: 123.456.789-10" id="id_CPF" name="CPF"><button id="cadastrar" class="btn btn-success submit-btn btn-block salvar">Salvar</button>'
   })
   var nome = document.getElementById("editar_CEP")
   nome.addEventListener('click', function(){
-    document.getElementById('alterar_CEP').innerHTML = '<input type="text" class="form-control" placeholder="Ex: 14123-001" id="id_CEP" name="CEP"> <button id="cadastrar" class="btn btn-success submit-btn btn-block">Salvar</button>'
+    document.getElementById('alterar_CEP').innerHTML = '<input type="text" class="form-control form-editar" placeholder="Ex: 14123-001" id="id_CEP" name="CEP"> <button id="cadastrar" class="btn btn-success submit-btn btn-block salvar">Salvar</button>'
   })
   var nome = document.getElementById("editar_endereco")
   nome.addEventListener('click', function(){
-    document.getElementById('alterar_endereco').innerHTML = '<input type="text" class="form-control" placeholder="Digite seu endereço completo" id="id_endereco" name="endereco"> <button id="cadastrar" class="btn btn-success submit-btn btn-block">Salvar</button>'
+    document.getElementById('alterar_endereco').innerHTML = '<input type="text" class="form-control form-editar" placeholder="Digite seu endereço completo" id="id_endereco" name="endereco"> <button id="cadastrar" class="btn btn-success submit-btn btn-block salvar">Salvar</button>'
   })
   var nome = document.getElementById("editar_telefone")
   nome.addEventListener('click', function(){
-    document.getElementById('alterar_telefone').innerHTML = ' <input type="text" class="form-control" placeholder="Ex:+55 11 912344321" id="id_tel" name="telefone"> <button id="cadastrar" class="btn btn-success submit-btn btn-block">Salvar</button>'
+    document.getElementById('alterar_telefone').innerHTML = ' <input type="text" class="form-control form-editar" placeholder="Ex:+55 11 912344321" id="id_tel" name="telefone"> <button id="cadastrar" class="btn btn-success submit-btn btn-block salvar">Salvar</button>'
   })
   var nome = document.getElementById("editar_email")
   nome.addEventListener('click', function(){
-    document.getElementById('alterar_email').innerHTML = '<input type="text" class="form-control" placeholder="Ex: exemplo@hotmail.com" id="id_email" name="email"> <button id="cadastrar" class="btn btn-success submit-btn btn-block">Salvar</button>'
+    document.getElementById('alterar_email').innerHTML = '<input type="text" class="form-control form-editar" placeholder="Ex: exemplo@hotmail.com" id="id_email" name="email"> <button id="cadastrar" class="btn btn-success submit-btn btn-block salvar">Salvar</button>'
   })
   var nome = document.getElementById("editar_genero")
   nome.addEventListener('click', function(){
-    document.getElementById('alterar_genero').innerHTML = '<select type="option" class="form-control" id="id_genero" name="genero" required><option disabled selected>Escolha seu gênero</option><option value="Masculino">Masculino</option><option value="Feminino">Feminino</option></select><button id="cadastrar" class="btn btn-success submit-btn btn-block">Salvar</button>'
+    document.getElementById('alterar_genero').innerHTML = '<select type="option" class="form-control form-editar" id="id_genero" name="genero" required><option disabled selected>Escolha seu gênero</option><option value="Masculino">Masculino</option><option value="Feminino">Feminino</option></select><button id="cadastrar" class="btn btn-success submit-btn btn-block salvar">Salvar</button>'
   })
   
 
