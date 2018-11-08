@@ -52,4 +52,5 @@ urlpatterns = [
    	url(r'^base/$', views.Base, name='base'),
    	url(r'^dump/$', views.dump, name='dump'),
    	url(r'^servico_avaliar/$', views.servico_avaliar, name='servico_avaliar'),
+   	url(r'^avaliar/$', views.avaliar, name='avaliar'),
 ]

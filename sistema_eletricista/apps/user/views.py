@@ -577,6 +577,9 @@ def servico_avaliar(request):
 	
 	return render(request, 'servico.html')
 
+def avaliar(request):
+	return render(request, 'avaliar2.html')
+
 # def Perfil_do_cliente(request, nickname):
 # 	usuario_em_questao = User.objects.get(username=nickname)
 # 	cliente_em_questao = Cliente.objects.get(usuario=usuario_em_questao)
@@ -589,6 +592,14 @@ class Perfil_do_cliente(View):
 		cliente_em_questao = Cliente.objects.get(usuario=usuario_em_questao)
 		return render(request, 'Perfil_do_cliente.html', {'cliente' : cliente_em_questao})
 	def post(self, request, nickname):
+
+		if(request.POST.get("foto")):
+			print(request.POST)
+			usuario_em_questao = User.objects.get(username=nickname)
+			cliente_em_questao = Cliente.objects.get(usuario=usuario_em_questao)
+			cliente_em_questao.foto = request.FILES.get("foto")
+			cliente_em_questao.save()
+			print(usuario_em_questao)
 		if(request.POST.get("nome")):
 			print(request.POST)
 			usuario_em_questao = User.objects.get(username=nickname)
