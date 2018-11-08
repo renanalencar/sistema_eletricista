@@ -409,14 +409,18 @@
       <div style=" height: calc(100vh - 338px)">
         <div class="card-body">
           <h4 class="tempo">1h23min</h4>
-          <div id="avaliar" style="display: none">
-            <h2>Avalie o serviço do eletricista</h2>
-            <span class="fa fa-star" id="s1"></span>
-            <span class="fa fa-star" id="s2"></span>
-            <span class="fa fa-star" id="s3"></span>
-            <span class="fa fa-star" id="s4"></span>
-            <span class="fa fa-star" id="s5"></span>
-          </div>
+          <form id="myForm" action="{% url 'servico_avaliar' %}" method="post">
+            {% csrf_token %}
+            <div id="avaliar" style="display: none">
+              <h2>Avalie o serviço do eletricista</h2>
+              <span class="fa fa-star" id="s1" name="1" value="1"></span>
+              <span class="fa fa-star" id="s2" name="2" value="2"></span>
+              <span class="fa fa-star" id="s3" name="3" value="3"></span>
+              <span class="fa fa-star" id="s4" name="4" value="4"></span>
+              <span class="fa fa-star" id="s5" name="5" value="5"></span>
+              <input type="text" name="nota" id="id_nota" style="display: none">
+            </div>
+          </form>
         </div>
         <div class="botoes-serviço">
           <button class="btn btn-secondary botao3 pausar">Pausar</button>
@@ -432,6 +436,12 @@
         <!-- partial -->
 </div>
 <script type="text/javascript">
+  //submitar form das estrelas
+
+  var form = document.getElementById("myForm")
+
+
+
   var bf = document.getElementById("finalizar")
   bf.addEventListener('click', function(){
     document.querySelector('h4').style.display = 'none'
@@ -447,6 +457,9 @@
     stars[i].addEventListener('click', function(e){
       for(var j = 0; j < stars.length; j++) {
         if(e.target == stars[j]) {
+          let input = document.getElementById("id_nota");
+          input.value = j+1;
+          form.submit();
           console.log('voce avaliou como: ', e.target.id[1])
           console.log(j+1)
           

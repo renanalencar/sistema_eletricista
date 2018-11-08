@@ -563,7 +563,18 @@ def ListarPedidos(request):
 def dump(request):
 	return render(request, 'dump.html')
 
-def serviço(request):
+def servico_avaliar(request):
+	if request.method == 'POST':
+		print (request.POST)
+		nota = request.POST.get('nota')
+		print(nota)
+		#pegar eletricista_em_questao
+		#if(eletricista_em_questao.nota == None):
+			#eletricista_em_questao.nota = nota
+		#else:
+			#eletricista_em_questao.nota = (eletricista_em_questao.nota + nota)/2
+		#eletricista_em_questao.save()
+	
 	return render(request, 'servico.html')
 
 # def Perfil_do_cliente(request, nickname):

@@ -51,5 +51,5 @@ urlpatterns = [
    	url(r'^registrar_eletricista/$', RegistrarEletricistaView.as_view(), name='registrar_eletricista'),
    	url(r'^base/$', views.Base, name='base'),
    	url(r'^dump/$', views.dump, name='dump'),
-   	url(r'^serviço/$', views.serviço, name='serviço'),
+   	url(r'^servico_avaliar/$', views.servico_avaliar, name='servico_avaliar'),
 ]
