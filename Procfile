@@ -1,0 +1,1 @@
+web: gunicorn sistema_eletricista/wsgi:application --log-file - 

@@ -1,0 +1,126 @@
+.q_pergunta{
+  	text-align: justify;
+  	font-size: 170%;
+  	}
+
+  	.select-group select{
+  		width: 100% !important;
+      height: auto !important;
+  		font-size: 140% !important;
+  	}
+
+  	.form-group p{
+ 		padding-bottom: .1%;
+    font-size: 140%;
+  	}
+
+    .form-group option{
+    width: 100%;
+    height:auto;
+    }
+
+    .page-footer{
+      position: absolute;
+      bottom: : 0px;
+      right: 0px;
+    }
+
+    .botao-recusar{
+      margin-right: 25%; 
+      position: relative;
+      height: 150%; 
+      width: 20%
+    }
+
+    .botao-aceitar{
+      margin-left: 25%; 
+      position: relative;
+      height: 150%; 
+      width: 20%
+    }
+
+    .botao-bloqueio{
+      height: 150%; 
+      width: 20%
+    }
+
+    .content-wraper, .main-panel{
+      width:100%;
+    }
+
+    .table.table-borderless td{
+      font-size:130%;
+    }
+
+    .tab-body{
+      width:100%;
+    }
+
+    .logo-escrita{
+      height: 30px;
+    }
+
+    #solicitar{
+      z-index:100%; 
+      position: absolute;
+      margin-left: 5%; 
+      bottom:7%;
+      height: 85%;
+      width:90%;
+    }
+
+    #map {
+      height: 54rem;
+      object-fit: cover;
+      position: relative;
+      
+      z-index: 0%;
+    }
+
+    .nav-bottom{
+      position: relative;
+      left:10%;
+    }
+
+    .wid{
+      max-width: none; 
+      width: 100%
+    }
+
+    .info {
+      display: none;
+      margin: 15px;
+    }
+
+    .fundo-botao{
+      background-color: rgba(255,255,255,0.5);
+      z-index:100%; 
+      position: absolute;
+      left: 40%; 
+      bottom:5%;
+      height: 11%;
+      width: 20%;
+    }
+
+    .botao1{
+      margin-top: 30px; 
+      margin-bottom: 20px; 
+      background-color: #fcc425; 
+      border: none; 
+      font-weight: bold; 
+      font-size: 100%; 
+      letter-spacing: 3px;
+    }
+
+    .botao2{ 
+      background-color: #fcc425; 
+      border: none; 
+      font-weight: bold; 
+      font-size: 100%; 
+      letter-spacing: 3px;
+    }
+
+    .solicitar{
+      font-size: 110%; 
+      line-height: 120%
+    }
