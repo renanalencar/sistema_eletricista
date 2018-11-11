@@ -1,9 +1,0 @@
-Django==2.0.7
-django-vanilla-views==1.0.4
-mysqlclient
-Pillow
-google-api-python-client
-xmltodict
-django-ckeditor
-django_extensions
-django-password-reset
