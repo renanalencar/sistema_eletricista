@@ -127,9 +127,15 @@ USE_L10N = True
 
 USE_TZ = True
 
+#STATICFILES_DIRS = (
+ #   os.path.join(BASE_DIR, "static"),
+  #  )
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
     )
+
+
 
 
 # Static files (CSS, JavaScript, Images)
@@ -141,7 +147,9 @@ MEDIA_URL = '/media/'
 LOGIN_REDIRECT_URL = '/user/index/'
 
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media")
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
+#adicionado pra testar a porra do erro
+#STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
+
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
