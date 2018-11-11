@@ -1,0 +1,357 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Cadastre-se - Eletricista24hs</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/iconfonts/mdi/css/materialdesignicons.min.css' %}">
+  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/iconfonts/puse-icons-feather/feather.css' %}">
+  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/css/vendor.bundle.base.css' %}">
+  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/css/vendor.bundle.addons.css' %}">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{% static 'radiant/jquery/css/style.css' %}">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="{% static 'radiant/jquery/images/logo-personagem.png' %}" />
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+</head>
+<style type="text/css">
+  h5 {
+    color: black;
+  }
+</style>
+<!-- http://www.oribatejo.pt/wp-content/uploads/2017/01/eletricidade.jpg -->
+<!--http://www.osul.com.br/wp-content/uploads/2018/03/energia.jpg-->
+<body>
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <img src="/static/radiant/jquery/images/torre_eletricidade.png" style="z-index: 0; position: absolute; height: 200%; width: 100%;">
+      <div class="content-wrapper d-flex align-items-center auth theme-one">
+        <div class="row w-100" style="padding-left: 1%">
+          <div class="col-lg-7 mx-auto">
+            <div class="auto-form-wrapper">
+              <img src="{% static 'radiant/jquery/images/logo-personagem.png' %}" style="padding-left: 43%; padding-bottom: 40px" >
+              <form class="form-signin" actions="{% url 'registrar' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                  <h5>Nome inteiro</h5>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Ex: José Da Silva" id="id_nome" name="nome" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i id="i-nome" class="mdi mdi-check-circle-outline"></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <h5>Nome de usuario</h5>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Ex: jose_da_silva123" id="id_nickname" name="nickname" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i id="i-nickname" class="mdi mdi-check-circle-outline"></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <h5>Senha</h5>
+                  <div class="input-group">
+                    <input type="password" class="form-control" placeholder="Digite sua senha com números e letras" id="id_senha" name="senha" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i id="i-senha" class="mdi mdi-check-circle-outline" style=""></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <h5>Confirme sua senha</h5>
+                  <div class="input-group">
+                    <input type="password" class="form-control" placeholder="Digite sua senha novamente" id="id_senha_novamente" name="senha_novamente" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i id="i-senha_novamente" class="mdi mdi-check-circle-outline"></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <h5>Email</h5>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Ex: exemplo@hotmail.com" id="id_email" name="email" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i id="i-email" class="mdi mdi-check-circle-outline"></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <h5>Telefone ou celular</h5>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Ex:+55 11 912344321" id="id_tel" name="telefone" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i id="i-tel" class="mdi mdi-check-circle-outline"></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <h5>CEP</h5>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Ex: 14123-001" id="id_CEP" name="CEP" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i id="i-CEP"class="mdi mdi-check-circle-outline"></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <h5>CPF</h5>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Ex: 123.456.789-10" id="id_CPF" name="CPF" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i id="i-CPF" class="mdi mdi-check-circle-outline"></i></span>
+                    </div>
+                  </div>
+                </div>
+                <!---
+                <div class="form-group">
+                  <h5>Nascimento</h5>
+                  <div class="input-group">
+                    <input type="date" class="form-control" placeholder="Ex:17/09/1991" id="id_CPF" name="nascimento" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i id="i-nascimento" class="mdi mdi-check-circle-outline"></i></span>
+                    </div>
+                  </div>
+                </div>
+                --->
+                <div class="form-group">
+                  <h5>Endereço completo</h5>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Digite seu endereço completo" id="id_endereco" name="endereco" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i id="i-endereco" class="mdi mdi-check-circle-outline"></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="select-group">
+                    <select type="option" class="form-control" id="id_genero" name="genero" required>
+                      <option disabled selected>Escolha seu gênero</option>
+                      <option value="Masculino">Masculino</option>
+                      <option value="Feminino">Feminino</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="select-group">
+                    <select type="option" class="form-control" id="id_tipo" name="tipo" required>
+                      <option id="placeholder" disabled selected>Cliente ou Eletricista?</option>
+                      <option id="eletricista" value="Eletricista">Eletricista</option>
+                      <option id="cliente" value="Cliente">Cliente</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- TESTE DO QUESTIONARIO
+                {% if tipo == 'Eletricista' %}
+                  <strong>Responda às perguntas, caro(a) Eletricista!!</strong>
+                  <div class="form-group">
+                    <div class="select-group">
+                      <select type="option" class="form-control" id="id_perguntaA" name="perguntaA" required>
+                        <option disabled selected>Pergunta A?</option>
+                        <option value="Correta">Alternativa A</option>
+                        <option value="Errada">Alternativa B</option>
+                        <option value="Errada">Alternativa C</option>
+                        <option value="Errada">Alternativa D</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="select-group">
+                      <select type="option" class="form-control" id="id_perguntaA" name="perguntaA" required>
+                        <option disabled selected>Pergunta A?</option>
+                        <option value="Correta">Alternativa A</option>
+                        <option value="Errada">Alternativa B</option>
+                        <option value="Errada">Alternativa C</option>
+                        <option value="Errada">Alternativa D</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="select-group">
+                      <select type="option" class="form-control" id="id_perguntaA" name="perguntaA" required>
+                        <option disabled selected>Pergunta A?</option>
+                        <option value="Correta">Alternativa A</option>
+                        <option value="Errada">Alternativa B</option>
+                        <option value="Errada">Alternativa C</option>
+                        <option value="Errada">Alternativa D</option>
+                    </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="select-group">
+                      <select type="option" class="form-control" id="id_perguntaA" name="perguntaA" required>
+                        <option disabled selected>Pergunta A?</option>
+                        <option value="Correta">Alternativa A</option>
+                        <option value="Errada">Alternativa B</option>
+                        <option value="Errada">Alternativa C</option>
+                        <option value="Errada">Alternativa D</option>
+                    </select>
+                    </div>
+                  </div>
+                {% endif %}
+                -->
+                <div class="form-group">
+                  <input type="file" name="foto" id="id_foto" class="file-upload-default">
+                  <div class="input-group col-xs-12">
+                    <input type="text" class="form-control file-upload-info" disabled placeholder="Envie sua foto">
+                      <span class="input-group-append">
+                        <button class="file-upload-browse btn btn-info" type="button">Enviar</button>
+                      </span>
+                  </div>
+                </div>
+                <div class="form-group d-flex justify-content-center">
+                  <div class="form-check form-check-flat mt-0">
+                    <label class="form-check-label">
+                      <input type="checkbox" class="form-check-input" required unchecked>
+                      Eu concordo com o termos
+                    </label>
+                  </div>
+                </div>
+                {% if form.errors %}
+                  <div class ="alert alert-danger">
+                    <button type="button" class="close">&times;</button>
+                    {{form.non_field_errors}}
+                    <ul>
+                      {% for field in form %}
+                        {% if field.errors %}
+                          {% if field.label == 'Email' %}
+                            <li>{{ field.label }}: Digite um e-mail válido</li>
+                          {% endif %}
+                          {% if field.label == 'Telefone' %}
+                            <li>{{ field.label }}: Digite um telefone válido</li>
+                          {% endif %}
+                          {% if field.label == 'Cep' %}
+                            <li>{{ field.label }}: Digite um CEP válido</li>
+                          {% endif %}
+                          {% if field.label == 'Cpf' %}
+                            <li>{{ field.label }}: Digite um CPF válido</li>
+                          {% endif %}
+                          {% if field.label == 'Endereco' %}
+                            <li>{{ field.label }}: Digite um endereço válido</li>
+                          {% endif %}
+                          {% if field.label == 'Genero' %}
+                            <li>{{ field.label }}: Escolha um genero válido</li>
+                          {% endif %}
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
+
+                <div class="form-group">
+                  <button id="cadastrar" class="btn btn-success submit-btn btn-block" disabled>Cadastrar</button>
+                </div>
+                <div class="text-block text-center my-3">
+                  <span class="text-small font-weight-semibold">Ja possui uma conta?</span>
+                  <a href="{% url 'login' %}" class="text-black text-small">Login</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script type="text/javascript">
+    var url = window.location.pathname;
+    console.log(window.location.pathname);
+    if (url == '/user/registrar_eletricista/'){
+      var placeholder = document.getElementById("placeholder");
+      placeholder.selected = false; 
+      var eletricista = document.getElementById("eletricista");
+      eletricista.selected = true;
+    }
+    if (url == '/user/registrar_cliente/'){
+      var placeholder = document.getElementById("placeholder");
+      placeholder.selected = false;
+      var cliente = document.getElementById("cliente");
+      cliente.selected = true;
+    }
+    $("#id_CEP").mask("00000-000");
+    $("#id_CPF").mask("00000000000");
+    $("#id_tel").mask("+5500900000000");
+    checked('nome');
+    checked('nickname');
+    checked('senha');
+    checked('senha_novamente');
+    checked('email');
+    checked('CPF');
+    checked('tel');
+    checked('CEP');
+    checked('endereco');
+
+    var bool = document.getElementsByClassName('mdi mdi-check-circle-outline');
+    if (bool == null){
+      alert('olá');
+    }
+
+
+    function checked(x){
+      var input = document.getElementById('id_' + x);
+      input.addEventListener('keyup', function(){
+        var bool = document.getElementsByClassName('mdi mdi-check-circle-outline');
+        var botao = document.getElementById('cadastrar');
+        var tamanho = 4;
+        if (x == 'CEP') {
+          tamanho = 8;
+        }
+        if (x == 'CPF') {
+          tamanho = 10;
+        }
+        if (x == 'tel') {
+          tamanho = 13;
+        }
+        if (input.value.length > tamanho){
+          let i = document.getElementById('i-' + x);
+          i.style.color = 'green';
+          i.className = 'mdi mdi-checkbox-marked-circle';
+        }
+        if (input.value.length < tamanho) {
+          let i = document.getElementById('i-' + x);
+          i.style.color = '';
+          i.className = 'mdi mdi-check-circle-outline';
+        }
+        console.log(bool.length, botao.disabled);
+        if (bool.length == 0){
+          botao.disabled = false;
+        }
+        if(bool.length > 0) {
+          console.log('chegueiaqui');
+          botao.disabled = true;
+        }
+      })
+    }
+
+  </script>
+  <script src="{% static 'radiant/jquery/vendors/js/vendor.bundle.base.js' %}"></script>
+  <script src="{% static 'radiant/jquery/vendors/js/vendor.bundle.addons.js' %}"></script>
+  <!-- endinject -->
+  <!-- inject:js -->
+  <script src="{% static 'radiant/jquery/js/off-canvas.js' %}"></script>
+  <script src="{% static 'radiant/jquery/js/hoverable-collapse.js' %}"></script>
+  <script src="{% static 'radiant/jquery/js/misc.js' %}"></script>
+  <script src="{% static 'radiant/jquery/js/settings.js' %}"></script>
+  <script src="{% static 'radiant/jquery/js/todolist.js' %}"></script>
+  <script src="{% static 'radiant/jquery/js/file-upload.js' %}"></script>
+  <!-- endinject -->
+</body>
+
+</html>
+

@@ -1,0 +1,57 @@
+.q_pergunta{
+  	text-align: justify;
+  	font-size: 170%;
+  	}
+
+  	.select-group select{
+  		width: 100% !important;
+      height: auto !important;
+  		font-size: 140% !important;
+  	}
+
+  	.form-group p{
+ 		padding-bottom: .1%;
+    font-size: 140%;
+  	}
+
+    .form-group option{
+    width: 100%;
+    height:auto;
+    }
+
+    .page-footer{
+      position: absolute;
+      bottom: : 0px;
+      right: 0px;
+    }
+
+    .botao-recusar{
+      margin-right: 25%; 
+      position: relative;
+      height: 150%; 
+      width: 20%
+    }
+
+    .botao-aceitar{
+      margin-left: 25%; 
+      position: relative;
+      height: 150%; 
+      width: 20%
+    }
+
+    .botao-bloqueio{
+      height: 150%; 
+      width: 20%
+    }
+
+    .content-wraper, .main-panel{
+      width:100%;
+    }
+
+    .table.table-borderless td{
+      font-size:130%;
+    }
+
+    .tab-body{
+      width:100%;
+    }

@@ -1,0 +1,238 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Cadastre-se - Eletricista24hs</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/iconfonts/mdi/css/materialdesignicons.min.css' %}">
+  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/iconfonts/puse-icons-feather/feather.css' %}">
+  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/css/vendor.bundle.base.css' %}">
+  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/css/vendor.bundle.addons.css' %}">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{% static 'radiant/jquery/css/style.css' %}">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="{% static 'radiant/jquery/images/logo-personagem.png' %}" />
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+</head>
+<style type="text/css">
+  h5 {
+    color: black;
+  }
+</style>
+<body>
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <img src="/static/radiant/jquery/images/torre_eletricidade.png" style="z-index: 0; position: absolute; height: 200%; width: 100%;">
+      <div class="content-wrapper d-flex align-items-center auth theme-one">
+        <div class="row w-100" style="padding-left: 1%">
+          <div class="col-lg-7 mx-auto">
+            <div class="auto-form-wrapper">
+              <img src="{% static 'radiant/jquery/images/logo-personagem.png' %}" style="padding-left: 43%; padding-bottom: 40px" >
+              <form class="form-signin" actions="{% url 'registrar' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                  <h5>Agência</h5>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Ex: 0932" id="id_agencia" name="agencia" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i id="i-agencia" class="mdi mdi-check-circle-outline"></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <h5>Dígito da agência</h5>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Ex:0" id="id_agencia_dv" name="agencia_dv" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i id="i-agencia_dv" class="mdi mdi-check-circle-outline"></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <h5>Código do Banco</h5>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Ex: 000" id="id_bank_code" name="bank_code" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i id="i-bank_code" class="mdi mdi-check-circle-outline"></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <h5>Conta</h5>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="000" id="id_conta" name="conta" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i id="i-conta" class="mdi mdi-check-circle-outline" style=""></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <h5>Dígito da conta</h5>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="0" id="id_conta_dv" name="conta_dv" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i id="i-conta_dv" class="mdi mdi-check-circle-outline" style=""></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <h5>CPF</h5>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="000.000.000-00" id="id_document_number" name="document_number" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i id="i-document_number" class="mdi mdi-check-circle-outline" style=""></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <h5>Nome</h5>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="JOSÉ SANTOS" id="id_legal_name" name="legal_name" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i id="i-legal_name" class="mdi mdi-check-circle-outline" style=""></i></span>
+                    </div>
+                  </div>
+                </div>
+
+                {% if form.errors %}
+                  <div class ="alert alert-danger">
+                    <button type="button" class="close">&times;</button>
+                    {{form.non_field_errors}}
+                    <ul>
+                      {% for field in form %}
+                        {% if field.errors %}
+                          {% if field.label == 'agencia' %}
+                            <li>{{ field.label }}: Digite uma agência válida</li>
+                          {% endif %}
+                          {% if field.label == 'agencia_dv' %}
+                            <li>{{ field.label }}: Digite um dígito válido</li>
+                          {% endif %}
+                          {% if field.label == 'bank_code' %}
+                            <li>{{ field.label }}: Digite um Código de Banco válido</li>
+                          {% endif %}
+                          {% if field.label == 'conta' %}
+                            <li>{{ field.label }}: Digite uma conta válida</li>
+                          {% endif %}
+                          {% if field.label == 'conta_dv' %}
+                            <li>{{ field.label }}: Digite um dígito válido</li>
+                          {% endif %}
+                          {% if field.label == 'document_number' %}
+                            <li>{{ field.label }}: Digite um CPF válido</li>
+                          {% endif %}
+                          {% if field.label == 'legal_name' %}
+                            <li>{{ field.label }}: Digite um nome válido</li>
+                          {% endif %}
+                       
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
+
+                <div class="form-group">
+                  <button id="salvar" class="btn btn-success submit-btn btn-block" >Salvar</button>
+                </div>
+                <div class="text-block text-center my-3">
+                  
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script type="text/javascript">
+    var url = window.location.pathname;
+    
+    $("#id_document_number").mask("00000000000");
+    $("#id_agencia").mask("0000");
+    $("#id_bank_code").mask("000");
+    $("#id_conta").mask("00000");
+
+    var bool = document.getElementsByClassName('mdi mdi-check-circle-outline');
+
+    checked('agencia')
+    checked('agencia_dv')
+    checked('bank_code')
+    checked('conta')
+    checked('conta_dv')
+    checked('document_number')
+    checked('legal_name')
+
+     function checked(x){
+      var input = document.getElementById('id_' + x);
+      input.addEventListener('keyup', function() {
+        var bool = document.getElementsByClassName('mdi mdi-check-circle-outline');
+        var botao = document.getElementById('salvar');
+        var tamanho = 4;
+        if (x == 'agencia') {
+          tamanho = 3;
+        }
+        if (x == 'agencia_dv') {
+          tamanho = 0;
+        }
+        if (x == 'bank_code') {
+          tamanho = 2;
+        }
+        if (x == 'conta') {
+          tamanho = 3;
+        }
+        if (x == 'conta_dv') {
+          tamanho = 0;
+        }
+        if (x == 'document_number') {
+          tamanho = 10;
+        }
+        if (x == 'legal_name') {
+          tamanho = 5;
+        }
+        if (input.value.length > tamanho){
+          let i = document.getElementById('i-' + x);
+          i.style.color = 'green';
+          i.className = 'mdi mdi-checkbox-marked-circle';
+        }
+        if (input.value.length < tamanho) {
+          let i = document.getElementById('i-' + x);
+          i.style.color = '';
+          i.className = 'mdi mdi-check-circle-outline';
+        }
+        console.log(bool.length, botao.disabled);
+        if (bool.length == 0){
+          botao.disabled = false;
+        }
+        if(bool.length > 0) {
+          console.log('chegueiaqui');
+          botao.disabled = true;
+        }
+      })
+    }
+
+  </script>
+  <script src="{% static 'radiant/jquery/vendors/js/vendor.bundle.base.js' %}"></script>
+  <script src="{% static 'radiant/jquery/vendors/js/vendor.bundle.addons.js' %}"></script>
+  <!-- endinject -->
+  <!-- inject:js -->
+  <script src="{% static 'radiant/jquery/js/off-canvas.js' %}"></script>
+  <script src="{% static 'radiant/jquery/js/hoverable-collapse.js' %}"></script>
+  <script src="{% static 'radiant/jquery/js/misc.js' %}"></script>
+  <script src="{% static 'radiant/jquery/js/settings.js' %}"></script>
+  <script src="{% static 'radiant/jquery/js/todolist.js' %}"></script>
+  <script src="{% static 'radiant/jquery/js/file-upload.js' %}"></script>
+  <!-- endinject -->
+</body>
+
+</html>
+
