@@ -13,12 +13,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='eletricista',
             name='id',
-            field=models.AutoField(auto_created=True, default='ola', primary_key=True, serialize=False, verbose_name='ID'),
+            field=models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID'),
             preserve_default=False,
         ),
         migrations.AlterField(
             model_name='eletricista',
             name='nota',
-            field=models.DecimalField(decimal_places=3, default='w/e', max_digits=5),
+            field=models.DecimalField(decimal_places=3, max_digits=5),
         ),
     ]

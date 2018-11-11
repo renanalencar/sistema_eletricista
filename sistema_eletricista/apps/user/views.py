@@ -78,7 +78,7 @@ def index(request):
 		username = request.user
 		usuario = User.objects.get(username=username)
 		# userteste = User.objects.get(username='UserCliente')
-		cliente = Cliente.objects.get(usuario=usuario)
+		
 		eletricista_existe = Eletricista.objects.filter(usuario=usuario).exists()
 		cliente_existe = Cliente.objects.filter(usuario=usuario).exists()
 		admin_existe = Admin.objects.filter(user=usuario).exists()
@@ -92,6 +92,7 @@ def index(request):
 			response.set_cookie('currentstate', True)
 			return response
 		if cliente_existe:
+			cliente = Cliente.objects.get(usuario=usuario)
 			return render(request, 'solicitar_servico.html', {
 				'nome' : get_usuario_logado(request),
 				'ip' : get_client_ip(request),
@@ -103,6 +104,7 @@ def index(request):
 				'nome' : get_usuario_logado(request),
 				'ip' : get_client_ip(request),
 				'user': request.user,
+				'numero' : 10
 				})
 		response =  render(request, 'solicitar_servico.html', {'nome' : get_usuario_logado(request), 'ip' : get_client_ip(request), 'user': request.user, 'foto' : cliente.foto})
 		response.set_cookie('currentstate', True)
