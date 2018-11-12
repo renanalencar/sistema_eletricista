@@ -27,6 +27,7 @@ from .forms import QuestionarioForm
 from .eletricista.models import *
 from .cliente.models import Cliente
 from .models import Admin
+from .models import Coordenadas
 from django.contrib.auth.views import *
 import pagarme
 # Create your views here.
@@ -243,6 +244,7 @@ class RegistrarEletricistaView(View):
 
 			if dados_form['tipo'] == 'Eletricista':
 				usuario_eletri = User.objects.create_user(first_name=dados_form['nome'], email=dados_form['email'], password=dados_form['senha'], username=dados_form['nickname'])
+				Coordenadas.objects.create(usuario=usuario_eletri, lat=-23.0, lng=-46.0)
 				eletricista = Eletricista.objects.create(
 
 					usuario=usuario_eletri,
@@ -268,6 +270,7 @@ class RegistrarEletricistaView(View):
 			
 			else:
 				usuario_cliente = User.objects.create_user(username=dados_form['nickname'], email=dados_form['email'], password=dados_form['senha'], first_name=dados_form['nome'])
+				Coordenadas.objects.create(usuario=usuario_cliente, lat=-23.0, lng=-46.0)
 				cliente = Cliente.objects.create(
 					usuario=usuario_cliente,
 					telefone=dados_form['telefone'],
