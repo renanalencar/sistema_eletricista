@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sistema_eletricista.development")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sistema_eletricista.production")
 
 application = get_wsgi_application()
