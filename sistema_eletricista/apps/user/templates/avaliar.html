@@ -39,7 +39,18 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="mdi mdi-account-outline"></i></span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Estrelinhas do Roland">
+                    <form id="myForm" action="{% url 'servico_avaliar' %}" method="post">
+                      {% csrf_token %}
+                      <div id="avaliar" style="display: none">
+                        <h2>Avalie o serviço do eletricista</h2>
+                        <span class="fa fa-star" id="s1" name="1" value="1"></span>
+                        <span class="fa fa-star" id="s2" name="2" value="2"></span>
+                        <span class="fa fa-star" id="s3" name="3" value="3"></span>
+                        <span class="fa fa-star" id="s4" name="4" value="4"></span>
+                        <span class="fa fa-star" id="s5" name="5" value="5"></span>
+                        <input type="text" name="nota" id="id_nota" style="display: none">
+                      </div>
+                    </form>
                   </div>
                 </div>
                 <div class="form-group">

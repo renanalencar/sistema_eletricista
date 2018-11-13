@@ -482,3 +482,43 @@
     .mb-15{
       margin-bottom: 15px;    
     }
+
+    .rating-stars-container {
+    text-align: center;
+}
+  
+  #avaliar{
+    width: 80%;
+  }
+
+.rating-stars {
+    display: inline-block;
+  margin: 20px;
+}
+.rating-star {
+  font-size: 44px;
+  cursor: pointer
+}
+
+.fa-star {
+  color: #00A8CC;
+}
+
+.checked {
+      color: yellow;
+      
+  }
+  .fa-star {
+    font-size: 145%;
+    margin-right: 10%;
+    position: relative;
+    text-align: center;
+    left: 5%;
+    float: center;
+      
+  }
+
+  .scroll{
+    height: 100%;
+    overflow-y: auto;
+  }

@@ -1,9 +1,6 @@
 {% extends 'base_cliente.html' %}
 {% load staticfiles %}
 
-{% block content %} 
-  <div class="h m-0" style="background-color: #e3e3e3;">
-    <div class="card-body cartao m-4">
 {% block content %}
   <div class="h" style="background-color: #f3f3f3">
     <div class="card-body relogio m-4">
@@ -23,10 +20,6 @@
     </div>
   </div>
       <div style=" height: calc(100vh - 338px)">
-<<<<<<< HEAD
-        <div class="card-body relogio">
-          <h4 class="tempo">1h 23min</h4>
-=======
         <div class="card-body">
           <h4 class="tempo">1h23min</h4>
           <form id="myForm" action="{% url 'servico_avaliar' %}" method="post">
@@ -41,11 +34,10 @@
               <input type="text" name="nota" id="id_nota" style="display: none">
             </div>
           </form>
->>>>>>> b3ba4497aa417d8092f04b2a771400f6e7a97b83
         </div>
         <div class="botoes-serviço">
           <button class="btn btn-secondary botao3 pausar">Pausar</button>
-          <button class="btn btn-info botao3 finalizar">Finalizar</button>
+          <button class="btn btn-info botao3 finalizar" id="finalizar">Finalizar</button>
         </div>
       </div> 
     </div>
@@ -55,8 +47,7 @@
   
         <!-- partial -->
 </div>
-<<<<<<< HEAD
-=======
+
 <script type="text/javascript">
   //submitar form das estrelas
 
@@ -143,6 +134,5 @@
     }
   }
 </script>
->>>>>>> b3ba4497aa417d8092f04b2a771400f6e7a97b83
 {% endblock %}
   

@@ -583,7 +583,7 @@ def servico_avaliar(request):
 			#eletricista_em_questao.nota = (eletricista_em_questao.nota + nota)/2
 		#eletricista_em_questao.save()
 	
-	return render(request, 'servico.html')
+	return redirect('/user/index/')
 
 def avaliar(request):
 	return render(request, 'avaliar2.html')
