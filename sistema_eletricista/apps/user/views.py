@@ -564,7 +564,7 @@ def dump(request):
 	return render(request, 'dump.html')
 
 def serviço(request):
-	return render(request, 'servico.html')
+	return render(request, 'servico_avaliar.html')
 
 def avaliar(request):
 	return render(request, 'avaliar2.html')
