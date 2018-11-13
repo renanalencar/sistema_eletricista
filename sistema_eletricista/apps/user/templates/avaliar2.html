@@ -1,0 +1,134 @@
+{% extends 'base_cliente.html' %}
+{%  load staticfiles %}
+
+{% block content %}
+<div class="row d-flex align-items-stretch scroll" >
+	<div class="col-md-4 avaliar_lateral">
+		<div class="card text-center avaliado">
+			<div class="card-body">
+				<h3 class="mb-15">Você foi atendido por: </h3>
+				<img src="https://placehold.it/100x100" class="img-lg rounded-circle mb-2" alt="profile image" style="width: 10vmax; height: 10vmax">
+				<h4>Maria Johnson</h4>
+				<p class="text-muted">Developer</p>
+				<p class="mt-4 card-text">
+						Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+						Aenean commodo ligula eget dolor. Lorem
+				</p>
+				
+			</div>
+		</div>
+  	</div>
+	<div class="col-12 col-md-8 h-100 bg-white">
+		<div class="auto-form-wrapper d-flex align-items-center justify-content-center flex-column">
+			<form id="myForm" class="form_avaliar" action="{% url 'servico_avaliar' %}" method="post">
+				{% csrf_token %}
+			    <h2 class="mr-auto obrigado">Obrigado! Agora é só avaliar o serviço.</h2>
+			    <div class="form-group">
+			      <div class="input-group">
+			        <div class="input-group-prepend">
+			          <span class="input-group-text"><i class="mdi mdi-account-outline"></i></span>
+			        </div>
+		            <div id="avaliar">
+		              <span class="fa fa-star" id="s1" name="1" value="1"></span>
+		              <span class="fa fa-star" id="s2" name="2" value="2"></span>
+		              <span class="fa fa-star" id="s3" name="3" value="3"></span>
+		              <span class="fa fa-star" id="s4" name="4" value="4"></span>
+		              <span class="fa fa-star" id="s5" name="5" value="5"></span>
+		              <input type="text" name="nota" id="id_nota" style="display: none">
+		            </div>
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <div class="input-group comentario">
+			        <textarea class="form-control textarea_comentario" id="exampleTextarea1" placeholder="Fale o que quiser sobre o serviço e quem lhe atendeu, qualquer comentário é bem vindo!"></textarea>
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <button class="btn btn-primary submit-btn">Enviar</button>
+			    </div>
+			    <div class="wrapper mt-5 text-gray">
+			      <p class="footer-text">Copyright © 2018 Urbanui. All rights reserved.</p>
+			      <ul class="auth-footer text-gray">
+			        <li><a href="#">Terms &amp; Conditions</a></li>
+			        <li><a href="#">Cookie Policy</a></li>
+			      </ul>
+			    </div>
+		  </form>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var stars = document.getElementsByClassName("fa")
+  var s0 = document.getElementById('s1')
+  var s1 = document.getElementById('s2')
+  var s2 = document.getElementById('s3')
+  var s3 = document.getElementById('s4')
+  var s4 = document.getElementById('s5')
+  for(var i = 0; i < stars.length; i++) {
+    stars[i].addEventListener('click', function(e){
+      for(var j = 0; j < stars.length; j++) {
+        if(e.target == stars[j]) {
+          let input = document.getElementById("id_nota");
+          input.value = j+1;
+          console.log('voce avaliou como: ', e.target.id[1])
+          console.log(j+1)
+          
+        }
+      }
+    })
+  }
+
+	s0.addEventListener('mouseover', function(event) {
+    colorir(event.target)
+    for(var i = 1; i < stars.length; i++) {
+      descolorir(stars[i])
+    }
+  })
+  s1.addEventListener('mouseover', function(event) {
+    colorir(s0)
+    colorir(event.target)
+    for(var i = 2; i < stars.length; i++) {
+      descolorir(stars[i])
+    }
+  })
+  s2.addEventListener('mouseover', function(event) {
+    colorir(s0)
+    colorir(s1)
+    colorir(event.target)
+    for(var i = 3; i < stars.length; i++) {
+      descolorir(stars[i])
+    }
+  })
+  s3.addEventListener('mouseover', function(event) {
+    colorir(s0)
+    colorir(s1)
+    colorir(s2)
+    colorir(event.target)
+    for(var i = 4; i < stars.length; i++) {
+      descolorir(stars[i])
+    }
+  })
+  s4.addEventListener('mouseover', function(event) {
+    colorir(s0)
+    colorir(s1)
+    colorir(s2)
+    colorir(s3)
+    colorir(event.target)
+    for(var i = 5; i < stars.length; i++) {
+      descolorir(stars[i])
+    }
+  })
+
+  function colorir(star) {
+    if(!star.className.indexOf('checked') > -1) {
+      star.className = 'fa fa-star checked'
+    }
+  }
+  function descolorir(star) {
+    if(star.className.indexOf('checked') > -1) {
+      star.className = 'fa fa-star'
+    }
+  }
+</script>
+{% endblock %}

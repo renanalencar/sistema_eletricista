@@ -2,393 +2,6 @@
 {% load staticfiles %}
 
 {% block content %}
-<style>
-      .w{
-      width: 100vw;
-    }
-
-    .h{
-      height: 100vh;
-    }
-
-    .q_pergunta{
-    text-align: justify;
-    font-size: 170%;
-    }
-
-    .select-group select{
-      width: 100% !important;
-      height: auto !important;
-      font-size: 140% !important;
-    }
-
-    .form-group p{
-    padding-bottom: .1%;
-    font-size: 140%;
-    }
-
-    .form-group option{
-    width: 100%;
-    height:auto;
-    }
-
-    .page-footer{
-      position: absolute;
-      bottom: : 0px;
-      right: 0px;
-    }
-
-    .botao-recusar{
-      margin-right: 25%; 
-      position: relative;
-      height: 150%; 
-      width: 20%
-    }
-
-    .botao-aceitar{
-      margin-left: 25%; 
-      position: relative;
-      height: 150%; 
-      width: 20%
-    }
-
-    .botao-bloqueio{
-      height: 150%; 
-      width: 20%
-    }
-
-    .content-wraper, .main-panel{
-      width:100%;
-    }
-
-    .table.table-borderless td{
-      font-size:130%;
-    }
-
-    .tab-body{
-      width:100%;
-    }
-
-    .logo-escrita{
-      height: 30px;
-    }
-
-    #solicitar{
-      z-index:90%; 
-      position: absolute;
-      margin-left: 5%; 
-      bottom:7%;
-      height: 85%;
-      width:90%;
-    }
-
-    #map {
-      height: 54rem;
-      object-fit: cover;
-      position: relative;
-      
-      z-index: 0%;
-    }
-
-    .nav-bottom{
-      position: relative;
-      left:10%;
-    }
-
-    .wid{
-      max-width: none; 
-      width: 100%
-    }
-
-    .info {
-      display: none;
-      margin: 15px;
-    }
-
-    .fundo-botao{
-      background-color: rgba(255,255,255,0.5);
-      z-index:100%; 
-      position: absolute;
-      left: 40%; 
-      bottom:5%;
-      height:10%;
-      width:20%;
-    }
-
-    .botao1{
-      margin-top: 30px; 
-      margin-bottom: 20px; 
-      background-color: #fcc425; 
-      border: none; 
-      font-weight: bold; 
-      font-size: 100%; 
-      letter-spacing: 3px;
-    }
-
-    .botao2{ 
-      background-color: #fcc425; 
-      border: none; 
-      font-weight: bold; 
-      font-size: 100%; 
-      letter-spacing: 0.5%;
-    }
-
-    .botao3{
-      border: none; 
-      font-weight: bold; 
-      font-size: 3.5vw; 
-      letter-spacing: 20%;
-      height: 60%;
-      width: auto;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    }
-
-    .solicitar{
-      font-size: 100%; 
-      line-height: 120%;
-    }
-
-    .loader {
-    border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    animation: spin 2s linear infinite;
-    -webkit-animation-duration: 1000ms;
-    }
-
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-
-    }
-
-    .modal-backdrop {
-      z-index: -1;
-    }
-
-    .center-div {
-     margin: 0 auto;
-     width: 100px; 
-    }
-
-    .lds-ripple {
-      display: inline-block;
-      position: relative;
-      width: 50%;
-      height: 50%;
-    }
-    .lds-ripple div {
-      position: absolute;
-      border: 4px solid #fff;
-      opacity: 1;
-      border-radius: 50%;
-      animation: lds-ripple 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-    }
-    .lds-ripple div:nth-child(2) {
-      animation-delay: -1s;
-    }
-    @keyframes lds-ripple {
-      0% {
-        top: 80%;
-        left: 80%;
-        width: 0;
-        height: 0;
-        opacity: 1;
-        background-color: #fcc425;
-      }
-      100% {
-        top: -70%;
-        left: -70%;
-        width: 150px;
-        height: 150px;
-        opacity: 0;
-        background-color: #fcc425;
-      } 
-    }
-
-    .header_relogio{
-      width:100%;
-      height:40%;
-      display:inline-flex;
-    }
-
-    .info_eletricista{
-      position:absolute;
-      right:5%;
-      height:50%;
-      width:auto;
-      display: block;
-    }
-
-    .foto_eletricista{
-      float: top;
-    }
-
-    .nome_eletricista{
-      margin-top: 10%;
-    }
-
-    .serviço-em-exec{
-      font-size: 4vw;
-    }
-
-    .tempo{
-      position: relative;
-      margin-top: 3.5%;
-      font-size: 14vw;
-      color: black;
-      text-align: center; 
-    }
-
-    .botoes-serviço{
-      display: flex;
-      height: 15vh;
-      justify-content: space-around;
-      margin-top: 3vmin;
-    }
-
-    .relogio{
-      border-radius: 10px;
-      background: linear-gradient(-45deg, #fcf425, #fcfcbe, #ffffff, #fcfcbe, #fcf425);
-      background-size: 1000% 1000%;
-      -webkit-animation: Gradient 15s ease infinite;
-      -moz-animation: Gradient 15s ease infinite;
-      animation: Gradient 15s ease infinite;
-    }
-
-    @-webkit-keyframes Gradient {
-      0% {
-        background-position: 0% 50%
-      }
-      50% {
-        background-position: 100% 50%
-      }
-      100% {
-        background-position: 0% 50%
-      }
-    }
-
-    @-moz-keyframes Gradient {
-      0% {
-        background-position: 0% 50%
-      }
-      50% {
-        background-position: 100% 50%
-      }
-      100% {
-        background-position: 0% 50%
-      }
-    }
-
-    @keyframes Gradient {
-      0% {
-        background-position: 0% 50%
-      }
-      50% {
-        background-position: 100% 50%
-      }
-      100% {
-        background-position: 0% 50%
-      }
-    }
-
-    .portfolio-grid figure{
-      background: rgba(252, 242, 148, 1);
-    }
-
-    .footer-serviço{
-      position: absolute;
-      bottom:0px;
-    }
-
-    .hover-open{
-      height: 1040px;
-    }
-    .rating-stars-container {
-    text-align: center;
-}
-  
-.rating-stars {
-    display: inline-block;
-  margin: 20px;
-}
-.rating-star {
-  font-size: 44px;
-  cursor: pointer
-}
-
-.fa-star {
-  color: #00A8CC;
-}
-
-
-.bottom-message {
-  font-size: 0.85em;
-}
-
-.sr-navigator-container.visible-sm-block {
-  margin-top: 30px;
-}
-
-.notes-container {
-  margin: auto;
-  margin-top: 20px;
-  width: 50%;
-}
-#myNotesView {
-  display: block;
-}
-
-.notes-buttons {
-  margin-top: 10px;
-}
-
-@media (max-width: 767px) { 
-  .notes-container {
-    width: 100%;
-  }
-}
-
-.btn-ls-blue {
-  background-color: #4984a3;
-  border: none;
-    -o-transition: background-color 0.215s;
-    -moz-transition: background-color 0.215s;
-    -webkit-transition: background-color 0.215s;
-    transition: background-color 0.215s;
-}
-
-.btn-ls-blue:hover,
-.btn-ls-blue:active,
-.btn-ls-blue:focus,
-.btn-ls-blue.active {
-    background-color: #00A8CC;
-}
-
-.hide { 
-  display: none;
-}
-.checked {
-      color: yellow;
-      
-  }
-  .fa-star {
-    font-size: 40px;
-    margin-left: 20px;
-    position: relative;
-    text-align: center;
-    left: 37%;
-    float: center;
-      
-  }
-  h2 {
-    font-family: Arial;
-    text-align: center;
-  }
-  
-</style>
   <div class="h" style="background-color: #f3f3f3">
     <div class="card-body relogio m-4">
       <div class="header_relogio">
@@ -409,14 +22,18 @@
       <div style=" height: calc(100vh - 338px)">
         <div class="card-body">
           <h4 class="tempo">1h23min</h4>
-          <div id="avaliar" style="display: none">
-            <h2>Avalie o serviço do eletricista</h2>
-            <span class="fa fa-star" id="s1"></span>
-            <span class="fa fa-star" id="s2"></span>
-            <span class="fa fa-star" id="s3"></span>
-            <span class="fa fa-star" id="s4"></span>
-            <span class="fa fa-star" id="s5"></span>
-          </div>
+          <form id="myForm" action="{% url 'servico_avaliar' %}" method="post">
+            {% csrf_token %}
+            <div id="avaliar" style="display: none">
+              <h2>Avalie o serviço do eletricista</h2>
+              <span class="fa fa-star" id="s1" name="1" value="1"></span>
+              <span class="fa fa-star" id="s2" name="2" value="2"></span>
+              <span class="fa fa-star" id="s3" name="3" value="3"></span>
+              <span class="fa fa-star" id="s4" name="4" value="4"></span>
+              <span class="fa fa-star" id="s5" name="5" value="5"></span>
+              <input type="text" name="nota" id="id_nota" style="display: none">
+            </div>
+          </form>
         </div>
         <div class="botoes-serviço">
           <button class="btn btn-secondary botao3 pausar">Pausar</button>
@@ -425,13 +42,19 @@
       </div> 
     </div>
   </div>
-  
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
   
         <!-- partial -->
 </div>
+
 <script type="text/javascript">
+  //submitar form das estrelas
+
+  var form = document.getElementById("myForm")
+
+
+
   var bf = document.getElementById("finalizar")
   bf.addEventListener('click', function(){
     document.querySelector('h4').style.display = 'none'
@@ -447,6 +70,9 @@
     stars[i].addEventListener('click', function(e){
       for(var j = 0; j < stars.length; j++) {
         if(e.target == stars[j]) {
+          let input = document.getElementById("id_nota");
+          input.value = j+1;
+          form.submit();
           console.log('voce avaliou como: ', e.target.id[1])
           console.log(j+1)
           

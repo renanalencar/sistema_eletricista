@@ -38,7 +38,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i id="sino" class="mdi mdi-bell-outline"></i>
-              <span id="numero-sino" class="count bg-success">1</span>
+              <span id="numero-sino" class="count bg-success">{{numero}}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <a class="dropdown-item py-3">
@@ -46,6 +46,16 @@
                 </p>
               </a>
               <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item" href="{% url 'eletricistas_registrados' %}">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-inverse-success">
+                    <i class="mdi mdi-alert-circle-outline mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-normal text-dark mb-1 notification">Novo questionário recebido.</h6>
+                </div>
+              </a>
               <a class="dropdown-item preview-item" href="{% url 'questionarios_pendentes' %}">
                 <div class="preview-thumbnail">
                   <div class="preview-icon bg-inverse-success">
@@ -53,7 +63,27 @@
                   </div>
                 </div>
                 <div class="preview-item-content">
-                  <h6 class="preview-subject font-weight-normal text-dark mb-1">Novo questionário recebido.</h6>
+                  <h6 class="preview-subject font-weight-normal text-dark mb-1 notification">Novo questionário recebido.</h6>
+                </div>
+              </a>
+              <a class="dropdown-item preview-item" href="{% url 'questionarios_pendentes' %}">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-inverse-success">
+                    <i class="mdi mdi-alert-circle-outline mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-normal text-dark mb-1 notification">Novo questionário recebido.</h6>
+                </div>
+              </a>
+              <a class="dropdown-item preview-item" href="{% url 'questionarios_pendentes' %}">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-inverse-success">
+                    <i class="mdi mdi-alert-circle-outline mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-normal text-dark mb-1 notification">Novo questionário recebido.</h6>
                 </div>
               </a>
               
@@ -121,7 +151,7 @@
           <li class="nav-item">
             <div class="sidebar-sticker">
               <div class="d-flex align-items-center text-primary">
-                <h6 class="mb-1">PRECISA DE AJUDA?</h6><i class="mdi ml-2 mdi-bell-ring-outline"></i>
+                <h7 class="mb-1">PRECISA DE AJUDA?</h7><i class="mdi ml-2 mdi-bell-ring-outline"></i>
               </div>
               <a class="d-block text-gray my-2" href="#">olá@hotmail.com</a>
               <a class="d-block" href="#">Visite o nosso FAQ</a>
@@ -168,7 +198,59 @@
   </div>
   </div>
   
-  <!-- container-scroller -->  
+  <!-- container-scroller -->
+  <script type="text/javascript">
+    //loadEletricistas()
+    //loadClientes()
+    //tirar o comentário depois de resetar o banco de dados (por causa do erro das notas);
+    var eletricistas_com_nota_baixa = []
+    var clientes_com_nota_baixa = []
+    var sino = document.getElementById('sino')
+    let h6 = document.getElementsByClassName('notification')
+    let x = 3
+    if(x < 3.5) {
+      for (var i = 0; i < h6.length; i++) {
+        h6[i].textContent = 'Eletricista x com nota baixa'
+      } 
+    }
+    sino.addEventListener('click', function(){
+      let numero = document.getElementById('numero-sino')
+      numero.textContent = undefined
+      console.log(numero)
+    })
+
+    function loadEletricistas() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+         let eletricistas = JSON.parse(this.responseText);
+         for(var i = 0; i < eletricistas.length; i++) {
+            if(eletricistas[i].nota < 3.5) {
+              eletricistas_com_nota_baixa.push(eletricistas[i])
+            }
+         }
+        }
+      };
+      xhttp.open("GET", "http://localhost:8000/api/eletricistas/");
+      xhttp.send();
+    }
+
+    function loadClientes() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+         let clientes = JSON.parse(this.responseText);
+         for(var i = 0; i < clientes.length; i++) {
+            if(clientes[i].nota < 3.5) {
+              clientes_com_nota_baixa.push(clientes[i])
+            }
+         }
+        }
+      };
+      xhttp.open("GET", "http://localhost:8000/api/clientes/");
+      xhttp.send();
+    }
+  </script>
   <script src="{% static 'radiant/jquery/vendors/js/vendor.bundle.base.js' %}"></script>
   <script src="{% static 'radiant/jquery/vendors/js/vendor.bundle.addons.js' %}"></script>
   <!-- endinject -->

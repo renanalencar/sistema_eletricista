@@ -422,7 +422,7 @@
 
     .comentario{
       height: 40vh;
-      width: 45vw;
+      width: 45vmax;
       position: relative;
     }
 
@@ -435,6 +435,8 @@
       width:80%;
       min-width: 10vw;
       max-width: 100vw;
+      position: relative;
+      bottom: -15vh;
     }
 
     .obrigado{
@@ -458,9 +460,65 @@
     }
 
     #cadastrar{
-      width:50%;
+      width: 50%;
     }
 
     .salvar{
       margin-top: 4px;
     }
+
+    .avaliar_lateral{
+      background: linear-gradient(500deg, rgb(247, 246, 184),rgba(252, 196, 69, 0.68));
+      height: 80vmax;
+    }
+
+    .avaliado{
+      height: 50vh;
+      width:80%;
+      margin-left: 11%;
+      margin-top: 10vmax;
+    }
+
+    .mb-15{
+      margin-bottom: 15px;    
+    }
+
+    .rating-stars-container {
+    text-align: center;
+}
+  
+  #avaliar{
+    width: 80%;
+  }
+
+.rating-stars {
+    display: inline-block;
+  margin: 20px;
+}
+.rating-star {
+  font-size: 44px;
+  cursor: pointer
+}
+
+.fa-star {
+  color: #00A8CC;
+}
+
+.checked {
+      color: yellow;
+      
+  }
+  .fa-star {
+    font-size: 145%;
+    margin-right: 10%;
+    position: relative;
+    text-align: center;
+    left: 5%;
+    float: center;
+      
+  }
+
+  .scroll{
+    height: 100%;
+    overflow-y: auto;
+  }

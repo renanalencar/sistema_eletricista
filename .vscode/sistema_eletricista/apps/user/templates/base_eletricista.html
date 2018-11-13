@@ -1,0 +1,240 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Eletricista - Eletricista24hs</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/iconfonts/mdi/css/materialdesignicons.min.css' %}">
+  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/iconfonts/puse-icons-feather/feather.css' %}">
+  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/css/vendor.bundle.base.css' %}">
+  <link rel="stylesheet" href="{% static 'radiant/jquery/vendors/css/vendor.bundle.addons.css' %}">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{% static 'radiant/jquery/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'radiant/jquery/css/adaptacoes.css' %}">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="{% static 'radiant/jquery/images/logo-personagem.png' %}" />
+</head>
+
+<body class="horizontal-menu">
+  <div class="container-scroller">
+    <!-- Horizontal Menu Start -->
+    <nav class="navbar horizontal-layout col-lg-12 col-12 p-0 align-items-start">
+      <div class="container">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center" style="width:100%">
+          <a class="navbar-brand brand-logo" style="width:25%; position: relative; left: -15%;" href="../../index.html"><img style="height:100%; width:100%" class="logo-escrita" src="{% static 'radiant/jquery/images/sf-escrita.png' %}" alt="logo"/></a>
+          
+          <a class="navbar-brand brand-logo" style="z-index: 100%; width: 20%; position: relative; left: -22.5%; top:10%; margin-left:1%" href="../../index.html"><img style="height:50%; width:auto" class="logo-personagem" src="{% static 'radiant/jquery/images/sf-personagem.png' %}" alt="logo"/></a>
+          
+          <a class="navbar-brand brand-logo-mini" style="position: relative; right: 3%" href="../../index.html"><img style="height:100%; width:auto" src="{% static 'radiant/jquery/images/sf-escrita.png' %}" alt="logo"/></a>
+
+        </div>
+        
+        <div class="nav-bottom">
+          <ul class="nav ml-auto dropdown-menus" style="position:relative;right: 10%">
+            <li class="nav-item dropdown">
+              <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                <i class="mdi mdi-message-text-outline"></i>
+                <span class="count bg-warning">2</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-left navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+                <div class="dropdown-item py-3">
+                  <p class="mb-0 font-weight-medium float-left">You have 7 unread mails
+                  </p>
+                  <span class="badge badge-inverse-info badge-pill float-right">View all</span>
+                </div>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <img src="../../images/faces/face4.jpg" alt="image" class="profile-pic">
+                  </div>
+                  <div class="preview-item-content flex-grow">
+                    <h6 class="preview-subject ellipsis font-weight-normal text-dark mb-1">David Grey
+                      <span class="float-right font-weight-light small-text text-gray">1 Minutes ago</span>
+                    </h6>
+                    <p class="font-weight-light small-text mb-0">
+                      The meeting is cancelled
+                    </p>
+                  </div>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <img src="../../images/faces/face2.jpg" alt="image" class="profile-pic">
+                  </div>
+                  <div class="preview-item-content flex-grow">
+                    <h6 class="preview-subject ellipsis font-weight-normal text-dark mb-1">Tim Cook
+                      <span class="float-right font-weight-light small-text text-gray">15 Minutes ago</span>
+                    </h6>
+                    <p class="font-weight-light small-text mb-0">
+                      New product launch
+                    </p>
+                  </div>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <img src="../../images/faces/face3.jpg" alt="image" class="profile-pic">
+                  </div>
+                  <div class="preview-item-content flex-grow">
+                    <h6 class="preview-subject ellipsis font-weight-normal text-dark mb-1"> Johnson
+                      <span class="float-right font-weight-light small-text text-gray">18 Minutes ago</span>
+                    </h6>
+                    <p class="font-weight-light small-text mb-0">
+                      Upcoming board meeting
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+                <i class="mdi mdi-bell-outline"></i>
+                <span class="count bg-success">4</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                <a class="dropdown-item py-3">
+                  <p class="mb-0 font-weight-medium float-left">You have 4 new notifications
+                  </p>
+                  <span class="badge badge-pill badge-inverse-info float-right">View all</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-inverse-success">
+                      <i class="mdi mdi-alert-circle-outline mx-0"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <h6 class="preview-subject font-weight-normal text-dark mb-1">Application Error</h6>
+                    <p class="font-weight-light small-text mb-0">
+                      Just now
+                    </p>
+                  </div>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-inverse-warning">
+                      <i class="mdi mdi-comment-text-outline mx-0"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <h6 class="preview-subject font-weight-normal text-dark mb-1">Settings</h6>
+                    <p class="font-weight-light small-text mb-0">
+                      Private message
+                    </p>
+                  </div>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-inverse-info">
+                      <i class="mdi mdi-email-outline mx-0"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <h6 class="preview-subject font-weight-normal text-dark mb-1">New user registration</h6>
+                    <p class="font-weight-light small-text mb-0">
+                      2 days ago
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link py-0 pr-0">
+                <span class="text-black d-none d-lg-inline-block mr-2">Hello, {{usuario}} !</span>
+                <img class="img-xs rounded-circle" src="https://placehold.it/100x100" alt="profile image">
+              </a>
+            </li>
+          </ul>
+          <ul class="navbar-nav header-links ml-auto">
+            <li class="nav-item">
+              <a href="#" class="nav-link">Schedule <span class="badge badge-success ml-1">New</span></a>
+            </li>
+            <li class="nav-item active">
+              <a href="#" class="nav-link"><i class="mdi mdi-elevation-rise"></i>Reports</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link"><i class="mdi mdi-bookmark-plus-outline"></i>Score</a>
+            </li>
+          </ul>
+          <ul class="nav page-navigation">
+            <li class="nav-item dropdown active">
+              <a class="nav-link count-indicator" href="" >
+                Botão 1
+              </a>
+            </li>
+            <li class="nav-item dropdown active">
+              <a class="nav-link count-indicator" href="" >
+                Botão 2
+              </a>
+            </li>
+            <li class="nav-item dropdown active">
+              <a class="nav-link count-indicator" href="" >
+                Botão 3
+              </a>
+            </li>
+            <li class="nav-item dropdown active">
+              <a class="nav-link count-indicator" href="" >
+                Botão 4
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Horizontal Menu Ends -->
+    <div class="container-fluid page-body-wrapper">
+      <div class="main-panel">
+        <div class="content-wrapper">
+
+          
+          {% block content %}
+          {% endblock %}
+        
+        
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+        <footer class="footer">
+          <div class="container-fluid clearfix">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018 <a href="http://www.urbanui.com/" target="_blank">Urbanui</a>. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="{% static 'radiant/jquery/vendors/js/vendor.bundle.base.js' %}"></script>
+  <script src="{% static 'radiant/jquery/vendors/js/vendor.bundle.addons.js' %}"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="{% static 'radiant/jquery/js/off-canvas.js' %}"></script>
+  <script src="{% static 'radiant/jquery/js/hoverable-collapse.js' %}"></script>
+  <script src="{% static 'radiant/jquery/js/misc.js' %}"></script>
+  <script src="{% static 'radiant/jquery/js/settings.js' %}"></script>
+  <script src="{% static 'radiant/jquery/js/todolist.js' %}"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="{% static 'radiant/jquery/js/dashboard.js' %}"></script>
+  <script src="{% static 'radiant/jquery/js/horizontal-menu.js' %}"></script>
+  <!-- End custom js for this page-->
+</body>
+
+</html>

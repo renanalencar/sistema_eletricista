@@ -11,7 +11,12 @@
                     <div class="card-body">
                       <div class="d-flex align-items-left justify-content-left ml-2">
                         <div>
-                          <img src="{{eletricista.foto.url}}" style="border-radius: 100%; width: 100px; height: 100px">
+                          {% if cliente.foto %}
+                            <img src="{{cliente.foto.url}}" style="border-radius: 100%; width: 100px; height: 100px">
+                          {% else %}
+                            <img src="https://placehold.it/100x100" style="border-radius: 100%; width: 100px; height: 100px">
+                          {% endif %}
+                          
                         </div>
                         <div class="wrapper">
                           <form class="form-signin" actions="{% url 'registrar' %}" method="post" enctype="multipart/form-data"> 

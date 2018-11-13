@@ -1,0 +1,55 @@
+{% extends 'base_adm.html' %}
+{% load staticfiles %}
+<body>
+{% block content %}
+  <style>
+    .col-md-10 {
+      padding-left: 15%;
+    }
+  </style>
+          <div class="">
+            <div class="col-md-10 stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h5 class="card-title mb-0">Eletricistas Encontrados</h5>
+                  </div>
+                  <div class="portlet-body">
+                    <form class="search-form" action="{% url 'BuscaEletricista' %}" role="search">
+                      <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Buscar" name="buscaEletricista">
+                          <span class="input-group-btn">
+                        <!-- Essa tag aqui passar para uma views do Search no python -->
+                            <button type="submit" id = "submit" value="Click" class="btn btn-outline">Buscar</button>
+                          </span>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="new-accounts">
+                    <ul class="chats">
+                      <!-- LISTA DOS QUESTIONARIOS -->
+                      {% for r in resultEletricista %}
+                        
+                        <li class="chat-persons">
+                          <a href="/user/adm/perfil_eletricista/{{r.nickname}}/">
+                            {% if r.foto %}
+                              <span class="pro-pic"><img src="{{r.foto.url}}"></span>
+                            {% else %}
+                              <span class="pro-pic"><img src="https://placehold.it/100x100"></span>
+                            {% endif %}
+                            <div class="user">
+                              <p class="u-name">{{r.nome}}</p>
+                              <p class="u-designation" style="font-size: 15px">Email: <strong>{{r.email}}</strong></p>
+                            </div>
+                          </a>
+                        </li>
+                      {% endfor %}
+                      <!-- list person -->
+                      <!-- FIM DA LISTA DOS QUESTIONARIOS -->
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+{% endblock %}
+</body>

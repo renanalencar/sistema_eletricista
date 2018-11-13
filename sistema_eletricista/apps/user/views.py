@@ -27,6 +27,7 @@ from .forms import QuestionarioForm
 from .eletricista.models import *
 from .cliente.models import Cliente
 from .models import Admin
+from .models import Coordenadas
 from django.contrib.auth.views import *
 import pagarme
 # Create your views here.
@@ -78,7 +79,7 @@ def index(request):
 		username = request.user
 		usuario = User.objects.get(username=username)
 		# userteste = User.objects.get(username='UserCliente')
-		cliente = Cliente.objects.get(usuario=usuario)
+		
 		eletricista_existe = Eletricista.objects.filter(usuario=usuario).exists()
 		cliente_existe = Cliente.objects.filter(usuario=usuario).exists()
 		admin_existe = Admin.objects.filter(user=usuario).exists()
@@ -92,6 +93,7 @@ def index(request):
 			response.set_cookie('currentstate', True)
 			return response
 		if cliente_existe:
+			cliente = Cliente.objects.get(usuario=usuario)
 			return render(request, 'solicitar_servico.html', {
 				'nome' : get_usuario_logado(request),
 				'ip' : get_client_ip(request),
@@ -103,6 +105,7 @@ def index(request):
 				'nome' : get_usuario_logado(request),
 				'ip' : get_client_ip(request),
 				'user': request.user,
+				'numero' : 10
 				})
 		response =  render(request, 'solicitar_servico.html', {'nome' : get_usuario_logado(request), 'ip' : get_client_ip(request), 'user': request.user, 'foto' : cliente.foto})
 		response.set_cookie('currentstate', True)
@@ -241,6 +244,7 @@ class RegistrarEletricistaView(View):
 
 			if dados_form['tipo'] == 'Eletricista':
 				usuario_eletri = User.objects.create_user(first_name=dados_form['nome'], email=dados_form['email'], password=dados_form['senha'], username=dados_form['nickname'])
+				Coordenadas.objects.create(usuario=usuario_eletri, lat=-23.0, lng=-46.0)
 				eletricista = Eletricista.objects.create(
 
 					usuario=usuario_eletri,
@@ -266,6 +270,7 @@ class RegistrarEletricistaView(View):
 			
 			else:
 				usuario_cliente = User.objects.create_user(username=dados_form['nickname'], email=dados_form['email'], password=dados_form['senha'], first_name=dados_form['nome'])
+				Coordenadas.objects.create(usuario=usuario_cliente, lat=-23.0, lng=-46.0)
 				cliente = Cliente.objects.create(
 					usuario=usuario_cliente,
 					telefone=dados_form['telefone'],
@@ -564,10 +569,24 @@ def dump(request):
 	return render(request, 'dump.html')
 
 def serviço(request):
-	return render(request, 'servico.html')
+	return render(request, 'servico_avaliar.html')
+
+def servico_avaliar(request):
+	if request.method == 'POST':
+		print (request.POST)
+		nota = request.POST.get('nota')
+		print(nota)
+		#pegar eletricista_em_questao
+		#if(eletricista_em_questao.nota == None):
+			#eletricista_em_questao.nota = nota
+		#else:
+			#eletricista_em_questao.nota = (eletricista_em_questao.nota + nota)/2
+		#eletricista_em_questao.save()
+	
+	return redirect('/user/index/')
 
 def avaliar(request):
-	return render(request, 'avaliar.html')
+	return render(request, 'avaliar2.html')
 
 # def Perfil_do_cliente(request, nickname):
 # 	usuario_em_questao = User.objects.get(username=nickname)

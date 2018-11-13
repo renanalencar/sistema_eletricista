@@ -1,0 +1,59 @@
+{% extends 'base_cliente.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-11">
+        <!-- BEGIN SAMPLE TABLE PORTLET-->
+        <div class="portlet box green-jungle">
+            <div class="portlet-title">
+                <div class="caption">
+                   <h1 style="padding-top: 3%">Histórico de Serviços</h1>
+            </div>
+            <div class="portlet-body" style="margin: 5%">
+
+
+                <div class="table-striped">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Data</th>
+                            <th>Endereço</th>
+                            <th>Valor</th>
+                            <th>Eletricista</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                              
+                              {% for servico in pedidos_list %}
+                                <tr>
+                                  <td>
+                                    {{servico.data}}
+                                  </td>
+                                  <td>
+                                    {{servico.endereco}}
+                                  </td>
+                                  <td>
+                                   {{servico.valor}}
+                                  </td>
+                                  <td>
+                                   {{servico.eletricista}}
+                                  </td>
+                                </tr>
+                              {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+              </div>
+            </div>            
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<!-- END CONTENT BODY -->
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+
+{% endblock %}
