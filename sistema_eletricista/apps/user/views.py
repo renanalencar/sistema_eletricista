@@ -12,6 +12,7 @@ from django.conf import settings
 from django.urls import reverse
 from django.core.serializers.json import DjangoJSONEncoder
 from django.contrib import messages
+from django.contrib.auth.decorators import user_passes_test
 #from vanilla import ListView
 
 
@@ -35,15 +36,36 @@ import pagarme
 
 #Função de enviar emails
 
+@login_required
 def servico_ws(request, id_servico):
 	return render(request, 'servico_ws.html', {'nome' : get_usuario_logado(request),
 	 											'ip' : get_client_ip(request),
 	 											'user': request.user,
-	 											})
+											})
+
+def usuario_e_eletricista(user):
+	usuario_em_questao = User.objects.get(username=user)
+	e_eletricista = Eletricista.objects.filter(usuario=usuario_em_questao)
+	if e_eletricista:
+		return True
+	else:
+		return False
+
+def usuario_e_cliente(user):
+	usuario_em_questao = User.objects.get(username=user)
+	e_cliente = Cliente.objects.filter(usuario=usuario_em_questao)
+	if e_cliente:
+		return True
+	else:
+		return False
+
+
+@user_passes_test(usuario_e_eletricista)
 def enviar_email(subject, message, email_from, recipient_list):
 	send_mail(subject, message, email_from, recipient_list)
 	return;
 
+@login_required
 def change_password(request):
 	if request.method == 'POST':
 		form = PasswordChangeForm(request.user, request.POST)
@@ -63,7 +85,6 @@ def get_usuario_logado(request):
 	usuario = request.user
 	return usuario.first_name
 
-@login_required
 def get_client_ip(request):
 	x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
 	if x_forwarded_for:
@@ -73,6 +94,7 @@ def get_client_ip(request):
 	return ip
 
 @login_required
+@user_passes_test(usuario_e_cliente)
 def index(request):
 	
 	if request.method == 'GET':
@@ -140,6 +162,7 @@ def Pagamento(request):
 				})
 		#return render(request, 'solicitar_servico.html', {'nome' : get_usuario_logado(request), 'ip' : get_client_ip(request), 'user': request.user})
 
+@login_required
 def BuscaEletricista(request):
     q = request.GET.get('buscaEletricista')
     if q is not None:
@@ -147,13 +170,12 @@ def BuscaEletricista(request):
     return render(request, 'busca_eletricista.html', {'resultEletricista' : resultEletricista})
 
 
-
+@login_required
 def BuscaCliente(request):
 	q1 = request.GET.get('buscaCliente')
 	if q1 is not None:
 		resultCliente = Cliente.objects.BuscarCliente(q1)
 	return render(request, 'busca_cliente.html', {'resultCliente': resultCliente})
-
 
 class RegistrarCartaoView(View):
 
@@ -224,7 +246,6 @@ class RegistrarRecebedorView(View):
 		else:
 			return render(request, 'registrar_recebedor.html', {'form' : form_recebedor})
 	
-
 class RegistrarEletricistaView(View):
 
 	template_name = 'registrar_exemplo.html'
@@ -316,7 +337,6 @@ class RegistrarEletricistaView(View):
 		else:
 			return render(request, 'registrar_exemplo.html', {'form': form_user})
 
-
 class QuestionarioView(View):
 
 	template_name = 'questionario.html'
@@ -352,6 +372,7 @@ class QuestionarioView(View):
 		else:
 			return render(request, 'questionario.html', {'form_questionario' : form_questionario, 'nome_eletricista' : nome_eletricista})
 
+@login_required
 def adm(request):
 	numero_eletricista = 0
 	for eletricista in Eletricista.objects.all():
@@ -361,7 +382,8 @@ def adm(request):
 		'numero_notificacao_eletricista' : numero_eletricista
 	}
 	return render(request, 'dashboard_exemplo.html', context)	
-	
+
+@login_required	
 def perfil_eletricista(request, nickname):
 	usuario_em_questao = User.objects.get(username=nickname)
 	eletricista_em_questao = Eletricista.objects.get(usuario=usuario_em_questao)
@@ -370,17 +392,20 @@ def perfil_eletricista(request, nickname):
 
 	return render(request, 'perfil_eletricista.html', {'eletricista' : eletricista_em_questao, 'questionario': questionario_em_questao, 'curriculo' : nome_curriculo})
 
+@login_required
 def perfil_cliente(request, nickname):
 	usuario_em_questao = User.objects.get(username=nickname)
 	cliente_em_questao = Cliente.objects.get(usuario=usuario_em_questao)
 	return render(request, 'perfil_cliente.html', {'cliente' : cliente_em_questao})
 
+@login_required
 def questionarios_pendentes(request):
 	context = {
 		'questionario_list' : reversed(Questionario.objects.all())
 	}
 	return render(request, 'questionarios_pendentes.html', context)
 
+@login_required
 def aceitar(request, nickname):
 	usuario_em_questao = User.objects.get(username=nickname)
 	usuario_em_questao.is_active = True
@@ -396,7 +421,8 @@ def aceitar(request, nickname):
 				)
 
 	return redirect('/user/adm/questionarios_pendentes')
-	
+
+@login_required	
 def recusar(request, nickname):
 	usuario_em_questao = User.objects.get(username=nickname)
 	eletricista_recusado_model = Eletricista.objects.get(usuario=usuario_em_questao)
@@ -410,6 +436,7 @@ def recusar(request, nickname):
 				)
 	return redirect('/user/adm/questionarios_pendentes')
 
+@login_required
 def eletricistas_registrados(request):
 	eletricistas_registrados = Eletricista.objects.filter(status='Ativo')
 	eletricistas_js = []
@@ -417,6 +444,7 @@ def eletricistas_registrados(request):
 		eletricistas_js.append(eletricista.usuario.first_name)
 	return render(request, 'eletricistas_registrados.html', {'eletricistas_registrados' : eletricistas_registrados, 'eletricistas_js' : eletricistas_js})
 
+@login_required
 def bloquear_eletricista_registrado(request, nickname):
 	usuario_em_questao = User.objects.get(username=nickname)
 	eletricista_bloqueado = Eletricista.objects.get(usuario=usuario_em_questao)
@@ -432,7 +460,7 @@ def bloquear_eletricista_registrado(request, nickname):
 				)
 	return redirect('/user/adm/eletricistas_registrados')
 
-
+@login_required
 def desbloquear_eletricista_registrado(request, nickname):
 	usuario_em_questao = User.objects.get(username=nickname)
 	eletricista_desbloqueado = Eletricista.objects.get(usuario=usuario_em_questao)
@@ -448,7 +476,6 @@ def desbloquear_eletricista_registrado(request, nickname):
 				 [usuario_em_questao.email]
 				)
 	return redirect('/user/adm/eletricistas_registrados')
-
 
 class RegistrarAdministradorView(View):
 
@@ -480,7 +507,7 @@ class RegistrarAdministradorView(View):
 		else:
 			return HttpResponse('voce nao é permitido a criar um administrador')
 
-
+@login_required
 def clientes_registrados(request):
 	clientes_registrados = Cliente.objects.all()
 	clientes_js = []
@@ -541,6 +568,7 @@ def password_reset(request, is_admin_site=False,
 
     return TemplateResponse(request, template_name, context)
 
+
 def tela_inicial(request):
 	return render(request, 'tela_inicial.html')
 
@@ -550,12 +578,14 @@ def registro_concluido(request):
 def Base(request):
 	return render(request, 'base_cliente.html')
 
+@login_required
 def tela_cliente(request):
 	return render(request, 'solicitar_servico.html', {"usuario" : request.user})
 
 def tela_eletricista(request):
 	return render(request, 'base_eletricista.html')
 
+@login_required
 def ListarPedidos(request):
 	
 	pedidos = PedidoDeServico.objects.filter(cliente=request.user.username)
@@ -568,9 +598,11 @@ def ListarPedidos(request):
 def dump(request):
 	return render(request, 'dump.html')
 
+@login_required
 def serviço(request):
 	return render(request, 'servico_avaliar.html')
 
+@login_required
 def servico_avaliar(request):
 	if request.method == 'POST':
 		print (request.POST)
@@ -585,6 +617,7 @@ def servico_avaliar(request):
 	
 	return redirect('/user/index/')
 
+@login_required
 def avaliar(request):
 	return render(request, 'avaliar2.html')
 
@@ -592,7 +625,6 @@ def avaliar(request):
 # 	usuario_em_questao = User.objects.get(username=nickname)
 # 	cliente_em_questao = Cliente.objects.get(usuario=usuario_em_questao)
 # 	return render(request, 'Perfil_do_cliente.html', {'cliente' : cliente_em_questao})
-
 class Perfil_do_cliente(View):
 	template_name = 'Perfil_do_cliente.html'
 	def get(self, request, nickname):
