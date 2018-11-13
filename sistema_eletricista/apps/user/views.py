@@ -568,10 +568,9 @@ def ListarPedidos(request):
 def dump(request):
 	return render(request, 'dump.html')
 
-<<<<<<< HEAD
 def serviço(request):
 	return render(request, 'servico_avaliar.html')
-=======
+
 def servico_avaliar(request):
 	if request.method == 'POST':
 		print (request.POST)
@@ -585,7 +584,6 @@ def servico_avaliar(request):
 		#eletricista_em_questao.save()
 	
 	return render(request, 'servico.html')
->>>>>>> b3ba4497aa417d8092f04b2a771400f6e7a97b83
 
 def avaliar(request):
 	return render(request, 'avaliar2.html')
