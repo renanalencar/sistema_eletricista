@@ -47,24 +47,38 @@
                     </div>
                   </div>
                 </div>
+                <!--  
                 <div class="form-group">
                   <h5>Dígito da agência</h5>
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Ex:0" id="id_agencia_dv" name="agencia_dv" required>
+                    <input type="text" class="form-control" placeholder="Não Obrigatório" id="id_agencia_dv" name="agencia_dv" >
                     <div class="input-group-append">
-                      <span class="input-group-text"><i id="i-agencia_dv" class="mdi mdi-check-circle-outline"></i></span>
+                      <span class="input-group-text"><i id="i-agencia_dv" class="mdi mdi-check-circle"></i></span>
                     </div>
                   </div>
                 </div>
+                -->
+
                 <div class="form-group">
-                  <h5>Código do Banco</h5>
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Ex: 000" id="id_bank_code" name="bank_code" required>
-                    <div class="input-group-append">
-                      <span class="input-group-text"><i id="i-bank_code" class="mdi mdi-check-circle-outline"></i></span>
+                  <h5>Banco</h5>
+                    <div class="select-group">
+                      <select type="option" class="form-control" id="id_bank_code" name="bank_code" required>
+                        <option disabled selected=>Escolha seu Banco</option>
+                        <option value="237">Bradesco</option>
+                        <option value="001">Banco do Brasil</option>
+                        <option value="104">Caixa Econômica Federal</option>
+                        <option value="077">Inter</option>
+                        <option value="341">Itaú</option>
+                        <option value="746">Modal</option>
+                        <option value="735">Neon</option>
+                        <option value="260">Nu Pagamentos</option>
+                        <option value="212">Original</option>
+                        <option value="033">Santander</option>
+                      </select>
                     </div>
-                  </div>
                 </div>
+                
+                <div class="select-group">
                 <div class="form-group">
                   <h5>Conta</h5>
                   <div class="input-group">
@@ -159,14 +173,11 @@
     
     $("#id_document_number").mask("00000000000");
     $("#id_agencia").mask("0000");
-    $("#id_bank_code").mask("000");
     $("#id_conta").mask("00000");
 
     var bool = document.getElementsByClassName('mdi mdi-check-circle-outline');
 
     checked('agencia')
-    checked('agencia_dv')
-    checked('bank_code')
     checked('conta')
     checked('conta_dv')
     checked('document_number')
@@ -180,12 +191,6 @@
         var tamanho = 4;
         if (x == 'agencia') {
           tamanho = 3;
-        }
-        if (x == 'agencia_dv') {
-          tamanho = 0;
-        }
-        if (x == 'bank_code') {
-          tamanho = 2;
         }
         if (x == 'conta') {
           tamanho = 3;

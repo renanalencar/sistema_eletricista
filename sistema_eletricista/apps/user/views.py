@@ -204,7 +204,7 @@ class RegistrarRecebedorView(View):
 			    'transfer_interval': 'weekly',
 			    'bank_account':{
 			        'agencia': dados_form_recebedor['agencia'],
-			        'agencia_dv': dados_form_recebedor['agencia_dv'],
+			        #'agencia_dv': '',
 			        'bank_code': dados_form_recebedor['bank_code'],
 			        'conta': dados_form_recebedor['conta'],
 			        'conta_dv': dados_form_recebedor['conta_dv'],
