@@ -17,6 +17,7 @@ class Eletricista(models.Model):
 	foto = models.FileField(null=True, blank=True)
 	status = models.CharField(max_length=10, null=False, default='')
 	bloqueado = models.CharField(max_length=10, null=False, default='False')
+	nota = models.DecimalField(max_digits=5, decimal_places=3, null=True, default=None)
 	objects = EletricistaManager()
 
 	def __str__(self):

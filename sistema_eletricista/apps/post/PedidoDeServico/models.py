@@ -2,9 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 from sistema_eletricista.apps.user.cliente.models import *
 import datetime
+from django.utils import timezone
 
 class PedidoDeServico(models.Model):
-	data = models.DateTimeField('Data da solicitação', null=False, blank=False, default=datetime.datetime.now())
+	#data = models.DateTimeField('Data da solicitação', null=False, blank=False, default=datetime.datetime.now())
+	data = timezone.now
 	valor = models.FloatField('Valor', null=False, blank=False)
 	endereco = models.CharField('Endereço', max_length=100, null=False)
 	#cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)

@@ -23,8 +23,25 @@
     </div>
   </div>
       <div style=" height: calc(100vh - 338px)">
+<<<<<<< HEAD
         <div class="card-body relogio">
           <h4 class="tempo">1h 23min</h4>
+=======
+        <div class="card-body">
+          <h4 class="tempo">1h23min</h4>
+          <form id="myForm" action="{% url 'servico_avaliar' %}" method="post">
+            {% csrf_token %}
+            <div id="avaliar" style="display: none">
+              <h2>Avalie o serviço do eletricista</h2>
+              <span class="fa fa-star" id="s1" name="1" value="1"></span>
+              <span class="fa fa-star" id="s2" name="2" value="2"></span>
+              <span class="fa fa-star" id="s3" name="3" value="3"></span>
+              <span class="fa fa-star" id="s4" name="4" value="4"></span>
+              <span class="fa fa-star" id="s5" name="5" value="5"></span>
+              <input type="text" name="nota" id="id_nota" style="display: none">
+            </div>
+          </form>
+>>>>>>> b3ba4497aa417d8092f04b2a771400f6e7a97b83
         </div>
         <div class="botoes-serviço">
           <button class="btn btn-secondary botao3 pausar">Pausar</button>
@@ -38,5 +55,94 @@
   
         <!-- partial -->
 </div>
+<<<<<<< HEAD
+=======
+<script type="text/javascript">
+  //submitar form das estrelas
+
+  var form = document.getElementById("myForm")
+
+
+
+  var bf = document.getElementById("finalizar")
+  bf.addEventListener('click', function(){
+    document.querySelector('h4').style.display = 'none'
+    document.getElementById('avaliar').style.display = 'block'
+  })
+  var stars = document.getElementsByClassName("fa")
+  var s0 = document.getElementById('s1')
+  var s1 = document.getElementById('s2')
+  var s2 = document.getElementById('s3')
+  var s3 = document.getElementById('s4')
+  var s4 = document.getElementById('s5')
+  for(var i = 0; i < stars.length; i++) {
+    stars[i].addEventListener('click', function(e){
+      for(var j = 0; j < stars.length; j++) {
+        if(e.target == stars[j]) {
+          let input = document.getElementById("id_nota");
+          input.value = j+1;
+          form.submit();
+          console.log('voce avaliou como: ', e.target.id[1])
+          console.log(j+1)
+          
+        }
+      }
+    })
+  }
+
+
+  s0.addEventListener('mouseover', function(event) {
+    colorir(event.target)
+    for(var i = 1; i < stars.length; i++) {
+      descolorir(stars[i])
+    }
+  })
+  s1.addEventListener('mouseover', function(event) {
+    colorir(s0)
+    colorir(event.target)
+    for(var i = 2; i < stars.length; i++) {
+      descolorir(stars[i])
+    }
+  })
+  s2.addEventListener('mouseover', function(event) {
+    colorir(s0)
+    colorir(s1)
+    colorir(event.target)
+    for(var i = 3; i < stars.length; i++) {
+      descolorir(stars[i])
+    }
+  })
+  s3.addEventListener('mouseover', function(event) {
+    colorir(s0)
+    colorir(s1)
+    colorir(s2)
+    colorir(event.target)
+    for(var i = 4; i < stars.length; i++) {
+      descolorir(stars[i])
+    }
+  })
+  s4.addEventListener('mouseover', function(event) {
+    colorir(s0)
+    colorir(s1)
+    colorir(s2)
+    colorir(s3)
+    colorir(event.target)
+    for(var i = 5; i < stars.length; i++) {
+      descolorir(stars[i])
+    }
+  })
+
+  function colorir(star) {
+    if(!star.className.indexOf('checked') > -1) {
+      star.className = 'fa fa-star checked'
+    }
+  }
+  function descolorir(star) {
+    if(star.className.indexOf('checked') > -1) {
+      star.className = 'fa fa-star'
+    }
+  }
+</script>
+>>>>>>> b3ba4497aa417d8092f04b2a771400f6e7a97b83
 {% endblock %}
   
