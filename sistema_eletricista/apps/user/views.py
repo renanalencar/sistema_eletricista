@@ -606,14 +606,19 @@ def serviço(request):
 def servico_avaliar(request):
 	if request.method == 'POST':
 		print (request.POST)
-		nota = request.POST.get('nota')
-		print(nota)
-		#pegar eletricista_em_questao
-		#if(eletricista_em_questao.nota == None):
-			#eletricista_em_questao.nota = nota
-		#else:
-			#eletricista_em_questao.nota = (eletricista_em_questao.nota + nota)/2
-		#eletricista_em_questao.save()
+		nota = int(request.POST.get('nota'))
+		id_servico = int(request.POST.get('servico'))
+		servico_em_questao = PedidoDeServico.objects.get(id=id_servico)
+		nickname_eletricista = servico_em_questao.eletricista
+		user_eletricista = User.objects.get(username=nickname_eletricista)
+		eletricista_avaliado = Eletricista.objects.get(usuario=user_eletricista)
+		if(eletricista_avaliado.nota == None):
+			eletricista_avaliado.nota = nota
+		else:
+			eletricista_avaliado.nota = (eletricista_avaliado.nota + nota)/2
+
+		print ('a nota ehhh', eletricista_avaliado.nota)
+		eletricista_avaliado.save()
 	
 	return redirect('/user/index/')
 
