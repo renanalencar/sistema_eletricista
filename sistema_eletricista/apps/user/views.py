@@ -60,7 +60,6 @@ def usuario_e_cliente(user):
 		return False
 
 
-@user_passes_test(usuario_e_eletricista)
 def enviar_email(subject, message, email_from, recipient_list):
 	send_mail(subject, message, email_from, recipient_list)
 	return;
