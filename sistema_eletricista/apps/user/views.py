@@ -128,7 +128,7 @@ def index(request):
 				'user': request.user,
 				'numero' : 10
 				})
-		response =  render(request, 'solicitar_servico.html', {'nome' : get_usuario_logado(request), 'ip' : get_client_ip(request), 'user': request.user, 'foto' : cliente.foto})
+		response =  render(request, 'solicitar_servico.html', {'nome' : get_usuario_logado(request), 'ip' : get_client_ip(request), 'user': request.user})
 		response.set_cookie('currentstate', True)
 		return response
 		#teste para coords
