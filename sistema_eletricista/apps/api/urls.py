@@ -12,6 +12,7 @@ router.register(r'clientes', ClienteViewSet)
 router.register(r'usuarios', UsuarioViewSet)
 router.register(r'questionarios', QuestionarioViewSet)
 router.register(r'coordenadas', CoordenadasViewSet)
+router.register(r'servicos', ServicosViewSet)
 urlpatterns = [
 	url(r'^login/$', obtain_jwt_token),
 	url(r'^token-verify/$', obtain_jwt_token),
