@@ -55,26 +55,25 @@
         <!-- partial:../../partials/_footer.html -->
         <!-- partial -->
       </div>
-      <div id="myModal" class="modal fade" tabindex= "-1" role="dialog" aria-labelledby="myModal" aria-hidden="true">
+      <div  class="modal fade" id="myModal" role="dialog"  >
             <div class="modal-dialog" role="document" style="position: center; top: 20%">
               <!-- trocar -100px por porcentagem e -20px também -->
-              <div class="modal-content mx-0" style="width:100%; top : -100px; left: -20px">
+              <div class="modal-content mx-0 qual_content" >
                 <div class="modal-body mb-0 pb-0" style="position: relative">
                   <form>
                     <div>
-                      <label for="problema" class="row-form-label"><h2>O que houve de errado?
-                        <h2></label>
-                      <textarea class="form-control" rows="4" required id="id_necessidade" name="necessidade" style="width: 110%"> </textarea>
+                      <label for="problema" class="row-form-label"> </label>
+                      <textarea class="form-control problema" rows="4" required id="id_necessidade" name="necessidade" placeholder="O que houve de errado?"></textarea>
                     </div>
                     <div>
-                      <label for="message-text" class="row-form-label"><h3>Qual o endereço?<h3></label>
-                      <input class="form-control" type="text" required id="id_endereco" name="endereco" style="width: 130%">
+                      <label for="message-text" class="row-form-label"> </label>
+                      <input class="form-control endereco" type="text" required id="id_endereco" name="endereco" placeholder="Qual o endereço?">
                     </div>
                   </form>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" id="enviardevez" class="btn btn-success" data-toggle="modal" data-target="#carregando" style="width: 50%; margin-top: 10px" data-dismiss="modal">Enviar</button>
-                  <button type="button" class="btn btn-danger" id="cancelar" data-dismiss="modal" style="width: 50%; margin-top: 10px">Cancelar</button>
+                <div class="modal-footer" style="border:none">
+                  <button type="button" id="enviardevez" class="btn btn-success botao4" data-toggle="modal" data-target="#carregando" data-dismiss="modal">Enviar</button>
+                  <button type="button" class="btn btn-danger botao4" id="cancelar" data-dismiss="modal" >Cancelar</button>
                 </div>
               </div>
             </div>

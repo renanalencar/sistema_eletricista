@@ -170,6 +170,12 @@
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
 
+    .botao4{
+      height: 5vmin; 
+      width: 50%; 
+      margin-top: 10px
+    }
+
     .solicitar{
       font-size: 3.5vmin; 
       line-height: 120%;
@@ -193,7 +199,8 @@
     }
 
     .modal-backdrop {
-      z-index: -1;
+      z-index: 1000;
+      opacity: 0.5 !important;
     }
 
     .center-div {
@@ -536,4 +543,24 @@
     display: block; 
     height:120%; 
     width: auto;
+  }
+
+  .qual_content{
+    width:100%; 
+    top : -100px; 
+    left: -20px;
+    background-color: transparent;
+    border: none;
+  }
+
+  .problema{
+    width: 100%; 
+    border: 1px solid #e6e6e6;
+    font-size: 210%;
+    line-height: 110%;
+
+  }
+  .endereco{
+    width: 100%;
+    font-size: 200%;
   }
