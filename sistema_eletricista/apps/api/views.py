@@ -33,15 +33,31 @@ class EditarElecViewSet(APIView):
     def patch(self, request, nickname):
         user_em_questao = User.objects.get(username=nickname)
         elec = Eletricista.objects.get(usuario=user_em_questao)
-        serializer = EletricistaSerializer(elec, data=request.data)
+        serializer = EletricistaSerializer(elec, data=request.data, partial=True)
 
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         print(serializer.errors)
         return HttpResponse('errrrrou ao alterar o eletricista')
-        
 
+class EnviarNotaCliente(APIView):
+    def get(self, request, nickname):
+        user_em_questao = User.objects.get(username=nickname)
+        cliente = Cliente.objects.get(usuario=user_em_questao)
+        serializer = ClienteSerializer(cliente)
+        return Response(serializer.data)
+
+    def patch(self, request, nickname):
+        user_em_questao = User.objects.get(username=nickname)
+        cliente = Cliente.objects.get(usuario=user_em_questao)
+        serializer = ClienteSerializer(cliente, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        print(serializer.errors)
+        return HttpResponse('errrrrou ao enviar nota')
 
 class CoordsViewSet(APIView):
 	def get(self, request, nickname):
