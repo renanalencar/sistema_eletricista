@@ -116,7 +116,7 @@ class RegistrarCartaoForm(forms.Form):
 class RegistrarRecebedorForm(forms.Form):
 
 	agencia = forms.IntegerField(required=True)
-	agencia_dv = forms.IntegerField(required=False)
+	# agencia_dv = forms.IntegerField(required=False)
 	bank_code = forms.IntegerField(required=True)
 	conta = forms.IntegerField(required=True)
 	document_number = forms.CharField(required=True)

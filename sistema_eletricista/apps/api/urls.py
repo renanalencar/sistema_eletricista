@@ -12,11 +12,13 @@ router.register(r'clientes', ClienteViewSet)
 router.register(r'usuarios', UsuarioViewSet)
 router.register(r'questionarios', QuestionarioViewSet)
 router.register(r'coordenadas', CoordenadasViewSet)
+router.register(r'servicos', ServicosViewSet)
 urlpatterns = [
 	url(r'^login/$', obtain_jwt_token),
 	url(r'^token-verify/$', obtain_jwt_token),
 	url(r'^token-refresh/$', obtain_jwt_token),
 	url(r'^coords/(?P<nickname>\w+)/$', CoordsViewSet.as_view()),
+        url(r'^editar_eletricista/(?P<nickname>\w+)/$', EditarElecViewSet.as_view())
 ]
 
 urlpatterns += router.urls

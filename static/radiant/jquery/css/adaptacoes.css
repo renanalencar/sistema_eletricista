@@ -483,31 +483,32 @@
       margin-bottom: 15px;    
     }
 
-    .rating-stars-container {
-    text-align: center;
-}
-  
+  .rating-stars-container {
+  text-align: center;
+  }
+    
   #avaliar{
     width: 80%;
   }
 
-.rating-stars {
-    display: inline-block;
-  margin: 20px;
-}
-.rating-star {
-  font-size: 44px;
-  cursor: pointer
-}
+  .rating-stars {
+      display: inline-block;
+    margin: 20px;
+  }
+  .rating-star {
+    font-size: 44px;
+    cursor: pointer
+  }
 
-.fa-star {
-  color: #00A8CC;
-}
+  .fa-star {
+    color: #00A8CC;
+  }
 
-.checked {
+  .checked {
       color: yellow;
       
   }
+  
   .fa-star {
     font-size: 145%;
     margin-right: 10%;
@@ -521,4 +522,18 @@
   .scroll{
     height: 100%;
     overflow-y: auto;
+  }
+
+  .logout{
+    font-size: 20px;
+    color: white;
+  }
+
+  .lampada-fundo{
+    z-index: 0; 
+    position: absolute; 
+    padding: 0px;
+    display: block; 
+    height:120%; 
+    width: auto;
   }

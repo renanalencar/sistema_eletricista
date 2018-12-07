@@ -1,13 +1,25 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from django.contrib.auth.validators import UnicodeUsernameValidator
 from sistema_eletricista.apps.user.eletricista.models import *
 from sistema_eletricista.apps.user.cliente.models import *
+from sistema_eletricista.apps.post.PedidoDeServico.models import *
 from sistema_eletricista.apps.user.models import Coordenadas
 
+class PedidoDeServicoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PedidoDeServico
+        fields = '__all__'
+
 class UsuarioSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = User
-		fields = ('first_name', 'email', 'password', 'username', 'is_active')
+        class Meta:
+            model = User
+            fields = ('first_name', 'email', 'password', 'username', 'is_active')
+            #extra_kwargs = {
+            #    'username': {
+            #        'validators': [UnicodeUsernameValidator()],
+            #        }
+            #     }
 
 class EletricistaSerializer(serializers.ModelSerializer):
 	usuario = UsuarioSerializer(required=False)

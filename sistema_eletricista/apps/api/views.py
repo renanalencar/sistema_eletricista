@@ -2,9 +2,11 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from django.contrib.auth.models import User
 from .serializers import *
+#from .serializers import PedidoDeServicoSerializer
 from sistema_eletricista.apps.user.eletricista.models import *
 from sistema_eletricista.apps.user.cliente.models import *
 from sistema_eletricista.apps.user.models import *
+from sistema_eletricista.apps.post.PedidoDeServico.models import *
 from rest_framework import status
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
@@ -12,9 +14,34 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from django.http import HttpResponse, request, HttpResponseRedirect
 
+class ServicosViewSet(viewsets.ModelViewSet):
+    queryset = PedidoDeServico.objects.all()
+    serializer_class = PedidoDeServicoSerializer
+
 class CoordenadasViewSet(viewsets.ModelViewSet):
 	queryset = Coordenadas.objects.all()
 	serializer_class = CoordenadasSerializer
+
+class EditarElecViewSet(APIView):
+    def get(self, request, nickname):
+        user_em_questao = User.objects.get(username=nickname)
+        elec = Eletricista.objects.get(usuario=user_em_questao)
+        serializer = EletricistaSerializer(elec)
+        return Response(serializer.data)
+
+    
+    def patch(self, request, nickname):
+        user_em_questao = User.objects.get(username=nickname)
+        elec = Eletricista.objects.get(usuario=user_em_questao)
+        serializer = EletricistaSerializer(elec, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        print(serializer.errors)
+        return HttpResponse('errrrrou ao alterar o eletricista')
+        
+
 
 class CoordsViewSet(APIView):
 	def get(self, request, nickname):
