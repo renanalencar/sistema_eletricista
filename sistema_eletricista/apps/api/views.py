@@ -16,6 +16,27 @@ class CoordenadasViewSet(viewsets.ModelViewSet):
 	queryset = Coordenadas.objects.all()
 	serializer_class = CoordenadasSerializer
 
+class EditarElecViewSet(APIView):
+    def get(self, request, nickname):
+        user_em_questao = User.objects.get(username=nickname)
+        elec = Eletricista.objects.get(usuario=user_em_questao)
+        serializer = EletricistaSerializer(elec)
+        return Response(serializer.data)
+
+    
+    def patch(self, request, nickname):
+        user_em_questao = User.objects.get(username=nickname)
+        elec = Eletricista.objects.get(usuario=user_em_questao)
+        serializer = EletricistaSerializer(elec, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        print(serializer.errors)
+        return HttpResponse('errrrrou ao alterar o eletricista')
+        
+
+
 class CoordsViewSet(APIView):
 	def get(self, request, nickname):
 		user_ = User.objects.get(username=nickname)

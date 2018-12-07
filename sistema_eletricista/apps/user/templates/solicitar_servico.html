@@ -64,11 +64,11 @@
                     <div>
                       <label for="problema" class="row-form-label"><h2>O que houve de errado?
                         <h2></label>
-                      <textarea rows="4" required id="id_necessidade" name="necessidade" style="width: 110%"> </textarea>
+                      <textarea class="form-contro  l"rows="4" required id="id_necessidade" name="necessidade" style="width: 110%"> </textarea>
                     </div>
                     <div>
                       <label for="message-text" class="row-form-label"><h3>Qual o endereço?<h3></label>
-                      <input type="text" required id="id_endereco" name="endereco" style="width: 130%">
+                      <input class="form-control" type="text" required id="id_endereco" name="endereco" style="width: 130%">
                     </div>
                   </form>
                 </div>
@@ -267,7 +267,7 @@
     var OLA = 0;
     var verifica_entrada1 = false;
     var verifica_entrada2 = false;
-    var url = 'ws://eletricista24hs.polijunior.com.br/ws/ws/user/index/'
+    var url = 'ws://localhost:8000/ws/user/index/'
     var ws = new WebSocket(url);
     var kkk = 0;
     var jjj = 0;
@@ -319,16 +319,17 @@
       //console.log('USERCLIENTE NESSE BODEGO', user_cliente)
       
       if(pedido_aceito && user_cliente == usuario_em_questao) {
-        setCookie("pedido_aceito", true)
         let modal = document.getElementById('carregando')
         modal.style.display = 'none'
         mostrarIniciarCancelar()
+        setCookie("pedido_aceito", true)
         resetarCookies()
+        setCookie("elec", casal.eletricista)
         setCookie("coords_cliente_lat", coords.lat)
         setCookie("coords_cliente_lng", coords.lng)
         setCookie("coords_elec_lat", coords_elec.lat)
         setCookie("coords_elec_lng", coords_elec.lng)
-        window.location.href = 'http://eletricista24hs.polijunior.com.br/user/servico/' + data['servico_id'] + '/'
+        window.location.href = 'http://localhost:8000/user/servico/' + data['servico_id'] + '/'
         
         mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
       } else {
@@ -598,7 +599,7 @@
 
         }
       };
-      xhr.open("GET" , "http://eletricista24hs.polijunior.com.br/api/coords/{{user}}/");
+      xhr.open("GET" , "http://localhost:8000/api/coords/{{user}}/");
       xhr.send()
       return;
     }

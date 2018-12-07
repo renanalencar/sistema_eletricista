@@ -6,6 +6,7 @@ from django.views.generic.base import View
 from django.contrib.auth.models import User
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.core.mail import send_mail
 from django.conf import settings
@@ -36,7 +37,7 @@ import pagarme
 
 #Função de enviar emails
 
-@login_required
+@login_required(login_url='/user/login/')
 def servico_ws(request, id_servico):
 	return render(request, 'servico_ws.html', {'nome' : get_usuario_logado(request),
 	 											'ip' : get_client_ip(request),
@@ -64,7 +65,7 @@ def enviar_email(subject, message, email_from, recipient_list):
 	send_mail(subject, message, email_from, recipient_list)
 	return;
 
-@login_required
+@login_required(login_url='/user/login/')
 def change_password(request):
 	if request.method == 'POST':
 		form = PasswordChangeForm(request.user, request.POST)
@@ -79,7 +80,7 @@ def change_password(request):
 		form = PasswordChangeForm(request.user)
 	return render(request, 'change_password.html', {'form': form})
 
-@login_required
+
 def get_usuario_logado(request):
 	usuario = request.user
 	return usuario.first_name
@@ -92,8 +93,7 @@ def get_client_ip(request):
 		ip = request.META.get('REMOTE_ADDR')
 	return ip
 
-@login_required
-@user_passes_test(usuario_e_cliente)
+@login_required(login_url='/user/login/')
 def index(request):
 	
 	if request.method == 'GET':
@@ -133,7 +133,7 @@ def index(request):
 		return response
 		#teste para coords
 
-@login_required
+@login_required(login_url='/user/login/')
 def Pagamento(request):
 	if request.method == 'GET':
 		username = request.user
@@ -161,7 +161,7 @@ def Pagamento(request):
 				})
 		#return render(request, 'solicitar_servico.html', {'nome' : get_usuario_logado(request), 'ip' : get_client_ip(request), 'user': request.user})
 
-@login_required
+@login_required(login_url='/user/login/')
 def BuscaEletricista(request):
     q = request.GET.get('buscaEletricista')
     if q is not None:
@@ -169,7 +169,7 @@ def BuscaEletricista(request):
     return render(request, 'busca_eletricista.html', {'resultEletricista' : resultEletricista})
 
 
-@login_required
+@login_required(login_url='/user/login/')
 def BuscaCliente(request):
 	q1 = request.GET.get('buscaCliente')
 	if q1 is not None:
@@ -371,7 +371,7 @@ class QuestionarioView(View):
 		else:
 			return render(request, 'questionario.html', {'form_questionario' : form_questionario, 'nome_eletricista' : nome_eletricista})
 
-@login_required
+@login_required(login_url='/user/login/')
 def adm(request):
 	numero_eletricista = 0
 	for eletricista in Eletricista.objects.all():
@@ -382,7 +382,7 @@ def adm(request):
 	}
 	return render(request, 'dashboard_exemplo.html', context)	
 
-@login_required	
+@login_required(login_url='/user/login/')
 def perfil_eletricista(request, nickname):
 	usuario_em_questao = User.objects.get(username=nickname)
 	eletricista_em_questao = Eletricista.objects.get(usuario=usuario_em_questao)
@@ -391,20 +391,20 @@ def perfil_eletricista(request, nickname):
 
 	return render(request, 'perfil_eletricista.html', {'eletricista' : eletricista_em_questao, 'questionario': questionario_em_questao, 'curriculo' : nome_curriculo})
 
-@login_required
+@login_required(login_url='/user/login/')
 def perfil_cliente(request, nickname):
 	usuario_em_questao = User.objects.get(username=nickname)
 	cliente_em_questao = Cliente.objects.get(usuario=usuario_em_questao)
 	return render(request, 'perfil_cliente.html', {'cliente' : cliente_em_questao})
 
-@login_required
+@login_required(login_url='/user/login/')
 def questionarios_pendentes(request):
 	context = {
 		'questionario_list' : reversed(Questionario.objects.all())
 	}
 	return render(request, 'questionarios_pendentes.html', context)
 
-@login_required
+@login_required(login_url='/user/login/')
 def aceitar(request, nickname):
 	usuario_em_questao = User.objects.get(username=nickname)
 	usuario_em_questao.is_active = True
@@ -421,7 +421,7 @@ def aceitar(request, nickname):
 
 	return redirect('/user/adm/questionarios_pendentes')
 
-@login_required	
+@login_required(login_url='/user/login/')
 def recusar(request, nickname):
 	usuario_em_questao = User.objects.get(username=nickname)
 	eletricista_recusado_model = Eletricista.objects.get(usuario=usuario_em_questao)
@@ -435,7 +435,7 @@ def recusar(request, nickname):
 				)
 	return redirect('/user/adm/questionarios_pendentes')
 
-@login_required
+@login_required(login_url='/user/login/')
 def eletricistas_registrados(request):
 	eletricistas_registrados = Eletricista.objects.filter(status='Ativo')
 	eletricistas_js = []
@@ -443,7 +443,7 @@ def eletricistas_registrados(request):
 		eletricistas_js.append(eletricista.usuario.first_name)
 	return render(request, 'eletricistas_registrados.html', {'eletricistas_registrados' : eletricistas_registrados, 'eletricistas_js' : eletricistas_js})
 
-@login_required
+@login_required(login_url='/user/login/')
 def bloquear_eletricista_registrado(request, nickname):
 	usuario_em_questao = User.objects.get(username=nickname)
 	eletricista_bloqueado = Eletricista.objects.get(usuario=usuario_em_questao)
@@ -459,7 +459,7 @@ def bloquear_eletricista_registrado(request, nickname):
 				)
 	return redirect('/user/adm/eletricistas_registrados')
 
-@login_required
+@login_required(login_url='/user/login/')
 def desbloquear_eletricista_registrado(request, nickname):
 	usuario_em_questao = User.objects.get(username=nickname)
 	eletricista_desbloqueado = Eletricista.objects.get(usuario=usuario_em_questao)
@@ -506,7 +506,7 @@ class RegistrarAdministradorView(View):
 		else:
 			return HttpResponse('voce nao é permitido a criar um administrador')
 
-@login_required
+@login_required(login_url='/user/login/')
 def clientes_registrados(request):
 	clientes_registrados = Cliente.objects.all()
 	clientes_js = []
@@ -577,14 +577,14 @@ def registro_concluido(request):
 def Base(request):
 	return render(request, 'base_cliente.html')
 
-@login_required
+@login_required(login_url='/user/login/')
 def tela_cliente(request):
 	return render(request, 'solicitar_servico.html', {"usuario" : request.user})
 
 def tela_eletricista(request):
 	return render(request, 'base_eletricista.html')
 
-@login_required
+@login_required(login_url='/user/login/')
 def ListarPedidos(request):
 	
 	pedidos = PedidoDeServico.objects.filter(cliente=request.user.username)
@@ -597,26 +597,31 @@ def ListarPedidos(request):
 def dump(request):
 	return render(request, 'dump.html')
 
-@login_required
+@login_required(login_url='/user/login/')
 def serviço(request):
 	return render(request, 'servico_avaliar.html')
 
-@login_required
+@login_required(login_url='/user/login/')
 def servico_avaliar(request):
 	if request.method == 'POST':
 		print (request.POST)
-		nota = request.POST.get('nota')
-		print(nota)
-		#pegar eletricista_em_questao
-		#if(eletricista_em_questao.nota == None):
-			#eletricista_em_questao.nota = nota
-		#else:
-			#eletricista_em_questao.nota = (eletricista_em_questao.nota + nota)/2
-		#eletricista_em_questao.save()
+		nota = int(request.POST.get('nota'))
+		id_servico = int(request.POST.get('servico'))
+		servico_em_questao = PedidoDeServico.objects.get(id=id_servico)
+		nickname_eletricista = servico_em_questao.eletricista
+		user_eletricista = User.objects.get(username=nickname_eletricista)
+		eletricista_avaliado = Eletricista.objects.get(usuario=user_eletricista)
+		if(eletricista_avaliado.nota == None):
+			eletricista_avaliado.nota = nota
+		else:
+			eletricista_avaliado.nota = (eletricista_avaliado.nota + nota)/2
+
+		print ('a nota ehhh', eletricista_avaliado.nota)
+		eletricista_avaliado.save()
 	
 	return redirect('/user/index/')
 
-@login_required
+@login_required(login_url='/user/login/')
 def avaliar(request):
 	return render(request, 'avaliar2.html')
 
@@ -624,8 +629,13 @@ def avaliar(request):
 # 	usuario_em_questao = User.objects.get(username=nickname)
 # 	cliente_em_questao = Cliente.objects.get(usuario=usuario_em_questao)
 # 	return render(request, 'Perfil_do_cliente.html', {'cliente' : cliente_em_questao})
-class Perfil_do_cliente(View):
+
+
+class Perfil_do_cliente(LoginRequiredMixin, View):
+	login_url = '/user/login/'
+	redirect_field_name = 'redirect_to'
 	template_name = 'Perfil_do_cliente.html'
+	@method_decorator(login_required)
 	def get(self, request, nickname):
 		usuario_em_questao = User.objects.get(username=nickname)
 		cliente_em_questao = Cliente.objects.get(usuario=usuario_em_questao)

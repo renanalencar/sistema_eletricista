@@ -61,7 +61,7 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 				
 			}
 			dados.append(dados_)
-			print (dados)
+			
 			if(data.get('user_eletricista')):
 				user_eletricista = data['user_eletricista']
 				x = {
@@ -83,10 +83,12 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 				#clientes_finalizar.append(user_cliente)
 			else:
 				user_cliente = None
-			cliente = dados[0]['nome']
+			#cliente = dados[0]['nome']
 			# eletricista = dados[1]['user_eletricista']
 			valor = 53.30
 			endereco = dados[0]['endereco']
+
+			dados.clear()
 
 			#print (clientes_finalizar, eletricistas_finalizar)
 			# falta só o endereço para terminar o objeto PedidoDeServico

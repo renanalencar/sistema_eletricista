@@ -1,0 +1,27 @@
+<html>
+<meta name="name" content="content" charset="utf-8">
+<body>
+	<p id="myId">teste patch api eletricista</p>
+</body>
+<script type="text/javascript" charset="utf-8">
+	fetch('http://localhost:8000/api/editar_eletricista/eletricista/', {
+          method: 'patch',
+          headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+            //'X-CSRFToken': csrftoken
+          },
+          body: JSON.stringify({
+                telefone: "0192",
+                CEP: "000",
+                CPF: "00101",
+                endereco: "123",
+                genero: "Feminino",
+                tipo: "Eletricista",
+                status: "Ativo",
+                bloqueado: "False",
+            })
+        }).then((res) => console.log(res))
+
+</script>
+</html>
