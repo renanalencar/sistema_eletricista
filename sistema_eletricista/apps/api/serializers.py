@@ -3,7 +3,13 @@ from rest_framework import serializers
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from sistema_eletricista.apps.user.eletricista.models import *
 from sistema_eletricista.apps.user.cliente.models import *
+from sistema_eletricista.apps.post.PedidoDeServico.models import *
 from sistema_eletricista.apps.user.models import Coordenadas
+
+class PedidoDeServicoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PedidoDeServico
+        fields = '__all__'
 
 class UsuarioSerializer(serializers.ModelSerializer):
         class Meta:
