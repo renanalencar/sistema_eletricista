@@ -4,7 +4,7 @@
 	<p id="myId">teste patch api eletricista</p>
 </body>
 <script type="text/javascript" charset="utf-8">
-	fetch('http://localhost:8000/api/editar_eletricista/eletricista/', {
+	fetch('http://localhost:8000/api/enviar_nota_cliente/cliente/', {
           method: 'patch',
           headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -12,14 +12,7 @@
             //'X-CSRFToken': csrftoken
           },
           body: JSON.stringify({
-                telefone: "40028922",
-                CEP: "000",
-                CPF: "00101",
-                endereco: "rua chama no xesque dele",
-                genero: "Masculino",
-                tipo: "Eletricista",
-                status: "Ativo",
-                bloqueado: "False",
+								nota : "0.1",
             })
         }).then((res) => console.log(res))
 

@@ -15,6 +15,7 @@ class Cliente(models.Model):
 	genero = models.CharField(max_length=255, null=False)
 	tipo = models.CharField(max_length=12, null=False)
 	foto = models.FileField(null=True, blank=True)
+	nota = models.DecimalField(max_digits=5, decimal_places=3, null=True, default=None)
 	objects = ClienteManager()
 
 	def __str__(self):
