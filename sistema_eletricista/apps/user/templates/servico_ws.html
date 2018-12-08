@@ -1116,7 +1116,7 @@
 
         }
       };
-      xhr.open("GET" , "http://localhost:8000/api/coords/{{user}}/");
+      xhr.open("GET" , "http://eletricista24hs.polijunior.com.br/api/coords/{{user}}/");
       xhr.send()
       return;
     }
@@ -1262,7 +1262,7 @@
           return cookieValue;
       }
       var csrftoken = getCookie('csrftoken');
-      fetch('http://localhost:8000/api/eletricistas/', {
+      fetch('http://eletricista24hs.polijunior.com.br/api/eletricistas/', {
           method: 'post',
           headers: {
             'Accept': 'application/json, text/plain, */*',

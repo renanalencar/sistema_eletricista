@@ -267,7 +267,8 @@
     var OLA = 0;
     var verifica_entrada1 = false;
     var verifica_entrada2 = false;
-    var url = 'ws://localhost:8000/ws/user/index/'
+    var url = 'ws://eletricista24hs.polijunior.com.br/ws/ws/user/index/'
+    //var url = 'ws://localhost:8000/ws/user/index/'
     var ws = new WebSocket(url);
     var kkk = 0;
     var jjj = 0;
@@ -329,7 +330,9 @@
         setCookie("coords_cliente_lng", coords.lng)
         setCookie("coords_elec_lat", coords_elec.lat)
         setCookie("coords_elec_lng", coords_elec.lng)
-        window.location.href = 'http://localhost:8000/user/servico/' + data['servico_id'] + '/'
+
+        window.location.href = 'http://eletricista24hs.polijunior.com.br/user/servico/' + data['servico_id'] + '/'
+        //window.location.href = 'http://localhost:8000/user/servico/' + data['servico_id'] + '/'
         
         mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
       } else {
@@ -599,7 +602,7 @@
 
         }
       };
-      xhr.open("GET" , "http://localhost:8000/api/coords/{{user}}/");
+      xhr.open("GET" , "http://eletricista24hs.polijunior.com.br/api/coords/{{user}}/");
       xhr.send()
       return;
     }
@@ -735,7 +738,7 @@
           return cookieValue;
       }
       var csrftoken = getCookie('csrftoken');
-      fetch('http://localhost:8000/api/eletricistas/', {
+      fetch('http://eletricista24hs.polijunior.com.br/api/eletricistas/', {
           method: 'post',
           headers: {
             'Accept': 'application/json, text/plain, */*',
