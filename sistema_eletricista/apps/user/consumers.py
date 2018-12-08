@@ -6,12 +6,53 @@ from .cliente.models import Cliente
 from .eletricista.models import Eletricista
 from sistema_eletricista.apps.post.PedidoDeServico.models import PedidoDeServico
 import json
-import datetime
+from datetime import datetime
+import time
 
+horarios = []
+id_servico = None
 dados = []
 eletricistas_finalizar = []
 clientes_finalizar = []
 usuarios_final = []
+
+valor_meia_hora = 7
+valor_primeira_hora = 15
+valor_demais_horas = 20
+
+def calculaValor(horas, minutos):
+    if horas == 0:
+        if minutos < 30:
+            return valor_meia_hora
+        elif minutos >= 30:
+            return valor_primeira_hora
+    elif horas == 1:
+        if minutos < 30:
+            return valor_primeira_hora
+        elif minutos >= 30:
+            return valor_primeira_hora + valor_demais_horas
+    else:
+        if minutos < 30:
+            return valor_primeira_hora + ((horas - 1) * valor_demais_horas)
+        elif minutos >= 30:
+            return valor_primeira_hora + (horas * valor_demais_horas)
+
+
+def calculaHorasEMinutos(inicio, tempo_de_pausa, fim):
+    tempo_de_servico = fim - inicio - tempo_de_pausa
+
+    #tempo_de_servico em segundos!
+    #calulando horas/minutos/segundos dividindo e pegando os restos
+    horas = tempo_de_servico // 3600 
+    tempo_de_servico_restante = tempo_de_servico % 3600
+
+    minutos = tempo_de_servico_restante // 60
+    segundos = tempo_de_servico_restante % 60
+
+    return {
+            'horas': horas,
+            'minutos' : minutos
+            }
 
 
 
@@ -108,7 +149,6 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 				print (servico_feito.id)
 				print (servico_feito)
 				servico_id = servico_feito.id
-
 
 
 
@@ -211,6 +251,10 @@ class ServicoConsumer(AsyncWebsocketConsumer):
 
 
 		if data.get('pedido_resposta_eletricista') == True or data.get('pedido_resposta_eletricista') == False:
+			servico_iniciado = {
+				'tempo_iniciado' : int(time.time())
+			}
+			horarios.append(servico_iniciado)
 			
 			pedido_resposta_eletricista = data['pedido_resposta_eletricista']
 			pedido_resposta_cliente = data['pedido_resposta_cliente']
@@ -226,6 +270,10 @@ class ServicoConsumer(AsyncWebsocketConsumer):
 			
 
 		elif data.get('pausar_resposta_eletricista') == True or data.get('pausar_resposta_eletricista') == False:
+			servico_pausado = {
+				'tempo_pausado' : int(time.time())
+			}
+			horarios.append(servico_pausado)
 			
 			pausar_resposta_eletricista = data['pausar_resposta_eletricista']
 			pausar_resposta_cliente = data['pausar_resposta_cliente']
@@ -243,6 +291,11 @@ class ServicoConsumer(AsyncWebsocketConsumer):
 		
 
 		elif data.get('continuar_resposta_eletricista') == True or data.get('continuar_resposta_eletricista') == False:
+			servico_continuado = {
+				'tempo_continuado' : int(time.time())
+			}
+
+			horarios.append(servico_continuado)
 			continuar_resposta_eletricista = data['continuar_resposta_eletricista'],
 			continuar_resposta_cliente = data['continuar_resposta_cliente']
 			if(data.get('user_eletricista')):
@@ -257,7 +310,7 @@ class ServicoConsumer(AsyncWebsocketConsumer):
 			
 
 		elif data.get('finalizar_resposta_eletricista') == True or data.get('finalizar_resposta_eletricista') == False:
-			
+
 			finalizar_resposta_eletricista = data['finalizar_resposta_eletricista']
 			finalizar_resposta_cliente = data['finalizar_resposta_cliente']
 			if(data.get('user_eletricista')):
@@ -283,14 +336,43 @@ class ServicoConsumer(AsyncWebsocketConsumer):
 				user_cliente = None
 			
 			if data.get('finalizar_resposta_eletricista') == True and data.get('finalizar_resposta_cliente') == True:
+				servico_finalizado = {
+					'tempo_finalizado' : int(time.time())
+				}
+				horarios.append(servico_finalizado)
+				print(horarios)
+				pausado = 0
+				continuado = 0
+				inicio = horarios[0]['tempo_iniciado']
+				fim = horarios[len(horarios) - 1]['tempo_finalizado']
+
+				for i in range(1, len(horarios) - 1):
+					if 'tempo_pausado' in horarios[i]:
+						pausado += horarios[i]['tempo_pausado']
+					if 'tempo_continuado' in horarios[i]:
+						continuado += horarios[i]['tempo_continuado']
+
+
+				total_pausado = continuado - pausado
+				
+				horas_minutos = calculaHorasEMinutos(inicio, total_pausado, fim)
+
+				valor_do_servico = calculaValor(int(horas_minutos['horas']), int(horas_minutos['minutos']))
+
+			   	##########################################################
+				#                                                        #
+				#EFETUAR O PAGAMENTO AQUI com a variavel valor_do_servico#
+				#														 #
+				##########################################################
 
 				servico_finalizado = PedidoDeServico.objects.get(id=self.room_name)
 				servico_finalizado.status = 'Finalizado'
+				servico_finalizado.valor = valor_do_servico
 				servico_finalizado.save()
 				
 				print (servico_finalizado)
 				print(servico_finalizado.status)
-				
+				horarios.clear()
 				
 
 
