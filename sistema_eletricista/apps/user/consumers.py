@@ -2,6 +2,7 @@ from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
+from sistema_eletricista.apps.user.models import ValorPorHora
 from .cliente.models import Cliente
 from .eletricista.models import Eletricista
 from sistema_eletricista.apps.post.PedidoDeServico.models import PedidoDeServico
@@ -16,9 +17,13 @@ eletricistas_finalizar = []
 clientes_finalizar = []
 usuarios_final = []
 
-valor_meia_hora = 7
-valor_primeira_hora = 15
-valor_demais_horas = 20
+valores_atuais = ValorPorHora.objects.last()
+
+valor_meia_hora = valores_atuais.valor_meia_hora
+valor_primeira_hora = valores_atuais.valor_primeira_hora
+valor_demais_horas = valores_atuais.valor_demais_horas
+
+print(valor_meia_hora, valor_primeira_hora, valor_demais_horas)
 
 def calculaValor(horas, minutos):
     if horas == 0:
@@ -352,11 +357,10 @@ class ServicoConsumer(AsyncWebsocketConsumer):
 					if 'tempo_continuado' in horarios[i]:
 						continuado += horarios[i]['tempo_continuado']
 
-
 				total_pausado = continuado - pausado
 				
 				horas_minutos = calculaHorasEMinutos(inicio, total_pausado, fim)
-
+				
 				valor_do_servico = calculaValor(int(horas_minutos['horas']), int(horas_minutos['minutos']))
 
 			   	##########################################################

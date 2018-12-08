@@ -19,3 +19,11 @@ class Coordenadas(models.Model):
 	lat = models.FloatField()
 	lng = models.FloatField()
 
+
+class ValorPorHora(models.Model):
+    valor_meia_hora = models.DecimalField(max_digits=5, decimal_places=2) 
+    valor_primeira_hora = models.DecimalField(max_digits=5, decimal_places=2) 
+    valor_demais_horas = models.DecimalField(max_digits=5, decimal_places=2) 
+
+    def __str__(self):
+        return 'Valores por hora'
