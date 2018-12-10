@@ -109,7 +109,7 @@
         bounds: defaultBounds
       };
       autocomplete = new google.maps.places.Autocomplete(input, options);
-      if (navigator.geolocation) {
+      /*if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
           var geolocation = {
             lat: position.coords.latitude,
@@ -125,7 +125,7 @@
           console.log('ola mundo')
           autocomplete.setBounds(circle.getBounds());
         });
-      }
+      }*/
     }, 1000)
 
     var enviado_app;
@@ -138,7 +138,7 @@
     var clickado
     var lat_real
     var lng_real
-    jsonRequest(lat_real, lng_real)
+    //jsonRequest(lat_real, lng_real)
     var usuario_em_questao = '{{user}}'
     var user_cliente;
     var ELETRICISTA;
@@ -267,14 +267,14 @@
     var OLA = 0;
     var verifica_entrada1 = false;
     var verifica_entrada2 = false;
-    var url = 'ws://eletricista24hs.polijunior.com.br/ws/ws/user/index/'
-    //var url = 'ws://localhost:8000/ws/user/index/'
+    //var url = 'ws://eletricista24hs.polijunior.com.br/ws/ws/user/index/'
+    var url = 'ws://localhost:8000/ws/user/index/'
     var ws = new WebSocket(url);
     var kkk = 0;
     var jjj = 0;
     ws.onopen = function(e) {
       console.log('WebSocket conectado!')
-      console.log('enviei o user')
+      
     }
     ws.onclose = function(e) {
       console.error('WebSocket disconectado')
@@ -326,15 +326,18 @@
         setCookie("pedido_aceito", true)
         resetarCookies()
         setCookie("elec", casal.eletricista)
-        setCookie("coords_cliente_lat", coords.lat)
-        setCookie("coords_cliente_lng", coords.lng)
+        setCookie("coords_cliente_lat", lat_real)
+        setCookie("coords_cliente_lng", lng_real)
         setCookie("coords_elec_lat", coords_elec.lat)
         setCookie("coords_elec_lng", coords_elec.lng)
+        console.log(document.cookie)
 
-        window.location.href = 'http://eletricista24hs.polijunior.com.br/user/servico/' + data['servico_id'] + '/'
-        //window.location.href = 'http://localhost:8000/user/servico/' + data['servico_id'] + '/'
+        //window.location.href = 'http://eletricista24hs.polijunior.com.br/user/servico/' + data['servico_id'] + '/'
+        setTimeout(function() {
+          window.location.href = 'http://localhost:8000/user/servico/' + data['servico_id'] + '/'
+        }, 500)
         
-        mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
+        //mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
       } else {
         let modal = document.getElementById('carregando')
         modal.style.display = 'none'
@@ -468,17 +471,24 @@
     var enviardevez = document.getElementById('enviardevez')
     enviardevez.addEventListener('click', function(){
       //modal.style.display = 'none'
-      ws.send(JSON.stringify({
-        necessidade : necessidade.value,
-        pedido_enviado : true,
-        pedido_status : false,
-        nome : '{{nome}}',
-        endereco : endereco.value,
-        user : '{{user}}',
-        foto : '{{foto}}',
-        coords_cliente : coords
-      }))
+       jsonRequest(endereco.value)
+        setTimeout(function () {
+           console.log('enviei')
+           ws.send(JSON.stringify({
+            necessidade : necessidade.value,
+            pedido_enviado : true,
+            pedido_status : false,
+            nome : '{{nome}}',
+            endereco : endereco.value,
+            user : '{{user}}',
+            foto : '{{foto}}',
+            //coords_cliente : coords
+            coords_cliente : {lat: lat_real, lng: lng_real}
+          }))
+            console.error('eu sou as coords do end', {lat: lat_real, lng: lng_real})
+        }, 2000)
     })
+      
 
     var cancelar = document.getElementById('cancelar')
     cancelar.addEventListener('click', function() {
@@ -529,8 +539,12 @@
     function initMap() {
       setTimeout(function(){
         var options = {
-          zoom: 15,
-          center: {lat:lat_real, lng:lng_real}
+          zoom: 13,
+            center: {
+                lat: -23.5505,
+                lng: -46.6333
+            }
+          //center: {lat:lat_real, lng:lng_real}
         }
         console.log(options.center)
 
@@ -555,7 +569,7 @@
         dirdisplay = new google.maps.DirectionsRenderer();
         dirservice = new google.maps.DirectionsService();
     
-      }, 100)
+      }, 200)
     }
 
     function addMarker(position, map, icon, window_) {
@@ -590,19 +604,25 @@
 
 
     
-    function jsonRequest() {
+    function jsonRequest(endereco) {
+      let coordenadas_do_endereco;
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
 
           var data = JSON.parse(this.responseText);
-          console.log(data.lat, data.lng)
-          lat_real = data.lat
-          lng_real = data.lng
+          console.warn(data.results[0].geometry.location)
+          coordenadas_do_endereco = {
+            lat: data.results[0].geometry.location.lat,
+            lng : data.results[0].geometry.location.lng
+          }
+          lat_real = data.results[0].geometry.location.lat,
+          lng_real = data.results[0].geometry.location.lng
 
         }
       };
-      xhr.open("GET" , "http://eletricista24hs.polijunior.com.br/api/coords/{{user}}/");
+      
+      xhr.open("GET" , "https://maps.googleapis.com/maps/api/geocode/json?address=" + endereco + "&key=AIzaSyBdJ_Kts10iRTTj6tZh8pv0mjB2vp6Mcm4");
       xhr.send()
       return;
     }
@@ -738,7 +758,7 @@
           return cookieValue;
       }
       var csrftoken = getCookie('csrftoken');
-      fetch('http://eletricista24hs.polijunior.com.br/api/eletricistas/', {
+      fetch('http://localhost:8000/api/eletricistas/', {
           method: 'post',
           headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -766,7 +786,7 @@
     }
     //patchLatLng()
     function setCookie(nome, valor) {
-      document.cookie = nome + "=" + valor;
+      document.cookie = nome + "=" + valor + ";" + "path=/";
       console.log(cookie)
     }
     function getCookie(cname) {

@@ -18,10 +18,16 @@ clientes_finalizar = []
 usuarios_final = []
 
 valores_atuais = ValorPorHora.objects.last()
+if valores_atuais is not None:
+    valor_meia_hora = valores_atuais.valor_meia_hora
+    valor_primeira_hora = valores_atuais.valor_primeira_hora
+    valor_demais_horas = valores_atuais.valor_demais_horas
+else:
+    #valores aleatorios para caso nao tenho o objeto ValorPorHora
+    valor_meia_hora = 10
+    valor_primeira_hora = 30
+    valor_demais_horas = 15
 
-valor_meia_hora = valores_atuais.valor_meia_hora
-valor_primeira_hora = valores_atuais.valor_primeira_hora
-valor_demais_horas = valores_atuais.valor_demais_horas
 
 print(valor_meia_hora, valor_primeira_hora, valor_demais_horas)
 
