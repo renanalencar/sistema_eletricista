@@ -793,6 +793,7 @@
     var host = window.location.host
     var pathname = window.location.pathname
     var url2 = 'ws://' + host + '/ws' + pathname;
+    //var url2 = 'ws://' + host + '/ws/ws' + pathname;
     console.warn(url2)
     var ws = new WebSocket(url2);
     var kkk = 0;
@@ -1042,7 +1043,10 @@
       setTimeout(function(){
         var options = {
           zoom: 15,
-          center: {lat:lat_real, lng:lng_real}
+          center: {
+            lat: -23,
+            lng: -46
+          }
         }
         console.log(options.center)
 
@@ -1116,7 +1120,7 @@
 
         }
       };
-      xhr.open("GET" , "http://localhost:8000/api/coords/{{user}}/");
+      xhr.open("GET" , "http://eletricista24hs.polijunior.com.br/api/coords/{{user}}/");
       xhr.send()
       return;
     }
@@ -1262,7 +1266,7 @@
           return cookieValue;
       }
       var csrftoken = getCookie('csrftoken');
-      fetch('http://localhost:8000/api/eletricistas/', {
+      fetch('http://eletricista24hs.polijunior.com.br/api/eletricistas/', {
           method: 'post',
           headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -1309,7 +1313,22 @@
       return "";
     }
     mostrarIniciarCancelar()
-    mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
+    /*mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()*/
+    setTimeout(function() {
+      dirdisplay.setMap(map)
+      let euzinho = new google.maps.LatLng(
+            getCookie("coords_cliente_lat"),
+            getCookie("coords_cliente_lng")
+          )
+      let eletricistazinho = new google.maps.LatLng(
+          getCookie("coords_elec_lat"),
+          getCookie("coords_elec_lng")
+      )
+        //calculateRoute(dirservice, dirdisplay, eu, eletricistas[indice])
+      calculateRoute(dirservice, dirdisplay, euzinho, eletricistazinho)
+      console.error(euzinho.lat(), euzinho.lng(), eletricistazinho.lat(), eletricistazinho.lng())      
+    }, 1000)
+
     
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdJ_Kts10iRTTj6tZh8pv0mjB2vp6Mcm4&callback=initMap"

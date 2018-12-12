@@ -132,7 +132,7 @@
       background-color: rgba(255,255,255,0.5);
       z-index:100%; 
       position: absolute;
-      left: 28vw; 
+      left: 30vw; 
       bottom:5%;
       height:10%;
       width:20vw;
@@ -171,8 +171,9 @@
     }
 
     .botao4{
-      height: 5vmin; 
-      width: 50%; 
+      height: 5vmax;
+      max-height: 50px;
+      width: 48%; 
       margin-top: 10px
     }
 
@@ -548,7 +549,7 @@
   .qual_content{
     width:100%; 
     top : -100px; 
-    left: -20px;
+    left: 0px;
     background-color: transparent;
     border: none;
   }
@@ -563,4 +564,12 @@
   .endereco{
     width: 100%;
     font-size: 200%;
+  }
+
+  .solicitar-footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: none; 
+    padding: 10px 25px;
   }
