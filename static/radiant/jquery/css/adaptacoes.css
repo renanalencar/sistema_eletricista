@@ -219,17 +219,17 @@
 .quadrados:after,
 .quadrados:before {
   content: "";
-  width: 2vmin;
-  height: 2vmin;
+  width: 20%;
+  height: 20%;
   position: absolute;
   top: 0;
   left: calc(60% - 10px);
   background-color: rgb(252, 196, 37);
-  animation: squaremove 1s ease-in-out infinite; }
+  animation: squaremove 1.5s ease-in-out infinite; }
 
 .quadrados:after {
   bottom: 0;
-  animation-delay: 0.5s; }
+  animation-delay: 0.75s; }
 
 @keyframes squaremove {
   0%,
@@ -239,20 +239,20 @@
     -o-transform: translate(0, 0) rotate(0);
     transform: translate(0, 0) rotate(0); }
   25% {
-    -webkit-transform: translate(50px, 50px) rotate(45deg);
-    -ms-transform: translate(50px, 50px) rotate(45deg);
-    -o-transform: translate(50px, 50px) rotate(45deg);
-    transform: translate(50px, 50px) rotate(45deg); }
+    -webkit-transform: translate(12vmin, 12vmin) rotate(45deg);
+    -ms-transform: translate(12vmin, 12vmin) rotate(45deg);
+    -o-transform: translate(12vmin, 12vmin) rotate(45deg);
+    transform: translate(12vmin, 12vmin) rotate(45deg); }
   50% {
-    -webkit-transform: translate(0px, 100px) rotate(0deg);
-    -ms-transform: translate(0px, 100px) rotate(0deg);
-    -o-transform: translate(0px, 100px) rotate(0deg);
-    transform: translate(0px, 100px) rotate(0deg); }
+    -webkit-transform: translate(0px, 25vmin) rotate(0deg);
+    -ms-transform: translate(0px, 25vmin) rotate(0deg);
+    -o-transform: translate(0px, 25vmin) rotate(0deg);
+    transform: translate(0px, 25vmin) rotate(0deg); }
   75% {
-    -webkit-transform: translate(-50px, 50px) rotate(45deg);
-    -ms-transform: translate(-50px, 50px) rotate(45deg);
-    -o-transform: translate(-50px, 50px) rotate(45deg);
-    transform: translate(-50px, 50px) rotate(45deg); } }
+    -webkit-transform: translate(-12vmin, 12vmin) rotate(45deg);
+    -ms-transform: translate(-12vmin, 12vmin) rotate(45deg);
+    -o-transform: translate(-12vmin, 12vmin) rotate(45deg);
+    transform: translate(-12vmin, 12vmin) rotate(45deg); } }
 
     .lds-ripple {
       display: inline-block;
@@ -277,7 +277,7 @@
         width: 0;
         height: 0;
         opacity: 1;
-        background-color: #fcc425;
+        background-color: #f7f5b2;
         justify-content: center;
       }
       100% {
