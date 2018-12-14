@@ -18,6 +18,7 @@ clientes_finalizar = []
 usuarios_final = []
 
 valores_atuais = ValorPorHora.objects.last()
+
 if valores_atuais is not None:
     valor_meia_hora = valores_atuais.valor_meia_hora
     valor_primeira_hora = valores_atuais.valor_primeira_hora
@@ -64,7 +65,6 @@ def calculaHorasEMinutos(inicio, tempo_de_pausa, fim):
             'horas': horas,
             'minutos' : minutos
             }
-
 
 
 class ClienteConsumer(AsyncWebsocketConsumer):

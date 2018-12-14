@@ -321,8 +321,8 @@
       if(pedido_aceito && user_cliente == usuario_em_questao) {
         let modal = document.getElementById('carregando')
         modal.style.display = 'none'
-        mostrarIniciarCancelar()
-        setCookie("pedido_aceito", true)
+        //mostrarIniciarCancelar()
+        //setCookie("pedido_aceito", true)
         resetarCookies()
         setCookie("elec", casal.eletricista)
         setCookie("coords_cliente_lat", lat_real)
@@ -338,8 +338,8 @@
         
         //mostrarMapaCompletoComMenorDistanciaEntreClienteEEletricista()
       } else {
-        let modal = document.getElementById('carregando')
-        modal.style.display = 'none'
+        //let modal = document.getElementById('carregando')
+        //modal.style.display = 'none'
       }
     }
     //   if(resposta_eletricista && resposta_cliente && user_cliente == usuario_em_questao && user_eletricista == eletricista_em_questao){
