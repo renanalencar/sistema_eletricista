@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block content %}
-      <div class="main-panel">
+      <div class="main-panel allow-scroll">
         <div class="content-wrapper conteudo_perfil">
           <div class="row">
             <div class="col">
@@ -12,9 +12,9 @@
                       <div class="d-flex align-items-left justify-content-left ml-2">
                         <div>
                           {% if cliente.foto %}
-                            <img src="{{cliente.foto.url}}" style="border-radius: 100%; width: 100px; height: 100px">
+                            <img src="{{cliente.foto.url}}" class="foto-100">
                           {% else %}
-                            <img src="https://placehold.it/100x100" style="border-radius: 100%; width: 100px; height: 100px">
+                            <img src="https://placehold.it/100x100" class="foto-100">
                           {% endif %}
                           
                         </div>

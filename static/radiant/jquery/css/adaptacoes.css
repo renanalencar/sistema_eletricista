@@ -405,6 +405,10 @@
       padding: 1.5vw 6vw;
     }
 
+    .allow-scroll{
+      overflow-y: scroll;
+    }
+
     .card-statistics .highlight-icon{
       height: 100px;
       width:100px;
@@ -632,4 +636,10 @@
   .procurando-header{
     border: none;
     text-align:center
+  }
+
+  .foto-100{
+    border-radius: 100%; 
+    width: 100px; 
+    height: 100px;
   }
