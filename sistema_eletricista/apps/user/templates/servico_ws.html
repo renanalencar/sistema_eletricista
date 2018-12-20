@@ -841,10 +841,14 @@
       if(resposta_eletricista && resposta_cliente){
         
           // document.getElementById('iniciar_servico').textContent = 'tictac: ' + i;
+        
         setCookie("resposta_eletricista", true)
         let iniciar = document.getElementById('iniciar_servico')
         let cancelar = document.getElementById('cancelar_servico')
         let main_panel = document.getElementById('main-panel')
+        let divmap = document.getElementById('map')
+        divmap.style.display = 'none';
+        divmap.innterHTML = '';
         main_panel.style.display = 'none';
         //main_panel.innerHTML = '';
         let tela_relogio = document.getElementById('tela-relogio')
@@ -1052,23 +1056,23 @@
 
         map = new google.maps.Map(document.getElementById('map'), options);
         console.log(map)
-        console.log(lat_real, lng_real)
-        eu = new google.maps.LatLng(lat_real, lng_real) // coords imprecisas do gps do laptop
-        var infowindow = new google.maps.InfoWindow({
-              content: '{{user}}'
-          });
-        addMarker(eu, map, "{% static 'radiant/jquery/images/red_MarkerC.png' %}", infowindow)
-        eletricistas[0] = new google.maps.LatLng(-23.5773671, -46.6868916) //faria lima
-        eletricistas[1] = new google.maps.LatLng(-23.5631043, -46.6543825) //av paulista
-        eletricistas[2] = new google.maps.LatLng(-23.5571644, -46.730234) //poli
-        eletricistas[3] = new google.maps.LatLng(-23.5822135, -46.6441941) //sesc vila mariana
-        eletricistas[4] = new google.maps.LatLng(-23.5799952, -46.6403997) //extra vila mariana
-        eletricistas[5] = new google.maps.LatLng(-23.5793521, -46.641414) //local mais próximo de todos do cliente
-        console.log(eletricistas)
-        for (var x = 0; x < eletricistas.length; x++){
-          addMarker(eletricistas[x], map, "{% static 'radiant/jquery/images/logo-personagem-teste (2).png' %}")
-          console.log(eletricistas[x].lat())
-        }
+        //console.log(lat_real, lng_real)
+        //eu = new google.maps.LatLng(lat_real, lng_real) // coords imprecisas do gps do laptop
+        //var infowindow = new google.maps.InfoWindow({
+        //      content: '{{user}}'
+        //  });
+        //addMarker(eu, map, "{% static 'radiant/jquery/images/red_MarkerC.png' %}", infowindow)
+        //eletricistas[0] = new google.maps.LatLng(-23.5773671, -46.6868916) //faria lima
+        //eletricistas[1] = new google.maps.LatLng(-23.5631043, -46.6543825) //av paulista
+        //eletricistas[2] = new google.maps.LatLng(-23.5571644, -46.730234) //poli
+        //eletricistas[3] = new google.maps.LatLng(-23.5822135, -46.6441941) //sesc vila mariana
+        //eletricistas[4] = new google.maps.LatLng(-23.5799952, -46.6403997) //extra vila mariana
+        //eletricistas[5] = new google.maps.LatLng(-23.5793521, -46.641414) //local mais próximo de todos do cliente
+        //console.log(eletricistas)
+        //for (var x = 0; x < eletricistas.length; x++){
+        //  addMarker(eletricistas[x], map, "{% static 'radiant/jquery/images/logo-personagem-teste (2).png' %}")
+        //  console.log(eletricistas[x].lat())
+        //}
 
         dirdisplay = new google.maps.DirectionsRenderer();
         dirservice = new google.maps.DirectionsService();

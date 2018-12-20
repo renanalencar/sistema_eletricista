@@ -142,8 +142,6 @@ class ClienteConsumer(AsyncWebsocketConsumer):
 
 			dados.clear()
 
-			#print (clientes_finalizar, eletricistas_finalizar)
-			# falta só o endereço para terminar o objeto PedidoDeServico
 			print ('USUARIOS_FINAL')
 			if(data.get('casal')):
 				print(data.get('casal'))
