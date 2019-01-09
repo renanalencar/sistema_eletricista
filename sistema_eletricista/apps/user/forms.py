@@ -119,8 +119,6 @@ class RegistrarRecebedorForm(forms.Form):
 	# agencia_dv = forms.IntegerField(required=False)
 	bank_code = forms.IntegerField(required=True)
 	conta = forms.IntegerField(required=True)
-	document_number = forms.CharField(required=True)
-	legal_name = forms.CharField(required=True)
 
 	def is_valid(self):
 		valid = True
