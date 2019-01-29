@@ -210,13 +210,16 @@ class RegistrarCartaoView(View):
 class RegistrarRecebedorView(View):
 
 	template_name = 'registrar_recebedor.html'
-	def get(self, request, *args, **kwargs):
+	def get(self, request, user_pk):
+		print(user_pk)
 		return render(request, self.template_name)
 
-	def post(self, request, *args, **kwargs):
+	def post(self, request, user_pk):
 		form_recebedor = RegistrarRecebedorForm(request.POST)
 		if form_recebedor.is_valid():
 			dados_form_recebedor = form_recebedor.data
+			user = User.objects.get(pk = user_pk)
+			eletricista = Eletricista.objects.get(usuario = user)
 
 			pagarme.authentication_key('ak_test_uSXZcO1zJua2nG3ZhjmiUwcwnxnCgM')
 
@@ -232,16 +235,17 @@ class RegistrarRecebedorView(View):
 			        'bank_code': dados_form_recebedor['bank_code'],
 			        'conta': dados_form_recebedor['conta'],
 			        'conta_dv': dados_form_recebedor['conta_dv'],
-			        'document_number': dados_form_recebedor['document_number'],
-			        'legal_name': dados_form_recebedor['legal_name'],
+			        'document_number': eletricista.CPF,
+			        'legal_name': eletricista.usuario.first_name
 			    }
 			}
 
 			recipient = pagarme.recipient.create(params)
-
+			eletricista.pagarme_id = recipient["id"]
+			eletricista.save()
 			print(recipient)
 
-			return redirect('tela_eletricista')
+			return HttpResponseRedirect(reverse('questionario', kwargs={'nome_eletricista': dados_questionarioos_form['nickname']}))
 		else:
 			return render(request, 'registrar_recebedor.html', {'form' : form_recebedor})
 	
@@ -291,10 +295,8 @@ class RegistrarEletricistaView(View):
 				 [usuario_eletri.email]
 				)
 
+				return HttpResponseRedirect(reverse('registrar_recebedor', kwargs={'user_pk': usuario_eletri.pk}))
 
-
-
-				return HttpResponseRedirect(reverse('questionario', kwargs={'nome_eletricista': dados_form['nickname']}))
 			
 			else:
 				usuario_cliente = User.objects.create_user(username=dados_form['nickname'], email=dados_form['email'], password=dados_form['senha'], first_name=dados_form['nome'])
@@ -333,6 +335,12 @@ class RegistrarEletricistaView(View):
 					print ('errrrrrrrrrou')
 					return HttpResponse('cpf inválido')
 
+				cliente.pagarme_id = customer["id"]
+				cliente.save()
+				
+
+
+
 
 
 				enviar_email('Sistema Eletricista24hrs', 
@@ -340,7 +348,8 @@ class RegistrarEletricistaView(View):
 				 settings.EMAIL_HOST_USER,
 				 [usuario_cliente.email]
 				)
-			return redirect('/user/registrar/cartao/' + dados_form['nickname'] + '/')
+			#return redirect('/user/registrar/cartao/' + dados_form['nickname'] + '/')
+			return redirect('/user/index')
 		else:
 			return render(request, 'registrar_exemplo.html', {'form': form_user})
 

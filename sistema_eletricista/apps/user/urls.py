@@ -25,7 +25,7 @@ urlpatterns = [
 	url(r'^logout/$', logout_then_login, {'login_url':'/user/login/'}, name='logout'),
 	url(r'^registrar/$', RegistrarEletricistaView.as_view(), name="registrar"),
 	url(r'^registrar/cartao/(?P<nickname_cliente>\w+)/', RegistrarCartaoView.as_view(), name="registrar_cartao"),
-	url(r'^registrar/conta', RegistrarRecebedorView.as_view(), name="registrar_recebedor"),
+	url(r'^registrar/conta/(?P<user_pk>\w+)', RegistrarRecebedorView.as_view(), name="registrar_recebedor"),
 	url(r'^password_reset/$', auth_views.password_reset, {'template_name':'password_reset_form.html'}, name='password_reset'),
     url(r'^password_reset/done/$', auth_views.password_reset_done,{'template_name':'password_reset_done.html'}, name='password_reset_done'),
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
