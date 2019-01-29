@@ -489,6 +489,8 @@
     .textarea_comentario{
       font-size: 2.5vmax;
       line-height: 3vmax;
+      background-color: #f9f9f9;
+      color: ;
     }
 
     .form_avaliar{
@@ -528,7 +530,7 @@
     }
 
     .avaliar_lateral{
-      background: linear-gradient(88deg, rgb(247, 246, 184),rgb(246, 237, 151));
+      background: linear-gradient(88deg, rgb(240, 240, 240),rgb(249, 249, 249));
       height: 80vmax;
     }
 
@@ -537,6 +539,7 @@
       width:80%;
       margin-left: 11%;
       margin-top: 10vmax;
+      border-radius: 10px;
     }
 
     .mb-15{
@@ -562,11 +565,6 @@
     cursor: pointer
   }
 
-  .checked {
-      color: yellow;
-      
-  }
-  
   .fa-star {
     color: #00A8CC;
     font-size: 3vmax;
@@ -577,6 +575,12 @@
     float: center;
       
   }
+
+  .checked {
+      color: yellow;
+      
+  }
+  
 
   .scroll{
     height: 100%;

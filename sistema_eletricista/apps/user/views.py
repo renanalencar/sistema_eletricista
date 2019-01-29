@@ -615,30 +615,30 @@ def dump(request):
 	return render(request, 'dump.html')
 
 @login_required(login_url='/user/login/')
-def serviço(request):
-	return render(request, 'servico_avaliar.html')
+def servico(request):
+	return render(request, 'servico2.html')
 
 @login_required(login_url='/user/login/')
 def servico_avaliar(request):
-        if request.method == 'POST':
-                print (request.POST)
-                nota = int(request.POST.get('nota'))
-                #id_servico = int(request.POST.get('servico'))
-                servico_em_questao = PedidoDeServico.objects.get(id=len(PedidoDeServico.objects.all()))
-                nickname_eletricista = servico_em_questao.eletricista
-                user_eletricista = User.objects.get(username=nickname_eletricista)
-                eletricista_avaliado = Eletricista.objects.get(usuario=user_eletricista)
-                if(eletricista_avaliado.nota == None):
-                        eletricista_avaliado.nota = nota
-                else:
-                        eletricista_avaliado.nota = (eletricista_avaliado.nota + nota)/2
-
-                print ('a nota ehhh', eletricista_avaliado.nota)
-                eletricista_avaliado.save()
 	
-                return redirect('/user/index/')
-        else:
-                return render(request, 'avaliar_servico.html')
+	servico_em_questao = PedidoDeServico.objects.get(id=len(PedidoDeServico.objects.all()))
+	nickname_eletricista = servico_em_questao.eletricista
+	user_eletricista = User.objects.get(username=nickname_eletricista)
+	eletricista_avaliado = Eletricista.objects.get(usuario=user_eletricista)
+	if request.method == 'POST':
+		print (request.POST)
+		nota = int(request.POST.get('nota'))
+		#id_servico = int(request.POST.get('servico'))        
+		if(eletricista_avaliado.nota == None):
+			eletricista_avaliado.nota = nota
+		else:
+			eletricista_avaliado.nota = (eletricista_avaliado.nota + nota)/2
+			print ('a nota ehhh', eletricista_avaliado.nota)
+			eletricista_avaliado.save()
+
+		return redirect('/user/index/')
+	else:
+		return render(request, 'avaliar2.html', {'eletricista' : eletricista_avaliado})
 
 @login_required(login_url='/user/login/')
 def avaliar(request):
