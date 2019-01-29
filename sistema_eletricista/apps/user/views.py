@@ -281,11 +281,19 @@ class RegistrarEletricistaView(View):
 				usuario = User.objects.get(username=dados_form['nickname'])
 				usuario.is_active = False
 				usuario.save()
+
+
+
+
 				enviar_email('Sistema Eletricista24hrs', 
 				 'Você, ' + dados_form['nome'] + ' foi registrado no nosso sistema, aguarde enquanto validamos seu cadastro',
 				 settings.EMAIL_HOST_USER,
 				 [usuario_eletri.email]
 				)
+
+
+
+
 				return HttpResponseRedirect(reverse('questionario', kwargs={'nome_eletricista': dados_form['nickname']}))
 			
 			else:
@@ -603,23 +611,25 @@ def serviço(request):
 
 @login_required(login_url='/user/login/')
 def servico_avaliar(request):
-	if request.method == 'POST':
-		print (request.POST)
-		nota = int(request.POST.get('nota'))
-		id_servico = int(request.POST.get('servico'))
-		servico_em_questao = PedidoDeServico.objects.get(id=id_servico)
-		nickname_eletricista = servico_em_questao.eletricista
-		user_eletricista = User.objects.get(username=nickname_eletricista)
-		eletricista_avaliado = Eletricista.objects.get(usuario=user_eletricista)
-		if(eletricista_avaliado.nota == None):
-			eletricista_avaliado.nota = nota
-		else:
-			eletricista_avaliado.nota = (eletricista_avaliado.nota + nota)/2
+        if request.method == 'POST':
+                print (request.POST)
+                nota = int(request.POST.get('nota'))
+                #id_servico = int(request.POST.get('servico'))
+                servico_em_questao = PedidoDeServico.objects.get(id=len(PedidoDeServico.objects.all()))
+                nickname_eletricista = servico_em_questao.eletricista
+                user_eletricista = User.objects.get(username=nickname_eletricista)
+                eletricista_avaliado = Eletricista.objects.get(usuario=user_eletricista)
+                if(eletricista_avaliado.nota == None):
+                        eletricista_avaliado.nota = nota
+                else:
+                        eletricista_avaliado.nota = (eletricista_avaliado.nota + nota)/2
 
-		print ('a nota ehhh', eletricista_avaliado.nota)
-		eletricista_avaliado.save()
+                print ('a nota ehhh', eletricista_avaliado.nota)
+                eletricista_avaliado.save()
 	
-	return redirect('/user/index/')
+                return redirect('/user/index/')
+        else:
+                return render(request, 'avaliar_servico.html')
 
 @login_required(login_url='/user/login/')
 def avaliar(request):
@@ -700,3 +710,20 @@ class Perfil_do_cliente(LoginRequiredMixin, View):
 			print(usuario_em_questao)
 		return render(request, 'Perfil_do_cliente.html', {'cliente' : cliente_em_questao})	
 
+
+
+
+
+class Tela1(View):
+    def get(self, request):
+        return render(request, 'tela1.html')
+
+    def post(self, request):
+        pass
+
+class Tela2(View):
+    def get(self, request):
+        return render(request, 'tela2.html')
+
+    def post(self, request):
+        pass

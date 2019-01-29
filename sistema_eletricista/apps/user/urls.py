@@ -54,4 +54,7 @@ urlpatterns = [
    	url(r'^servico/$', views.serviço, name='serviço'),
    	url(r'^servico_avaliar/$', views.servico_avaliar, name='servico_avaliar'),
    	url(r'^avaliar/$', views.avaliar, name='avaliar'),
+   	url(r'^tela1/$', Tela1.as_view(), name='tela1'),
+   	url(r'^tela2/$', Tela2.as_view(), name='tela2'),
+
 ]

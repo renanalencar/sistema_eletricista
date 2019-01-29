@@ -9,6 +9,29 @@ from sistema_eletricista.apps.post.PedidoDeServico.models import PedidoDeServico
 import json
 from datetime import datetime
 import time
+from django.db import close_old_connections
+
+def getValorPorHora():
+	valores = ValorPorHora.objects.last()
+	close_old_connections()
+	return valores
+
+
+def criarServico(value, end, cli, elec, stat):
+	pedido = PedidoDeServico.objects.create(valor=value, endereco=end, cliente=cli, eletricista=elec, status=stat)
+	close_old_connections()
+	return pedido
+
+def getServicoFinal(ide, valor_real):
+	servico_finalizado = PedidoDeServico.objects.get(id=ide)
+	servico_finalizado.status = 'Finalizado'
+	servico_finalizado.valor = valor_real
+	servico_finalizado.save()
+	close_old_connections()
+	return servico_finalizado
+
+
+
 
 horarios = []
 id_servico = None
@@ -17,7 +40,9 @@ eletricistas_finalizar = []
 clientes_finalizar = []
 usuarios_final = []
 
-valores_atuais = ValorPorHora.objects.last()
+#valores_atuais = ValorPorHora.objects.last()
+valores_atuais = getValorPorHora()
+close_old_connections()
 
 if valores_atuais is not None:
     valor_meia_hora = valores_atuais.valor_meia_hora
@@ -373,10 +398,11 @@ class ServicoConsumer(AsyncWebsocketConsumer):
 				#														 #
 				##########################################################
 
-				servico_finalizado = PedidoDeServico.objects.get(id=self.room_name)
-				servico_finalizado.status = 'Finalizado'
-				servico_finalizado.valor = valor_do_servico
-				servico_finalizado.save()
+				servico_finalizado = getServicoFinal(self.room_name, valor_do_servico)
+				close_old_connections()
+				#servico_finalizado.status = 'Finalizado'
+				#servico_finalizado.valor = valor_do_servico
+				#servico_finalizado.save()
 				
 				print (servico_finalizado)
 				print(servico_finalizado.status)

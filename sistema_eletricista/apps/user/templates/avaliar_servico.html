@@ -1,0 +1,179 @@
+{% extends 'base_cliente.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+<style type="text/css">
+	.rating-stars {
+      display: inline-block;
+    margin: 20px;
+  }
+  .rating-star {
+    font-size: 44px;
+    cursor: pointer
+  }
+
+  .fa-star {
+    color: #00A8CC;
+  }
+
+
+  .bottom-message {
+    font-size: 0.85em;
+  }
+
+  .sr-navigator-container.visible-sm-block {
+    margin-top: 30px;
+  }
+
+  .notes-container {
+    margin: auto;
+    margin-top: 20px;
+    width: 50%;
+  }
+  #myNotesView {
+    display: block;
+  }
+
+  .notes-buttons {
+    margin-top: 10px;
+  }
+
+  @media (max-width: 767px) { 
+    .notes-container {
+      width: 100%;
+    }
+  }
+
+  .btn-ls-blue {
+    background-color: #4984a3;
+    border: none;
+      -o-transition: background-color 0.215s;
+      -moz-transition: background-color 0.215s;
+      -webkit-transition: background-color 0.215s;
+      transition: background-color 0.215s;
+  }
+
+  .btn-ls-blue:hover,
+  .btn-ls-blue:active,
+  .btn-ls-blue:focus,
+  .btn-ls-blue.active {
+      background-color: #00A8CC;
+  }
+
+  .hide { 
+    display: none;
+  }
+  .checked {
+      color: yellow;
+      
+  }
+  .fa-star {
+    font-size: 40px;
+    margin-left: 20px;
+    position: relative;
+    text-align: center;
+    left: 37%;
+    float: center;
+</style>
+
+<div class="main-panel" id="main-panel">
+	<div style=" height: calc(100vh - 338px)">
+        <div class="card-body">
+          <form id="myForm" action="{% url 'servico_avaliar' %}" method="post">
+            {% csrf_token %}
+            <div id="avaliar" style="display: block">
+              <h2>Avalie o serviço do eletricista</h2>
+              <span class="fa fa-star" id="s1" name="1" value="1"></span>
+              <span class="fa fa-star" id="s2" name="2" value="2"></span>
+              <span class="fa fa-star" id="s3" name="3" value="3"></span>
+              <span class="fa fa-star" id="s4" name="4" value="4"></span>
+              <span class="fa fa-star" id="s5" name="5" value="5"></span>
+              <input type="text" name="nota" id="id_nota" style="display: none">
+              <input type="text" name="servico" id="id_servico" style="display: none">
+            </div>
+          </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var stars = document.getElementsByClassName("fa")
+    var s0 = document.getElementById('s1')
+    var s1 = document.getElementById('s2')
+    var s2 = document.getElementById('s3')
+    var s3 = document.getElementById('s4')
+    var s4 = document.getElementById('s5')
+    for(var i = 0; i < stars.length; i++) {
+      stars[i].addEventListener('click', function(e){
+        for(var j = 0; j < stars.length; j++) {
+          if(e.target == stars[j]) {
+            console.log('voce avaliou como: ', e.target.id[1])
+            console.log(j+1)
+            let input = document.getElementById('id_nota')
+            input.value = j+1; 
+            let servico = document.getElementById('id_servico')
+            let endereco = window.location.pathname
+            let id_servico = endereco.split('/')[3]
+            servico.value = id_servico
+            let form = document.getElementById('myForm');
+            form.submit();
+          }
+        }
+      })
+    }
+
+
+    s0.addEventListener('mouseover', function(event) {
+      colorir(event.target)
+      for(var i = 1; i < stars.length; i++) {
+        descolorir(stars[i])
+      }
+    })
+    s1.addEventListener('mouseover', function(event) {
+      colorir(s0)
+      colorir(event.target)
+      for(var i = 2; i < stars.length; i++) {
+        descolorir(stars[i])
+      }
+    })
+    s2.addEventListener('mouseover', function(event) {
+      colorir(s0)
+      colorir(s1)
+      colorir(event.target)
+      for(var i = 3; i < stars.length; i++) {
+        descolorir(stars[i])
+      }
+    })
+    s3.addEventListener('mouseover', function(event) {
+      colorir(s0)
+      colorir(s1)
+      colorir(s2)
+      colorir(event.target)
+      for(var i = 4; i < stars.length; i++) {
+        descolorir(stars[i])
+      }
+    })
+    s4.addEventListener('mouseover', function(event) {
+      colorir(s0)
+      colorir(s1)
+      colorir(s2)
+      colorir(s3)
+      colorir(event.target)
+      for(var i = 5; i < stars.length; i++) {
+        descolorir(stars[i])
+      }
+    })
+
+    function colorir(star) {
+      if(!star.className.indexOf('checked') > -1) {
+        star.className = 'fa fa-star checked'
+      }
+    }
+    function descolorir(star) {
+      if(star.className.indexOf('checked') > -1) {
+        star.className = 'fa fa-star'
+      }
+    }
+</script>
+
+{% endblock %}
