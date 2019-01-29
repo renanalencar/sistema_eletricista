@@ -2,7 +2,7 @@
 {%  load staticfiles %}
 
 {% block content %}
-<div class="row d-flex align-items-stretch scroll" >
+<div class="row d-flex align-items-stretch scroll">
 	<div class="col-md-4 avaliar_lateral">
 		<div class="card text-center avaliado">
 			<div class="card-body">
@@ -18,16 +18,13 @@
 			</div>
 		</div>
   	</div>
-	<div class="col-12 col-md-8 h-100 bg-white">
+	<div class="col-12 col-md-8 h-100 bg-gray">
 		<div class="auto-form-wrapper d-flex align-items-center justify-content-center flex-column">
 			<form id="myForm" class="form_avaliar" action="{% url 'servico_avaliar' %}" method="post">
 				{% csrf_token %}
 			    <h2 class="mr-auto obrigado">Obrigado! Agora é só avaliar o serviço.</h2>
 			    <div class="form-group">
 			      <div class="input-group">
-			        <div class="input-group-prepend">
-			          <span class="input-group-text"><i class="mdi mdi-account-outline"></i></span>
-			        </div>
 		            <div id="avaliar">
 		              <span class="fa fa-star" id="s1" name="1" value="1"></span>
 		              <span class="fa fa-star" id="s2" name="2" value="2"></span>

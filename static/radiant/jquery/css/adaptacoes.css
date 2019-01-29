@@ -528,7 +528,7 @@
     }
 
     .avaliar_lateral{
-      background: linear-gradient(500deg, rgb(247, 246, 184),rgba(252, 196, 69, 0.68));
+      background: linear-gradient(88deg, rgb(247, 246, 184),rgb(246, 237, 151));
       height: 80vmax;
     }
 
@@ -548,7 +548,9 @@
   }
     
   #avaliar{
-    width: 80%;
+    width: 46vmax;
+    height: auto;
+    background-color: transparent;
   }
 
   .rating-stars {
@@ -560,21 +562,18 @@
     cursor: pointer
   }
 
-  .fa-star {
-    color: #00A8CC;
-  }
-
   .checked {
       color: yellow;
       
   }
   
   .fa-star {
-    font-size: 145%;
-    margin-right: 10%;
+    color: #00A8CC;
+    font-size: 3vmax;
+    margin-right: 5vw;
     position: relative;
     text-align: center;
-    left: 5%;
+    left: 0%;
     float: center;
       
   }
@@ -582,6 +581,12 @@
   .scroll{
     height: 100%;
     overflow-y: auto;
+  }
+  @media screen and (min-width: 1200px){
+    .scroll{
+      height: 100%;
+      overflow-y: hidden;
+    }
   }
 
   .logout{
