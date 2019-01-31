@@ -299,19 +299,15 @@
     }
 
     .info_eletricista{
-      position:absolute;
-      right:5%;
-      height:50%;
-      width:auto;
-      display: block;
+      display: inline-flex;
+
     }
 
     .foto_eletricista{
-      float: top;
+
     }
 
     .nome_eletricista{
-      margin-top: 10%;
     }
 
     .serviço-em-exec{
@@ -328,9 +324,9 @@
 
     .botoes-serviço{
       display: flex;
-      heighteight: 15vh;
+      height: 15vh;
       justify-content: space-around;
-      margin-top: 3vmin;
+      bottom:0px;
     }
 
     .animacao_amarela{
@@ -379,10 +375,10 @@
 
     .relogio{
       border-radius: 10px;
-      width:70%;
-      height: 60%;
+      width:80%;
+      height: 70%;
       position: relative;
-      left:15%;
+      left:10%;
       top: 10%;
       background-color: white;  
     }
