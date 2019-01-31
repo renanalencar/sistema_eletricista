@@ -616,7 +616,11 @@ def dump(request):
 
 @login_required(login_url='/user/login/')
 def servico(request):
-	return render(request, 'servico2.html')
+	servico_em_questao = PedidoDeServico.objects.get(id=len(PedidoDeServico.objects.all()))
+	nickname_eletricista = servico_em_questao.eletricista
+	user_eletricista = User.objects.get(username=nickname_eletricista)
+	eletricista_avaliado = Eletricista.objects.get(usuario=user_eletricista)
+	return render(request, 'servico2.html', {'eletricista' : eletricista_avaliado})
 
 @login_required(login_url='/user/login/')
 def servico_avaliar(request):
@@ -642,7 +646,7 @@ def servico_avaliar(request):
 
 @login_required(login_url='/user/login/')
 def avaliar(request):
-	return render(request, 'avaliar2.html')
+	return render(request, 'servico_ws.html')
 
 # def Perfil_do_cliente(request, nickname):
 # 	usuario_em_questao = User.objects.get(username=nickname)
