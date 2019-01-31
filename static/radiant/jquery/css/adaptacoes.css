@@ -320,6 +320,8 @@
     }
 
     .nome_eletricista{
+      position: relative;
+      left: 20%;
     }
 
     .serviço-em-exec{
