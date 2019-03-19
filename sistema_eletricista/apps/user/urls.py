@@ -56,5 +56,6 @@ urlpatterns = [
    	url(r'^avaliar/$', views.avaliar, name='avaliar'),
    	url(r'^tela1/$', Tela1.as_view(), name='tela1'),
    	url(r'^tela2/$', Tela2.as_view(), name='tela2'),
+   	url(r'^escolhe_cadastro/$', Escolhe_Cadastro.as_view(), name='escolhe_cadastro'),
 
 ]

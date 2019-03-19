@@ -586,7 +586,8 @@ def password_reset(request, is_admin_site=False,
 
 
 def tela_inicial(request):
-    return render(request, 'tela_inicial.html')
+    return render(request, 'loginEletricista_exemplo.html')
+
 
 def registro_concluido(request):
     return render(request, 'error-404.html')
@@ -747,3 +748,7 @@ class Tela2(View):
 
     def post(self, request):
         pass
+
+class Escolhe_Cadastro(View):
+    def get(self, request):
+        return render(request, 'escolhe_cadastro.html')
