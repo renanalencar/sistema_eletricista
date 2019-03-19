@@ -7,7 +7,7 @@ from django.utils import timezone
 class PedidoDeServico(models.Model):
 	#data = models.DateTimeField('Data da solicitação', null=False, blank=False, default=datetime.datetime.now())
 	data = timezone.now
-	valor = models.FloatField('Valor', null=False, blank=False)
+	valor = models.FloatField('Valor', null=False, blank=False) #MEUDEUS chechar no futuro se precisa retirar
 	endereco = models.CharField('Endereço', max_length=100, null=False)
 	#cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
 	cliente = models.CharField('Cliente', max_length=100, null=False)
