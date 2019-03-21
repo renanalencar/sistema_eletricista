@@ -31,7 +31,7 @@ from .cliente.models import Cliente
 from .models import Admin
 from .models import Coordenadas
 from django.contrib.auth.views import *
-import pagarme
+import pagarme, json
 # Create your views here.
 
 
@@ -727,23 +727,137 @@ class Perfil_do_cliente(LoginRequiredMixin, View):
 
 
 
-#aqui ja temos id do servico (valor e eletricista), a pessoa que solicitou "request" 
+
+
+
+
+
+
+
+
+
+
+
+
+
+# http://localhost:8000/user/tela1/?id_servico=1&servico=1&preco_servico=123
 class Tela1(View):
     def get(self, request):
 
         id_servico = request.GET.get('id_servico')
-        servico = PedidoDeServico.objects.get(pk=id_servico)
-        print('===============')
-        print(servico)
-        preco_servico = request.GET.get('valor_do_servico')
+        preco_servico = request.GET.get('preco_servico')
         
-        return render(request, 'tela1.html')
+        context = {
+            "encryption_key": "ek_test_hlZxSmoUjPGs6sANAz6lCBoWT6FOWD",
+
+            "id_servico": id_servico,
+            "preco_servico": preco_servico,
+
+
+
+
+
+        }
+        return render(request, 'tela1.html', context)
 
     def post(self, request):
         pass
 
+
+
+
+
+
+
+
+
+
+
 class Tela2(View):
     def get(self, request):
+        data = json.loads(request.GET.get("data"))
+
+        id_servico = request.GET.get("id_servico")
+        servico = PedidoDeServico.objects.get(pk=id_servico)
+        eletricista = Eletricista.objects.get(pk=servico.eletricista)
+        preco_servico = request.GET.get("preco_servico")
+
+        pagarme.authentication_key("ak_test_uSXZcO1zJua2nG3ZhjmiUwcwnxnCgM")
+
+
+
+        # Billing Address obtain
+        zip_code = request.GET.get("zip_code").replace("-", "")
+        number = request.GET.get("number")
+        state = request.GET.get("state")
+        city = request.GET.get("city")
+        neighbourhood = request.GET.get("neighbourhood")
+        street = request.GET.get("street")
+
+
+
+
+
+
+
+
+
+        cliente = Cliente.objects.get(usuario=request.user)
+        # Do transaction
+        params = {
+            "amount": data["amount"],
+            "card_hash": data["card_hash"],
+            "installments":data["installments"],
+            "customer": {
+                "external_id": cliente.pk,
+                "name": "EXEMPLO",
+                "type": "individual",
+                "country": "br",
+                "email": "EXEMPLO@usp.br",
+                "documents": [
+                    {
+                        "type": "cpf",
+                        "number": cliente.CPF.replace(".", "").replace("-", "")
+                    }
+                ],
+                "phone_numbers": ["+" + cliente.telefone.replace("(", "").replace(")", "").replace("-", "")],
+                "birthday": "1990-01-01"
+            },
+            "billing": {
+                "name": "EXEMPLO",
+                "address": {
+                    "country": "br",
+                    "state": state,
+                    "city": city,
+                    "neighborhood": neighbourhood,
+                    "street": street,
+                    "street_number": number,
+                    "zipcode": zip_code
+                }
+            },
+            "items": [
+                {
+                    "id": id_servico,
+                    "title": "EXEMPLO",
+                    "unit_price": data["amount"],
+                    "quantity": "1",
+                    "tangible": False
+                }
+            ],
+            "split_rules": [
+                {
+                    "recipient_id": eletricista.pagarme_id,
+                    "percentage": "100",
+                    "liable": True,
+                    "charge_processing_fee": True
+                }
+            ]
+        }
+        trx = pagarme.transaction.create(params)
+
+
+
+
         return render(request, 'tela2.html')
 
     def post(self, request):
