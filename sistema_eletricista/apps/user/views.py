@@ -272,6 +272,7 @@ class RegistrarEletricistaView(View):
                 eletricista = Eletricista.objects.create(
 
                     usuario=usuario_eletri,
+                    nascimento=dados_form['nascimento'],
                     telefone=dados_form['telefone'],
                     CEP=dados_form['CEP'],
                     CPF=dados_form['CPF'],
@@ -303,6 +304,7 @@ class RegistrarEletricistaView(View):
                 Coordenadas.objects.create(usuario=usuario_cliente, lat=-23.0, lng=-46.0)
                 cliente = Cliente.objects.create(
                     usuario=usuario_cliente,
+                    nascimento=dados_form['nascimento'],
                     telefone=dados_form['telefone'],
                     CEP=dados_form['CEP'],
                     CPF=dados_form['CPF'],
@@ -755,9 +757,11 @@ class Tela1(View):
 
 
 
-
-
         }
+
+        #teste = Cliente.objects.get(usuario_id="1").nascimento
+        #print(teste)
+
         return render(request, 'tela1.html', context)
 
     def post(self, request):

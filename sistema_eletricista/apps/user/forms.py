@@ -6,6 +6,7 @@ class RegistrarEletricistaForm(forms.Form):
 
 	nome = forms.CharField(required=True, max_length=50)
 	nickname = forms.CharField(required=True, max_length=50)
+	nascimento = forms.DateField(widget=forms.SelectDateWidget);
 	email = forms.EmailField(required=True, max_length=50)
 	senha = forms.CharField(required=True, max_length=30)
 	senha_novamente = forms.CharField(required=True, max_length=30)
