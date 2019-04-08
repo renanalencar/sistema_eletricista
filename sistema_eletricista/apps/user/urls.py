@@ -54,13 +54,8 @@ urlpatterns = [
    	url(r'^servico/$', views.servico, name='servico'),
    	url(r'^servico_avaliar/$', views.servico_avaliar, name='servico_avaliar'),
    	url(r'^avaliar/$', views.avaliar, name='avaliar'),
-<<<<<<< HEAD
    	url(r'^tela1/(?P<id_servico>\w+)/(?P<valor_servico>\w+)$', Tela1.as_view(), name='tela1'),
-   	url(r'^tela2/(?P<id_servico>\w+)$', Tela2.as_view(), name='tela2'),
-=======
-   	url(r'^tela1/$', Tela1.as_view(), name='tela1'),
    	url(r'^tela2/$', Tela2.as_view(), name='tela2'),
    	url(r'^escolhe_cadastro/$', Escolhe_Cadastro.as_view(), name='escolhe_cadastro'),
->>>>>>> 63a71923f756ffc610d0aeb89cf481501b3f41d4
 
 ]

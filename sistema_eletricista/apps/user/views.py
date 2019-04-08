@@ -744,65 +744,41 @@ class Perfil_do_cliente(LoginRequiredMixin, View):
 
 # http://localhost:8000/user/tela1/?id_servico=1&servico=1&preco_servico=123
 class Tela1(View):
-    def get(self, request):
+    def get(self, request, id_servico, valor_servico):
 
-        id_servico = request.GET.get('id_servico')
-        preco_servico = request.GET.get('preco_servico')
+        servico_id = id_servico
+        preco_servico = int(valor_servico)
+
         
         context = {
             "encryption_key": "ek_test_hlZxSmoUjPGs6sANAz6lCBoWT6FOWD",
 
-            "id_servico": id_servico,
+            "id_servico": servico_id,
             "preco_servico": preco_servico,
 
-
-
-<<<<<<< HEAD
-class Tela1(View):
-    def get(self, request, id_servico, valor_servico):
-        context = {}
-        servico_em_questao = PedidoDeServico.objects.get(id=id_servico)
-        preco_servico = int(valor_servico)
-
-        context['servico_em_questao'] = servico_em_questao
-        context['preco_servico'] = preco_servico
-        return render(request, 'tela1.html')
-=======
         }
 
         #teste = Cliente.objects.get(usuario_id="1").nascimento
         #print(teste)
 
         return render(request, 'tela1.html', context)
->>>>>>> 63a71923f756ffc610d0aeb89cf481501b3f41d4
 
     def post(self, request):
         pass
 
 
 
-
-
-
-
-
-
-
-
 class Tela2(View):
-<<<<<<< HEAD
-    def get(self, request, id_servico):
-
-        servico_em_questao = PedidoDeServico.objects.get(id=id_servico)
-        servico_em_questao.status = 'Pago'
-        servico_em_questao.save()
-=======
     def get(self, request):
         data = json.loads(request.GET.get("data"))
 
         id_servico = request.GET.get("id_servico")
         servico = PedidoDeServico.objects.get(pk=id_servico)
-        eletricista = Eletricista.objects.get(pk=servico.eletricista)
+        servico.status = 'Pago'
+        servico.save()
+        user_em_questao = User.objects.get(username=servico.eletricista)
+        eletricista = Eletricista.objects.get(usuario=user_em_questao)
+        #eletricista = Eletricista.objects.get(pk=servico.eletricista)
         preco_servico = request.GET.get("preco_servico")
 
         pagarme.authentication_key("ak_test_uSXZcO1zJua2nG3ZhjmiUwcwnxnCgM")
@@ -816,13 +792,6 @@ class Tela2(View):
         city = request.GET.get("city")
         neighbourhood = request.GET.get("neighbourhood")
         street = request.GET.get("street")
-
-
-
-
-
-
-
 
 
         cliente = Cliente.objects.get(usuario=request.user)
@@ -878,9 +847,6 @@ class Tela2(View):
         }
         trx = pagarme.transaction.create(params)
 
-
-
->>>>>>> 63a71923f756ffc610d0aeb89cf481501b3f41d4
 
         return render(request, 'tela2.html')
 
