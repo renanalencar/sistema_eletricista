@@ -724,14 +724,25 @@ class Perfil_do_cliente(LoginRequiredMixin, View):
 
 
 class Tela1(View):
-    def get(self, request):
+    def get(self, request, id_servico, valor_servico):
+        context = {}
+        servico_em_questao = PedidoDeServico.objects.get(id=id_servico)
+        preco_servico = int(valor_servico)
+
+        context['servico_em_questao'] = servico_em_questao
+        context['preco_servico'] = preco_servico
         return render(request, 'tela1.html')
 
     def post(self, request):
         pass
 
 class Tela2(View):
-    def get(self, request):
+    def get(self, request, id_servico):
+
+        servico_em_questao = PedidoDeServico.objects.get(id=id_servico)
+        servico_em_questao.status = 'Pago'
+        servico_em_questao.save()
+
         return render(request, 'tela2.html')
 
     def post(self, request):

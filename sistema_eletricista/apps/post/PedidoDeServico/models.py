@@ -12,6 +12,6 @@ class PedidoDeServico(models.Model):
 	#cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
 	cliente = models.CharField('Cliente', max_length=100, null=False)
 	eletricista = models.CharField(max_length=100, null=False)
-	status = models.CharField('Status', max_length=100, null=True, default="w/e")
+	status = models.CharField('Status', max_length=100, null=True, default="Nao pago (pendente)")
 	
 
