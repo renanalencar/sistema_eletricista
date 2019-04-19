@@ -117,9 +117,9 @@ class RegistrarCartaoForm(forms.Form):
 class RegistrarRecebedorForm(forms.Form):
 
 	agencia = forms.IntegerField(required=True)
-	# agencia_dv = forms.IntegerField(required=False)
-	bank_code = forms.IntegerField(required=True)
 	conta = forms.IntegerField(required=True)
+	bank_code = forms.IntegerField(required=True)
+	account_type = forms.CharField(required=True)
 
 	def is_valid(self):
 		valid = True

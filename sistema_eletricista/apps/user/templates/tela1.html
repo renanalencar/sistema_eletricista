@@ -1,363 +1,275 @@
 {% extends 'base_cliente.html' %}
 {% load staticfiles %}
-
 {% block content %}
-
-<div class="main-panel" id="main-panel">
-	<div class="content-wrapper mt-0 p-0" >
-    	<div class="container mx-0 p-0 wid">
-    		<a href="{% url 'tela2' %}">Ir para a tela 2</a>
-
-
-
-
-
-<br><br><br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <style>
-
-/* ==================
-Pay
-================== */
-#payment_container {
-  display:none;
-  position:relative;
-}
-#backto_selectprice {
-  padding:10px;
-  border-radius:10px;
-  color:white;
-  border:none;
-  cursor:pointer;
-  font-weight:bold;
-  background-color:#4fa7bc;
-
-  position:absolute;
-  right:15px;
-  top:150px;
-}
-.pay_col {
-  display:inline-block;
-  width:50%;
-  padding:15px;
-  padding-right:0px;
-}
-@media(max-width:600px) {
-  .pay_col {
-    width:100%;
-    padding-left:0px;
+  /* ==================
+  Pay
+  ================== */
+  #payment_container {
+    display:none;
+    position:relative;
   }
-}
-.pay_col_editable {
-  width:50%;
-}
-.pay_title {
-  font-size:16px;
-}
-.pay_editable_field {
-  width:150px !important;
-}
-.pay_noneditable_field {
-  cursor:default;
-  background-color:#dddddd !important;
-  border:none !important;
-  border-color:transparent !important;
-  width:100%;
-}
-.pay_button {
-  padding:10px;
-  border-radius:10px;
-  color:white;
-  display:inline-block;
-  border:none;
-  cursor:pointer;
-  float:right;
-  margin-left:5px;
-  font-weight:bold;
-  background-color:#98d000;
-}
-
-.pay_button_disabled {
-  cursor:default;
-  background-color:#dddddd;
-}
-
-
+  #backto_selectprice {
+    padding:10px;
+    border-radius:10px;
+    color:white;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
+    background-color:#4fa7bc;
+    position:absolute;
+    right:15px;
+    top:150px;
+  }
+  .pay_col {
+    display:inline-block;
+    width:50%;
+    padding:15px;
+    padding-right:0px;
+  }
+  @media(max-width:600px) {
+    .pay_col {
+      width:100%;
+      padding-left:0px;
+    }
+  }
+  .pay_col_editable {
+    width:50%;
+  }
+  .pay_title {
+    font-size:16px;
+  }
+  .pay_editable_field {
+    width:150px !important;
+  }
+  .pay_noneditable_field {
+    cursor:default;
+    background-color:#dddddd !important;
+    border:none !important;
+    border-color:transparent !important;
+    width:100%;
+  }
+  .pay_button {
+    padding:10px;
+    border-radius:10px;
+    color:white;
+    display:inline-block;
+    border:none;
+    cursor:pointer;
+    float:right;
+    margin-left:5px;
+    font-weight:bold;
+    background-color:#98d000;
+  }
+  .pay_button_disabled {
+    cursor:default;
+    background-color:#dddddd;
+  }
 </style>
 
-<div style="width:100%; max-width:600px; margin:auto">
+<div class="main-panel" id="main-panel">
+  <div class="content-wrapper mt-0 p-0" >
+    <div class="container mx-0 p-0 wid">
+      <br><br><br>
 
-    <div class="pay_col pay_col_editable" style="padding-left:0px;">
-      <div class="pay_title">Código Postal</div>
-      <input class="pay_editable_field" type="text" id="zip_code" maxlength="9"/>
-      {# <br><div class="error_message" style="float:left" id="zip_code_error">CEP não encontrado</div> #}
-    </div><!--
-    --><div class="pay_col pay_col_editable">
-      <div class="pay_title">Número</div>
-      <input class="pay_editable_field pay_noneditable_field" type="text" id="number" readonly/>
-    </div>
-
-
-
-    <div class="pay_col" style="padding-left:0px;">
-      <div class="pay_title">Estado</div>
-      <input class="pay_noneditable_field" type="text" id="id_state" readonly/>
-    </div><!--
-    --><div class="pay_col">
-      <div class="pay_title">Cidade</div>
-      <input class="pay_noneditable_field" type="text" id="id_city" readonly/>
-    </div>
-
-
-    <div class="pay_col" style="padding-left:0px;">
-      <div class="pay_title">Bairro</div>
-      <input class="pay_noneditable_field" type="text" id="id_neighbourhood" readonly/>
-    </div><!--
-    --><div class="pay_col">
-      <div class="pay_title">Rua</div>
-      <input class="pay_noneditable_field" type="text" id="id_street" readonly/>
-    </div>
-    <div class="separador-40"> </div>
-
-
-    
-
-    <button id="pay-credit-card" class="pay_button pay_button_disabled">Pagar por Cartão</button>
-
-
-
-</div>
-
-
-
-<script src="{% static 'radiant/jquery/jquery-3.1.1.min.js' %}"></script>
-<script src="https://assets.pagar.me/pagarme-js/3.0/pagarme.min.js"></script>
-<script src="https://assets.pagar.me/checkout/1.1.0/checkout.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script>
-<script>
-
-
-// =====================================
-// CEP
-// =====================================
-$('#zip_code').mask('00000-000');
-
-$(document).on("keyup", "#zip_code", function(){
-    if($(this).val().length == 9){
-        var cep = $("#zip_code").val().replace("-", "")
-        $.getJSON("https://viacep.com.br/ws/" + cep + "/json/").done(function( data ) {
-            if(data.erro) {
-                disable_button()
-
+      <div style="width:100%; max-width:600px; margin:auto">
+        <div class="pay_col pay_col_editable" style="padding-left:0px;">
+          <div class="pay_title">Código Postal</div>
+          <input class="pay_editable_field" type="text" id="zip_code" maxlength="9"/>
+        </div><!--
+        --><div class="pay_col pay_col_editable">
+          <div class="pay_title">Número</div>
+          <input class="pay_editable_field pay_noneditable_field" type="text" id="number" readonly/>
+        </div>
+        <div class="pay_col" style="padding-left:0px;">
+          <div class="pay_title">Estado</div>
+          <input class="pay_noneditable_field" type="text" id="id_state" readonly/>
+        </div><!--
+        --><div class="pay_col">
+          <div class="pay_title">Cidade</div>
+          <input class="pay_noneditable_field" type="text" id="id_city" readonly/>
+        </div>
+        <div class="pay_col" style="padding-left:0px;">
+          <div class="pay_title">Bairro</div>
+          <input class="pay_noneditable_field" type="text" id="id_neighbourhood" readonly/>
+        </div><!--
+        --><div class="pay_col">
+          <div class="pay_title">Rua</div>
+          <input class="pay_noneditable_field" type="text" id="id_street" readonly/>
+        </div>
+        <div class="separador-40"> </div>
+        <button id="pay-credit-card" class="pay_button pay_button_disabled">Pagar por Cartão</button>
+      </div>
+      <script src="{% static 'radiant/jquery/jquery-3.1.1.min.js' %}"></script>
+      <script src="https://assets.pagar.me/pagarme-js/3.0/pagarme.min.js"></script>
+      <script src="https://assets.pagar.me/checkout/1.1.0/checkout.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script>
+      <script>
+        // =====================================
+        // CEP
+        // =====================================
+        $('#zip_code').mask('00000-000');
+        
+        $(document).on("keyup", "#zip_code", function(){
+            if($(this).val().length == 9){
+                var cep = $("#zip_code").val().replace("-", "")
+                $.getJSON("https://viacep.com.br/ws/" + cep + "/json/").done(function( data ) {
+                    if(data.erro) {
+                        disable_button()
+        
+                    } else {
+                        $("#number").removeClass("pay_noneditable_field")               
+                        $("#number").attr("readonly", false)
+        
+        
+        
+                        $("#id_state").val(data.uf)
+                        $("#id_city").val(data.localidade)
+                        $("#id_neighbourhood").val(data.bairro)
+                        $("#id_street").val(data.logradouro)
+                        
+                    }
+                });
             } else {
-                $("#number").removeClass("pay_noneditable_field")               
-                $("#number").attr("readonly", false)
-
-
-
-                $("#id_state").val(data.uf)
-                $("#id_city").val(data.localidade)
-                $("#id_neighbourhood").val(data.bairro)
-                $("#id_street").val(data.logradouro)
-                
+                disable_button()
             }
+        })
+        
+        // Back To Price button
+        $(document).on("click", "#backto_selectprice", function () {
+        
+            $('#buyingflux_checkout').fadeOut(400, function () {
+                var div_str_buyingflux_checkout = $("#buyingflux_checkout").html()
+                $("#buyingflux_checkout").html("")
+                var div_str_payment_container = $("#payment_container").html()
+        
+                $(this).html(div_str_payment_container).fadeIn(800)
+                $("#payment_container").html(div_str_buyingflux_checkout)
+            });
+        
+        
+        })
+        
+        $(document).on("keyup", "#number", function(){
+            if($(this).val().length > 0){
+                $(".pay_button").removeClass("pay_button_disabled")
+            } else {
+                $(".pay_button").addClass("pay_button_disabled")
+        
+            }
+        })
+        
+        
+        
+        
+        function disable_button(){
+            $("#number").addClass("pay_noneditable_field")              
+            $("#number").attr("readonly", true)
+            $("#number").val("")
+            $("#id_state").val("")
+            $("#id_city").val("")
+            $("#id_neighbourhood").val("")
+            $("#id_street").val("")
+            $(".pay_button").addClass("pay_button_disabled")
+            $('.pay_button').animate({backgroundColor: '#dddddd'}, 'slow');
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        // =====================================
+        // PagarME
+        // =====================================
+        // Credit Card
+        $(document).on('click', "#pay-credit-card", function() {
+        var checkout = new PagarMeCheckout.Checkout({
+          encryption_key: "{{encryption_key}}",
+          success: function(data) {
+        
+            // Passamos os dados via URL
+            var url_str = "/user/tela2/?data=" + encodeURIComponent(JSON.stringify(data))
+            url_str += "&id_servico=" + "{{id_servico}}"
+            url_str += "&preco_servico=" + "{{preco_servico}}"
+        
+        
+        
+            url_str += "&zip_code=" + $("#zip_code").val()
+            url_str += "&number=" + $("#number").val()
+            url_str += "&state=" + $("#id_state").val()
+            url_str += "&city=" + $("#id_city").val()
+            url_str += "&neighbourhood=" + $("#id_neighbourhood").val()
+            url_str += "&street=" + $("#id_street").val()
+        
+        
+        
+        
+        
+        
+        
+            window.location.replace(url_str);
+          },
+          error: function(err) {
+            console.log(err);
+          },
+          close: function() {
+            console.log('The modal has been closed.');
+          }
         });
-    } else {
-        disable_button()
-    }
-})
-
-// Back To Price button
-$(document).on("click", "#backto_selectprice", function () {
-
-    $('#buyingflux_checkout').fadeOut(400, function () {
-        var div_str_buyingflux_checkout = $("#buyingflux_checkout").html()
-        $("#buyingflux_checkout").html("")
-        var div_str_payment_container = $("#payment_container").html()
-
-        $(this).html(div_str_payment_container).fadeIn(800)
-        $("#payment_container").html(div_str_buyingflux_checkout)
-    });
-
-
-})
-
-$(document).on("keyup", "#number", function(){
-    if($(this).val().length > 0){
-        $(".pay_button").removeClass("pay_button_disabled")
-    } else {
-        $(".pay_button").addClass("pay_button_disabled")
-
-    }
-})
-
-
-
-
-function disable_button(){
-    $("#number").addClass("pay_noneditable_field")              
-    $("#number").attr("readonly", true)
-    $("#number").val("")
-    $("#id_state").val("")
-    $("#id_city").val("")
-    $("#id_neighbourhood").val("")
-    $("#id_street").val("")
-    $(".pay_button").addClass("pay_button_disabled")
-    $('.pay_button').animate({backgroundColor: '#dddddd'}, 'slow');
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// =====================================
-// PagarME
-// =====================================
-// Credit Card
-$(document).on('click', "#pay-credit-card", function() {
-var checkout = new PagarMeCheckout.Checkout({
-  encryption_key: "{{encryption_key}}",
-  success: function(data) {
-
-  	// Passamos os dados via URL
-    var url_str = "/user/tela2/?data=" + encodeURIComponent(JSON.stringify(data))
-    url_str += "&id_servico=" + "{{id_servico}}"
-    url_str += "&preco_servico=" + "{{preco_servico}}"
-
-
-
-    url_str += "&zip_code=" + $("#zip_code").val()
-    url_str += "&number=" + $("#number").val()
-    url_str += "&state=" + $("#id_state").val()
-    url_str += "&city=" + $("#id_city").val()
-    url_str += "&neighbourhood=" + $("#id_neighbourhood").val()
-    url_str += "&street=" + $("#id_street").val()
-
-
-
-
-
-
-
-    window.location.replace(url_str);
-  },
-  error: function(err) {
-    console.log(err);
-  },
-  close: function() {
-    console.log('The modal has been closed.');
-  }
-});
-
-// Os dados aqui são irrelevantes, com exceção do amount, que deve estar em CENTAVOS (R$1,32 = 132)
-var amount = {{preco_servico}}
-checkout.open({
-  amount: amount,
-
-  buttonText: 'Pagar',
-  buttonClass: 'botao-pagamento',
-  customerData: 'false',
-  createToken: 'false',
-  paymentMethods: 'credit_card',
-  customer: {
-    external_id: '#123456789',
-    name: 'Fulano',
-    type: 'individual',
-    country: 'br',
-    email: 'fulano@email.com',
-    documents: [
-      {
-        type: 'cpf',
-        number: '71404665560',
-      },
-    ],
-    phone_numbers: ['+5511999998888'],
-    birthday: '1985-01-01'
-  },
-});
-});
-
-
-
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    	</div>
-   	</div>
+        
+        // Os dados aqui são irrelevantes, com exceção do amount, que deve estar em CENTAVOS (R$1,32 = 132)
+        var amount = {{preco_servico}}
+        checkout.open({
+          amount: amount,
+        
+          buttonText: 'Pagar',
+          buttonClass: 'botao-pagamento',
+          customerData: 'false',
+          createToken: 'false',
+          paymentMethods: 'credit_card',
+          customer: {
+            external_id: '#123456789',
+            name: 'Fulano',
+            type: 'individual',
+            country: 'br',
+            email: 'fulano@email.com',
+            documents: [
+              {
+                type: 'cpf',
+                number: '71404665560',
+              },
+            ],
+            phone_numbers: ['+5511999998888'],
+            birthday: '1985-01-01'
+          },
+        });
+        });
+        
+        
+        
+      </script>
+    </div>
+  </div>
 </div>
-
-{% endblock %} 
+{% endblock %}

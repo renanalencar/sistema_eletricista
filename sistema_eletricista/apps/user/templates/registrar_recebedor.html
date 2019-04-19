@@ -41,7 +41,7 @@
                 <div class="form-group">
                   <h5>Agência</h5>
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Ex: 0932" id="id_agencia" name="agencia" required>
+                    <input type="text" class="form-control" placeholder="Ex: 09132" id="id_agencia" name="agencia" required>
                     <div class="input-group-append">
                       <span class="input-group-text"><i id="i-agencia" class="mdi mdi-check-circle-outline"></i></span>
                     </div>
@@ -59,8 +59,22 @@
                 </div>
                 -->
 
+                
+                <div class="select-group">
+                <div class="form-group">
+                  <h5>Conta</h5>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Ex: 0104056700023" id="id_conta" name="conta" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i id="i-conta" class="mdi mdi-check-circle-outline" style=""></i></span>
+                    </div>
+                  </div>
+                </div>
                 <div class="form-group">
                   <h5>Banco</h5>
+
+                  
+
                     <div class="select-group">
                       <select type="option" class="form-control" id="id_bank_code" name="bank_code" required>
                         <option disabled selected=>Escolha seu Banco</option>
@@ -76,27 +90,44 @@
                         <option value="033">Santander</option>
                       </select>
                     </div>
-                </div>
-                
-                <div class="select-group">
-                <div class="form-group">
-                  <h5>Conta</h5>
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="000" id="id_conta" name="conta" required>
-                    <div class="input-group-append">
-                      <span class="input-group-text"><i id="i-conta" class="mdi mdi-check-circle-outline" style=""></i></span>
+                    <div class="input-group-append" srtyle="text-align:right !important; position:relative">
+                      <span class="input-group-text" style="border-color:transparent; position:absolute; right:53px"><i id="i-bank_code" class="mdi mdi-check-circle-outline" style="float:right"></i></span>
                     </div>
-                  </div>
+                    <div class="separador-10"> </div>
                 </div>
+
+
+
+
+
                 <div class="form-group">
-                  <h5>Dígito da conta</h5>
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="0" id="id_conta_dv" name="conta_dv" required>
-                    <div class="input-group-append">
-                      <span class="input-group-text"><i id="i-conta_dv" class="mdi mdi-check-circle-outline" style=""></i></span>
+                  <h5>Tipo de Conta</h5>
+
+                    <div class="select-group">
+                      <select type="option" class="form-control" id="id_account_type" name="account_type" required>
+                        <option disabled selected=>Tipo de Conta</option>
+                        <option value="conta_corrente">Conta Corrente</option>
+                        <option value="conta_poupanca">Conta Poupança</option>
+                      </select>
                     </div>
-                  </div>
+                    <div class="input-group-append" srtyle="text-align:right !important; position:relative">
+                      <span class="input-group-text" style="border-color:transparent; position:absolute; right:53px"><i id="i-account_type" class="mdi mdi-check-circle-outline" style="float:right"></i></span>
+                    </div>
+                    <br>
+                    <br>
+
                 </div>
+
+
+
+
+
+
+
+
+
+
+
 
                 {% if form.errors %}
                   <div class ="alert alert-danger">
@@ -153,40 +184,40 @@
   <script type="text/javascript">
     var url = window.location.pathname;
     
-    $("#id_document_number").mask("00000000000");
-    $("#id_agencia").mask("0000");
-    $("#id_conta").mask("00000");
+    $("#id_agencia").mask("00000");
+    $("#id_conta").mask("0000000000000");
 
     var bool = document.getElementsByClassName('mdi mdi-check-circle-outline');
 
     checked('agencia')
     checked('conta')
-    checked('conta_dv')
-    checked('document_number')
-    checked('legal_name')
+
+    checked('bank_code')
+    checked('account_type')
 
      function checked(x){
-      var input = document.getElementById('id_' + x);
-      input.addEventListener('keyup', function() {
+      var input = document.getElementById('id_' + x)
+      $(document).on('change keyup', '#id_' + x, function() {
+
         var bool = document.getElementsByClassName('mdi mdi-check-circle-outline');
         var botao = document.getElementById('salvar');
-        var tamanho = 4;
         if (x == 'agencia') {
-          tamanho = 3;
-        }
-        if (x == 'conta') {
-          tamanho = 3;
-        }
-        if (x == 'conta_dv') {
-          tamanho = 0;
-        }
-        if (x == 'document_number') {
-          tamanho = 10;
-        }
-        if (x == 'legal_name') {
           tamanho = 5;
         }
-        if (input.value.length > tamanho){
+        if (x == 'conta') {
+          tamanho = 13;
+        }
+        if (x == 'bank_code') {
+          tamanho = 1;
+        }
+        if (x == 'account_type') {
+          tamanho = 1;
+        }
+
+
+
+
+        if (input.value.length >= tamanho){
           let i = document.getElementById('i-' + x);
           i.style.color = 'green';
           i.className = 'mdi mdi-checkbox-marked-circle';
@@ -196,12 +227,12 @@
           i.style.color = '';
           i.className = 'mdi mdi-check-circle-outline';
         }
-        console.log(bool.length, botao.disabled);
+        // console.log(bool.length, botao.disabled);
         if (bool.length == 0){
           botao.disabled = false;
         }
         if(bool.length > 0) {
-          console.log('chegueiaqui');
+          // console.log('chegueiaqui');
           botao.disabled = true;
         }
       })

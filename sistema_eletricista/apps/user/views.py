@@ -211,14 +211,13 @@ class RegistrarRecebedorView(View):
 
     template_name = 'registrar_recebedor.html'
     def get(self, request, user_pk):
-        print(user_pk)
         return render(request, self.template_name)
 
     def post(self, request, user_pk):
         form_recebedor = RegistrarRecebedorForm(request.POST)
         if form_recebedor.is_valid():
             dados_form_recebedor = form_recebedor.data
-            user = User.objects.get(pk = user_pk)
+            user = User.objects.get(pk=user_pk)
             eletricista = Eletricista.objects.get(usuario = user)
 
             pagarme.authentication_key('ak_test_uSXZcO1zJua2nG3ZhjmiUwcwnxnCgM')
@@ -231,10 +230,10 @@ class RegistrarRecebedorView(View):
                 'transfer_interval': 'weekly',
                 'bank_account':{
                     'agencia': dados_form_recebedor['agencia'],
-                    #'agencia_dv': '',
+                    'agencia_dv': '5',
                     'bank_code': dados_form_recebedor['bank_code'],
                     'conta': dados_form_recebedor['conta'],
-                    'conta_dv': dados_form_recebedor['conta_dv'],
+                    'conta_dv': "1",
                     'document_number': eletricista.CPF,
                     'legal_name': eletricista.usuario.first_name
                 }
@@ -243,9 +242,8 @@ class RegistrarRecebedorView(View):
             recipient = pagarme.recipient.create(params)
             eletricista.pagarme_id = recipient["id"]
             eletricista.save()
-            print(recipient)
 
-            return HttpResponseRedirect(reverse('questionario', kwargs={'nome_eletricista': dados_questionarioos_form['nickname']}))
+            return HttpResponseRedirect(reverse('questionario', kwargs={'nome_eletricista': user.pk}))
         else:
             return render(request, 'registrar_recebedor.html', {'form' : form_recebedor})
     
@@ -795,17 +793,25 @@ class Tela2(View):
 
 
         cliente = Cliente.objects.get(usuario=request.user)
+        year = str(cliente.nascimento.year)
+        month = str(cliente.nascimento.month)
+        if len(month) == 1:
+            month = "0" + month
+        day = str(cliente.nascimento.day)
+        if len(day) == 1:
+            day = "0" + day
+
         # Do transaction
         params = {
             "amount": data["amount"],
             "card_hash": data["card_hash"],
             "installments":data["installments"],
             "customer": {
-                "external_id": cliente.pk,
-                "name": "EXEMPLO",
+                "external_id": str(cliente.pk),
+                "name": cliente.usuario.first_name,
                 "type": "individual",
                 "country": "br",
-                "email": "EXEMPLO@usp.br",
+                "email": cliente.usuario.email,
                 "documents": [
                     {
                         "type": "cpf",
@@ -813,7 +819,7 @@ class Tela2(View):
                     }
                 ],
                 "phone_numbers": ["+" + cliente.telefone.replace("(", "").replace(")", "").replace("-", "")],
-                "birthday": "1990-01-01"
+                "birthday": year + "-" + month + "-" + day
             },
             "billing": {
                 "name": "EXEMPLO",
@@ -847,7 +853,9 @@ class Tela2(View):
         }
         trx = pagarme.transaction.create(params)
 
-
+        # ============================================
+        # COLOCAR AQUI A ATUALIZACAO DE STATUS DO PEDIDO
+        # ============================================
         return render(request, 'tela2.html')
 
     def post(self, request):
