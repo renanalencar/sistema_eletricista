@@ -24,50 +24,19 @@
                             </tr>
                           </thead>
                           <tbody>
-                                <tr>
-                                  <td>
-                                    10/10/2018
-                                  </td>
-                                  <td>
-                                    Rua do teste
-                                  </td>
-                                  <td>
-                                    R$17,25
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                   12/08/2018
-                                  </td>
-                                  <td>
-                                    Rua do teste 2
-                                  </td>
-                                  <td>
-                                    R$20,25
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    27/02/2018
-                                  </td>
-                                  <td>
-                                    Rua do teste 3
-                                  </td>
-                                  <td>
-                                    R$37,64
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    12/10/2018
-                                  </td>
-                                  <td>
-                                    Rua do teste 4
-                                  </td>
-                                  <td>
-                                    R$24,25
-                                  </td>   
-                                </tr> 
+                                {% for servico in servicos %}
+                                  <tr>
+                                    <td>
+                                      {{servico.data}}
+                                    </td>
+                                    <td>
+                                      {{servico.endereco}}
+                                    </td>
+                                    <td>
+                                      {{servico.valor}}
+                                    </td>
+                                  </tr>
+                                {% endfor %}
                           </tbody>
                         </table>
                     </div>

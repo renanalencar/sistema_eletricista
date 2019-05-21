@@ -633,7 +633,7 @@ def ListarPedidos(request):
     pedidos = PedidoDeServico.objects.filter(cliente=request.user.username)
     #user o pedidos acima pra filtar apenas os servicos do cliente logado no momento
     context = {
-     'pedidos_list' : reversed(PedidoDeServico.objects.all())
+     'pedidos' : pedidos
     }
     return render(request, 'listar_pedido_servico.html', context)
 
@@ -828,6 +828,7 @@ class Tela2(View):
 
         # Do transaction
         params = {
+        
             "amount": data["amount"],
             "card_hash": data["card_hash"],
             "installments":data["installments"],
@@ -877,7 +878,6 @@ class Tela2(View):
             ]
         }
         trx = pagarme.transaction.create(params)
-
         # ============================================
         # COLOCAR AQUI A ATUALIZACAO DE STATUS DO PEDIDO
         # ============================================
