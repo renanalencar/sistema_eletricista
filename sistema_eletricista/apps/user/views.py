@@ -22,6 +22,7 @@ from .forms import RegistrarEletricistaForm
 from .forms import RegistrarCartaoForm
 from .forms import RegistrarAdministradorForm
 from .forms import RegistrarRecebedorForm
+from .models import ValorPorHora
 
 #from .forms import QuestionarioForm
 from sistema_eletricista.apps.post.PedidoDeServico.models import PedidoDeServico
@@ -36,6 +37,30 @@ import pagarme, json
 
 
 #Função de enviar emails
+class MudarValorPorHora(View):
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        try:
+            valores_por_hora = ValorPorHora.objects.all()[0]
+        except:
+            valores_por_hora = ValorPorHora.objects.create(valor_meia_hora=1, valor_primeira_hora=1, valor_demais_horas=1)
+
+
+
+        valores_porhora = ValorPorHora.objects.all()[0]
+        meia_hora = request.POST['meia_hora']
+        primeira_hora = request.POST['primeira_hora']
+        demais_horas = request.POST['demais_horas']
+
+        valores_por_hora.valor_meia_hora = int(meia_hora)
+        valores_por_hora.valor_primeira_hora = int(primeira_hora)
+        valores_por_hora.valor_demais_horas = int(demais_horas)
+
+        valores_por_hora.save()
+        return render(request, 'dashboard_exemplo.html')
+
 
 @login_required(login_url='/user/login/')
 def servico_ws(request, id_servico):

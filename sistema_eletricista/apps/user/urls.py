@@ -13,6 +13,7 @@ from sistema_eletricista.apps.user.cliente.views import *
 from sistema_eletricista.apps.user.views import *
 
 urlpatterns = [
+	url(r'^mudar_valor_por_hora/$', views.MudarValorPorHora.as_view(), name='mudar_valor_por_hora'),
 	url(r'^servico/(?P<id_servico>\w+)/$', views.servico_ws , name="servico_ws"),
 	url(r'^cliente/$', views.tela_cliente, name='tela_cliente'),
 	url(r'^index/$', views.index, name='index'),

@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 import datetime
-import django_heroku
 # import channels_redis
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -201,4 +200,3 @@ CHANNEL_LAYERS = {
         },
     },
 }
-django_heroku.settings(locals())

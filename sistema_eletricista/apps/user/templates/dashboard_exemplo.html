@@ -84,6 +84,13 @@
               </div>
             <div class="col-md-4 grid-margin stretch-card">
                 <!-- INSERIR TABELA AQUI -->
+                <form action="{% url 'mudar_valor_por_hora' %}">
+                  {% csrf_token %}
+                  <input type="text" name="meia_hora">
+                  <input type="text" name="primeira_hora">
+                  <input type="text" name="demais_horas">
+                  <button type="submit">Alterar</button>
+                </form>
             </div>
             <div class="row">
             <!-- INSERIR TABELA AQUI -->
