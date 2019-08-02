@@ -24,7 +24,7 @@ SECRET_KEY = 'lh+c3$e1(ql0sx)i$)v%o42(((j-3-+puiq@8%-v90lt&30hq_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.106', 'localhost', '10.148.3.130', '192.168.0.100', '10.10.117.156', '192.168.42.145', '192.168.0.103']
+ALLOWED_HOSTS = ['192.168.0.106', 'localhost', '127.0.0.1', '10.148.3.130', '192.168.0.100', '10.10.117.156', '192.168.42.145', '192.168.0.103']
 
 # Application definition
 
@@ -147,7 +147,7 @@ LOGIN_REDIRECT_URL = '/user/index/'
 
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media")
 #adicionado pra testar a porra do erro
-#STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
 
 
 EMAIL_USE_TLS = True
